@@ -5,4 +5,4 @@ const borderRadius = {
   37.5: '9.375rem', //150px
 };
 
-export default borderRadius;
+export { borderRadius };

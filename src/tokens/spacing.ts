@@ -12,6 +12,6 @@ const spacing = {
   l: '1.5rem', // 'var(--spacing-spacing-24)',
   xl: '2.5rem', // 'var(--spacing-spacing-40)',
   xxl: '4rem', // 'var(--spacing-spacing-64)',
-}
+};
 
-export default spacing
+export { spacing };

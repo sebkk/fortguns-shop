@@ -10,6 +10,6 @@ const minWidth = {
   '87.5': '21.875rem', //350px
   '112.5': '28.125rem', //450px
   '227.5': '56.875rem', //910px
-}
+};
 
-export default minWidth
+export { minWidth };

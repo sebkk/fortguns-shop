@@ -14,4 +14,4 @@ const maxWidth = {
   'max-screen': '120rem', //1920px
 };
 
-export default maxWidth;
+export { maxWidth };

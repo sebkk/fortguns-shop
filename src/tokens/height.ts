@@ -14,4 +14,4 @@ const height = {
   'content-container': 'calc(100% - 204px)',
 };
 
-export default height;
+export { height };

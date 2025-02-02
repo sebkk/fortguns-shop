@@ -17,6 +17,6 @@ const width = {
   180: '45rem', // 720px
   200: '50rem', //800px
   227.5: '56.875rem', //910px
-}
+};
 
-export default width
+export { width };

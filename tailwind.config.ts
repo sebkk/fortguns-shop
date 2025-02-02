@@ -12,6 +12,7 @@ import {
   borderRadius,
   borderWidth,
   gridTemplateRows,
+  container,
 } from './src/tokens';
 
 export default {
@@ -25,46 +26,19 @@ export default {
   ],
   theme: {
     extend: {
-      // container: {
-      //   center: true,
-      //   padding: '1rem',
-      //   screens: {
-      //     sm: '100%',
-      //     '2xl': '1200px',
-      //   },
-      // },
-      colors: {
-        ...colors,
-      },
-      spacing: {
-        ...spacing,
-      },
-      width: {
-        ...width,
-      },
-      height: {
-        ...height,
-      },
-      maxHeight: {
-        ...maxHeight,
-      },
-      maxWidth: {
-        ...maxWidth,
-      },
-      minHeight: {
-        ...minHeight,
-      },
-      minWidth: {
-        ...minWidth,
-      },
-      borderWidth: {
-        ...borderWidth,
-      },
-      borderRadius: {
-        ...borderRadius,
-      },
-      gridTemplateRows: { ...gridTemplateRows },
+      colors,
+      spacing,
+      width,
+      height,
+      maxHeight,
+      maxWidth,
+      minHeight,
+      minWidth,
+      borderWidth,
+      borderRadius,
+      gridTemplateRows,
     },
+    container,
   },
   plugins: [],
 } satisfies Config;
