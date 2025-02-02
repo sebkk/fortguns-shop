@@ -8,6 +8,8 @@ interface IButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   className?: string;
+  variant?: 'filled' | 'outlined' | 'blank';
+  disabled?: boolean;
 }
 
 export const Button = ({
@@ -16,14 +18,23 @@ export const Button = ({
   type,
   className,
   buttonProps = {},
+  // variant = 'filled',
+  disabled,
 }: IButtonProps) => {
   const buttonClassNames = classNames('btn bg-white', className && className);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (disabled) return;
+
+    if (onClick) onClick(e);
+  };
 
   return (
     <button
       type={type}
-      onClick={(e) => onClick && onClick(e)}
+      onClick={handleClick}
       className={buttonClassNames}
+      disabled={disabled}
       {...buttonProps}
     >
       {children}
