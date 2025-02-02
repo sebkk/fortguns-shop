@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import clsx from 'clsx';
 
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+
 import './globals.css';
 
 const geistSans = Geist({
@@ -27,9 +30,15 @@ const RootLayout = ({
   return (
     <html lang='en'>
       <body
-        className={clsx('h-screen', geistSans.variable, geistMono.variable)}
+        className={clsx(
+          'relative min-h-screen bg-elevation-2 text-white',
+          geistSans.variable,
+          geistMono.variable,
+        )}
       >
-        {children}
+        <Header />
+        <div className='h-full'>{children}</div>
+        <Footer />
       </body>
     </html>
   );
