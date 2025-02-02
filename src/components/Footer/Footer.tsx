@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import React from 'react';
 
@@ -9,7 +11,7 @@ const links = [
 
 export const Footer = () => {
   return (
-    <footer className='absolute bottom-0 w-full py-4'>
+    <footer className='bg-elevation-1 absolute bottom-0 h-auto w-full py-4 text-white'>
       <div className='container grid grid-cols-3 gap-2'>
         <nav>
           <h6>Nawigacja</h6>

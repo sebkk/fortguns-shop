@@ -11,7 +11,7 @@ const height = {
   61.25: '15.3125rem', //245px
   87.5: '21.875rem', //350px
   106.25: '26.5625rem', // 425px
-  'content-container': 'calc(100% - 84px)',
+  'content-container': 'calc(100% - 204px)',
 };
 
 export default height;

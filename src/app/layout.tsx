@@ -26,11 +26,9 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang='en'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} relative flex min-h-screen flex-col antialiased`}
-      >
+      <body className={`bg-elevation-2 relative min-h-screen`}>
         <Header />
-        {children}
+        <div className='h-content-container'>{children}</div>
         <Footer />
       </body>
     </html>
