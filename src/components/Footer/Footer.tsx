@@ -13,7 +13,7 @@ export const Footer = () => {
   return (
     <footer className='flex h-auto w-full items-center justify-center bg-elevation-1 py-4 text-white'>
       <div className='grid max-w-max-screen grid-cols-3 gap-2'>
-        <nav>
+        <nav className='p-4'>
           <h6>Nawigacja</h6>
           <ul>
             {links.map(({ text, href }) => (
@@ -23,7 +23,7 @@ export const Footer = () => {
             ))}
           </ul>
         </nav>
-        <div className='col-span-2'>contact</div>
+        <div className='col-span-2 rounded p-4'>contact</div>
       </div>
     </footer>
   );
