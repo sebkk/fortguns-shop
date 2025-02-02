@@ -1,5 +1,19 @@
 import type { Config } from 'tailwindcss';
 
+import {
+  colors,
+  spacing,
+  width,
+  height,
+  maxHeight,
+  maxWidth,
+  minHeight,
+  minWidth,
+  borderRadius,
+  borderWidth,
+  gridTemplateRows,
+} from './src/tokens';
+
 export default {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,18 +22,45 @@ export default {
   ],
   theme: {
     extend: {
+      // container: {
+      //   center: true,
+      //   padding: '1rem',
+      //   screens: {
+      //     sm: '100%',
+      //     '2xl': '1200px',
+      //   },
+      // },
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        ...colors,
       },
-      container: {
-        center: true,
-        padding: '1rem',
-        screens: {
-          sm: '100%',
-          '2xl': '1200px',
-        },
+      spacing: {
+        ...spacing,
       },
+      width: {
+        ...width,
+      },
+      height: {
+        ...height,
+      },
+      maxHeight: {
+        ...maxHeight,
+      },
+      maxWidth: {
+        ...maxWidth,
+      },
+      minHeight: {
+        ...minHeight,
+      },
+      minWidth: {
+        ...minWidth,
+      },
+      borderWidth: {
+        ...borderWidth,
+      },
+      borderRadius: {
+        ...borderRadius,
+      },
+      gridTemplateRows: { ...gridTemplateRows },
     },
   },
   plugins: [],
