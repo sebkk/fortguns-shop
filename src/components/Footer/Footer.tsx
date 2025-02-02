@@ -11,8 +11,8 @@ const links = [
 
 export const Footer = () => {
   return (
-    <footer className='bg-elevation-1 absolute bottom-0 h-auto w-full py-4 text-white'>
-      <div className='container grid grid-cols-3 gap-2'>
+    <footer className='flex h-auto w-full items-center justify-center bg-elevation-1 py-4 text-white'>
+      <div className='grid max-w-max-screen grid-cols-3 gap-2'>
         <nav>
           <h6>Nawigacja</h6>
           <ul>

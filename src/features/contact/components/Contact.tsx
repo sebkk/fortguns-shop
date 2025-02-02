@@ -2,7 +2,9 @@
 
 const Contact = () => {
   return (
-    <div className='text-primary-15 flex h-fit w-full gap-4 bg-black'>asd</div>
+    <section className='flex h-full w-full flex-col items-center justify-center gap-6 bg-elevation-2 p-8 pt-6'>
+      <h1>contact</h1>
+    </section>
   );
 };
 
