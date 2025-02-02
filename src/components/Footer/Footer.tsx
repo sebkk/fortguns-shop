@@ -9,7 +9,7 @@ const links = [
 
 export const Footer = () => {
   return (
-    <footer className='absolute bottom-0 w-full bg-elevation-1 py-4 text-white'>
+    <footer className='w-full bg-elevation-1 py-4 text-white'>
       <div className='container grid grid-cols-3 gap-2'>
         <nav>
           <h6>Nawigacja</h6>

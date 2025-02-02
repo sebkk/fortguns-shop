@@ -1,11 +1,10 @@
-import { Button } from '@/components/Button';
+import { Hero } from '@/features/homepage';
 
 const Home = () => {
   return (
-    <main className='h-full'>
-      <div className='flex flex-col items-center gap-4 sm:flex-row'>
-        <Button>Testowy button</Button>
-      </div>
+    <main className='min-h-screen'>
+      <Hero />
+      <div className='z-10 h-[1080px]' />
     </main>
   );
 };
