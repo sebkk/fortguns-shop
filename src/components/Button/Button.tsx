@@ -21,7 +21,10 @@ export const Button = ({
   // variant = 'filled',
   disabled,
 }: IButtonProps) => {
-  const buttonClassNames = classNames('btn bg-white', className && className);
+  const buttonClassNames = classNames(
+    'px-4 py-3 text-2xl rounded',
+    className && className,
+  );
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (disabled) return;

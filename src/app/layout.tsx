@@ -31,13 +31,13 @@ const RootLayout = ({
     <html lang='en'>
       <body
         className={clsx(
-          'relative min-h-screen bg-elevation-2 text-white',
+          'min-h-screen bg-elevation-2 text-white',
           geistSans.variable,
           geistMono.variable,
         )}
       >
         <Header />
-        <div className='h-full'>{children}</div>
+        <div className='min-h-screen'>{children}</div>
         <Footer />
       </body>
     </html>
