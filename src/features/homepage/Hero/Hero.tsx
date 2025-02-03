@@ -10,7 +10,7 @@ export const Hero = () => {
       }}
       className='relative h-[600px] w-full'
     >
-      <div className='fixed left-0 top-0 flex h-full w-full items-center justify-center overflow-hidden'>
+      <div className='fixed left-0 top-0 flex w-full items-center justify-center overflow-hidden'>
         <Image
           width={1600}
           height={1067}

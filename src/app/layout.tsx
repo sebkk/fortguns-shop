@@ -37,7 +37,7 @@ const RootLayout = ({
         )}
       >
         <Header />
-        <div className='h-full'>{children}</div>
+        <div className='min-h-screen'>{children}</div>
         <Footer />
       </body>
     </html>
