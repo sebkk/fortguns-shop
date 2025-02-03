@@ -2,9 +2,8 @@ import { Hero } from '@/features/homepage';
 
 const Home = () => {
   return (
-    <main className='min-h-screen'>
+    <main className='p-0'>
       <Hero />
-      <div className='z-10 h-[1080px]' />
     </main>
   );
 };

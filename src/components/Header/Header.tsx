@@ -6,7 +6,7 @@ import React from 'react';
 
 export const Header = ({}) => {
   return (
-    <header className='bg-elevation-1'>
+    <header className='w-full bg-elevation-1'>
       <div className='container flex items-center justify-between py-4 text-white'>
         <h1>
           <Link href='/'>
