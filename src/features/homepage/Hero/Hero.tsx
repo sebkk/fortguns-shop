@@ -1,4 +1,5 @@
 import { Button } from '@/components/Button';
+import { Typography } from '@/components/Typography';
 import Image from 'next/image';
 import React from 'react';
 
@@ -20,13 +21,13 @@ export const Hero = () => {
           priority={true}
         />
         <div className='container absolute z-10'>
-          <h1 className='mb-4 whitespace-pre-line text-6xl'>
+          <Typography variant='main-heading' className='mb-4' tag='h1'>
             {'Bezpieczeństwo,\r\n jakość i sumienność.'}
-          </h1>
-          <p className='text-3xl'>
+          </Typography>
+          <Typography variant='subheading' tag='p'>
             Przekonaj się – Sprawdź naszą ofertę i znajdź idealną jednostkę dla
             siebie!
-          </p>
+          </Typography>
           <div className='mt-7 flex gap-4'>
             <Button className='w-44'>Oferta</Button>
             <Button className='w-44'>O nas</Button>
