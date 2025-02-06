@@ -1,78 +1,52 @@
 const colors = {
   primary: {
-    DEFAULT: '#8fb9fe', // 'colours-primary': '#8fb9fe',
-    '15': '#8fb9fe26', // 'colours-primary-15': '#8fb9fe26',
-    '15-hover': '#c7dcff1a',
-    '55': '#8fb9fe8c', // 'colours-primary-55': '#8fb9fe8c',
-    on: '#101427', // 'colours-on-primary': '#101427',
-    hover: '#a5c7fe', // 'colours-primary-hover': '#a5c7fe',
+    DEFAULT: '#3A4D39',
+    light: '#4F6A4E',
+    dark: '#2B382A',
   },
-
   secondary: {
-    DEFAULT: '#aacc00', //  'colours-secondary': '#aacc00',
-    '15': '#aacc0026',
-    '55': '#aacc008c',
-    on: '#1E2600', // '--Colours-On-Secondary' : '#1E2600'
+    DEFAULT: '#C2B280',
+    light: '#e2cf94',
+    dark: '#a89c7c',
   },
-
+  accent: {
+    DEFAULT: '#5C6B70',
+    light: '#7C8A8F',
+    dark: '#464F53',
+  },
+  border: {
+    DEFAULT: '#242D25',
+    light: '#4f5b47',
+    dark: '#1A1F16',
+  },
+  background: {
+    DEFAULT: '#161A16',
+    light: '#222722',
+  },
   error: {
-    DEFAULT: '#ff9b92', //  'colours-error': '#ff9b92',
-    '15': '#ff9b9226', //  'colours-error-15': '#ff9b9226',
-    '55': '#ff9b928c', // 'colours-error-55': '#ff9b928c',
-    on: '#260b05', // 'colours-on-error': '#260b05',
-    hover: '#ffafa8', // 'colours-error-hover': '#ffafa8',
+    DEFAULT: '#D32F2F',
+    light: '#F44336',
+    dark: '#B71C1C',
   },
-
   success: {
-    DEFAULT: '#70c79e', //  'colours-success': '#70c79e',
-    '15': '#70c79e26', //  'colours-success-15': '#70c79e26',
-    '55': '#70c79e8c', // 'colours-success-55': '#70c79e8c',
-    on: '#001a0f', //  'colours-on-success': '#001a0f',
-    hover: '#8dd2b1', // 'colours-error-success': '#8dd2b1',
+    DEFAULT: '#388E3C',
+    light: '#4CAF50',
+    dark: '#2C6B2F',
   },
-
   warning: {
-    DEFAULT: '#e6ab67', // 'colours-warning': '#e6ab67',
-    '15': '#e6ab6726', //  'colours-warning-15': '#e6ab6726',
-    '55': '#e6ab678c', //  'colours-warning-55': '#e6ab678c'
-    on: '#201000', //  'colours-on-warning': '#201000',
-    hover: '#ebbc85', // 'colours-warning-hover': '#ebbc85',
-  },
-
-  elevation: {
-    '1': '#14191d', // 'colours-elevation-1': '#14191d',
-    '2': '#1c2226', //  'colours-elevation-2': '#1c2226',
-    '3': '#252d34', // 'colours-elevation-3': '#252d34',
-    app: '#0b0e0f', // 'colours-app-bg': '#0b0e0f',
-    'modal-bg-overlay': '#0b0e0fb2', //  'colours-modal-bg-overlay': '#0b0e0fb2',
-    '2-hover': '#292F33',
-  },
-
-  fill: {
-    DEFAULT: '#ffffff1a', // 'colours-fill': '#ffffff1a',
-    disabled: '#ffffff66', // 'var(--color-fill-disabled)'
-  },
-
-  icons: {
-    disabled: '#ffffff66', // alias for fill.disabled, 'colours-icons-disabled': 'var(--color-fill-disabled)',
-    fill: '#ffffffab', // alias for text.secondary  'colours-icons-fill': 'var(--colours-text-secondary)',
-  },
-
-  stroke: {
-    primary: '#dbeaff66', // 'colours-stroke-primary': '#dbeaff66',
-    secondary: '#dbeaff40', //  'colours-stroke-secondary': '#dbeaff40',
-    strong: '#ffffffe5', // alias for text.primary 'colours-stroke-strong': 'var(--colours-text-primary)',
-    hover: '#edf4ffa5', // colours-stroke-primary-hover
+    DEFAULT: '#F57C00',
+    light: '#FF9800',
+    dark: '#E65100',
   },
   text: {
-    disabled: '#ffffff66', // alias for fill.disabled
-    primary: '#ffffffe5', // 'colours-text-primary': '#ffffffe5',
-    secondary: '#ffffffab', // 'colours-text-secondary': '#ffffffab',
-    white: '#fffffff2', //rgba(255, 255, 255, 0.95)
-  },
-  hover: {
-    color: '#ffffff33', // 'colours-hover-on-color': '#ffffff33',
-    empty: '#ffffff0f', // 'colours-hover-on-empty': '#ffffff0f',
+    DEFAULT: '#E0E0E0',
+    primary: '#3A4D39',
+    secondary: '#C2B280',
+    accent: '#5C6B70',
+    button: {
+      primary: '#FFFFFF',
+      secondary: '#161A16',
+    },
   },
 };
 

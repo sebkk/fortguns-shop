@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -6,7 +8,7 @@ import React from 'react';
 
 export const Header = ({}) => {
   return (
-    <header className='w-full bg-elevation-1'>
+    <header className='bg-background-light/20 w-full'>
       <div className='container flex items-center justify-between py-4 text-white'>
         <Link href='/'>
           <Image

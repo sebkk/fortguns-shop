@@ -31,7 +31,7 @@ const RootLayout = ({
     <html lang='en'>
       <body
         className={clsx(
-          'min-h-screen bg-elevation-2 text-white',
+          'bg-background min-h-screen text-white',
           geistSans.variable,
           geistMono.variable,
         )}
