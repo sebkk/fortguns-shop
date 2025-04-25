@@ -9,7 +9,7 @@ const links = [
 
 export const Footer = () => {
   return (
-    <footer className='w-full bg-transparent py-4'>
+    <footer className='bg-background/20 border-t-border-light w-full border-spacing-px border-solid py-4'>
       <div className='container relative grid grid-cols-3 gap-2'>
         <nav>
           <h6>Nawigacja</h6>

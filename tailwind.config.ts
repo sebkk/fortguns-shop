@@ -1,19 +1,19 @@
-import type { Config } from 'tailwindcss';
-
 import {
+  borderRadius,
+  borderWidth,
   colors,
-  spacing,
-  width,
+  container,
+  gridTemplateRows,
   height,
   maxHeight,
   maxWidth,
   minHeight,
   minWidth,
-  borderRadius,
-  borderWidth,
-  gridTemplateRows,
-  container,
+  spacing,
+  width,
 } from './src/tokens';
+
+import type { Config } from 'tailwindcss';
 
 export default {
   content: [
