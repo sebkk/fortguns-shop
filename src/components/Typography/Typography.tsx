@@ -57,7 +57,7 @@ interface ITypographyProps {
   htmlContent?: string;
   fontWeight?: TFontWeight;
   fontSize?: TFontSize;
-  color?: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary' | 'text-dark' | 'text-medium_dark';
   lineHeight?: TLineHeight;
   variant?: TVariant;
   className?: string;

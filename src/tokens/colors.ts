@@ -1,10 +1,10 @@
 const colors = {
-  primary: {
+  secondary: {
     DEFAULT: '#2e5c78',
     light: '#407a9c',
     dark: '#204459',
   },
-  secondary: {
+  primary: {
     DEFAULT: '#627d4c',
     light: '#7b9c60',
     dark: '#4d633b',
@@ -22,6 +22,7 @@ const colors = {
   background: {
     DEFAULT: '#0f0f0f',
     light: '#1c1c1c',
+    dark: '#161515',
   },
   error: {
     DEFAULT: '#7a1f1f',
@@ -40,6 +41,8 @@ const colors = {
   },
   text: {
     DEFAULT: '#dddddd',
+    medium_dark: '#cacacaf0',
+    dark: '#bababad8',
     primary: '#2e5c78',
     secondary: '#627d4c',
     accent: '#5C6B70',

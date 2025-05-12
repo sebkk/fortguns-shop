@@ -1,13 +1,21 @@
 import Image from 'next/image';
 
+import { Button } from '@/components/Button';
+
 interface ProductCardProps {
-  product: { images: [{ src: string; alt: string }]; name: string };
+  product: {
+    images: [{ src: string; alt: string }];
+    name: string;
+    price: string;
+    sale_price: string;
+    categories: [{ name: string }];
+  };
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  console.log(product);
+  // console.log(product);
 
-  const { images } = product || {};
+  const { images, price, sale_price, categories } = product || {};
 
   const firstImage = images[0];
 
@@ -22,25 +30,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           className='h-auto min-h-full w-auto bg-center object-cover'
         />
       </div>
-      <div className='flex w-full flex-1 flex-col pt-6'>
-        <a
-          href='#'
-          className='text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white'
-        >
-          {product.name}
-        </a>
-
-        <div className='mt-auto flex items-center justify-between gap-4'>
-          <p className='text-2xl font-extrabold leading-tight text-gray-900 dark:text-white'>
-            $1,699
-          </p>
-
-          <button
-            type='button'
-            className='bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4'
+      <div className='flex w-full flex-1 flex-col gap-4 pt-2'>
+        <div>
+          <a
+            href='#'
+            className='text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white'
           >
-            Show product
-          </button>
+            {product.name}
+          </a>
+          <p className='text-text-dark'>{categories[1]?.name}</p>
+        </div>
+
+        <div className='mt-auto flex items-center justify-between gap-2'>
+          <p className='text-2xl font-extrabold leading-tight text-gray-900 dark:text-white'>
+            {sale_price ? sale_price : price} zł
+          </p>
+          <Button size='small'>Pokaż produkt</Button>
         </div>
       </div>
     </article>

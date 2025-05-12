@@ -38,7 +38,7 @@ const RootLayout = ({
         )}
       >
         <Header />
-        <div className='min-h-screen pt-[150px]'>{children}</div>
+        <main className='min-h-screen pt-[150px]'>{children}</main>
         <Footer />
       </body>
     </html>

@@ -2,9 +2,9 @@ import { TButtonColor, TButtonSize, TButtonVariant } from './types';
 
 export const insertButtonSize = (size: TButtonSize) =>
   ({
-    large: 'px-5 py-3 text-2xl',
-    medium: 'px-3 py-2 text-xl',
-    small: 'px-2 py-1 text-lg',
+    large: 'px-5 py-3 text-2xl rounded-lg',
+    medium: 'px-3 py-2 text-md rounded-lg',
+    small: 'px-4 py-1.5 text-sm rounded-lg',
   })[size];
 
 export const createButtonVariantWithColor = (

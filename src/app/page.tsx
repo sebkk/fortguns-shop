@@ -5,7 +5,7 @@ import { AboutUs } from '@/features/homepage/AboutUs/AboutUs';
 
 const Home = () => {
   return (
-    <main className='p-0'>
+    <div className='p-0'>
       <div className='container px-4'>
         <Hero />
         <Spacer />
@@ -15,7 +15,7 @@ const Home = () => {
       </div>
       <Spacer />
       <AboutUs />
-    </main>
+    </div>
   );
 };
 
