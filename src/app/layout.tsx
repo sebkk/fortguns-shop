@@ -3,11 +3,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { getHeaderNavigation } from '@/handlers/header/getHeaderNavigation';
 
 import type { Metadata } from 'next';
 
-import './globals.css';
+import '@/assets/styles/globals.scss';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,19 +28,11 @@ const RootLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const menu = await getHeaderNavigation();
-
   return (
     <html lang='en'>
-      <body
-        className={clsx(
-          'min-h-screen bg-background text-white',
-          geistSans.variable,
-          geistMono.variable,
-        )}
-      >
-        <Header />
-        <main className='min-h-screen pt-[150px]'>{children}</main>
+      <body className={clsx(geistSans.variable, geistMono.variable)}>
+        {await Header()}
+        <main className='layout-main'>{children}</main>
         <Footer />
       </body>
     </html>

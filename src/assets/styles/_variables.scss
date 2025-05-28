@@ -1,0 +1,65 @@
+// BASE
+
+$base-font-size-for-rem: 16;
+
+// COLORS
+
+$color-secondary-default: #2e5c78;
+$color-secondary-light: #407a9c;
+$color-secondary-dark: #204459;
+
+$color-primary-default: #627d4c;
+$color-primary-light: #7b9c60;
+$color-primary-dark: #4d633b;
+
+$color-accent-default: #5C6B70;
+$color-accent-light: #7C8A8F;
+$color-accent-dark: #464F53;
+
+$color-border-default: #242D25;
+$color-border-light: #4f5b47;
+$color-border-dark: #1A1F16;
+
+$color-background-default: #0f0f0f;
+$color-background-light: #1c1c1c;
+$color-background-dark: #161515;
+
+$color-error-default: #7a1f1f;
+$color-error-light: #b33232;
+$color-error-dark: #4e1515;
+
+$color-success-default: #356d35;
+$color-success-light: #4CAF50;
+$color-success-dark: #2C6B2F;
+
+$color-warning-default: #a17717;
+$color-warning-light: #c8912b;
+$color-warning-dark: #7b5b10;
+
+$color-text-default: #dddddd;
+$color-text-medium-dark: #cacacaf0;
+$color-text-dark: #bababad8;
+$color-text-primary: #2e5c78;
+$color-text-secondary: #627d4c;
+$color-text-accent: #5C6B70;
+$color-text-button-primary: #ffffff;
+$color-text-button-secondary: #161A16;
+
+// CONTAINER
+
+$container-padding: 1rem;
+$container-screen-default: 100%;
+$container-screen-2xl: 1200px;
+
+// HEADER
+
+$layout-top-padding: 150px;
+
+// BREAKPOINTS
+
+$breakpoint-xs: 480px;
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px; 
+$breakpoint-xl: 1200px; 
+$breakpoint-2xl: 1366px;

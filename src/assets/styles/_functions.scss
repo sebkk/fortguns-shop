@@ -1,0 +1,14 @@
+@function to-rem($value) {
+  @if type-of($value) != 'number' {
+    @error "Invalid value for to-rem(): '#{$value}' is not a number.";
+  }
+  @if unitless($value) {
+    @return ($value / $base-font-size-for-rem) * 1rem;
+  }
+  @else if unit($value) == "px" {
+    @return ($value / ($base-font-size-for-rem * 1px)) * 1rem;
+  }
+  @else {
+    @error "Invalid unit for to-rem(): '#{unit($value)}'. Only px or unitless numbers (assumed to be px) are accepted. Received: '#{$value}'.";
+  }
+}

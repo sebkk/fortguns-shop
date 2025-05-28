@@ -1,0 +1,17 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'functions' as *;
+
+@import 'modern-normalize/modern-normalize.css';
+
+body {
+  background-color: $color-background-default;
+  color: $color-text-default;
+
+  min-height: 100vh;
+}
+
+.layout-main {
+  min-height: 100vh;
+  padding-top: $layout-top-padding;
+}

@@ -3,7 +3,9 @@
 import { ProductsCarousel } from '@/components/ProductsCarousel';
 import { Spacer } from '@/components/Spacer';
 import { Hero } from '@/features/homepage';
-import { AboutUs } from '@/features/homepage/AboutUs/AboutUs';
+import { AboutUs } from '@/features/homepage/AboutUs';
+
+import styles from './styles.module.scss';
 
 // const getPages = async () => {
 //   const WP_API_URL = 'https://fortguns.pl/wp-json/wp/v2';
@@ -17,8 +19,8 @@ import { AboutUs } from '@/features/homepage/AboutUs/AboutUs';
 
 const Home = async () => {
   return (
-    <div className='p-0'>
-      <div className='container px-4'>
+    <div>
+      <div className={styles['container']}>
         <Hero />
         <Spacer />
         <ProductsCarousel

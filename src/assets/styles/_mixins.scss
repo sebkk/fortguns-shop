@@ -1,0 +1,72 @@
+@mixin apply-container-styles() {
+  width: $container-screen-default;
+  max-width: $container-screen-2xl;
+  margin-left: auto;            
+  margin-right: auto;           
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+@mixin respond-above($breakpoint-input) {
+  $value: $breakpoint-input;
+
+  @if meta.type-of($value) == 'string' and map.has-key($breakpoints, $value) {
+    $value: map.get($breakpoints, $value);
+  } @else if meta.type-of($value) != 'number' {
+    @warn "Breakpoint '#{$breakpoint-input}' is not a number nor a key in $breakpoints map. Please pass a valid breakpoint name or pixel/em value.";
+    @content;
+  }
+
+  @media (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin respond-below($breakpoint-input) {
+  $value: $breakpoint-input;
+
+  @if meta.type-of($value) == 'string' and map.has-key($breakpoints, $value) {
+    $value: map.get($breakpoints, $value);
+  } @else if meta.type-of($value) != 'number' {
+    @warn "Breakpoint '#{$breakpoint-input}' is not a number nor a key in $breakpoints map. Please pass a valid breakpoint name or pixel/em value.";
+    @content;
+  }
+
+  @if math.unit($value) == 'px' {
+    @media (max-width: ($value - 1px)) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $value) {
+      @content;
+    }
+  }
+}
+
+@mixin respond-between($min-breakpoint-input, $max-breakpoint-input) {
+  $min-value: $min-breakpoint-input;
+  $max-value: $max-breakpoint-input;
+
+  @if meta.type-of($min-value) == 'string' and map.has-key($breakpoints, $min-value) {
+    $min-value: map.get($breakpoints, $min-value);
+  } @else if meta.type-of($min-value) != 'number' {
+    @warn "Min Breakpoint '#{$min-breakpoint-input}' is not a number nor a key in $breakpoints map.";
+    @content;
+  }
+
+  @if meta.type-of($max-value) == 'string' and map.has-key($breakpoints, $max-value) {
+    $max-value: map.get($breakpoints, $max-value);
+  } @else if meta.type-of($max-value) != 'number' {
+    @warn "Max Breakpoint '#{$max-breakpoint-input}' is not a number nor a key in $breakpoints map.";
+    @content;
+  }
+
+  $actual-max-width: $max-value;
+  @if math.unit($max-value) == 'px' {
+    $actual-max-width: ($max-value - 1px);
+  }
+
+  @media (min-width: $min-value) and (max-width: $actual-max-width) {
+    @content;
+  }
+}

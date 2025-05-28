@@ -1,0 +1,5 @@
+.container {
+  @include apply-container-styles();
+
+  padding: 0 to-rem(16);
+}
