@@ -9,6 +9,7 @@ import {
   maxWidth,
   minHeight,
   minWidth,
+  screens,
   spacing,
   width,
 } from './src/tokens';
@@ -37,6 +38,7 @@ export default {
       borderWidth,
       borderRadius,
       gridTemplateRows,
+      screens,
     },
     container,
   },

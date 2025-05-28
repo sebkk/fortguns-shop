@@ -43,9 +43,18 @@ const colors = {
     DEFAULT: '#dddddd',
     medium_dark: '#cacacaf0',
     dark: '#bababad8',
-    primary: '#2e5c78',
-    secondary: '#627d4c',
-    accent: '#5C6B70',
+    primary: {
+      DEFAULT: '#2e5c78',
+      light: '#7b9c60',
+    },
+    secondary: {
+      DEFAULT: '#627d4c',
+      light: '#407a9c',
+    },
+    accent: {
+      DEFAULT: '#5C6B70',
+      light: '#7C8A8F',
+    },
     button: {
       primary: '#ffffff',
       secondary: '#161A16',

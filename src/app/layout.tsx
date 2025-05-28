@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { getHeaderNavigation } from '@/handlers/header/getHeaderNavigation';
 
 import type { Metadata } from 'next';
 
@@ -23,11 +24,13 @@ export const metadata: Metadata = {
   description: 'Sklep z bronią palną i wyposażeniem strzeleckim.',
 };
 
-const RootLayout = ({
+const RootLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const menu = await getHeaderNavigation();
+
   return (
     <html lang='en'>
       <body

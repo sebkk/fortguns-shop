@@ -47,12 +47,6 @@ export const Accordion = ({ title, content }: AccordionProps) => {
           },
         )}
       >
-        {/* <div className='bg-background-dark px-6 py-5'>
-          <Typography variant='body' tag='p' className='leading-relaxed'>
-            {content}
-          </Typography>
-        </div> */}
-
         <div
           className={clsx('grid transition-all duration-300 ease-in-out', {
             'grid-rows-[1fr]': isOpen,

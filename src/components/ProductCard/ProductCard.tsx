@@ -1,15 +1,10 @@
 import Image from 'next/image';
 
 import { Button } from '@/components/Button';
+import { IProduct } from '@/types/product';
 
 interface ProductCardProps {
-  product: {
-    images: [{ src: string; alt: string }];
-    name: string;
-    price: string;
-    sale_price: string;
-    categories: [{ name: string }];
-  };
+  product: IProduct;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
@@ -41,11 +36,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <p className='text-text-dark'>{categories[1]?.name}</p>
         </div>
 
-        <div className='mt-auto flex items-center justify-between gap-2'>
+        <div className='mt-auto flex flex-col items-start justify-between gap-2'>
           <p className='text-2xl font-extrabold leading-tight text-gray-900 dark:text-white'>
             {sale_price ? sale_price : price} zł
           </p>
-          <Button size='small'>Pokaż produkt</Button>
+          <Button className='w-full' size='small'>
+            Pokaż produkt
+          </Button>
         </div>
       </div>
     </article>

@@ -6,11 +6,12 @@ interface SelectProps {
   label: string;
   id: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: UseFormRegister<any>;
+  register?: UseFormRegister<any>;
   error?: string;
   className?: string;
   options: { value: string; label: string }[];
   selectProps?: React.SelectHTMLAttributes<HTMLSelectElement>;
+  wrapperClassName?: string;
 }
 
 export const Select = ({
@@ -21,15 +22,21 @@ export const Select = ({
   options,
   className,
   selectProps = {},
+  wrapperClassName,
 }: SelectProps) => {
+  const selectWrapperClassName = clsx(
+    'mb-4',
+    wrapperClassName && wrapperClassName,
+  );
+
   return (
-    <div className='mb-4'>
+    <div className={selectWrapperClassName}>
       <label htmlFor={id} className='mb-1 block text-sm font-medium text-white'>
         {label}
       </label>
       <select
         id={id}
-        {...register(id)}
+        {...(register ? register(id) : {})}
         className={clsx(
           'block w-full rounded-md border border-accent bg-background px-3 py-[10px] text-white shadow-sm sm:text-sm',
           'focus:border-primary focus:outline-none focus:ring-primary',

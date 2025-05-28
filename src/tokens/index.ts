@@ -8,6 +8,7 @@ import { maxHeight } from './maxHeight';
 import { maxWidth } from './maxWidth';
 import { minHeight } from './minHeight';
 import { minWidth } from './minWidth';
+import { screens } from './screens';
 import { spacing } from './spacing';
 import { width } from './width';
 
@@ -22,6 +23,7 @@ export {
   maxWidth,
   minHeight,
   minWidth,
+  screens,
   spacing,
   width,
 };

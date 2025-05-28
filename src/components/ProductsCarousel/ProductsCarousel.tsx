@@ -6,7 +6,7 @@ import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 
 import productsApi from '@/api/woocommerce/products';
 import { ProductCard } from '@/components/ProductCard';
-
+import { IProduct } from '@/types/product';
 import 'swiper/css';
 
 interface IProductsCarouselProps {
@@ -16,7 +16,9 @@ interface IProductsCarouselProps {
 export const ProductsCarousel = ({
   swiperConfig = {},
 }: IProductsCarouselProps) => {
-  const [products, setProducts] = useState<null | { id: string }[]>(null);
+  const [products, setProducts] = useState<null | IProduct[]>(null);
+
+  // console.log(products);
 
   const fetchProducts = async () => {
     try {
@@ -39,14 +41,15 @@ export const ProductsCarousel = ({
         // cssMode
         spaceBetween={15}
         slidesPerView={3}
+        slidesPerGroup={3}
         keyboard
-        mousewheel
+        // mousewheel
         modules={[Mousewheel, Keyboard]}
         {...swiperConfig}
       >
         {products.map((product) => (
           <SwiperSlide style={{ height: 'auto' }} key={product.id}>
-            <ProductCard product={product as any} />
+            <ProductCard product={product as IProduct} />
           </SwiperSlide>
         ))}
       </Swiper>
