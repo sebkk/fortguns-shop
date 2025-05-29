@@ -31,7 +31,7 @@ const faqData = [
   },
 ];
 
-export const FaqPage = () => {
+const FaqPage = () => {
   return (
     <div className={styles['faq-page-container']}>
       <Typography
