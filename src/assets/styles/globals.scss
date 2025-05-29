@@ -9,11 +9,18 @@ body {
 
   min-height: 100vh;
   color: $color-text-default;
+
+  font-family: $default-font-family;
+}
+
+* {
+  font-family: $default-font-family;
 }
 
 .layout-main {
   padding-top: $layout-top-padding;
   min-height: 100vh;
+  font-family: $default-font-family;
 }
 
 .container {
@@ -30,12 +37,161 @@ address {
   font-style: normal;
 }
 
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-p {
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+menu,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  vertical-align: baseline;
   margin: 0;
+  border: 0;
+  padding: 0;
+  font-size: 100%;
+  font-family: $default-font-family;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section {
+  display: block;
+}
+
+*[hidden] {
+  display: none;
+}
+body {
+  line-height: 1;
+}
+menu,
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  overflow-y: auto !important;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: $default-font-family;
 }

@@ -12,13 +12,13 @@ $color-primary-default: #627d4c;
 $color-primary-light: #7b9c60;
 $color-primary-dark: #4d633b;
 
-$color-accent-default: #5C6B70;
-$color-accent-light: #7C8A8F;
-$color-accent-dark: #464F53;
+$color-accent-default: #5c6b70;
+$color-accent-light: #7c8a8f;
+$color-accent-dark: #464f53;
 
-$color-border-default: #242D25;
+$color-border-default: #242d25;
 $color-border-light: #4f5b47;
-$color-border-dark: #1A1F16;
+$color-border-dark: #1a1f16;
 
 $color-background-default: #0f0f0f;
 $color-background-light: #1c1c1c;
@@ -29,8 +29,8 @@ $color-error-light: #b33232;
 $color-error-dark: #4e1515;
 
 $color-success-default: #356d35;
-$color-success-light: #4CAF50;
-$color-success-dark: #2C6B2F;
+$color-success-light: #4caf50;
+$color-success-dark: #2c6b2f;
 
 $color-warning-default: #a17717;
 $color-warning-light: #c8912b;
@@ -41,9 +41,9 @@ $color-text-medium-dark: #cacacaf0;
 $color-text-dark: #bababad8;
 $color-text-primary: #2e5c78;
 $color-text-secondary: #627d4c;
-$color-text-accent: #5C6B70;
+$color-text-accent: #5c6b70;
 $color-text-button-primary: #ffffff;
-$color-text-button-secondary: #161A16;
+$color-text-button-secondary: #161a16;
 
 // CONTAINER
 
@@ -60,6 +60,21 @@ $layout-top-padding: 150px;
 $breakpoint-xs: 480px;
 $breakpoint-sm: 640px;
 $breakpoint-md: 768px;
-$breakpoint-lg: 1024px; 
-$breakpoint-xl: 1200px; 
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1200px;
 $breakpoint-2xl: 1366px;
+
+// TYPOGRAPHY
+
+$default-font-family:
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  Oxygen,
+  Ubuntu,
+  Cantarell,
+  'Open Sans',
+  'Helvetica Neue',
+  sans-serif;
