@@ -1,27 +1,30 @@
 import Link from 'next/link';
-import React from 'react';
+
+import styles from './styles.module.scss';
 
 const links = [
   { text: 'Regulamin', href: '/regulamin' },
-  { text: 'Pytania', href: '/pytania' },
+  { text: 'Pytania', href: '/faq' },
   { text: 'Kontakt', href: '/kontakt' },
 ];
 
 export const Footer = () => {
   return (
-    <footer className='bg-background/20 border-t-border-light w-full border-spacing-px border-solid py-4'>
-      <div className='container relative grid grid-cols-3 gap-2'>
-        <nav>
-          <h6>Nawigacja</h6>
-          <ul>
+    <footer className={styles['footer-wrapper']}>
+      <div className={styles['footer-container']}>
+        <nav className={styles['footer-nav']}>
+          <h6 className={styles['footer-nav-heading']}>Nawigacja</h6>
+          <ul className={styles['footer-nav-list']}>
             {links.map(({ text, href }) => (
               <li key={href}>
-                <Link href={href}>{text}</Link>
+                <Link href={href} className={styles['footer-nav-link']}>
+                  {text}
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
-        <div className='col-span-2 rounded p-4'>contact</div>
+        <div className={styles['footer-contact-section']}>contact</div>
       </div>
     </footer>
   );

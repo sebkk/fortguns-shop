@@ -5,8 +5,6 @@ import { Spacer } from '@/components/Spacer';
 import { Hero } from '@/features/homepage';
 import { AboutUs } from '@/features/homepage/AboutUs';
 
-import styles from './styles.module.scss';
-
 // const getPages = async () => {
 //   const WP_API_URL = 'https://fortguns.pl/wp-json/wp/v2';
 
@@ -20,7 +18,7 @@ import styles from './styles.module.scss';
 const Home = async () => {
   return (
     <div>
-      <div className={styles['container']}>
+      <div className='container'>
         <Hero />
         <Spacer />
         <ProductsCarousel

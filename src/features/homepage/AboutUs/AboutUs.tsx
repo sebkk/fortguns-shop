@@ -5,6 +5,8 @@ import { PhoneIcon } from '@/components/_icons/PhoneIcon';
 import { TelegramIcon } from '@/components/_icons/TelegramIcon';
 import { GoogleMapComponent } from '@/components/GoogleMapComponent';
 
+import styles from './styles.module.scss';
+
 const containerStyle = {
   width: '100%',
   height: '400px',
@@ -15,46 +17,46 @@ const contactInfo = [
     title: 'Telefon',
     value: '+48 666 366 361',
     type: 'tel',
-    icon: <PhoneIcon className='mr-2' />,
+    icon: <PhoneIcon className={styles['contact-icon']} />,
   },
   {
     title: 'E-mail',
     value: 'sklep@fortguns.pl',
     type: 'mailto',
-    icon: <MailIcon className='mr-2' />,
+    icon: <MailIcon className={styles['contact-icon']} />,
   },
   {
     title: 'Telegram',
     value: '@fortguns',
     type: 'telegram',
-    icon: <TelegramIcon className='mr-2' />,
+    icon: <TelegramIcon className={styles['contact-icon']} />,
   },
 ];
 
 export const AboutUs = () => {
   return (
-    <div className='bg-background-light px-4 py-14'>
-      <div className='container'>
-        <h2 className='mb-10 text-center text-4xl'>O nas</h2>
-        <div className='grid grid-cols-2 gap-10'>
-          <div className='flex flex-col justify-center'>
-            <address className='mb-4 text-2xl font-bold not-italic'>
+    <div className={styles['about-us-section']}>
+      <div className={styles['about-us-container']}>
+        <h2 className={styles['about-us-heading']}>O nas</h2>
+        <div className={styles['content-grid']}>
+          <div className={styles['info-column']}>
+            <address className={styles['address-block']}>
               <a
                 href={`maps:?q=${'Borowa 104a, 24-100'}`}
                 target='_blank'
-                className='mb-3 block'
+                className={styles['address-link']}
               >
                 Borowa 104a, 24-100 Borowa, Polska
               </a>
-              <p className='font-normal'>
+              <p className={styles['address-details']}>
                 Województwo Lubelskie. Przed przyjazdem prosimy o wcześniejszy
                 kontakt i umówienie się.
               </p>
             </address>
-            <ul>
+            <ul className={styles['contact-list']}>
               {contactInfo.map(({ value, type, icon }) => (
-                <li className='py-3' key={type}>
-                  <a className='flex' href={`${type}:${value}`}>
+                <li className={styles['contact-list-item']} key={type}>
+                  <a className={styles['contact-link']} href={`${type}:${value}`}>
                     {icon} {value}
                   </a>
                 </li>

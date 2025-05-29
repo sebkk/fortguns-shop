@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Typography } from '@/components/Typography';
 
+import styles from './styles.module.scss';
+
 interface AccordionProps {
   title: string;
   content: string;
@@ -19,43 +21,46 @@ export const Accordion = ({ title, content }: AccordionProps) => {
   };
 
   return (
-    <div className='overflow-hidden rounded-2.5'>
+    <div className={styles['accordion-item']}>
       <button
-        className='flex w-full items-center justify-between bg-background-light px-6 py-5 text-left focus:outline-none'
+        className={styles['accordion-button']}
         onClick={toggleOpen}
+        aria-expanded={isOpen}
       >
         <Typography
           variant='c-heading'
           tag='h3'
           fontSize='xl'
-          className='flex-1'
+          className={styles['accordion-title']}
         >
           {title}
         </Typography>
         <ArrowIcon
-          className={clsx({
-            'rotate-180': isOpen,
-          })}
+          className={clsx(
+            styles['accordion-icon'],
+            isOpen && styles['accordion-icon-open'],
+          )}
         />
       </button>
       <div
         className={clsx(
-          'transition-max-height overflow-hidden duration-300 ease-in-out',
-          {
-            'max-h-screen': isOpen,
-            'max-h-0': !isOpen,
-          },
+          styles['accordion-content-wrapper'],
+          isOpen && styles['accordion-content-wrapper-open'],
         )}
       >
         <div
-          className={clsx('grid transition-all duration-300 ease-in-out', {
-            'grid-rows-[1fr]': isOpen,
-            'grid-rows-[0fr]': !isOpen,
-          })}
+          className={clsx(
+            styles['accordion-content-grid'],
+            isOpen && styles['accordion-content-grid-open'],
+          )}
         >
-          <div className='overflow-hidden'>
-            <div className='bg-background-dark px-6 py-5'>
-              <Typography variant='body' tag='p' className='leading-normal'>
+          <div className={styles['accordion-content-inner']}>
+            <div className={styles['accordion-content-padding']}>
+              <Typography
+                variant='body'
+                tag='p'
+                className={styles['accordion-text']}
+              >
                 {content}
               </Typography>
             </div>

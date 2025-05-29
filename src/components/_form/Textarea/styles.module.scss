@@ -1,0 +1,51 @@
+.textarea-wrapper {
+  margin-bottom: to-rem(16);
+}
+
+.textarea-label {
+  display: block;
+  margin-bottom: to-rem(4);
+  font-size: to-rem(14);
+  font-weight: 500;
+  color: $color-text-button-primary;
+}
+
+.textarea-field {
+  display: block;
+  width: 100%;
+  border-radius: to-rem(6);
+  border: 1px solid $color-accent-default;
+  background-color: $color-background-default;
+  padding: to-rem(10) to-rem(12);
+  color: $color-text-button-primary;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  font-size: to-rem(14);
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    border-color: $color-primary-light;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary-default;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 0 to-rem(3) rgba($color-primary-default, 0.5);
+  }
+
+  &.textarea-field-error {
+    border-color: $color-error-default;
+
+    &:focus {
+      border-color: $color-error-default;
+      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 0 to-rem(3) rgba($color-error-default, 0.5);
+    }
+  }
+}
+
+.error-message {
+  margin-top: to-rem(4);
+  font-size: to-rem(14);
+  color: $color-error-default;
+}

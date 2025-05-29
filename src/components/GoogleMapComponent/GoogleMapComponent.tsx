@@ -4,6 +4,8 @@ import { CSSProperties } from 'react';
 
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
+import stylesCss from './styles.module.scss';
+
 interface IGoogleMapComponentProps {
   location: string;
   styles: CSSProperties;
@@ -16,7 +18,7 @@ export const GoogleMapComponent = ({
   zoom = 12,
 }: IGoogleMapComponentProps) => {
   return (
-    <div className='overflow-hidden rounded-[20px] border-2 border-accent-dark'>
+    <div className={stylesCss['map-wrapper']}>
       <iframe
         width='600'
         height='450'

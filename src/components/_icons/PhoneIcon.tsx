@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import React from 'react';
 
 export const PhoneIcon = ({ className }: { className?: string }) => {
   return (
@@ -8,7 +7,8 @@ export const PhoneIcon = ({ className }: { className?: string }) => {
       viewBox='0 0 24 24'
       strokeWidth='1.5'
       stroke='currentColor'
-      className={clsx('size-6', className)}
+      className={clsx(className)}
+      width={24}
     >
       <path
         strokeLinecap='round'

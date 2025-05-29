@@ -1,15 +1,15 @@
-// src/features/contact/ContactForm.tsx
+'use client';
 
-'use client'; // Formularze używają stanu i interakcji użytkownika
-
-import { zodResolver } from '@hookform/resolvers/zod'; // Do walidacji Zod (jeśli używasz)
-import { SubmitHandler, useForm } from 'react-hook-form'; // Importy z react-hook-form
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Input } from '@/components/_form/Input';
 import { Select } from '@/components/_form/Select';
 import { Textarea } from '@/components/_form/Textarea';
 import { Button } from '@/components/Button';
+
+import styles from './styles.module.scss';
 
 const ContactFormSchema = z.object({
   topic: z.string().min(1, 'Proszę wybrać temat'),
@@ -42,8 +42,11 @@ export const ContactForm = () => {
   ];
 
   return (
-    <div className='mx-auto w-full max-w-screen-md'>
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+    <div className={styles['contact-form-wrapper']}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles['contact-form']}
+      >
         <Select
           label='Temat'
           id='topic'
@@ -58,7 +61,6 @@ export const ContactForm = () => {
           register={register}
           error={errors.title?.message}
         />
-
         <Textarea
           label='Twoja wiadomość'
           id='message'
@@ -66,8 +68,7 @@ export const ContactForm = () => {
           error={errors.message?.message}
           rows={7}
         />
-
-        <div className='text-center'>
+        <div className={styles['form-submit-container']}>
           <Button type='submit' color='primary' size='medium'>
             Wyślij wiadomość
           </Button>

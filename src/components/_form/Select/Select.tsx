@@ -1,6 +1,10 @@
+'use client';
+
 import clsx from 'clsx';
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
+
+import styles from './styles.module.scss';
 
 interface SelectProps {
   label: string;
@@ -24,24 +28,22 @@ export const Select = ({
   selectProps = {},
   wrapperClassName,
 }: SelectProps) => {
-  const selectWrapperClassName = clsx(
-    'mb-4',
-    wrapperClassName && wrapperClassName,
+  const finalWrapperClassName = clsx(
+    styles['select-wrapper'],
+    wrapperClassName,
   );
 
   return (
-    <div className={selectWrapperClassName}>
-      <label htmlFor={id} className='mb-1 block text-sm font-medium text-white'>
+    <div className={finalWrapperClassName}>
+      <label htmlFor={id} className={styles['select-label']}>
         {label}
       </label>
       <select
         id={id}
         {...(register ? register(id) : {})}
         className={clsx(
-          'block w-full rounded-md border border-accent bg-background px-3 py-[10px] text-white shadow-sm sm:text-sm',
-          'focus:border-primary focus:outline-none focus:ring-primary',
-          'hover:border-primary-light',
-          error && 'border-error focus:border-error focus:ring-error',
+          styles['select-element'],
+          error && styles['select-element-error'],
           className,
         )}
         {...selectProps}
@@ -52,7 +54,7 @@ export const Select = ({
           </option>
         ))}
       </select>
-      {error && <p className='mt-1 text-sm text-error'>{error}</p>}{' '}
+      {error && <p className={styles['error-message']}>{error}</p>}
     </div>
   );
 };

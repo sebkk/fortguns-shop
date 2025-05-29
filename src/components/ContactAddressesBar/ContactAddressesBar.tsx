@@ -1,30 +1,28 @@
 'use client';
-import React from 'react';
+
 import { LocationIcon } from '@/components/_icons/LocationIcon';
 import { MailIcon } from '@/components/_icons/MailIcon';
-import { PhoneIcon } from '../_icons/PhoneIcon';
+import { PhoneIcon } from '@/components/_icons/PhoneIcon';
+
+import styles from './styles.module.scss';
 
 interface IContactAddressesBarProps {
   isScrolling?: boolean;
 }
 
-export const ContactAddressesBar = (
-  {
-    // isScrolling,
-  }: IContactAddressesBarProps,
-) => {
+export const ContactAddressesBar = ({}: IContactAddressesBarProps) => {
   return (
-    <div className='bg-background-light px-4 py-2'>
-      <address className='container flex items-center justify-between not-italic'>
-        <div className='flex items-center gap-2'>
+    <div className={styles['contact-bar-wrapper']}>
+      <address className={styles['contact-bar-address-element']}>
+        <div className={styles['location-info']}>
           <LocationIcon /> {'Borowa 126A, 24-100 Borowa, Lubelskie'}
         </div>
-        <div className='flex items-center gap-6'>
-          <a className='flex items-center gap-2'>
+        <div className={styles['contact-details']}>
+          <a href='mailto:fortguns@mail.com' className={styles['contact-link']}>
             <MailIcon />
             fortguns@mail.com
           </a>
-          <a className='flex items-center gap-2'>
+          <a href='tel:666366361' className={styles['contact-link']}>
             <PhoneIcon /> 666 366 361
           </a>
         </div>

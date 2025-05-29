@@ -1,0 +1,32 @@
+.spacer {
+  border: none;
+  margin: 0;
+  height: 0; 
+}
+
+.spacer-size {
+  &--sm {
+    margin-top: to-rem(8);
+    margin-bottom: to-rem(8);
+  }
+
+  &--md {
+    margin-top: to-rem(16);
+    margin-bottom: to-rem(16);
+  }
+
+  &--default {
+    margin-top: to-rem(24);
+    margin-bottom: to-rem(24);
+  }
+
+  &--lg {
+    margin-top: to-rem(40);
+    margin-bottom: to-rem(40);
+  }
+
+  &--xl {
+    margin-top: to-rem(48);
+    margin-bottom: to-rem(48);
+  }
+}

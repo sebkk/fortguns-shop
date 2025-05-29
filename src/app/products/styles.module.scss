@@ -1,100 +1,87 @@
+.loading-or-error-container {
+  @include apply-container-styles();
+  padding: to-rem(32) to-rem(16);
+  text-align: center;
+}
 
-$breakpoint-sm: 640px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 1024px;
+.error-text {
+  color: $color-error-default;
+}
 
-.products-page {
-  
-  &__status-message {
-    @include  make-container;
-    padding:  $spacing-xl  $spacing-m; // Odpowiednik py-8 px-4
-    text-align: center;
+.header-bar {
+  background-color: $color-background-light;
+}
 
-    &--error {
-      color:  $color-error-default;
-    }
+.header-bar-inner {
+  @include apply-container-styles();
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: to-rem(16);
+  padding: to-rem(16) to-rem(24);
+}
+
+.products-count {
+  color: $color-text-default;
+  font-size: to-rem(20);
+}
+
+.controls-container {
+  display: flex;
+  align-items: center;
+  gap: to-rem(16);
+}
+
+.sort-select-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.filter-button {
+  min-width: to-rem(112);
+}
+
+.main-content-container {
+  @include apply-container-styles();
+  display: flex;
+  flex-direction: column;
+  padding-right: to-rem(16);
+  padding-left: to-rem(16);
+}
+
+.refreshing-text {
+  padding: to-rem(16) 0;
+  color: $color-text-default;
+  text-align: center;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: to-rem(16);
+
+  @include respond-above($breakpoint-sm) {
+    grid-template-columns: repeat(2, 1fr);
   }
-
-  &__info-bar {
-    background-color:  $color-background-light;
+  @include respond-above($breakpoint-md) {
+    grid-template-columns: repeat(3, 1fr);
   }
-
-  &__info-bar-content {
-    @include  make-container;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap:  $spacing-m; 
-    padding:  $spacing-m  $spacing-l; 
-  }
-
-  &__count {
-    font-size: $font-size-xl; 
-    margin: 0;
-  }
-
-  &__controls {
-    display: flex;
-    align-items: center;
-    gap:  $spacing-m; // Odpowiednik gap-4
-  }
-
-  // Dodatkowa klasa dla przycisku Filtrów, jeśli chcemy nadpisać/dodać style
-  &__filter-button {
-    min-width:  to-rem(112px); // Odpowiednik min-w-28 (7rem)
-  }
-
-  // Główny obszar zawartości z produktami
-  &__content-area {
-    @include  make-container;
-    display: flex;
-    flex-direction: column;
-    padding-left:  $spacing-m;  // Odpowiednik px-4
-    padding-right:  $spacing-m; // Odpowiednik px-4
-  }
-
-  &__refreshing-text {
-    padding-top:  $spacing-m;    // Odpowiednik py-4
-    padding-bottom:  $spacing-m; // Odpowiednik py-4
-    text-align: center;
-  }
-
-  // Siatka produktów
-  &__grid {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap:  $spacing-m; // Odpowiednik gap-4
-    grid-template-columns: repeat(1, 1fr); // Domyślnie 1 kolumna
-
-    @media (min-width: $breakpoint-sm) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: $breakpoint-md) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @media (min-width: $breakpoint-lg) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  &__no-products {
-    text-align: center;
-  }
-
-  // Style dla zawartości Drawer (jeśli nie są zarządzane wewnątrz komponentu Drawer)
-  &__drawer-placeholder-text {
-    color:  $color-text-default; // Odpowiednik text-white
-  }
-
-  &__drawer-apply-button {
-    margin-top:  $spacing-m; // Odpowiednik mt-4
+  @include respond-above($breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
- #products-sort-wrapper { // Jeśli Select renderuje wrapper z takim ID lub klasą
-   display: flex;
-   margin-bottom: 0;
+.no-products-text {
+  color: $color-text-default;
+  text-align: center;
+}
+
+.drawer-content-text {
+  color: $color-text-default;
+}
+
+.drawer-apply-button {
+  margin-top: to-rem(16);
 }

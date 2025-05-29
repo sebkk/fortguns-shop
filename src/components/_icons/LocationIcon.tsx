@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import React from 'react';
 
 export const LocationIcon = ({ className }: { className?: string }) => {
   return (
@@ -7,7 +6,8 @@ export const LocationIcon = ({ className }: { className?: string }) => {
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 20 20'
       fill='currentColor'
-      className={clsx('size-5', className)}
+      className={clsx(className)}
+      width={20}
     >
       <path
         fillRule='evenodd'

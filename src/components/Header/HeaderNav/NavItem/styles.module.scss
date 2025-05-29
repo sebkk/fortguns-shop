@@ -1,0 +1,27 @@
+.nav-item {
+  display: flex;
+  justify-content: flex-start;
+  align-self: stretch;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-link-icon {
+  transition: transform 0.2s ease-in-out;
+  margin-left: to-rem(0);
+}
+
+.icon-rotate-default {
+  transform: rotate(0deg);
+}
+
+.icon-rotate-hovered {
+  transform: rotate(180deg);
+}

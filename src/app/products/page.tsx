@@ -4,11 +4,13 @@ import { useCallback, useEffect, useState } from 'react';
 
 import productsApi from '@/api/woocommerce/products';
 import { Select } from '@/components/_form/Select';
-import { Button } from '@/components/Button'; // Załóżmy, że masz komponent Button
-import { Drawer } from '@/components/Drawer'; // Importujemy nasz nowy komponent Drawer
+import { Button } from '@/components/Button';
+import { Drawer } from '@/components/Drawer';
 import { ProductCard } from '@/components/ProductCard';
 import { Spacer } from '@/components/Spacer';
 import { IProduct } from '@/types/product';
+
+import styles from './styles.module.scss'; // Import the SCSS module
 
 type SortOption = {
   value: string;
@@ -96,15 +98,17 @@ const ProductsPage = () => {
 
   if (isLoading && !productsData) {
     return (
-      <div className='container px-4 py-8 text-center'>
-        Ładowanie produktów...
-      </div>
+      <div className={styles['loading-or-error-container']}>Loading...</div>
     );
   }
 
   if (error) {
     return (
-      <div className='container px-4 py-8 text-center text-error'>{error}</div>
+      <div
+        className={`${styles['loading-or-error-container']} ${styles['error-text']}`}
+      >
+        {error}
+      </div>
     );
   }
 
@@ -113,40 +117,46 @@ const ProductsPage = () => {
   return (
     <>
       <Spacer />
-      <div className='bg-background-light'>
-        <div className='container flex flex-wrap items-center justify-between gap-4 px-6 py-4'>
-          <p className='text-xl'>{`${totalPages || productsCount} produktów`}</p>
-          <div className='flex items-center gap-4'>
+      <div className={styles['header-bar']}>
+        <div className={styles['header-bar-inner']}>
+          <p
+            className={styles['products-count']}
+          >{`${totalPages || productsCount} produktów`}</p>
+          <div className={styles['controls-container']}>
             <Select
               label='Sortowanie'
               selectProps={{ value: currentSort, onChange: handleSortChange }}
               id='products-sort'
               options={sortOptions}
-              wrapperClassName='flex mb-0 '
+              wrapperClassName={styles['sort-select-wrapper']}
             />
             <Button
               onClick={() => setIsDrawerOpen(true)}
               variant='outlined'
               color='primary'
-              className='min-w-28'
+              className={styles['filter-button']}
             >
               Filtry
             </Button>
           </div>
         </div>
       </div>
-      <div className='container flex flex-col px-4'>
+      <div className={styles['main-content-container']}>
         <Spacer size='md' />
-        {isLoading && <div className='py-4 text-center'>Odświeżanie...</div>}
+        {isLoading && (
+          <div className={styles['refreshing-text']}>Odświeżanie...</div>
+        )}
         {!isLoading && productsData && productsData.length > 0 ? (
-          <ul className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          <ul className={styles['products-grid']}>
             {productsData.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </ul>
         ) : (
           !isLoading && (
-            <p className='text-center'>Brak produktów do wyświetlenia.</p>
+            <p className={styles['no-products-text']}>
+              Brak produktów do wyświetlenia.
+            </p>
           )
         )}
       </div>
@@ -155,11 +165,13 @@ const ProductsPage = () => {
         onClose={() => setIsDrawerOpen(false)}
         title='Filtruj Produkty'
       >
-        {/* Tutaj możesz dodać komponenty filtrów */}
-        <p className='text-white'>
+        <p className={styles['drawer-content-text']}>
           Miejsce na filtry (np. kategorie, zakres cenowy).
         </p>
-        <Button onClick={() => setIsDrawerOpen(false)} className='mt-4'>
+        <Button
+          onClick={() => setIsDrawerOpen(false)}
+          className={styles['drawer-apply-button']}
+        >
           Zastosuj filtry (placeholder)
         </Button>
       </Drawer>
@@ -168,43 +180,3 @@ const ProductsPage = () => {
 };
 
 export default ProductsPage;
-
-// import products from '@/api/woocommerce/products';
-// import { ProductCard } from '@/components/ProductCard';
-// import { Spacer } from '@/components/Spacer';
-// import { IProduct } from '@/types/product';
-
-// const ProductsPage = async () => {
-//   const fetchProducts = async () => {
-//     try {
-//       const res = await products.getProducts();
-
-//       return { data: res.data, totalPages: res.headers['x-wp-total'] || 0 };
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   const { data: productsData, totalPages } = (await fetchProducts()) || {};
-
-//   return (
-//     <>
-//       <Spacer />
-//       <div className='bg-background-light'>
-//         <div className='container flex justify-between px-6 py-4'>
-//           <p className='text-xl'>{`${totalPages} products`}</p>
-//         </div>
-//       </div>
-//       <div className='container flex flex-col px-4'>
-//         <Spacer size='md' />
-//         <ul className='grid grid-cols-4 gap-3'>
-//           {productsData.map((product: IProduct) => (
-//             <ProductCard key={product.id} product={product} />
-//           ))}
-//         </ul>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ProductsPage;

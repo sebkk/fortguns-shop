@@ -1,0 +1,80 @@
+.link-base {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    color 0.3s ease-in-out,
+    text-decoration-color 0.3s ease-in-out;
+  cursor: pointer;
+  color: $color-text-default;
+  text-decoration: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.link-primary {
+  &:hover {
+    color: $color-primary-default;
+    text-decoration: underline;
+  }
+  &:focus,
+  &:active {
+    color: $color-primary-light;
+    text-decoration: underline;
+  }
+}
+
+.link-secondary {
+  &:hover {
+    color: $color-secondary-default;
+    text-decoration: underline;
+  }
+  &:focus,
+  &:active {
+    color: $color-secondary-light;
+    text-decoration: underline;
+  }
+}
+
+.link-accent {
+  &:hover {
+    color: $color-accent-default;
+    text-decoration: underline;
+  }
+  &:focus,
+  &:active {
+    color: $color-accent-light;
+    text-decoration: underline;
+  }
+}
+
+.link-size {
+  &--small {
+    font-size: to-rem(14);
+  }
+
+  &--medium {
+    font-size: to-rem(16);
+  }
+
+  &--large {
+    font-size: to-rem(18);
+  }
+}
+
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.leading-icon-wrapper {
+  @extend .icon-wrapper;
+  margin-right: to-rem(4);
+}
+
+.trailing-icon-wrapper {
+  @extend .icon-wrapper;
+  margin-left: to-rem(4);
+}

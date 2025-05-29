@@ -1,0 +1,27 @@
+.hero-wrapper {
+  width: 100%;
+}
+
+.hero-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: to-rem(20);
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+}
+
+.hero-content-container {
+  @include apply-container-styles();
+  position: absolute;
+  bottom: to-rem(24);
+  z-index: 10;
+  max-width: to-rem(900);
+}
+
+.hero-main-heading {
+  margin-bottom: to-rem(16);
+}

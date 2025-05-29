@@ -1,6 +1,8 @@
 import { Accordion } from '@/components/Accordion';
 import { Typography } from '@/components/Typography';
 
+import styles from './styles.module.scss';
+
 const faqData = [
   {
     question: 'Jakie rodzaje broni palnej oferujecie?',
@@ -31,12 +33,15 @@ const faqData = [
 
 export const FaqPage = () => {
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <Typography variant='main-heading' tag='h1' className='mb-10 text-center'>
+    <div className={styles['faq-page-container']}>
+      <Typography
+        variant='main-heading'
+        tag='h1'
+        className={styles['faq-heading']}
+      >
         Najczęściej zadawane pytania
       </Typography>
-
-      <div className='flex flex-col gap-6'>
+      <div className={styles['accordion-list-container']}>
         {faqData.map((item, index) => (
           <Accordion key={index} title={item.question} content={item.answer} />
         ))}

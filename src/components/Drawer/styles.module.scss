@@ -1,0 +1,50 @@
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  z-index: 50;
+  transition: transform 0.3s ease-in-out;
+  box-shadow:
+    0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  background-color: $color-background-light;
+  padding: to-rem(24);
+  width: 100%;
+  max-width: to-rem(448);
+  height: 100%;
+}
+
+.drawer-panel-open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-title {
+  color: $color-text-default;
+  font-weight: 600;
+  font-size: to-rem(24);
+}
+
+.drawer-close-button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  color: $color-text-button-primary;
+  font-weight: 600;
+  font-size: to-rem(24);
+
+  &:hover {
+    color: $color-text-dark;
+  }
+}
+
+.drawer-content {
+  margin-top: to-rem(24);
+}

@@ -1,7 +1,10 @@
+'use client';
+
 import clsx from 'clsx';
 import { Url } from 'next/dist/shared/lib/router/router';
 import NextLink from 'next/link';
 
+import styles from './styles.module.scss';
 import { ILinkProps } from './types';
 
 export const Link = ({
@@ -15,28 +18,22 @@ export const Link = ({
   anchorProps = {},
   nextLinkProps = {},
 }: ILinkProps) => {
-  const variantClasses = {
-    primary:
-      'hover:text-primary hover:underline focus:text-primary-light active:text-primary-light',
-    secondary:
-      'hover:text-secondary hover:underline focus:text-secondary-light active:text-secondary-light',
-    accent:
-      'hover:text-accent hover:underline focus:text-accent-light active:text-accent-light',
+  const variantClassMap = {
+    primary: styles['link-primary'],
+    secondary: styles['link-secondary'],
+    accent: styles['link-accent'],
   };
 
-  const sizeClasses = {
-    small: 'text-sm',
-    medium: 'text-base',
-    large: 'text-lg',
+  const sizeClassMap = {
+    small: styles['link-size--small'],
+    medium: styles['link-size--medium'],
+    large: styles['link-size--large'],
   };
-
-  const baseClasses =
-    'inline-flex items-center justify-center transition duration-300 ease-in-out';
 
   const classNames = clsx(
-    baseClasses,
-    variantClasses[variant],
-    sizeClasses[size],
+    styles['link-base'],
+    variantClassMap[variant],
+    sizeClassMap[size],
     className,
   );
 
@@ -48,11 +45,11 @@ export const Link = ({
       {...nextLinkProps}
     >
       {leadingIcon && (
-        <span className='mr-1 inline-flex items-center'>{leadingIcon}</span>
+        <span className={styles['leading-icon-wrapper']}>{leadingIcon}</span>
       )}
       {children}
       {trailingIcon && (
-        <span className='ml-1 inline-flex items-center'>{trailingIcon}</span>
+        <span className={styles['trailing-icon-wrapper']}>{trailingIcon}</span>
       )}
     </NextLink>
   );

@@ -3,9 +3,7 @@
 import clsx from 'clsx';
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 
-import { insertTransition } from '@/helpers/tailwind/transition';
-
-import { buttonVariants, insertButtonSize } from './helpers';
+import styles from './styles.module.scss';
 import { TButtonColor, TButtonSize, TButtonVariant } from './types';
 
 interface IButtonProps {
@@ -31,17 +29,31 @@ export const Button = ({
   variant = 'filled',
   color = 'primary',
 }: IButtonProps) => {
+  const sizeMap: { [key in TButtonSize]: string } = {
+    large: styles['button-size--large'],
+    medium: styles['button-size--medium'],
+    small: styles['button-size--small'],
+  };
+
+  const variantColorMap: { [key: string]: string } = {
+    'filled-primary': styles['button-filled-primary'],
+    'filled-secondary': styles['button-filled-secondary'],
+    'outlined-primary': styles['button-outlined-primary'],
+    'outlined-secondary': styles['button-outlined-secondary'],
+    'blank-primary': styles['button-blank-primary'],
+    'blank-secondary': styles['button-blank-secondary'],
+  };
+
   const buttonClassNames = clsx(
-    'rounded',
-    insertTransition('transition-background', 'D300'),
-    insertButtonSize(size),
-    buttonVariants[`${variant}-${color}`],
-    className && className,
+    styles['button-base'],
+    sizeMap[size],
+    variantColorMap[`${variant}-${color}`],
+    disabled && styles.disabled, // Opcjonalna globalna klasa dla :disabled, jeśli potrzebna
+    className,
   );
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (disabled) return;
-
     if (onClick) onClick(e);
   };
 

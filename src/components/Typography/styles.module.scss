@@ -1,0 +1,104 @@
+// Variants
+.variant-main-heading {
+  font-weight: 600;
+  font-size: to-rem(60);
+  line-height: 1.25;
+}
+
+.variant-subheading {
+  font-weight: 400;
+  font-size: to-rem(36);
+  line-height: 1.25;
+}
+
+.variant-c-heading {
+  font-weight: 500;
+  font-size: to-rem(30);
+  line-height: 1.25;
+}
+
+.variant-body {
+  font-size: to-rem(16);
+  line-height: 1.25;
+}
+
+.variant-caption {
+  font-size: to-rem(14);
+  line-height: 1.25;
+}
+
+// Colors
+.color-primary {
+  color: $color-text-primary;
+}
+.color-secondary {
+  color: $color-text-secondary;
+}
+.color-text-dark {
+  color: $color-text-dark;
+}
+.color-text-medium-dark {
+  color: $color-text-medium-dark;
+}
+
+// Font Sizes
+.font-size-xs {
+  font-size: to-rem(12);
+}
+.font-size-sm {
+  font-size: to-rem(14);
+}
+.font-size-base {
+  font-size: to-rem(16);
+}
+.font-size-xl {
+  font-size: to-rem(20);
+}
+.font-size-2xl {
+  font-size: to-rem(24);
+}
+.font-size-3xl {
+  font-size: to-rem(30);
+}
+.font-size-4xl {
+  font-size: to-rem(36);
+}
+.font-size-5xl {
+  font-size: to-rem(48);
+}
+.font-size-6xl {
+  font-size: to-rem(60);
+}
+
+// Font Weights
+.font-weight-normal {
+  font-weight: 400;
+}
+.font-weight-medium {
+  font-weight: 500;
+}
+.font-weight-semibold {
+  font-weight: 600;
+}
+.font-weight-bold {
+  font-weight: 700;
+}
+
+// Line Heights
+.line-height-none {
+  line-height: 1;
+}
+.line-height-tight {
+  line-height: 1.25;
+}
+.line-height-normal {
+  line-height: 1.5;
+}
+.line-height-loose {
+  line-height: 2;
+}
+
+// Whitespace
+.whitespace-pre-line {
+  white-space: pre-line;
+}

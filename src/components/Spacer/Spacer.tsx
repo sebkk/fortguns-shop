@@ -1,17 +1,23 @@
+'use client';
+
 import clsx from 'clsx';
+
+import styles from './styles.module.scss';
 
 interface ISpacerProps {
   size?: 'sm' | 'md' | 'default' | 'lg' | 'xl';
 }
 
-const sizes = {
-  sm: 'my-2',
-  md: 'my-4',
-  default: 'my-6',
-  lg: 'my-10',
-  xl: 'my-12',
+const sizeMap = {
+  sm: styles['spacer-size--sm'],
+  md: styles['spacer-size--md'],
+  default: styles['spacer-size--default'],
+  lg: styles['spacer-size--lg'],
+  xl: styles['spacer-size--xl'],
 };
 
 export const Spacer = ({ size = 'default' }: ISpacerProps) => (
-  <hr className={clsx(sizes[size as keyof typeof sizes], 'border-none')} />
+  <hr
+    className={clsx(styles['spacer'], sizeMap[size as keyof typeof sizeMap])}
+  />
 );

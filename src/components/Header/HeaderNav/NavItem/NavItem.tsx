@@ -1,13 +1,16 @@
+'use client';
+
 import clsx from 'clsx';
 
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Link } from '@/components/Link';
 import { MenuItem } from '@/types/menus';
 
+import styles from './styles.module.scss';
+
 interface INavItemProps {
   item: MenuItem;
   isScrolling: boolean;
-
   handleHoverItem: (item: string | null) => void;
   hoveredItem: string | null;
 }
@@ -15,7 +18,6 @@ interface INavItemProps {
 export const NavItem = ({
   item,
   isScrolling,
-  // headerRef,
   handleHoverItem,
   hoveredItem,
 }: INavItemProps) => {
@@ -25,11 +27,9 @@ export const NavItem = ({
   const areChildItems = !!child_items;
   const isHovered = hoveredItem === href;
 
-  // const headerRefHeight = headerRef.current?.offsetHeight;
-
-  const onMouseEvent = (href: string | null) => {
+  const onMouseEvent = (hrefValue: string | null) => {
     if (areChildItems) {
-      handleHoverItem(href);
+      handleHoverItem(hrefValue);
     }
   };
 
@@ -37,22 +37,20 @@ export const NavItem = ({
     <li
       key={ID}
       onMouseEnter={() => onMouseEvent(href)}
-      // onMouseLeave={() => onMouseEvent(null)}
-      className='flex justify-start self-stretch'
+      className={styles['nav-item']}
     >
       <Link
         size={isScrolling ? 'medium' : 'large'}
         href={href}
-        className={clsx('uppercase', 'transition-all', 'justify-start')}
+        className={styles['nav-link']}
         trailingIcon={
           areChildItems && (
             <ArrowIcon
               className={clsx(
-                {
-                  'rotate-120': !isHovered,
-                  'rotate-180': isHovered,
-                },
-                'ml-0',
+                styles['nav-link-icon'],
+                isHovered
+                  ? styles['icon-rotate-hovered']
+                  : styles['icon-rotate-default'],
               )}
             />
           )

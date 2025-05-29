@@ -1,0 +1,37 @@
+.contact-bar-wrapper {
+  background-color: $color-background-light;
+  padding: to-rem(8) to-rem(16);
+}
+
+.contact-bar-address-element {
+  @include apply-container-styles();
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-style: normal;
+  color: $color-text-default; 
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  gap: to-rem(8);
+}
+
+.contact-details {
+  display: flex;
+  align-items: center;
+  gap: to-rem(24);
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: to-rem(8);
+  text-decoration: none;
+  color: inherit; 
+
+  &:hover {
+    color: $color-primary-light; 
+  }
+}

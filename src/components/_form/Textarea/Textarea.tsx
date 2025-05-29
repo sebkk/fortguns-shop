@@ -1,6 +1,10 @@
+'use client';
+
 import clsx from 'clsx';
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
+
+import styles from './styles.module.scss';
 
 interface TextareaProps {
   label: string;
@@ -23,8 +27,8 @@ export const Textarea = ({
   textareaProps = {},
 }: TextareaProps) => {
   return (
-    <div className='mb-4'>
-      <label htmlFor={id} className='mb-1 block text-sm font-medium text-white'>
+    <div className={styles['textarea-wrapper']}>
+      <label htmlFor={id} className={styles['textarea-label']}>
         {label}
       </label>
       <textarea
@@ -32,15 +36,13 @@ export const Textarea = ({
         {...register(id)}
         rows={rows}
         className={clsx(
-          'block w-full rounded-md border border-accent bg-background px-3 py-[10px] text-white shadow-sm sm:text-sm',
-          'focus:border-primary focus:outline-none focus:ring-primary',
-          'hover:border-primary-light',
-          error && 'border-error focus:border-error focus:ring-error',
+          styles['textarea-field'],
+          error && styles['textarea-field-error'],
           className,
         )}
         {...textareaProps}
       />
-      {error && <p className='mt-1 text-sm text-error'>{error}</p>}{' '}
+      {error && <p className={styles['error-message']}>{error}</p>}
     </div>
   );
 };

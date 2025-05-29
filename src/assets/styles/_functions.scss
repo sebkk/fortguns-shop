@@ -1,14 +1,62 @@
-@function to-rem($value) {
-  @if type-of($value) != 'number' {
-    @error "Invalid value for to-rem(): '#{$value}' is not a number.";
+@use '_variables' as *;
+
+@use 'sass:meta';
+@use 'sass:math';
+@use 'sass:list';
+
+@function _get-numeric-base-for-rem($base-size) {
+  @if meta.type-of($base-size) != 'number' {
+    @error "Base font size `#{$base-size}` must be a number (from _variables.scss).";
   }
-  @if unitless($value) {
-    @return ($value / $base-font-size-for-rem) * 1rem;
+  @if math.is-unitless($base-size) {
+    @return $base-size; // Assume it's in pixels if unitless
+  } @else if math.unit($base-size) == 'px' {
+    @return math.div($base-size, 1px); // Strip 'px' unit
+  } @else {
+    @error "Base font size `#{$base-size}` must be in px or be a unitless number (assumed to be pixels). Found unit: #{math.unit($base-size)}.";
   }
-  @else if unit($value) == "px" {
-    @return ($value / ($base-font-size-for-rem * 1px)) * 1rem;
+  @return null; // Should not be reached
+}
+
+@function to-rem($values...) {
+  $result-list: ();
+  $numeric-base: _get-numeric-base-for-rem($base-font-size-for-rem);
+
+  @if $numeric-base == null {
+    @error "Invalid base font size: #{$base-font-size-for-rem}. Cannot perform rem conversion.";
+    @return $values;
   }
-  @else {
-    @error "Invalid unit for to-rem(): '#{unit($value)}'. Only px or unitless numbers (assumed to be px) are accepted. Received: '#{$value}'.";
+  @if $numeric-base == 0 {
+    @error "Base font size cannot be 0.";
+    @return $values;
+  }
+
+  @each $value in $values {
+    $current-val: null;
+
+    @if $value == 0 or $value == '0' {
+      $current-val: 0rem;
+    } @else if meta.type-of($value) == 'number' {
+      @if math.is-unitless($value) {
+        $current-val: math.div($value, $numeric-base) * 1rem;
+      } @else if math.unit($value) == 'px' {
+        $current-val: math.div(math.div($value, 1px), $numeric-base) * 1rem;
+      } @else if math.unit($value) == 'rem' {
+        $current-val: $value; // Pass through if already rem
+      } @else {
+        @warn "Value `#{$value}` has unit `#{math.unit($value)}` which is not px or rem. Passing through unchanged.";
+        $current-val: $value;
+      }
+    } @else {
+      // Pass through other types of values (e.g. 'auto', 'inherit', keywords)
+      $current-val: $value;
+    }
+    $result-list: list.append($result-list, $current-val, $separator: space);
+  }
+
+  @if list.length($result-list) == 1 {
+    @return list.nth($result-list, 1);
+  } @else {
+    @return $result-list;
   }
 }

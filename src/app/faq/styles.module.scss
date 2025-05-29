@@ -1,0 +1,16 @@
+.faq-page-container {
+  @include apply-container-styles();
+  padding-top: to-rem(32);    
+  padding-bottom: to-rem(32); 
+}
+
+.faq-heading {
+  margin-bottom: to-rem(40);
+  text-align: center;  
+}
+
+.accordion-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(24); 
+}

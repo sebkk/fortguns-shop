@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import React from 'react';
 
 export const MailIcon = ({ className }: { className?: string }) => {
   return (
@@ -9,7 +8,8 @@ export const MailIcon = ({ className }: { className?: string }) => {
       viewBox='0 0 24 20'
       strokeWidth='1.5'
       stroke='currentColor'
-      className={clsx('size-[23px]', className)}
+      className={clsx(className)}
+      width={23}
     >
       <path
         strokeLinecap='round'

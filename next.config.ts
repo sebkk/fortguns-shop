@@ -4,7 +4,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   sassOptions: {
-    includePaths: [path.join(__dirname, '@/src/assets/styles')],
+    includePaths: [path.join(__dirname, 'src/assets/styles')],
     additionalData: `@use '_variables' as *;
       @use '_functions' as *;
       @use '_mixins' as *;`,

@@ -1,10 +1,16 @@
+@use '_variables' as *;
+@use '_functions' as *;
+
+@use 'sass:meta';
+@use 'sass:math';
+
 @mixin apply-container-styles() {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $container-padding;
+  padding-left: $container-padding;
   width: $container-screen-default;
   max-width: $container-screen-2xl;
-  margin-left: auto;            
-  margin-right: auto;           
-  padding-left: $container-padding;
-  padding-right: $container-padding;
 }
 
 @mixin respond-above($breakpoint-input) {
@@ -47,14 +53,20 @@
   $min-value: $min-breakpoint-input;
   $max-value: $max-breakpoint-input;
 
-  @if meta.type-of($min-value) == 'string' and map.has-key($breakpoints, $min-value) {
+  @if meta.type-of($min-value) ==
+    'string' and
+    map.has-key($breakpoints, $min-value)
+  {
     $min-value: map.get($breakpoints, $min-value);
   } @else if meta.type-of($min-value) != 'number' {
     @warn "Min Breakpoint '#{$min-breakpoint-input}' is not a number nor a key in $breakpoints map.";
     @content;
   }
 
-  @if meta.type-of($max-value) == 'string' and map.has-key($breakpoints, $max-value) {
+  @if meta.type-of($max-value) ==
+    'string' and
+    map.has-key($breakpoints, $max-value)
+  {
     $max-value: map.get($breakpoints, $max-value);
   } @else if meta.type-of($max-value) != 'number' {
     @warn "Max Breakpoint '#{$max-breakpoint-input}' is not a number nor a key in $breakpoints map.";
