@@ -4,6 +4,10 @@ export const LOCALES = [DEFAULT_LOCALE];
 
 // TODO: FETCH PAGES AND GENERATE
 export const PATHNAMES = {
+  '/': {
+    pl: '/',
+    en: '/',
+  },
   '/products': {
     pl: '/produkty',
     en: '/products',
@@ -15,5 +19,9 @@ export const PATHNAMES = {
   '/faq': {
     pl: '/najczestsze-pytania',
     en: '/faq',
+  },
+  '/product/[productSlug]': {
+    pl: '/produkt/[productSlug]',
+    en: '/product/[productSlug]',
   },
 };

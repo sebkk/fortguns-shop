@@ -23,7 +23,7 @@ interface IRootLayoutProps {
 }
 
 const RootLayout = async ({ children, params }: IRootLayoutProps) => {
-  const { locale } = params || {};
+  const { locale } = (await params) || {};
 
   return (
     <html lang={locale}>

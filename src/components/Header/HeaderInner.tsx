@@ -1,8 +1,8 @@
 'use client';
 
+import { Link } from '@/i18n/navigation';
 import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 // import { useState } from 'react';
 
 import { useOnScrollEvent } from '@/hooks/useOnScrollEvent';
@@ -32,23 +32,27 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
     });
 
   return (
-    <header id={headerId} className={styles['header-fixed']} ref={headerRef}>
+    <header
+      id={headerId}
+      className={clsx(styles['header-fixed'])}
+      ref={headerRef}
+    >
       <ContactAddressesBar isScrolling={isScrolling} />
       <div
         className={clsx(
           styles['header-inner-container'],
-          isScrolling && styles['header-inner-container-scrolling'],
+          isScrolling && styles['header-inner-container--scrolling'],
         )}
       >
-        <Link href='/'>
+        <Link className={styles['header-link']} href='/'>
           <Image
             src='https://fortguns.pl/wp-content/uploads/2024/09/cropped-logo-transparent-600x200.png.webp'
             alt='Fortguns'
             width={600}
             height={200}
             className={clsx(
-              styles['logo-image'],
-              isScrolling && styles['logo-image-scrolling'],
+              styles['header-logo-image'],
+              isScrolling && styles['header-logo-image--scrolling'],
             )}
           />
         </Link>

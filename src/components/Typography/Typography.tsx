@@ -19,10 +19,12 @@ type TTag =
 
 type TVariant =
   | 'main-heading'
+  | 'section-heading'
   | 'subheading'
   | 'c-heading'
   | 'body'
-  | 'caption';
+  | 'caption'
+  | 'subtitle';
 
 type TFontWeight = 'normal' | 'medium' | 'semibold' | 'bold';
 
@@ -47,6 +49,8 @@ const variantMap: { [key in TVariant]: string } = {
   'c-heading': styles['variant-c-heading'],
   body: styles['variant-body'],
   caption: styles['variant-caption'],
+  'section-heading': styles['variant-section-heading'],
+  subtitle: styles['variant-subtitle'],
 };
 
 const colorMap: { [key in TColor]: string } = {
@@ -82,7 +86,7 @@ const lineHeightMap: { [key in TLineHeight]: string } = {
   loose: styles['line-height-loose'],
 };
 
-interface ITypographyProps {
+export interface ITypographyProps {
   children?: ReactNode;
   tag?: TTag;
   htmlContent?: string;
@@ -104,7 +108,7 @@ export const Typography = ({
   variant = 'body',
   fontSize,
   fontWeight,
-  lineHeight,
+  lineHeight = 'tight',
   className,
   whitespacePreLine,
   typographyAdditionalProps = {},

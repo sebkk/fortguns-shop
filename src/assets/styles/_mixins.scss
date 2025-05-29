@@ -4,6 +4,12 @@
 @use 'sass:meta';
 @use 'sass:math';
 
+@mixin box-shadow() {
+  box-shadow: $box-shadow-default;
+  -webkit-box-shadow: $box-shadow-default;
+  -moz-box-shadow: $box-shadow-default;
+}
+
 @mixin apply-container-styles() {
   margin-right: auto;
   margin-left: auto;

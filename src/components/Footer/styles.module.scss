@@ -1,5 +1,5 @@
 .footer-wrapper {
-  border-top: 1px solid $color-border-light;
+  // border-top: 1px solid $color-border-light;
   background-color: rgba($color-background-default, 0.2);
   padding-top: to-rem(16);
   padding-bottom: to-rem(16);
@@ -8,32 +8,57 @@
 
 .footer-container {
   @include apply-container-styles();
-  display: grid;
-  position: relative;
-  grid-template-columns: repeat(3, 1fr);
-  gap: to-rem(8);
 }
 
 .footer-nav-heading {
-  margin-bottom: to-rem(8);
+  margin-bottom: to-rem(20);
   color: $color-text-default;
+
+  font-weight: 500;
 
   font-size: to-rem(18);
 }
 
 .footer-nav-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: flex;
+  flex-direction: column;
 
-  li + li {
-    margin-top: to-rem(4);
+  gap: to-rem(15);
+
+  &_contact {
+    gap: to-rem(10);
+    margin-top: to-rem(10);
+
+    a {
+      color: $color-text-bg-dark;
+    }
+  }
+
+  &_socials {
+    flex-shrink: 0;
+    flex-direction: row;
+
+    gap: to-rem(1);
+
+    svg,
+    path {
+      color: $color-text-bg-dark;
+    }
+  }
+}
+
+.nav-item_telegram {
+  svg {
+    fill: $color-text-bg-dark;
   }
 }
 
 .footer-nav-link {
-  color: $color-text-default;
+  // opacity: 0.6;
+  color: $color-text-bg-dark;
+
   text-decoration: none;
+
   &:hover {
     color: $color-primary-light;
     text-decoration: underline;
@@ -41,8 +66,37 @@
 }
 
 .footer-contact-section {
-  grid-column: span 2 / span 2;
   border-radius: to-rem(4);
-  padding: to-rem(16);
+
   color: $color-text-default;
+}
+
+.footer-nav {
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(3, 1fr);
+  gap: to-rem(8);
+
+  border-bottom: $color-text-bg-dark to-rem(1) solid;
+
+  padding: to-rem(20) 0 to-rem(35);
+}
+
+.footer-section-bottom {
+  padding: to-rem(30) 0;
+
+  color: $color-text-bg-dark;
+
+  text-align: center;
+  text-decoration: center;
+}
+.address-link {
+  display: block;
+
+  color: $color-text-bg-dark;
+
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }

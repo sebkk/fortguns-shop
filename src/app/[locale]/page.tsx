@@ -1,7 +1,9 @@
 // import axios from 'axios';
 
 import { ProductsCarousel } from '@/components/ProductsCarousel';
+import { SectionWrapper } from '@/components/SectionWrapper';
 import { Spacer } from '@/components/Spacer';
+import { ShootingRange } from '@/features/content/ShootingRange';
 import { Hero } from '@/features/homepage';
 import { AboutUs } from '@/features/homepage/AboutUs';
 
@@ -21,12 +23,17 @@ const Home = async () => {
       <div className='container'>
         <Hero />
         <Spacer />
-        <ProductsCarousel
-          swiperConfig={{ loop: true, slidesPerView: 4, spaceBetween: 20 }}
-        />
+        <SectionWrapper sectionHeadingProps={{ title: 'Najnowsze produkty' }}>
+          <ProductsCarousel
+            swiperConfig={{ loop: true, slidesPerView: 4, spaceBetween: 20 }}
+          />
+        </SectionWrapper>
       </div>
       <Spacer />
       <AboutUs />
+      <Spacer />
+      <ShootingRange />
+      <Spacer />
     </div>
   );
 };

@@ -9,8 +9,8 @@
 
 .about-us-heading {
   margin-bottom: to-rem(40);
-  text-align: center;
   font-size: to-rem(36);
+  text-align: center;
 }
 
 .content-grid {
@@ -27,14 +27,14 @@
 
 .address-block {
   margin-bottom: to-rem(16);
-  font-size: to-rem(24);
-  font-weight: bold;
   font-style: normal;
+  font-weight: bold;
+  font-size: to-rem(24);
 }
 
 .address-link {
-  margin-bottom: to-rem(12);
   display: block;
+  margin-bottom: to-rem(12);
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -46,9 +46,9 @@
 }
 
 .contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  &_socials {
+    display: flex;
+  }
 }
 
 .contact-list-item {
@@ -58,8 +58,8 @@
 .contact-link {
   display: flex;
   align-items: center;
-  text-decoration: none;
   color: $color-text-default;
+  text-decoration: none;
   &:hover {
     color: $color-primary-light;
   }

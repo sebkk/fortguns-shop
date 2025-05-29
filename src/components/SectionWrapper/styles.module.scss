@@ -1,0 +1,17 @@
+.section-wrapper {
+  &--with-padding {
+    padding: to-rem(56) to-rem(16);
+  }
+
+  &--bg-light {
+    background-color: $color-background-light;
+  }
+}
+
+.section-wrapper-container {
+  @include apply-container-styles();
+}
+
+.section-wrapper-title-desc-wrapper {
+  margin-bottom: to-rem(40);
+}

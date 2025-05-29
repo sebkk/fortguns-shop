@@ -4,6 +4,8 @@
 @use 'sass:math';
 @use 'sass:list';
 
+// PX TO REM
+
 @function _get-numeric-base-for-rem($base-size) {
   @if meta.type-of($base-size) != 'number' {
     @error "Base font size `#{$base-size}` must be a number (from _variables.scss).";

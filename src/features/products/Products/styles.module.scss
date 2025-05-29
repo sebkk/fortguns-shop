@@ -37,6 +37,11 @@
   display: flex;
   align-items: center;
   margin-bottom: 0;
+
+  label {
+    margin-right: to-rem(15);
+    margin-bottom: 0;
+  }
 }
 
 .filter-button {
@@ -60,7 +65,7 @@
 .products-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: to-rem(16);
+  gap: to-rem(25);
 
   @include respond-above($breakpoint-sm) {
     grid-template-columns: repeat(2, 1fr);
@@ -84,4 +89,11 @@
 
 .drawer-apply-button {
   margin-top: to-rem(16);
+}
+
+.products-title-desc-wrapper {
+  @include apply-container-styles();
+  align-items: flex-start;
+
+  text-align: left;
 }

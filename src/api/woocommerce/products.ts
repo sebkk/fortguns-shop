@@ -14,6 +14,8 @@ interface IGetProductsParams {
     | 'popularity'
     | 'rating';
   order?: 'asc' | 'desc';
+  per_page?: number;
+  stock_status?: 'instock' | 'outofstock' | 'onbackorder';
 }
 
 class Products {
