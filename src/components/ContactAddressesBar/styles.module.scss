@@ -1,15 +1,15 @@
 .contact-bar-wrapper {
   background-color: $color-background-light;
-  padding: to-rem(8) to-rem(16);
+  padding: to-rem(8) 0;
 }
 
 .contact-bar-address-element {
   @include apply-container-styles();
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  color: $color-text-default;
   font-style: normal;
-  color: $color-text-default; 
 }
 
 .location-info {
@@ -28,10 +28,10 @@
   display: flex;
   align-items: center;
   gap: to-rem(8);
+  color: inherit;
   text-decoration: none;
-  color: inherit; 
 
   &:hover {
-    color: $color-primary-light; 
+    color: $color-primary-light;
   }
 }

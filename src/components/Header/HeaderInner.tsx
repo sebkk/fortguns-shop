@@ -37,7 +37,7 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
       className={clsx(styles['header-fixed'])}
       ref={headerRef}
     >
-      <ContactAddressesBar isScrolling={isScrolling} />
+      <ContactAddressesBar className={styles['header_contact-address-bar']} />
       <div
         className={clsx(
           styles['header-inner-container'],

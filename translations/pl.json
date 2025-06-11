@@ -2,5 +2,11 @@
   "copyrightText": "© {year} FortGuns. Zachowaj bezpieczeństwo. Strzelaj odpowiedzialnie.",
   "noPrice": "Brak ceny",
   "showProduct": "Pokaż produkt",
-  "productsCount": "{productsCount} z {allProductsCount} produktów"
+  "productsCount": "{productsCount} z {allProductsCount} produktów",
+  "prevPage": "Poprzednia strona",
+  "nextPage": "Następna strona",
+  "navigateToPage": "Idź do strony {pageNumber}",
+  "description": "Opis",
+  "similarProducts": "Podobne produkty",
+  "outOfStock": "Brak w magazynie"
 }

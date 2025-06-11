@@ -15,8 +15,12 @@
 
 .content-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: to-rem(40);
+
+  @include respond-above($breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .info-column {

@@ -1,0 +1,47 @@
+.pagination {
+  display: flex;
+  align-items: stretch;
+
+  gap: to-rem(5);
+}
+
+.pagination-button {
+  border-width: to-rem(1);
+  padding: to-rem(4) to-rem(8);
+  width: to-rem(45);
+
+  height: 100%;
+
+  font-size: to-rem(14);
+}
+
+.pagination-arrow {
+  width: to-rem(18);
+
+  &--first {
+    transform: rotate(90deg);
+  }
+
+  &--last {
+    transform: rotate(270deg);
+  }
+}
+
+.pagination-btn-dots {
+  padding: 0;
+
+  font-size: to-rem(18);
+}
+
+.pagination-select {
+  margin-bottom: 0;
+  height: 100%;
+
+  select {
+    background-image: none;
+    // padding: to-rem(4) to-rem(4);
+    height: 100%;
+
+    text-align: center;
+  }
+}

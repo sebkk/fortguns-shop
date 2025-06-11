@@ -36,12 +36,15 @@ $color-warning-default: #a17717;
 $color-warning-light: #c8912b;
 $color-warning-dark: #7b5b10;
 
+$color-white-default: #ffffff;
+$color-white-2: #ffffff48;
+
 $color-text-default: #dddddd;
 $color-text-medium-dark: #cacacaf0;
 $color-text-dark: #bababad8;
 $color-text-bg-dark: #ffffff61;
-$color-text-primary: #2e5c78;
-$color-text-secondary: #627d4c;
+$color-text-primary: #627d4c;
+$color-text-secondary: #2e5c78;
 $color-text-accent: #5c6b70;
 $color-text-button-primary: #ffffff;
 $color-text-button-secondary: #161a16;
@@ -63,6 +66,7 @@ $header-height-scrolling: 56px;
 $breakpoint-xs: 480px;
 $breakpoint-sm: 640px;
 $breakpoint-md: 768px;
+$breakpoint-2md: 850px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1200px;
 $breakpoint-2xl: 1366px;

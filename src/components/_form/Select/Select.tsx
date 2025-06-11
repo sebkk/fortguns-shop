@@ -7,7 +7,7 @@ import { UseFormRegister } from 'react-hook-form';
 import styles from './styles.module.scss';
 
 interface SelectProps {
-  label: string;
+  label?: string;
   id: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register?: UseFormRegister<any>;
@@ -35,9 +35,11 @@ export const Select = ({
 
   return (
     <div className={finalWrapperClassName}>
-      <label htmlFor={id} className={styles['select-label']}>
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={id} className={styles['select-label']}>
+          {label}
+        </label>
+      )}
       <select
         id={id}
         {...(register ? register(id) : {})}

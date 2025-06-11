@@ -49,3 +49,11 @@
 
   left: 0;
 }
+
+.header_contact-address-bar {
+  display: none;
+
+  @include respond-above($breakpoint-md) {
+    display: flex;
+  }
+}

@@ -9,9 +9,11 @@ export const CopyrightSection = () => {
 
   const year = new Date().getFullYear();
 
+  const yearText = t('copyrightText', { year });
+
   return (
     <Typography fontSize='sm' className={styles['copyright-section']}>
-      {t('copyrightText', { year })}
+      {yearText}
     </Typography>
   );
 };

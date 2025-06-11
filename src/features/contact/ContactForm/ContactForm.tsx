@@ -29,7 +29,7 @@ export const ContactForm = () => {
   });
 
   const onSubmit: SubmitHandler<ContactFormInputs> = (data) => {
-    console.log(data);
+    // console.log(data);
     alert('Wiadomość wysłana (symulacja)!');
   };
 

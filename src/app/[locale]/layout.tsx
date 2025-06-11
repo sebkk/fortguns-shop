@@ -1,12 +1,13 @@
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
-
 import type { Metadata } from 'next';
-
 import { NextIntlClientProvider } from 'next-intl';
 
-import '@/assets/styles/globals.scss';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 import { routing } from '@/i18n/routing';
+
+import '@/assets/styles/globals.scss';
+
+import { Providers } from '@/providers';
 
 export const generateStaticParams = () => {
   return routing.locales.map((locale) => ({ locale }));
@@ -29,9 +30,11 @@ const RootLayout = async ({ children, params }: IRootLayoutProps) => {
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale}>
-          {await Header()}
-          <main className='layout-main'>{children}</main>
-          <Footer />
+          <Providers>
+            {await Header()}
+            <main className='layout-main'>{children}</main>
+            <Footer />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

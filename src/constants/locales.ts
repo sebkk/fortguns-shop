@@ -1,3 +1,5 @@
+import { NAVIGATION_ROUTE } from './navigation';
+
 export const DEFAULT_LOCALE = 'pl';
 
 export const LOCALES = [DEFAULT_LOCALE];
@@ -8,20 +10,20 @@ export const PATHNAMES = {
     pl: '/',
     en: '/',
   },
-  '/products': {
+  [NAVIGATION_ROUTE.PRODUCTS_LISTING]: {
     pl: '/produkty',
-    en: '/products',
+    en: NAVIGATION_ROUTE.PRODUCTS_LISTING,
   },
-  '/contact': {
+  [NAVIGATION_ROUTE.CONTACT]: {
     pl: '/kontakt',
-    en: '/contact',
+    en: NAVIGATION_ROUTE.CONTACT,
   },
-  '/faq': {
+  [NAVIGATION_ROUTE.FAQ]: {
     pl: '/najczestsze-pytania',
-    en: '/faq',
+    en: NAVIGATION_ROUTE.FAQ,
   },
-  '/product/[productSlug]': {
+  [NAVIGATION_ROUTE.PRODUCT_DETAILS]: {
     pl: '/produkt/[productSlug]',
-    en: '/product/[productSlug]',
+    en: NAVIGATION_ROUTE.PRODUCT_DETAILS,
   },
 };

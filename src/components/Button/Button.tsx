@@ -48,7 +48,7 @@ export const Button = ({
     styles['button-base'],
     sizeMap[size],
     variantColorMap[`${variant}-${color}`],
-    disabled && styles.disabled, // Opcjonalna globalna klasa dla :disabled, jeśli potrzebna
+    disabled && styles.disabled,
     className,
   );
 

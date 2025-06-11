@@ -1,0 +1,9 @@
+.product-description-section {
+  border-top: $color-text-bg-dark to-rem(1) solid;
+  padding-top: to-rem(40);
+}
+
+.product-description-title {
+  align-items: flex-start;
+  text-align: left;
+}

@@ -3,6 +3,8 @@
 import clsx from 'clsx';
 import { HTMLAttributes, ReactNode } from 'react';
 
+import parseHTML from 'html-react-parser';
+
 import styles from './styles.module.scss';
 
 type TTag =
@@ -127,11 +129,9 @@ export const Typography = ({
 
   if (htmlContent) {
     return (
-      <Tag
-        className={classNames}
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-        {...typographyAdditionalProps}
-      />
+      <Tag className={classNames} {...typographyAdditionalProps}>
+        {parseHTML(htmlContent)}
+      </Tag>
     );
   }
   return (

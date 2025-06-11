@@ -1,0 +1,16 @@
+.product-price {
+  color: $color-text-default;
+  font-weight: 800;
+  font-size: to-rem(24);
+  line-height: 1.25;
+
+  .dark & {
+    color: $color-text-button-primary;
+  }
+}
+
+.product-price--out-of-stock {
+  color: $color-error-light;
+
+  font-size: to-rem(18);
+}

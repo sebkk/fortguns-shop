@@ -126,7 +126,7 @@ export interface IProduct {
   price_html: string;
   related_ids: number[];
   meta_data: IProductMetaData[];
-  stock_status: string;
+  stock_status: 'instock' | 'outofstock' | 'onbackorder';
   has_options: boolean;
   post_password: string;
   global_unique_id: string;

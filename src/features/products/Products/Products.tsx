@@ -8,6 +8,7 @@ import { ProductCard } from '@/components/ProductCard';
 import { Spacer } from '@/components/Spacer';
 import { IProduct } from '@/types/product';
 
+import { Pagination } from '@/components/Pagination';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { useTranslations } from 'next-intl';
 import styles from './styles.module.scss'; // Import the SCSS module
@@ -118,6 +119,8 @@ export const Products = () => {
 
   const productsCount = Array.isArray(productsData) ? productsData.length : 0;
 
+  const onPageChange = () => {};
+
   return (
     <>
       <Spacer />
@@ -131,7 +134,7 @@ export const Products = () => {
         <div className={styles['header-bar-inner']}>
           <p className={styles['products-count']}>
             {t('productsCount', {
-              productsCount: totalPages || productsCount,
+              productsCount: productsCount,
               allProductsCount: totalProducts,
             })}
           </p>
@@ -147,7 +150,14 @@ export const Products = () => {
         </div>
       </div>
       <div className={styles['main-content-container']}>
-        <Spacer />
+        <Spacer size='md' />
+        <Pagination
+          currentPage={1}
+          totalPages={totalPages}
+          onPageChange={() => {}}
+          wrapperClassName={styles['products-pagination-wrapper']}
+        />
+        <Spacer size='md' />
         {isLoading && (
           <div className={styles['refreshing-text']}>Odświeżanie...</div>
         )}
@@ -164,6 +174,13 @@ export const Products = () => {
             </p>
           )
         )}
+        <Spacer />
+        <Pagination
+          currentPage={1}
+          totalPages={totalPages}
+          onPageChange={() => {}}
+          wrapperClassName={styles['products-pagination-wrapper']}
+        />
       </div>
       <Spacer />
     </>
