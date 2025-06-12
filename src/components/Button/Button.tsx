@@ -21,7 +21,7 @@ interface IButtonProps {
 export const Button = ({
   children,
   onClick,
-  type,
+  type = 'button',
   className,
   buttonProps = {},
   disabled,

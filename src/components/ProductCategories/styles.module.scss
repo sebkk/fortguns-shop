@@ -1,0 +1,31 @@
+.product-categories {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: to-rem(1) to-rem(10);
+}
+
+.product-categories-item {
+  color: $color-text-dark;
+
+  a,
+  span {
+    color: inherit;
+
+    font-size: inherit;
+    text-transform: uppercase;
+  }
+
+  &--small {
+    font-size: to-rem(13);
+  }
+
+  &--large {
+    font-size: to-rem(20);
+  }
+
+  &--with-border {
+    border-right: to-rem(1) solid $color-text-dark;
+    padding-right: to-rem(10);
+  }
+}

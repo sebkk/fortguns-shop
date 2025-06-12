@@ -1,6 +1,11 @@
 .footer-wrapper {
-  // border-top: 1px solid $color-border-light;
-  background-color: rgba($color-background-default, 0.2);
+  position: relative;
+  z-index: 4;
+
+  margin-top: to-rem(-25);
+
+  background-color: $color-background-default;
+
   padding-top: to-rem(16);
   padding-bottom: to-rem(16);
   width: 100%;

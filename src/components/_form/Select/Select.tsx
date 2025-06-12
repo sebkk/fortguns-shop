@@ -16,6 +16,7 @@ interface SelectProps {
   options: { value: string; label: string }[];
   selectProps?: React.SelectHTMLAttributes<HTMLSelectElement>;
   wrapperClassName?: string;
+  placeholder?: string;
 }
 
 export const Select = ({
@@ -27,6 +28,7 @@ export const Select = ({
   className,
   selectProps = {},
   wrapperClassName,
+  placeholder,
 }: SelectProps) => {
   const finalWrapperClassName = clsx(
     styles['select-wrapper'],
@@ -50,6 +52,11 @@ export const Select = ({
         )}
         {...selectProps}
       >
+        {placeholder && (
+          <option value='' disabled selected>
+            {placeholder}
+          </option>
+        )}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

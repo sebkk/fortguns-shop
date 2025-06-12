@@ -10,6 +10,7 @@ interface ISectionWrapperProps {
   children: ReactNode;
   withPadding?: boolean;
   background?: 'light';
+  hidePaddingOnSection?: boolean;
 }
 
 export const SectionWrapper = ({
@@ -18,17 +19,23 @@ export const SectionWrapper = ({
   children,
   withPadding,
   background,
+  hidePaddingOnSection,
 }: ISectionWrapperProps) => {
   return (
     <div
       className={clsx(
-        styles['section-wrapper'],
-        styles[`section-wrapper--bg-${background}`],
-        withPadding && styles['section-wrapper--with-padding'],
-        sectionClassName,
+        styles['section-container'],
+        background && styles[`section-container--bg-${background}`],
+        withPadding && styles['section-container--with-padding'],
       )}
     >
-      <section className={styles['section-wrapper-container']}>
+      <section
+        className={clsx(
+          styles['section'],
+          sectionClassName,
+          !hidePaddingOnSection && styles['section--hide-padding'],
+        )}
+      >
         <TitleWithDesc
           {...sectionHeadingProps}
           wrapperClassName={clsx(

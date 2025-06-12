@@ -10,6 +10,24 @@
   -moz-box-shadow: $box-shadow-default;
 }
 
+@mixin custom-box-shadow($color, $blur, $spread, $opacity, $inset: false) {
+  box-shadow: $color $blur $spread $opacity;
+  -webkit-box-shadow: $color $blur $spread $opacity;
+  -moz-box-shadow: $color $blur $spread $opacity;
+
+  @if $inset {
+    box-shadow: inset $color $blur $spread $opacity;
+    -webkit-box-shadow: inset $color $blur $spread $opacity;
+    -moz-box-shadow: inset $color $blur $spread $opacity;
+  }
+}
+
+@mixin box-shadow-to-browsers($box-shadow) {
+  box-shadow: $box-shadow;
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+}
+
 @mixin apply-container-styles() {
   margin-right: auto;
   margin-left: auto;
@@ -17,6 +35,10 @@
   padding-left: $container-padding;
   width: $container-screen-default;
   max-width: $container-screen-2xl;
+
+  @include respond-above($container-screen-2xl) {
+    padding: 0;
+  }
 }
 
 @mixin respond-above($breakpoint-input) {

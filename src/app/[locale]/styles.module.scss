@@ -1,0 +1,13 @@
+.homepage-container {
+  position: relative;
+  background-color: $color-background-default;
+  width: 100%;
+
+  // @include apply-container-styles();
+}
+
+.homepage-content-container {
+  position: relative;
+  z-index: 3;
+  background-color: $color-background-default;
+}

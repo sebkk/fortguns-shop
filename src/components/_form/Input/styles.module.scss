@@ -1,54 +1,59 @@
-
-
 .input-wrapper {
-  margin-bottom: to-rem(16); 
+  margin-bottom: to-rem(16);
 }
 
 .input-label {
-  display: block; 
-  margin-bottom: to-rem(4); 
-  font-size: to-rem(14); 
-  font-weight: 500; 
-  color: $color-text-button-primary; 
+  display: block;
+  margin-bottom: to-rem(4);
+  color: $color-text-button-primary;
+  font-weight: 500;
+  font-size: to-rem(14);
 }
 
 .input-field {
   display: block;
+  border: 1px solid $color-accent-default;
+  border-radius: to-rem(6);
+  background-color: $color-background-default;
+  padding: to-rem(10) to-rem(16);
   width: 100%;
-  border-radius: to-rem(6); 
-  border: 1px solid $color-accent-default; 
-  background-color: $color-background-default; 
-  padding: to-rem(10) to-rem(16); 
-  color: $color-text-button-primary; 
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); 
-  font-size: to-rem(14); 
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; 
+  color: $color-text-button-primary;
+
+  @include custom-box-shadow($color-shadow-default, 0, to-rem(2), 0.05);
+  transition:
+    border-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+
+  font-size: to-rem(14);
 
   &:hover {
-    border-color: $color-primary-light; 
+    border-color: $color-primary-light;
   }
 
   &:focus {
     outline: none;
-    border-color: $color-primary-default; 
-  
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 0 to-rem(3) rgba($color-primary-default, 0.5);
+    border-color: $color-primary-default;
+
+    --box-shadow-input: 0 1px 2px 0 rgb(0 0 0 / 0.05),
+      0 0 0 to-rem(3) rgba($color-primary-default, 0.5);
+    @include box-shadow-to-browsers(var(--box-shadow-input));
   }
 
-  
   &.input-field-error {
-    border-color: $color-error-default; 
+    border-color: $color-error-default;
 
     &:focus {
-      border-color: $color-error-default; 
-      
-      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 0 to-rem(3) rgba($color-error-default, 0.5);
+      border-color: $color-error-default;
+
+      --box-shadow-input-error: 0 1px 2px 0 rgb(0 0 0 / 0.05),
+        0 0 0 to-rem(3) rgba($color-error-default, 0.5);
+      @include box-shadow-to-browsers(var(--box-shadow-input-error));
     }
   }
 }
 
 .error-message {
-  margin-top: to-rem(4); 
-  font-size: to-rem(14); 
-  color: $color-error-default; 
+  margin-top: to-rem(4);
+  color: $color-error-default;
+  font-size: to-rem(14);
 }

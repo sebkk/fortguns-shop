@@ -49,17 +49,28 @@ $color-text-accent: #5c6b70;
 $color-text-button-primary: #ffffff;
 $color-text-button-secondary: #161a16;
 
+$color-shadow-default: rgba(87, 87, 87, 0.514);
+
 // CONTAINER
 
 $container-padding: 1rem;
 $container-screen-default: 100%;
 $container-screen-2xl: 1200px;
 
+$scroll-container-min-height: 300px;
+$scroll-container-height: 80vh;
+
 // HEADER
 
-$layout-top-padding: 150px;
+$layout-top-padding: 140px;
+$layout-top-padding-mobile: 70px;
 $header-height: 98px;
+$header-height-mobile: 70px;
 $header-height-scrolling: 56px;
+
+// DRAWER
+
+$drawer-max-width: 448px;
 
 // BREAKPOINTS
 
@@ -88,4 +99,4 @@ $default-font-family:
 
 // BOX-SHADOW
 
-$box-shadow-default: 0px 0px 25px -10px rgba(39, 38, 38, 0.628);
+$box-shadow-default: 0px 0px 10px 0px $color-shadow-default;

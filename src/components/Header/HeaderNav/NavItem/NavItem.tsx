@@ -13,6 +13,8 @@ interface INavItemProps {
   isScrolling: boolean;
   handleHoverItem: (item: string | null) => void;
   hoveredItem: string | null;
+  handleOpen: () => void;
+  open: boolean;
 }
 
 export const NavItem = ({
@@ -20,16 +22,18 @@ export const NavItem = ({
   isScrolling,
   handleHoverItem,
   hoveredItem,
+  handleOpen,
+  open,
 }: INavItemProps) => {
   const { ID, child_items, title, slug, url } = item || {};
   const href = slug ? `/${slug}` : url;
 
   const areChildItems = !!child_items;
-  const isHovered = hoveredItem === href;
 
   const onMouseEvent = (hrefValue: string | null) => {
     if (areChildItems) {
       handleHoverItem(hrefValue);
+      handleOpen();
     }
   };
 
@@ -48,7 +52,7 @@ export const NavItem = ({
             <ArrowIcon
               className={clsx(
                 styles['nav-link-icon'],
-                isHovered
+                open
                   ? styles['icon-rotate-hovered']
                   : styles['icon-rotate-default'],
               )}

@@ -1,3 +1,7 @@
+.products-container {
+  width: 100%;
+}
+
 .loading-or-error-container {
   @include apply-container-styles();
   padding: to-rem(32) to-rem(16);
@@ -13,13 +17,15 @@
 }
 
 .header-bar-inner {
-  @include apply-container-styles();
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: to-rem(16);
-  padding: to-rem(16) to-rem(24);
+
+  @include apply-container-styles();
+
+  padding: to-rem(16) 0 !important;
 }
 
 .products-count {

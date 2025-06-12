@@ -8,5 +8,7 @@
   "navigateToPage": "Idź do strony {pageNumber}",
   "description": "Opis",
   "similarProducts": "Podobne produkty",
-  "outOfStock": "Brak w magazynie"
+  "outOfStock": "Brak w magazynie",
+  "closeDrawer": "Zamknij",
+  "goBack": "Wróć"
 }

@@ -1,8 +1,7 @@
 'use client';
 
+import { Link as NextLink } from '@/i18n/navigation';
 import clsx from 'clsx';
-import { Url } from 'next/dist/shared/lib/router/router';
-import NextLink from 'next/link';
 
 import styles from './styles.module.scss';
 import { ILinkProps } from './types';
@@ -17,6 +16,7 @@ export const Link = ({
   trailingIcon,
   anchorProps = {},
   nextLinkProps = {},
+  shouldFillIcon = false,
 }: ILinkProps) => {
   const variantClassMap = {
     primary: styles['link-primary'],
@@ -34,15 +34,15 @@ export const Link = ({
     styles['link-base'],
     variantClassMap[variant],
     sizeClassMap[size],
+    shouldFillIcon && styles['link-should-fill-icon'],
     className,
   );
-
   return (
     <NextLink
-      href={href as Url}
+      href={href}
       className={classNames}
-      {...anchorProps}
       {...nextLinkProps}
+      {...anchorProps}
     >
       {leadingIcon && (
         <span className={styles['leading-icon-wrapper']}>{leadingIcon}</span>

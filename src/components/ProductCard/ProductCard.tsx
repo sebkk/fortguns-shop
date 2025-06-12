@@ -1,22 +1,23 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { Button } from '@/components/Button';
+import { Link } from '@/components/Link';
+import { ProductCategories } from '@/components/ProductCategories';
+import { ProductPrice } from '@/components/ProductPrice';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { IProduct } from '@/types/product';
 
-import { Link, useRouter } from '@/i18n/navigation';
-import { useTranslations } from 'next-intl';
-
-import { NAVIGATION_ROUTE } from '@/constants/navigation';
-import { ProductPrice } from '../ProductPrice/ProductPrice';
 import styles from './styles.module.scss';
 
-interface ProductCardProps {
+interface IProductCardProps {
   product: IProduct;
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({ product }: IProductCardProps) => {
   const t = useTranslations();
   const { push } = useRouter();
 
@@ -24,7 +25,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     product || {};
 
   const firstImage = images?.[0];
-  const categoryName = categories?.[1]?.name || categories?.[0]?.name || '';
 
   const navigationObj = {
     //@ts-ignore
@@ -52,9 +52,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <Link href={navigationObj} className={styles['product-name-link']}>
             {name}
           </Link>
-          {categoryName && (
-            <p className={styles['product-category']}>{categoryName}</p>
-          )}
+          <ProductCategories
+            categories={categories}
+            size='small'
+            classNameWrapper={styles['product-categories']}
+          />
         </div>
 
         <div className={styles['actions-section']}>

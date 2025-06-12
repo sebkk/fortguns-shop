@@ -40,9 +40,13 @@
       $current-val: 0rem;
     } @else if meta.type-of($value) == 'number' {
       @if math.is-unitless($value) {
-        $current-val: math.div($value, $numeric-base) * 1rem;
+        $sign: if($value < 0, -1, 1);
+        $abs-value: math.abs($value);
+        $current-val: $sign * math.div($abs-value, $numeric-base) * 1rem;
       } @else if math.unit($value) == 'px' {
-        $current-val: math.div(math.div($value, 1px), $numeric-base) * 1rem;
+        $sign: if($value < 0, -1, 1);
+        $abs-value: math.abs($value);
+        $current-val: $sign * math.div($abs-value, $numeric-base) * 1rem;
       } @else if math.unit($value) == 'rem' {
         $current-val: $value; // Pass through if already rem
       } @else {

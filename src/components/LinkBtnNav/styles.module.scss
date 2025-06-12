@@ -1,0 +1,37 @@
+.link-btn-nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  transition:
+    background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out,
+    color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+
+  border: 1px solid $color-border-light;
+  border-radius: to-rem(8);
+
+  padding: to-rem(8) to-rem(12);
+  height: to-rem(42);
+
+  color: $color-text-button-primary;
+  font-weight: 500;
+  text-align: left;
+
+  text-decoration: none !important;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary-dark;
+    color: $color-primary-dark;
+  }
+  &:active:not(:disabled) {
+    border-color: $color-primary-light;
+    color: $color-primary-light;
+  }
+
+  svg {
+    transform: rotate(-90deg);
+    margin: 0;
+  }
+}

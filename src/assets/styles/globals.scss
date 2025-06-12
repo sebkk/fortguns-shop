@@ -6,10 +6,9 @@
 
 body {
   background-color: $color-background-default;
-
   min-height: 100vh;
   color: $color-text-default;
-
+  line-height: 1;
   font-family: $default-font-family;
 }
 
@@ -18,9 +17,24 @@ body {
 }
 
 .layout-main {
-  padding-top: $layout-top-padding;
+  display: flex;
+  flex-direction: column;
+
+  padding-top: $layout-top-padding-mobile;
   min-height: 100vh;
   font-family: $default-font-family;
+
+  @include respond-above($breakpoint-md) {
+    padding-top: $layout-top-padding;
+  }
+}
+
+.layout-content {
+  display: flex;
+
+  position: relative;
+  flex: 1;
+  flex-direction: column;
 }
 
 .container {
@@ -33,6 +47,8 @@ body {
 
 a {
   color: $color-text-default;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 address {
@@ -147,9 +163,6 @@ section {
 *[hidden] {
   display: none;
 }
-body {
-  line-height: 1;
-}
 menu,
 ol,
 ul {
@@ -196,4 +209,5 @@ button {
   background: none;
   padding: 0;
   font-family: $default-font-family;
+  -webkit-tap-highlight-color: transparent;
 }

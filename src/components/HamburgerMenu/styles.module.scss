@@ -1,0 +1,47 @@
+.hamburger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: to-rem(8);
+  color: $color-text-default;
+
+  &:hover {
+    color: $color-primary-dark;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &__svg {
+    width: to-rem(24);
+    height: to-rem(24);
+  }
+
+  &__line {
+    transform-origin: center;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  &--open {
+    .hamburger__line {
+      &:first-child {
+        transform: translateY(to-rem(6)) rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: translateY(to-rem(-6)) rotate(-45deg);
+      }
+    }
+  }
+}

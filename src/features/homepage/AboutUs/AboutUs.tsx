@@ -4,6 +4,8 @@ import { TelegramIcon } from '@/components/_icons/TelegramIcon';
 import { GoogleMapComponent } from '@/components/GoogleMapComponent';
 
 import { SectionWrapper } from '@/components/SectionWrapper';
+
+import { Link } from '@/components/Link';
 import styles from './styles.module.scss';
 
 const containerStyle = {
@@ -57,9 +59,13 @@ export const AboutUs = () => {
           <ul className={styles['contact-list']}>
             {contactInfo.map(({ value, type, icon }) => (
               <li className={styles['contact-list-item']} key={type}>
-                <a className={styles['contact-link']} href={`${type}:${value}`}>
+                <Link
+                  className={styles['contact-link']}
+                  href={`${type}:${value}`}
+                  shouldFillIcon={type === 'telegram'}
+                >
                   {icon} {value}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

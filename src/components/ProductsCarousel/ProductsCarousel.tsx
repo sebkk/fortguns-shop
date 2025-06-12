@@ -1,18 +1,18 @@
 'use client';
 
+import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import type TSwiper from 'swiper';
+import 'swiper/css';
 import { Keyboard, Mousewheel, Navigation } from 'swiper/modules';
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 
 import productsApi from '@/api/woocommerce/products';
+import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
 import { ProductCard } from '@/components/ProductCard';
 import { IProduct } from '@/types/product';
-import clsx from 'clsx';
-import 'swiper/css';
 
-import { ArrowIcon } from '../_icons/ArrowIcon';
 import styles from './styles.module.scss';
 
 const swiperButtonPrev = styles['products-btn_prev'];
@@ -73,18 +73,18 @@ export const ProductsCarousel = ({
         spaceBetween={15}
         slidesPerView={1.2}
         slidesPerGroup={1}
-        slidesOffsetBefore={10}
-        slidesOffsetAfter={10}
         breakpoints={{
-          530: { slidesPerGroup: 2, slidesPerView: 2.2, spaceBetween: 10 },
+          530: { slidesPerGroup: 2, slidesPerView: 2.2, spaceBetween: 20 },
           768: {
             slidesPerGroup: 2,
             slidesPerView: 3,
             spaceBetween: 15,
-            slidesOffsetAfter: 0,
-            slidesOffsetBefore: 0,
           },
-          1020: { slidesPerGroup: 2, slidesPerView: 4, spaceBetween: 20 },
+          1020: {
+            slidesPerGroup: 2,
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
         }}
         loopAddBlankSlides={false}
         keyboard
@@ -110,7 +110,11 @@ export const ProductsCarousel = ({
           </Button>
         )}
         {productsToDisplay.map((product) => (
-          <SwiperSlide style={{ height: 'auto' }} key={product.id}>
+          <SwiperSlide
+            className={styles['products-carousel-swiper-slide']}
+            style={{ height: 'auto' }}
+            key={product.id}
+          >
             <ProductCard product={product} />
           </SwiperSlide>
         ))}

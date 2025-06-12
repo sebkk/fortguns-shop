@@ -9,6 +9,12 @@
   color: $color-text-default;
   text-decoration: none;
 
+  &.link-should-fill-icon {
+    svg {
+      transition: fill 0.3s ease-in-out;
+    }
+  }
+
   &:focus {
     outline: none;
   }
@@ -18,11 +24,23 @@
   &:hover {
     color: $color-primary-default;
     text-decoration: underline;
+
+    &.link-should-fill-icon {
+      svg {
+        fill: $color-primary-default;
+      }
+    }
   }
   &:focus,
   &:active {
     color: $color-primary-light;
     text-decoration: underline;
+
+    &.link-should-fill-icon {
+      svg {
+        fill: $color-primary-light;
+      }
+    }
   }
 }
 
@@ -30,11 +48,23 @@
   &:hover {
     color: $color-secondary-default;
     text-decoration: underline;
+
+    &.link-should-fill-icon {
+      svg {
+        fill: $color-secondary-default;
+      }
+    }
   }
   &:focus,
   &:active {
     color: $color-secondary-light;
     text-decoration: underline;
+
+    &.link-should-fill-icon {
+      svg {
+        fill: $color-secondary-light;
+      }
+    }
   }
 }
 
@@ -42,11 +72,23 @@
   &:hover {
     color: $color-accent-default;
     text-decoration: underline;
+
+    &.link-should-fill-icon {
+      svg {
+        fill: $color-accent-default;
+      }
+    }
   }
   &:focus,
   &:active {
     color: $color-accent-light;
     text-decoration: underline;
+
+    &.link-should-fill-icon {
+      svg {
+        fill: $color-accent-light;
+      }
+    }
   }
 }
 

@@ -5,6 +5,8 @@ import { ProductPrice } from '@/components/ProductPrice';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { IProduct } from '@/types/product';
 
+import { ProductCategories } from '@/components/ProductCategories';
+
 import styles from './styles.module.scss';
 
 interface IProductMainSectionProps {
@@ -12,7 +14,10 @@ interface IProductMainSectionProps {
 }
 
 export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
-  const { name, price, sale_price, images, stock_status } = product || {};
+  const { name, price, sale_price, images, stock_status, categories } =
+    product || {};
+
+  console.log(product);
 
   return (
     <div className={styles['product-main-section']}>
@@ -41,6 +46,11 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
           )}
           title={name}
           titleProps={{ tag: 'h1' }}
+        />
+        <ProductCategories
+          categories={categories}
+          classNameWrapper={styles['product-categories-wrapper']}
+          asLink
         />
         <ProductPrice
           className={styles['product-details-price']}

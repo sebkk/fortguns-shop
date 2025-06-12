@@ -1,6 +1,8 @@
 import { Products } from '@/features/products/Products';
 
-const ProductsPage = () => {
+interface IProductsPageProps {}
+
+const ProductsPage = ({}: IProductsPageProps) => {
   return <Products />;
 };
 

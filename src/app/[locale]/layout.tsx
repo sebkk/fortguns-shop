@@ -32,7 +32,9 @@ const RootLayout = async ({ children, params }: IRootLayoutProps) => {
         <NextIntlClientProvider locale={locale}>
           <Providers>
             {await Header()}
-            <main className='layout-main'>{children}</main>
+            <main className='layout-main'>
+              <div className='layout-content'>{children}</div>
+            </main>
             <Footer />
           </Providers>
         </NextIntlClientProvider>

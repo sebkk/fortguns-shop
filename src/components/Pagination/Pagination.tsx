@@ -84,8 +84,6 @@ export const Pagination: React.FC<PaginationProps> = ({
     siblingCount,
   });
 
-  console.log(paginationRange);
-
   if (totalPages <= 1) {
     return null;
   }
@@ -109,17 +107,13 @@ export const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <nav
-      aria-label='Pagination'
-      className={clsx(wrapperClassName && wrapperClassName)}
-    >
+    <nav aria-label='Pagination' className={clsx(wrapperClassName)}>
       <ul className={styles['pagination']}>
         <li>
           <Button
             onClick={handlePrevious}
             disabled={currentPage === 1}
             aria-label={t('prevPage')}
-            type='button'
             variant='outlined'
             className={styles['pagination-button']}
           >
@@ -138,25 +132,30 @@ export const Pagination: React.FC<PaginationProps> = ({
               <li key={`${DOTS}-${index}`} aria-hidden='true'>
                 <Select
                   selectProps={{
-                    value: '...',
                     defaultValue: '...',
+                    onChange: (e) => {
+                      const value = e.target.value;
+                      if (value !== '...') {
+                        handlePageClick(Number(value));
+                      }
+                    },
                   }}
-                  options={[{ value: '...', label: '...' }]}
+                  placeholder={DOTS}
+                  options={Array.from({ length: totalPages }, (_, i) => i + 1)
+                    .filter(
+                      (page) =>
+                        !paginationRange.includes(page) &&
+                        page !== 1 &&
+                        page !== totalPages,
+                    )
+                    .map((page) => ({
+                      value: page.toString(),
+                      label: page.toString(),
+                    }))}
                   id='pagination-select'
                   wrapperClassName={clsx(styles['pagination-select'])}
                   className={styles['pagination-button']}
                 />
-
-                {/* <Button
-                  type='button'
-                  variant='blank'
-                  className={clsx(
-                    styles['pagination-button'],
-                    styles['pagination-btn-dots'],
-                  )}
-                >
-                  {DOTS}
-                </Button> */}
               </li>
             );
           }
@@ -183,7 +182,6 @@ export const Pagination: React.FC<PaginationProps> = ({
             onClick={handleNext}
             disabled={currentPage === totalPages}
             aria-label={t('nextPage')}
-            type='button'
             variant='outlined'
             className={styles['pagination-button']}
           >

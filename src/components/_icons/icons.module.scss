@@ -1,4 +1,18 @@
 .arrow-icon {
-  margin-left: to-rem(2);
   transition: transform 300ms;
+  margin-left: to-rem(2);
+}
+
+.hamburger-icon {
+  &__svg {
+    width: to-rem(24);
+    height: to-rem(24);
+  }
+
+  &__line {
+    transform-origin: center;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
 }

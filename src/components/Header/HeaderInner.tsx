@@ -2,34 +2,38 @@
 
 import { Link } from '@/i18n/navigation';
 import clsx from 'clsx';
-import Image from 'next/image';
-// import { useState } from 'react';
+import { useEffect } from 'react';
 
+import { ContactAddressesBar } from '@/components/ContactAddressesBar';
+import { HamburgerMenu } from '@/components/HamburgerMenu';
+import { Logo } from '@/components/Logo';
 import { useOnScrollEvent } from '@/hooks/useOnScrollEvent';
+import { useScroll } from '@/providers/ScrollProvider';
 import { MenuItem } from '@/types/menus';
 
-import { ContactAddressesBar } from '../ContactAddressesBar';
 import { HeaderNav } from './HeaderNav';
+
+import { useScreenWidth } from '@/hooks/useScreenWidth';
+import { HeaderDrawerNav } from './HeaderDrawerNav';
 import styles from './styles.module.scss';
 
 interface IHeaderInnerProps {
   navHeaderMenuItems: MenuItem[];
 }
-// const HEADER_HEIGHT = 136;
 const headerId = 'navbar-fixed';
 
 export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
-  // const [headerHeight, setHeaderHeight] = useState(HEADER_HEIGHT);
-
   const { isScrolling, scrollingRef: headerRef } =
     useOnScrollEvent<HTMLElement>({
       elementId: headerId,
-      callback: (_e, element) => {
-        if (element) {
-          // setHeaderHeight(element.clientHeight);
-        }
-      },
     });
+  const { handleScrolling } = useScroll();
+
+  useEffect(() => {
+    handleScrolling(isScrolling);
+  }, [isScrolling]);
+
+  const { isSmallScreen } = useScreenWidth();
 
   return (
     <header
@@ -45,24 +49,44 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
         )}
       >
         <Link className={styles['header-link']} href='/'>
-          <Image
-            src='https://fortguns.pl/wp-content/uploads/2024/09/cropped-logo-transparent-600x200.png.webp'
-            alt='Fortguns'
-            width={600}
-            height={200}
+          <Logo
             className={clsx(
               styles['header-logo-image'],
               isScrolling && styles['header-logo-image--scrolling'],
             )}
+            imageProps={{
+              width: 192,
+              height: 64,
+            }}
           />
         </Link>
-        <HeaderNav
-          navHeaderMenuItems={navHeaderMenuItems}
-          isScrolling={isScrolling}
-          // headerRef={headerRef}
-          // headerHeight={headerHeight}
-        />
+        {!isSmallScreen && (
+          <HeaderNav
+            navHeaderMenuItems={navHeaderMenuItems}
+            isScrolling={isScrolling}
+          />
+        )}
         <div />
+        {isSmallScreen && (
+          <HamburgerMenu
+            className={styles['header-hamburger-btn']}
+            drawerProps={{
+              titleElement: (
+                <Link className={styles['header-logo-link--image']} href='/'>
+                  <Logo
+                    className={styles['header-logo-image-mobile']}
+                    imageProps={{
+                      width: 160,
+                      height: 53.33,
+                    }}
+                  />
+                </Link>
+              ),
+            }}
+          >
+            <HeaderDrawerNav navHeaderMenuItems={navHeaderMenuItems} />
+          </HamburgerMenu>
+        )}
       </div>
     </header>
   );

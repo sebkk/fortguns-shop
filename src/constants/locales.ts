@@ -26,4 +26,8 @@ export const PATHNAMES = {
     pl: '/produkt/[productSlug]',
     en: NAVIGATION_ROUTE.PRODUCT_DETAILS,
   },
+  [NAVIGATION_ROUTE.PRODUCTS_LISTING_PAGINATION]: {
+    pl: '/produkty/[pageNumber]',
+    en: NAVIGATION_ROUTE.PRODUCTS_LISTING_PAGINATION,
+  },
 };

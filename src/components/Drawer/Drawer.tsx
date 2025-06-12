@@ -1,25 +1,40 @@
 'use client';
-
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
+import { ReactNode, useEffect } from 'react';
 
+import { Button } from '@/components/Button';
 import { Overlay } from '@/components/Overlay';
 
+import { usePathname } from '@/i18n/navigation';
 import styles from './styles.module.scss';
 
-interface IDrawerProps {
+export interface IDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
   title?: string;
+  titleElement?: ReactNode;
+  drawerClassName?: string;
 }
 
 export const Drawer = ({
   isOpen,
   onClose,
   children,
-  title = 'Filtry',
+  title,
+  titleElement,
+  drawerClassName,
 }: IDrawerProps) => {
+  const t = useTranslations();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (isOpen) {
+      onClose();
+    }
+  }, [pathname]);
+
   return (
     <>
       <Overlay isOpen={isOpen} onClose={onClose} />
@@ -27,6 +42,7 @@ export const Drawer = ({
         className={clsx(
           styles['drawer-panel'],
           isOpen && styles['drawer-panel-open'],
+          drawerClassName,
         )}
         role='dialog'
         aria-modal='true'
@@ -34,16 +50,19 @@ export const Drawer = ({
         aria-hidden={!isOpen}
       >
         <div className={styles['drawer-header']}>
-          <h2 id='drawer-title' className={styles['drawer-title']}>
-            {title}
-          </h2>
-          <button
+          {titleElement || (
+            <h2 id='drawer-title' className={styles['drawer-title']}>
+              {title}
+            </h2>
+          )}
+          <Button
             onClick={onClose}
             className={styles['drawer-close-button']}
-            aria-label='Zamknij panel'
+            aria-label={t('closeDrawer')}
+            variant='blank'
           >
             &times;
-          </button>
+          </Button>
         </div>
         <div className={styles['drawer-content']}>{children}</div>
       </div>

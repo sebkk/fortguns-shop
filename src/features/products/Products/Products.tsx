@@ -10,6 +10,8 @@ import { IProduct } from '@/types/product';
 
 import { Pagination } from '@/components/Pagination';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import styles from './styles.module.scss'; // Import the SCSS module
 
@@ -53,8 +55,13 @@ const sortOptions: SortOption[] = [
   },
 ];
 
-export const Products = () => {
+interface IProductsProps {
+  pageNumber?: number;
+}
+
+export const Products = ({ pageNumber = 1 }: IProductsProps) => {
   const t = useTranslations();
+  const { push } = useRouter();
 
   const [productsData, setProductsData] = useState<IProduct[] | null>(null);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -119,10 +126,16 @@ export const Products = () => {
 
   const productsCount = Array.isArray(productsData) ? productsData.length : 0;
 
-  const onPageChange = () => {};
+  const onPageChange = (page: number) => {
+    push({
+      //@ts-ignore
+      pathname: NAVIGATION_ROUTE.PRODUCTS_LISTING_PAGINATION,
+      params: { pageNumber: page },
+    });
+  };
 
   return (
-    <>
+    <div className={styles['products-container']}>
       <Spacer />
       <TitleWithDesc
         wrapperClassName={styles['products-title-desc-wrapper']}
@@ -152,7 +165,7 @@ export const Products = () => {
       <div className={styles['main-content-container']}>
         <Spacer size='md' />
         <Pagination
-          currentPage={1}
+          currentPage={pageNumber}
           totalPages={totalPages}
           onPageChange={() => {}}
           wrapperClassName={styles['products-pagination-wrapper']}
@@ -176,13 +189,13 @@ export const Products = () => {
         )}
         <Spacer />
         <Pagination
-          currentPage={1}
+          currentPage={pageNumber}
           totalPages={totalPages}
-          onPageChange={() => {}}
+          onPageChange={onPageChange}
           wrapperClassName={styles['products-pagination-wrapper']}
         />
       </div>
       <Spacer />
-    </>
+    </div>
   );
 };

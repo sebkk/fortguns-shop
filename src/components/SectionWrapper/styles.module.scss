@@ -1,15 +1,17 @@
-.section-wrapper {
-  &--with-padding {
-    padding: to-rem(56) to-rem(16);
-  }
-
-  &--bg-light {
-    background-color: $color-background-light;
-  }
+.section-container--with-padding {
+  padding: to-rem(56) to-rem(16);
 }
 
-.section-wrapper-container {
+.section-container--bg-light {
+  background-color: $color-background-light;
+}
+
+.section {
   @include apply-container-styles();
+}
+
+.section--hide-padding {
+  padding: 0;
 }
 
 .section-wrapper-title-desc-wrapper {
