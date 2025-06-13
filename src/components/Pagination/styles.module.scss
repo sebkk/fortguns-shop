@@ -23,7 +23,7 @@
   }
 
   &--last {
-    transform: rotate(270deg);
+    transform: rotate(-90deg);
   }
 }
 
@@ -35,13 +35,40 @@
 
 .pagination-select {
   margin-bottom: 0;
+  min-width: to-rem(80);
+  min-width: unset;
+
   height: 100%;
 
   select {
     background-image: none;
-    // padding: to-rem(4) to-rem(4);
+    padding: to-rem(8);
+
     height: 100%;
 
     text-align: center;
+
+    @include respond-above($breakpoint-md) {
+      padding: to-rem(4);
+    }
+  }
+}
+
+.pagination-select-mobile {
+  display: block;
+}
+
+.pagination-numbers {
+  display: none;
+  gap: to-rem(8);
+}
+
+@include respond-above($breakpoint-md) {
+  .pagination-select-mobile {
+    display: none;
+  }
+
+  .pagination-numbers {
+    display: flex;
   }
 }

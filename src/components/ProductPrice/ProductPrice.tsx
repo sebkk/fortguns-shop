@@ -33,7 +33,7 @@ export const ProductPrice = ({
   }
   return (
     <p className={clsx(styles['product-price'], className)}>
-      {price ? `${price} zł` : t('noPrice')}
+      {price ? `${Number(price).toFixed(2)} zł` : t('noPrice')}
     </p>
   );
 };

@@ -1,21 +1,22 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-
-import productsApi from '@/api/woocommerce/products';
-import { Select } from '@/components/_form/Select';
-import { ProductCard } from '@/components/ProductCard';
-import { Spacer } from '@/components/Spacer';
-import { IProduct } from '@/types/product';
-
-import { Pagination } from '@/components/Pagination';
-import { TitleWithDesc } from '@/components/TitleWithDesc';
-import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { useRouter } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import { useCallback, useState } from 'react';
+
+import productsApi from '@/api/woocommerce/products';
+import { Pagination } from '@/components/Pagination';
+import { ProductCard } from '@/components/ProductCard';
+import { Spacer } from '@/components/Spacer';
+import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { ICategory } from '@/types/categories';
+import { IProduct, StockStatus } from '@/types/product';
+
+import { ProductsHeader } from './ProductsHeader';
 import styles from './styles.module.scss'; // Import the SCSS module
 
-type SortOption = {
+export type SortOption = {
   value: string;
   label: string;
   orderby?:
@@ -57,16 +58,29 @@ const sortOptions: SortOption[] = [
 
 interface IProductsProps {
   pageNumber?: number;
+  totalPages?: number;
+  totalProducts?: number;
+  products?: IProduct[];
+  pageTitle?: string;
+  pageDescription?: string;
+  category?: ICategory;
 }
 
-export const Products = ({ pageNumber = 1 }: IProductsProps) => {
+export const Products = ({
+  pageNumber = 1,
+  totalPages = 0,
+  totalProducts = 0,
+  products,
+  pageTitle,
+  pageDescription,
+  category,
+}: IProductsProps) => {
   const t = useTranslations();
   const { push } = useRouter();
 
-  const [productsData, setProductsData] = useState<IProduct[] | null>(null);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [totalProducts, setTotalProducts] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const pathname = usePathname();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [currentSort, setCurrentSort] = useState<string>('default');
 
@@ -82,16 +96,11 @@ export const Products = ({ pageNumber = 1 }: IProductsProps) => {
           ? {
               orderby: selectedSortOption.orderby,
               order: selectedSortOption.order,
-              stock_status: 'instock' as const,
+              stock_status: StockStatus.INSTOCK,
             }
           : {};
 
       const res = await productsApi.getProducts({ per_page: 12, ...params });
-      setProductsData(res.data as IProduct[]);
-      setTotalPages(
-        parseInt(res.headers['x-wp-totalpages'] || '0', 10) || res.data.length,
-      );
-      setTotalProducts(parseInt(res.headers['x-wp-total'] || '0', 10));
     } catch (err) {
       console.error(err);
       setError('Nie udało się załadować produktów.');
@@ -100,15 +109,11 @@ export const Products = ({ pageNumber = 1 }: IProductsProps) => {
     }
   }, []);
 
-  useEffect(() => {
-    fetchProducts(currentSort);
-  }, [currentSort, fetchProducts]);
-
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentSort(event.target.value);
   };
 
-  if (isLoading && !productsData) {
+  if (isLoading && !products) {
     return (
       <div className={styles['loading-or-error-container']}>Loading...</div>
     );
@@ -124,14 +129,19 @@ export const Products = ({ pageNumber = 1 }: IProductsProps) => {
     );
   }
 
-  const productsCount = Array.isArray(productsData) ? productsData.length : 0;
-
   const onPageChange = (page: number) => {
-    push({
-      //@ts-ignore
-      pathname: NAVIGATION_ROUTE.PRODUCTS_LISTING_PAGINATION,
-      params: { pageNumber: page },
-    });
+    let path = pathname;
+
+    if (path.includes(`/${pageNumber}`)) {
+      path = path.replace(`/${pageNumber}`, `/${page}`);
+    } else {
+      path = path + `/${page}`;
+    }
+
+    push(path);
+
+    //@ts-ignore
+    window.scrollTo(0, 0, { behavior: 'smooth' });
   };
 
   return (
@@ -139,44 +149,32 @@ export const Products = ({ pageNumber = 1 }: IProductsProps) => {
       <Spacer />
       <TitleWithDesc
         wrapperClassName={styles['products-title-desc-wrapper']}
-        title='Tytuł strony'
-        description='opis strony'
+        title={pageTitle || category?.name}
+        description={pageDescription || category?.description}
       />
       <Spacer />
-      <div className={styles['header-bar']}>
-        <div className={styles['header-bar-inner']}>
-          <p className={styles['products-count']}>
-            {t('productsCount', {
-              productsCount: productsCount,
-              allProductsCount: totalProducts,
-            })}
-          </p>
-          <div className={styles['controls-container']}>
-            <Select
-              label='Sortowanie'
-              selectProps={{ value: currentSort, onChange: handleSortChange }}
-              id='products-sort'
-              options={sortOptions}
-              wrapperClassName={styles['sort-select-wrapper']}
-            />
-          </div>
-        </div>
-      </div>
+      <ProductsHeader
+        pageNumber={pageNumber}
+        totalProducts={totalProducts}
+        currentSort={currentSort}
+        handleSortChange={handleSortChange}
+        sortOptions={sortOptions}
+      />
       <div className={styles['main-content-container']}>
         <Spacer size='md' />
         <Pagination
           currentPage={pageNumber}
           totalPages={totalPages}
-          onPageChange={() => {}}
+          onPageChange={onPageChange}
           wrapperClassName={styles['products-pagination-wrapper']}
         />
         <Spacer size='md' />
         {isLoading && (
           <div className={styles['refreshing-text']}>Odświeżanie...</div>
         )}
-        {!isLoading && productsData && productsData.length > 0 ? (
+        {!isLoading && products && products.length > 0 ? (
           <ul className={styles['products-grid']}>
-            {productsData.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </ul>

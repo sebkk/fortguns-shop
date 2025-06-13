@@ -4,6 +4,12 @@ export interface IProductCategory {
   slug: string;
 }
 
+export enum StockStatus {
+  INSTOCK = 'instock',
+  OUTOFSTOCK = 'outofstock',
+  ONBACKORDER = 'onbackorder',
+}
+
 interface IProductImage {
   id: number;
   date_created: string;
@@ -126,7 +132,7 @@ export interface IProduct {
   price_html: string;
   related_ids: number[];
   meta_data: IProductMetaData[];
-  stock_status: 'instock' | 'outofstock' | 'onbackorder';
+  stock_status: StockStatus;
   has_options: boolean;
   post_password: string;
   global_unique_id: string;
@@ -137,4 +143,22 @@ export interface IProduct {
   jetpack_sharing_enabled: boolean;
   // brands: any[];
   _links: IProductLinks;
+}
+
+export interface IGetProductsParams {
+  orderby?:
+    | 'date'
+    | 'id'
+    | 'include'
+    | 'title'
+    | 'slug'
+    | 'price'
+    | 'popularity'
+    | 'rating';
+  order?: 'asc' | 'desc';
+  per_page?: number;
+  stock_status?: StockStatus;
+  include?: string;
+  page?: number;
+  category?: string;
 }

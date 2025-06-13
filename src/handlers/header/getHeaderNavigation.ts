@@ -1,7 +1,6 @@
 import menus from '@/api/menus';
 import { NavMenuResponse } from '@/types/menus';
 
-// const NAV_HEADER = 'header-nav';
 const NAV_HEADER = 'header-nav';
 
 export const getHeaderNavigation =

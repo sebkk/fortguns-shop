@@ -1,15 +1,41 @@
-import { Products } from '@/features/products/Products';
+import { notFound } from 'next/navigation';
 
-interface IProductsPageProps {
-  params: {
-    pageNumber: string;
-  };
+import { REVALIDATE_TIME } from '@/constants/fetching';
+import { Products } from '@/features/products/Products';
+import { fetchProducts } from '@/handlers/products/fetchProducts';
+
+interface IProductPagePaginationProps {
+  params: Promise<{ pageNumber: string }>;
 }
 
-const ProductsPagePagination = async ({ params }: IProductsPageProps) => {
-  const pageNumber = Number(params.pageNumber);
+export const dynamicParams = true;
+export const revalidate = REVALIDATE_TIME;
 
-  return <Products pageNumber={pageNumber} />;
+export const generateStaticParams = async () => {
+  return [];
 };
 
-export default ProductsPagePagination;
+const ProductPagePagination = async ({
+  params,
+}: IProductPagePaginationProps) => {
+  const { pageNumber } = await params;
+
+  if (isNaN(+pageNumber)) {
+    notFound();
+  }
+
+  const { products, totalPages, totalProducts } = await fetchProducts({
+    params: { per_page: 12, page: pageNumber ? +pageNumber : 1 },
+  });
+
+  return (
+    <Products
+      products={products}
+      totalPages={totalPages}
+      totalProducts={totalProducts}
+      pageNumber={+pageNumber}
+    />
+  );
+};
+
+export default ProductPagePagination;

@@ -29,8 +29,6 @@ export const HeaderDrawerNav = ({
 
   const { push } = useRouter();
 
-  console.log(selectedItem);
-
   const handleSelectChildItems = (
     item: {
       href: string;

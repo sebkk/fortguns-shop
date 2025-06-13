@@ -23,6 +23,8 @@ interface IHeaderInnerProps {
 const headerId = 'navbar-fixed';
 
 export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
+  const { isSmallScreen } = useScreenWidth();
+
   const { isScrolling, scrollingRef: headerRef } =
     useOnScrollEvent<HTMLElement>({
       elementId: headerId,
@@ -32,8 +34,6 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
   useEffect(() => {
     handleScrolling(isScrolling);
   }, [isScrolling]);
-
-  const { isSmallScreen } = useScreenWidth();
 
   return (
     <header

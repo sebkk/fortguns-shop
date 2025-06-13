@@ -10,5 +10,9 @@
   "similarProducts": "Podobne produkty",
   "outOfStock": "Brak w magazynie",
   "closeDrawer": "Zamknij",
-  "goBack": "Wróć"
+  "goBack": "Wróć",
+  "sorting": "Sortowanie",
+  "noProducts": "Brak produktów",
+  "notFound": "Nie znaleziono strony",
+  "goBackToHome": "Wróć do strony głównej"
 }

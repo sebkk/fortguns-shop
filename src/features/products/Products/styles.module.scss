@@ -12,46 +12,10 @@
   color: $color-error-default;
 }
 
-.header-bar {
-  background-color: $color-background-light;
-}
-
-.header-bar-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: to-rem(16);
-
-  @include apply-container-styles();
-
-  padding: to-rem(16) 0 !important;
-}
-
-.products-count {
-  color: $color-text-default;
-  font-size: to-rem(20);
-}
-
 .controls-container {
   display: flex;
   align-items: center;
   gap: to-rem(16);
-}
-
-.sort-select-wrapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0;
-
-  label {
-    margin-right: to-rem(15);
-    margin-bottom: 0;
-  }
-}
-
-.filter-button {
-  min-width: to-rem(112);
 }
 
 .main-content-container {
@@ -106,5 +70,9 @@
 
 .products-pagination-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+
+  @include respond-above($breakpoint-md) {
+    justify-content: flex-end;
+  }
 }
