@@ -2,10 +2,9 @@ import { MailIcon } from '@/components/_icons/MailIcon';
 import { PhoneIcon } from '@/components/_icons/PhoneIcon';
 import { TelegramIcon } from '@/components/_icons/TelegramIcon';
 import { GoogleMapComponent } from '@/components/GoogleMapComponent';
-
+import { Link } from '@/components/Link';
 import { SectionWrapper } from '@/components/SectionWrapper';
 
-import { Link } from '@/components/Link';
 import styles from './styles.module.scss';
 
 const containerStyle = {

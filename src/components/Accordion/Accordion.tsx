@@ -1,7 +1,8 @@
 'use client';
 
-import clsx from 'clsx';
 import { useState } from 'react';
+
+import clsx from 'clsx';
 
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Typography } from '@/components/Typography';

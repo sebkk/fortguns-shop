@@ -4,7 +4,7 @@ import { createContext, useContext, useMemo, useState } from 'react';
 
 interface IScrollContext {
   isScrolling: boolean;
-  handleScrolling: (value: boolean) => void;
+  handleScrolling: (_value: boolean) => void;
 }
 
 const ScrollContext = createContext<IScrollContext | undefined>(undefined);

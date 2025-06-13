@@ -1,4 +1,5 @@
 import parseHTML from 'html-react-parser';
+
 import styles from './styles.module.scss';
 interface IContentHTMLProps {
   content?: string;

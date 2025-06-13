@@ -11,8 +11,7 @@ import styles from './styles.module.scss';
 interface INavItemProps {
   item: MenuItem;
   isScrolling: boolean;
-  handleHoverItem: (item: string | null) => void;
-  hoveredItem: string | null;
+  handleHoverItem: (_item: string | null) => void;
   handleOpen: () => void;
   open: boolean;
 }
@@ -21,7 +20,6 @@ export const NavItem = ({
   item,
   isScrolling,
   handleHoverItem,
-  hoveredItem,
   handleOpen,
   open,
 }: INavItemProps) => {

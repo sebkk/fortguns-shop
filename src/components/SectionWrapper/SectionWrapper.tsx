@@ -1,6 +1,8 @@
-import { ITitleWithDescProps, TitleWithDesc } from '@/components/TitleWithDesc';
-import clsx from 'clsx';
 import { ReactNode } from 'react';
+
+import clsx from 'clsx';
+
+import { ITitleWithDescProps, TitleWithDesc } from '@/components/TitleWithDesc';
 
 import styles from './styles.module.scss';
 

@@ -1,9 +1,9 @@
 import { useTranslations } from 'next-intl';
 
+import { ContentHTML } from '@/components/ContentHTML';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { IProduct } from '@/types/product';
 
-import { ContentHTML } from '@/components/ContentHTML';
 import styles from './styles.module.scss';
 
 interface IProductMainSectionProps {

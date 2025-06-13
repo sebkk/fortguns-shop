@@ -1,9 +1,10 @@
+import clsx from 'clsx';
+
 import { Link } from '@/components/Link';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
+import { UNCATEGORIZED_CATEGORY_NAME } from '@/constants/products';
 import { IProductCategory } from '@/types/product';
 
-import { UNCATEGORIZED_CATEGORY_NAME } from '@/constants/products';
-import clsx from 'clsx';
 import styles from './styles.module.scss';
 
 interface IProductCategoriesProps {

@@ -1,12 +1,13 @@
 'use client';
+import { ReactNode, useEffect } from 'react';
+
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { ReactNode, useEffect } from 'react';
 
 import { Button } from '@/components/Button';
 import { Overlay } from '@/components/Overlay';
-
 import { usePathname } from '@/i18n/navigation';
+
 import styles from './styles.module.scss';
 
 export interface IDrawerProps {

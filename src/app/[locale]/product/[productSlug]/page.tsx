@@ -13,7 +13,7 @@ const fetchProduct = async (productSlug: string) => {
 
     return null;
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     return null;
   }

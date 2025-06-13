@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useMounted } from './useMounted';
 
 interface IOnScrollEventHookParam<TScrollingRef> {
-  callback?: (e: Event, element: TScrollingRef) => void;
+  callback?: (_e: Event, _element: TScrollingRef) => void;
   elementId: string;
 }
 
@@ -17,13 +17,13 @@ export const useOnScrollEvent = <TScrollingRef extends HTMLElement | null>({
   const scrollingRef = useRef<TScrollingRef>(null);
 
   useEffect(() => {
-    const onScroll: (e: Event) => void = (e: Event) => {
+    const onScroll: (_e: Event) => void = (_e: Event) => {
       const scrollTop: number =
         window.scrollY || document.documentElement.scrollTop;
 
       const element = document.getElementById(elementId) as TScrollingRef;
 
-      if (callback) callback(e, element);
+      if (callback) callback(_e, element);
 
       if (element) {
         scrollingRef.current = element;

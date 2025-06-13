@@ -1,6 +1,7 @@
 'use client';
-import { ProgressProvider } from '@bprogress/next/app';
 import { ReactNode } from 'react';
+
+import { ProgressProvider } from '@bprogress/next/app';
 
 import { ScrollProvider } from './ScrollProvider';
 

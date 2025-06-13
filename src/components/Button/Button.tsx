@@ -1,7 +1,8 @@
 'use client';
 
-import clsx from 'clsx';
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+
+import clsx from 'clsx';
 
 import styles from './styles.module.scss';
 import { TButtonColor, TButtonSize, TButtonVariant } from './types';
@@ -9,7 +10,7 @@ import { TButtonColor, TButtonSize, TButtonVariant } from './types';
 interface IButtonProps {
   children: ReactNode;
   buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   className?: string;
   variant?: TButtonVariant;
@@ -29,7 +30,7 @@ export const Button = ({
   variant = 'filled',
   color = 'primary',
 }: IButtonProps) => {
-  const sizeMap: { [key in TButtonSize]: string } = {
+  const sizeMap: { [_key in TButtonSize]: string } = {
     large: styles['button-size--large'],
     medium: styles['button-size--medium'],
     small: styles['button-size--small'],

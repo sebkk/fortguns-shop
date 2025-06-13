@@ -1,17 +1,16 @@
 'use client';
 
-import { useRouter } from '@/i18n/navigation';
-import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
-import productsApi from '@/api/woocommerce/products';
+import { usePathname } from 'next/navigation';
+
 import { Pagination } from '@/components/Pagination';
 import { ProductCard } from '@/components/ProductCard';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { useRouter } from '@/i18n/navigation';
 import { ICategory } from '@/types/categories';
-import { IProduct, StockStatus } from '@/types/product';
+import { IProduct } from '@/types/product';
 
 import { ProductsHeader } from './ProductsHeader';
 import styles from './styles.module.scss'; // Import the SCSS module
@@ -75,39 +74,42 @@ export const Products = ({
   pageDescription,
   category,
 }: IProductsProps) => {
-  const t = useTranslations();
+  // const t = useTranslations();
   const { push } = useRouter();
 
   const pathname = usePathname();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [error, setError] = useState<string | null>(null);
   const [currentSort, setCurrentSort] = useState<string>('default');
 
-  const fetchProducts = useCallback(async (sortValue: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const selectedSortOption = sortOptions.find(
-        (opt) => opt.value === sortValue,
-      );
-      const params =
-        selectedSortOption && selectedSortOption.value !== 'default'
-          ? {
-              orderby: selectedSortOption.orderby,
-              order: selectedSortOption.order,
-              stock_status: StockStatus.INSTOCK,
-            }
-          : {};
+  const isLoading = false;
+  const error = null;
 
-      const res = await productsApi.getProducts({ per_page: 12, ...params });
-    } catch (err) {
-      console.error(err);
-      setError('Nie udało się załadować produktów.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  // const fetchProducts = useCallback(async (sortValue: string) => {
+  //   setIsLoading(true);
+  //   setError(null);
+  //   try {
+  //     const selectedSortOption = sortOptions.find(
+  //       (opt) => opt.value === sortValue,
+  //     );
+  //     const params =
+  //       selectedSortOption && selectedSortOption.value !== 'default'
+  //         ? {
+  //             orderby: selectedSortOption.orderby,
+  //             order: selectedSortOption.order,
+  //             stock_status: StockStatus.INSTOCK,
+  //           }
+  //         : {};
+
+  //     const res = await productsApi.getProducts({ per_page: 12, ...params });
+  //   } catch (err) {
+  //     console.error(err);
+  //     setError('Nie udało się załadować produktów.');
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }, []);
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentSort(event.target.value);
@@ -140,8 +142,7 @@ export const Products = ({
 
     push(path);
 
-    //@ts-ignore
-    window.scrollTo(0, 0, { behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

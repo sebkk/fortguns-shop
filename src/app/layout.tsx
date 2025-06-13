@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
 import { ReactNode } from 'react';
+
+import { NextIntlClientProvider } from 'next-intl';
 
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { RouteChangeProgress } from '@/components/RouteChangeProgress';
-
 import { Providers } from '@/providers';
+
+import type { Metadata } from 'next';
 
 import '@/assets/styles/globals.scss';
 

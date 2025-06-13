@@ -1,11 +1,12 @@
-import clsx from 'clsx';
 import { useEffect, useState } from 'react';
+
+import clsx from 'clsx';
 
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { LinkBtnNav } from '@/components/LinkBtnNav';
+import { Typography } from '@/components/Typography';
 import { MenuItem } from '@/types/menus';
 
-import { Typography } from '@/components/Typography';
 import styles from './styles.module.scss';
 
 export const HeaderNavDropdown = ({

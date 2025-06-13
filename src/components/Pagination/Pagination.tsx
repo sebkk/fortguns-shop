@@ -1,10 +1,12 @@
-import { Button } from '@/components/Button';
-import { useScreenWidth } from '@/hooks/useScreenWidth';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+
+import { Button } from '@/components/Button';
+import { useScreenWidth } from '@/hooks/useScreenWidth';
+
+import styles from './styles.module.scss';
 import { Select } from '../_form/Select';
 import { ArrowIcon } from '../_icons/ArrowIcon';
-import styles from './styles.module.scss';
 
 const DOTS = '...';
 
@@ -43,19 +45,19 @@ const usePagination = ({
   const lastPageIndex = totalPages;
 
   if (!shouldShowLeftDots && shouldShowRightDots) {
-    let leftItemCount = 3 + 2 * siblingCount;
-    let leftRange = range(1, leftItemCount);
+    const leftItemCount = 3 + 2 * siblingCount;
+    const leftRange = range(1, leftItemCount);
     return [...leftRange, DOTS, lastPageIndex];
   }
 
   if (shouldShowLeftDots && !shouldShowRightDots) {
-    let rightItemCount = 3 + 2 * siblingCount;
-    let rightRange = range(totalPages - rightItemCount + 1, totalPages);
+    const rightItemCount = 3 + 2 * siblingCount;
+    const rightRange = range(totalPages - rightItemCount + 1, totalPages);
     return [firstPageIndex, DOTS, ...rightRange];
   }
 
   if (shouldShowLeftDots && shouldShowRightDots) {
-    let middleRange = range(leftSiblingIndex, rightSiblingIndex);
+    const middleRange = range(leftSiblingIndex, rightSiblingIndex);
     return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
   }
 
@@ -65,7 +67,7 @@ const usePagination = ({
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  onPageChange: (_page: number) => void;
   siblingCount?: number;
   wrapperClassName?: string;
 }

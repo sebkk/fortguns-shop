@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { LinkBtnNav } from '@/components/LinkBtnNav';
+
 import styles from './styles.module.scss';
 
 const NotFound = () => {

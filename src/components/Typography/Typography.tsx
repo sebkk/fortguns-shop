@@ -1,8 +1,8 @@
 'use client';
 
-import clsx from 'clsx';
 import { HTMLAttributes, ReactNode } from 'react';
 
+import clsx from 'clsx';
 import parseHTML from 'html-react-parser';
 
 import styles from './styles.module.scss';
@@ -45,7 +45,7 @@ type TColor = 'primary' | 'secondary' | 'text-dark' | 'text-medium_dark';
 
 type TLineHeight = 'none' | 'tight' | 'normal' | 'loose';
 
-const variantMap: { [key in TVariant]: string } = {
+const variantMap: { [_key in TVariant]: string } = {
   'main-heading': styles['variant-main-heading'],
   subheading: styles['variant-subheading'],
   'c-heading': styles['variant-c-heading'],
@@ -55,14 +55,14 @@ const variantMap: { [key in TVariant]: string } = {
   subtitle: styles['variant-subtitle'],
 };
 
-const colorMap: { [key in TColor]: string } = {
+const colorMap: { [_key in TColor]: string } = {
   primary: styles['color-primary'],
   secondary: styles['color-secondary'],
   'text-dark': styles['color-text-dark'],
   'text-medium_dark': styles['color-text-medium-dark'],
 };
 
-const fontSizeMap: { [key in TFontSize]: string } = {
+const fontSizeMap: { [_key in TFontSize]: string } = {
   xs: styles['font-size-xs'],
   sm: styles['font-size-sm'],
   base: styles['font-size-base'],
@@ -74,14 +74,14 @@ const fontSizeMap: { [key in TFontSize]: string } = {
   '6xl': styles['font-size-6xl'],
 };
 
-const fontWeightMap: { [key in TFontWeight]: string } = {
+const fontWeightMap: { [_key in TFontWeight]: string } = {
   normal: styles['font-weight-normal'],
   medium: styles['font-weight-medium'],
   semibold: styles['font-weight-semibold'],
   bold: styles['font-weight-bold'],
 };
 
-const lineHeightMap: { [key in TLineHeight]: string } = {
+const lineHeightMap: { [_key in TLineHeight]: string } = {
   none: styles['line-height-none'],
   tight: styles['line-height-tight'],
   normal: styles['line-height-normal'],

@@ -1,6 +1,8 @@
-import { IProduct } from '@/types/product';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+
+import { IProduct } from '@/types/product';
+
 import styles from './styles.module.scss';
 
 interface IProductPrice {
@@ -18,6 +20,8 @@ export const ProductPrice = ({
 }: IProductPrice) => {
   const t = useTranslations();
 
+  const priceValue = salePrice || price; // TODO: ADD DISPLAYING OLD PRICE
+
   if (stockStatus === 'outofstock') {
     return (
       <p
@@ -33,7 +37,7 @@ export const ProductPrice = ({
   }
   return (
     <p className={clsx(styles['product-price'], className)}>
-      {price ? `${Number(price).toFixed(2)} zł` : t('noPrice')}
+      {priceValue ? `${Number(priceValue).toFixed(2)} zł` : t('noPrice')}
     </p>
   );
 };

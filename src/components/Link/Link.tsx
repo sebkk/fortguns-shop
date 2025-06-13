@@ -1,7 +1,8 @@
 'use client';
 
-import { Link as NextLink } from '@/i18n/navigation';
 import clsx from 'clsx';
+
+import { Link as NextLink } from '@/i18n/navigation';
 
 import styles from './styles.module.scss';
 import { ILinkProps } from './types';

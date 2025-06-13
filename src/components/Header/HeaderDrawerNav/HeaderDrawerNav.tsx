@@ -1,12 +1,14 @@
-import { MenuItem } from '@/types/menus';
+import { useState } from 'react';
+
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
 import { LinkBtnNav } from '@/components/LinkBtnNav';
 import { useRouter } from '@/i18n/navigation';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { MenuItem } from '@/types/menus';
+
 import styles from './styles.module.scss';
 
 interface IHeaderDrawerNavProps {

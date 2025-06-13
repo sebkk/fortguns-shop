@@ -1,7 +1,9 @@
 import Link from 'next/link';
 
-import { contactInfo } from '@/features/homepage/AboutUs/AboutUs';
 import clsx from 'clsx';
+
+import { contactInfo } from '@/features/homepage/AboutUs/AboutUs';
+
 import { CopyrightSection } from './CopyrightSection';
 import styles from './styles.module.scss';
 

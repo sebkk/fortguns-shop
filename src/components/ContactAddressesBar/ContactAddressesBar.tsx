@@ -1,10 +1,11 @@
 'use client';
 
+import clsx from 'clsx';
+
 import { LocationIcon } from '@/components/_icons/LocationIcon';
 import { MailIcon } from '@/components/_icons/MailIcon';
 import { PhoneIcon } from '@/components/_icons/PhoneIcon';
 
-import clsx from 'clsx';
 import styles from './styles.module.scss';
 
 interface IContactAddressesBarProps {

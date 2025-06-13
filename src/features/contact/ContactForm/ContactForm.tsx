@@ -28,8 +28,7 @@ export const ContactForm = () => {
     resolver: zodResolver(ContactFormSchema),
   });
 
-  const onSubmit: SubmitHandler<ContactFormInputs> = (data) => {
-    // console.log(data);
+  const onSubmit: SubmitHandler<ContactFormInputs> = (_data) => {
     alert('Wiadomość wysłana (symulacja)!');
   };
 

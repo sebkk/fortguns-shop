@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { ReactNode } from 'react';
+
+import clsx from 'clsx';
 
 import type { ITypographyProps } from '@/components/Typography';
 import { Typography } from '@/components/Typography';

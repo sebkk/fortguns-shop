@@ -1,8 +1,10 @@
 'use client';
 
-import { BProgress } from '@bprogress/core';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+
+import { usePathname, useSearchParams } from 'next/navigation';
+
+import { BProgress } from '@bprogress/core';
 
 export const RouteChangeProgress = () => {
   const pathname = usePathname();

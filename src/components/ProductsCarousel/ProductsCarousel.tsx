@@ -1,8 +1,8 @@
 'use client';
 
-import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
-import type TSwiper from 'swiper';
+
+import clsx from 'clsx';
 import 'swiper/css';
 import { Keyboard, Mousewheel, Navigation } from 'swiper/modules';
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
@@ -11,9 +11,11 @@ import productsApi from '@/api/woocommerce/products';
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
 import { ProductCard } from '@/components/ProductCard';
-import { IProduct } from '@/types/product';
+import { IProduct, StockStatus } from '@/types/product';
 
 import styles from './styles.module.scss';
+
+import type TSwiper from 'swiper';
 
 const swiperButtonPrev = styles['products-btn_prev'];
 const swiperButtonNext = styles['products-btn_next'];
@@ -37,7 +39,7 @@ export const ProductsCarousel = ({
     try {
       const res = await productsApi.getProducts({
         per_page: 12,
-        stock_status: 'instock',
+        stock_status: StockStatus.INSTOCK,
       });
 
       setProducts(res?.data);

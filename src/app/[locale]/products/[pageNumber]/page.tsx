@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 
-import { REVALIDATE_TIME } from '@/constants/fetching';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 
@@ -8,8 +7,10 @@ interface IProductPagePaginationProps {
   params: Promise<{ pageNumber: string }>;
 }
 
-export const dynamicParams = true;
-export const revalidate = REVALIDATE_TIME;
+export const config = {
+  revalidate: 600,
+  dynamicParams: true,
+};
 
 export const generateStaticParams = async () => {
   return [];

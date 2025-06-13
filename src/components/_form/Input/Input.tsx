@@ -1,7 +1,8 @@
 'use client';
 
-import clsx from 'clsx';
 import React from 'react';
+
+import clsx from 'clsx';
 import { UseFormRegister } from 'react-hook-form';
 
 import styles from './styles.module.scss'; // Importujemy moduł SCSS

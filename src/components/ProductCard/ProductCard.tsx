@@ -1,7 +1,8 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
@@ -27,12 +28,15 @@ export const ProductCard = ({ product }: IProductCardProps) => {
   const firstImage = images?.[0];
 
   const navigationObj = {
-    //@ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     pathname: NAVIGATION_ROUTE.PRODUCT_DETAILS,
     params: { productSlug: slug },
   };
 
-  const handleNavigate = () => push(navigationObj);
+  const handleNavigate = () => {
+    push(navigationObj);
+  };
 
   return (
     <article className={styles['product-card']}>

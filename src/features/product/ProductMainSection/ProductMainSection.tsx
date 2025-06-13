@@ -1,11 +1,11 @@
-import clsx from 'clsx';
 import Image from 'next/image';
 
+import clsx from 'clsx';
+
+import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { IProduct } from '@/types/product';
-
-import { ProductCategories } from '@/components/ProductCategories';
 
 import styles from './styles.module.scss';
 
@@ -16,8 +16,6 @@ interface IProductMainSectionProps {
 export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
   const { name, price, sale_price, images, stock_status, categories } =
     product || {};
-
-  console.log(product);
 
   return (
     <div className={styles['product-main-section']}>

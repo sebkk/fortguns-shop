@@ -1,8 +1,9 @@
-import { clsx } from 'clsx';
 import { ReactNode, useState } from 'react';
 
-import { Drawer, IDrawerProps } from '@/components/Drawer';
+import { clsx } from 'clsx';
+
 import { HamburgerIcon } from '@/components/_icons/Hamburger';
+import { Drawer, IDrawerProps } from '@/components/Drawer';
 
 import styles from './styles.module.scss';
 
@@ -24,7 +25,7 @@ export const HamburgerMenu = ({
   const handleClick = () => {
     setIsOpen((prev) => !prev);
 
-    onClick && onClick();
+    if (onClick) onClick();
   };
 
   return (

@@ -1,20 +1,20 @@
 'use client';
 
-import { Link } from '@/i18n/navigation';
-import clsx from 'clsx';
 import { useEffect } from 'react';
+
+import clsx from 'clsx';
 
 import { ContactAddressesBar } from '@/components/ContactAddressesBar';
 import { HamburgerMenu } from '@/components/HamburgerMenu';
 import { Logo } from '@/components/Logo';
 import { useOnScrollEvent } from '@/hooks/useOnScrollEvent';
+import { useScreenWidth } from '@/hooks/useScreenWidth';
+import { Link } from '@/i18n/navigation';
 import { useScroll } from '@/providers/ScrollProvider';
 import { MenuItem } from '@/types/menus';
 
-import { HeaderNav } from './HeaderNav';
-
-import { useScreenWidth } from '@/hooks/useScreenWidth';
 import { HeaderDrawerNav } from './HeaderDrawerNav';
+import { HeaderNav } from './HeaderNav';
 import styles from './styles.module.scss';
 
 interface IHeaderInnerProps {

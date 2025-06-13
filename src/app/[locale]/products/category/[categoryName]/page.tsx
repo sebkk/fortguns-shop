@@ -1,9 +1,9 @@
+import { notFound } from 'next/navigation';
+
 import categoriesApi from '@/api/woocommerce/categories';
-import { REVALIDATE_TIME } from '@/constants/fetching';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
-import { notFound } from 'next/navigation';
 
 interface ICategoryPageProps {
   params: Promise<{
@@ -11,8 +11,10 @@ interface ICategoryPageProps {
   }>;
 }
 
-export const dynamicParams = false;
-export const revalidate = REVALIDATE_TIME;
+export const config = {
+  revalidate: 600,
+  dynamicParams: false,
+};
 
 export const generateStaticParams = async () => {
   const res = await categoriesApi.getCategories();
