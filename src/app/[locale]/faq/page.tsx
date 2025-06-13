@@ -1,5 +1,5 @@
-import { Accordion } from '@/components/Accordion';
 import { Typography } from '@/components/Typography';
+import { FaqList } from '@/features/faq/FaqList/FaqList';
 
 import styles from './styles.module.scss';
 
@@ -41,11 +41,7 @@ const FaqPage = () => {
       >
         Najczęściej zadawane pytania
       </Typography>
-      <div className={styles['accordion-list-container']}>
-        {faqData.map((item, index) => (
-          <Accordion key={index} title={item.question} content={item.answer} />
-        ))}
-      </div>
+      <FaqList items={faqData} />
     </div>
   );
 };

@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import clsx from 'clsx';
@@ -30,10 +32,11 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
         />
         <Image
           src={images[0].src}
-          alt={images[0].src}
+          alt={images[0].alt || name}
           width={300}
           height={300}
           className={styles['product-image']}
+          priority
         />
       </div>
       <div>

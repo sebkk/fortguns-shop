@@ -10,7 +10,7 @@
   padding: to-rem(4) to-rem(8);
   width: to-rem(45);
 
-  height: 100%;
+  height: to-rem(30);
 
   font-size: to-rem(14);
 }
@@ -30,21 +30,19 @@
 .pagination-btn-dots {
   padding: 0;
 
+  width: to-rem(45);
+
   font-size: to-rem(18);
 }
 
 .pagination-select {
   margin-bottom: 0;
-  min-width: to-rem(80);
-  min-width: unset;
-
-  height: 100%;
 
   select {
     background-image: none;
     padding: to-rem(8);
 
-    height: 100%;
+    width: to-rem(45);
 
     text-align: center;
 

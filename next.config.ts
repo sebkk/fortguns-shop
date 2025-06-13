@@ -1,11 +1,13 @@
+/* eslint-disable prettier/prettier */
+import { join } from 'path';
+
 import createNextIntlPlugin from 'next-intl/plugin';
-import path from 'path';
 
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   sassOptions: {
-    includePaths: [path.join(__dirname, 'src/assets/styles')],
+    includePaths: [join(__dirname, 'src/assets/styles')],
     additionalData: `@use '_variables' as *;
       @use '_functions' as *;
       @use '_mixins' as *;`,
@@ -20,6 +22,15 @@ const nextConfig: NextConfig = {
         search: '',
       },
     ],
+  },
+  onError: (err: Error) => {
+    console.error('Detailed error:', err);
+  },
+  webpack: (config, { dev, isServer }) => {
+    if (dev && !isServer) {
+      config.devtool = 'source-map';
+    }
+    return config;
   },
 };
 

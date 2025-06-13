@@ -5,6 +5,8 @@
 @import 'modern-normalize/modern-normalize.css';
 
 body {
+  display: flex;
+  flex-direction: column;
   background-color: $color-background-default;
   min-height: 100vh;
   color: $color-text-default;
@@ -18,10 +20,10 @@ body {
 
 .layout-main {
   display: flex;
+  flex: 1;
   flex-direction: column;
-
   padding-top: $layout-top-padding-mobile;
-  min-height: 100vh;
+
   font-family: $default-font-family;
 
   @include respond-above($breakpoint-md) {
@@ -31,10 +33,10 @@ body {
 
 .layout-content {
   display: flex;
-
   position: relative;
   flex: 1;
   flex-direction: column;
+  width: 100%;
 }
 
 .container {

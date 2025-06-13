@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
+import { Select } from '@/components/_form/Select';
+import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
 import { useScreenWidth } from '@/hooks/useScreenWidth';
 
 import styles from './styles.module.scss';
-import { Select } from '../_form/Select';
-import { ArrowIcon } from '../_icons/ArrowIcon';
 
 const DOTS = '...';
 
@@ -141,9 +141,8 @@ export const Pagination: React.FC<PaginationProps> = ({
                     handlePageClick(Number(value));
                   }
                 },
-                defaultValue: DOTS,
+                defaultValue: 1,
               }}
-              placeholder={DOTS}
               options={Array.from({ length: totalPages }, (_, i) => i + 1).map(
                 (page) => ({
                   value: page.toString(),

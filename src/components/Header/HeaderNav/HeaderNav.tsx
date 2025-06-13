@@ -36,7 +36,6 @@ export const HeaderNav = ({
             item={item}
             key={item.ID}
             handleHoverItem={handleHoverItem}
-            hoveredItem={hoveredItem}
             handleOpen={() => setOpen((prev) => !prev)}
             open={open}
           />

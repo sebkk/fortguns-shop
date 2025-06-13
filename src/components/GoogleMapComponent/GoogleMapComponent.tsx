@@ -2,9 +2,9 @@
 
 import { CSSProperties } from 'react';
 
-const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
 import stylesCss from './styles.module.scss';
+
+const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 interface IGoogleMapComponentProps {
   location: string;

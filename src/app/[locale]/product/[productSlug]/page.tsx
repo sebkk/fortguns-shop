@@ -1,9 +1,10 @@
+import { notFound } from 'next/navigation';
+
 import products from '@/api/woocommerce/products';
 import { Spacer } from '@/components/Spacer';
 import { ProductDescriptionSection } from '@/features/product/ProductDescriptionSection';
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
-import { IProduct } from '@/types/product';
 
 const fetchProduct = async (productSlug: string) => {
   try {
@@ -14,7 +15,6 @@ const fetchProduct = async (productSlug: string) => {
     return null;
   } catch (err) {
     console.error(err);
-
     return null;
   }
 };
@@ -27,18 +27,23 @@ interface IProductPageProps {
 
 const ProductPage = async ({ params }: IProductPageProps) => {
   const { productSlug } = await params;
-
   const product = await fetchProduct(productSlug);
 
-  const { related_ids } = product as IProduct;
+  if (!product) {
+    notFound();
+  }
+
+  const { related_ids } = product;
 
   return (
     <>
       <Spacer size='lg' />
       <div className='container'>
-        <ProductMainSection product={product as IProduct} />
-        <ProductDescriptionSection product={product as IProduct} />
-        {related_ids.length && <ProductRelatedItems relatedIds={related_ids} />}
+        <ProductMainSection product={product} />
+        <ProductDescriptionSection product={product} />
+        {related_ids?.length > 0 && (
+          <ProductRelatedItems relatedIds={related_ids} />
+        )}
         <Spacer size='lg' />
       </div>
     </>

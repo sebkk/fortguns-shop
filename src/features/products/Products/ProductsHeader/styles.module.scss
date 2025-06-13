@@ -10,17 +10,21 @@
   gap: to-rem(16);
 
   @include apply-container-styles();
-
-  padding: to-rem(16) to-rem(10) !important;
-
-  @include respond-above($breakpoint-md) {
-    padding: to-rem(16) 0 !important;
+  & {
+    padding: to-rem(16) to-rem(10) !important;
+    @include respond-above($breakpoint-xl) {
+      padding: to-rem(16) 0 !important;
+    }
   }
 }
 .sort-select-wrapper {
   display: flex;
   align-items: center;
   margin-bottom: 0;
+
+  select {
+    min-width: to-rem(150);
+  }
 
   label {
     margin-right: to-rem(15);

@@ -9,7 +9,13 @@
 }
 
 .error-text {
-  color: $color-error-default;
+  margin: to-rem(32) 0;
+
+  color: $color-error-light;
+
+  font-size: to-rem(26);
+
+  text-align: center;
 }
 
 .controls-container {

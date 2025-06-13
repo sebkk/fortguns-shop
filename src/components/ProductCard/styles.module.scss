@@ -69,3 +69,32 @@
 .product-button {
   width: 100%;
 }
+
+.skeleton-image {
+  min-height: to-rem(170);
+}
+
+.skeleton-title {
+  margin-bottom: to-rem(6);
+}
+
+.skeleton-categories {
+  margin: to-rem(6) 0;
+}
+
+.skeleton-price {
+  margin-bottom: to-rem(8);
+}
+
+.skeleton-button {
+  margin-top: auto;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -2,8 +2,8 @@ import { useTranslations } from 'next-intl';
 
 import { Select } from '@/components/_form/Select';
 import { ProductsCount } from '@/components/ProductsCount';
+import { SortOption } from '@/types/filters';
 
-import { SortOption } from '../Products';
 import styles from './styles.module.scss';
 
 interface IProductsHeaderProps {
