@@ -8,8 +8,7 @@ import { Keyboard, Mousewheel, Navigation } from 'swiper/modules';
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 
 import productsApi from '@/api/woocommerce/products';
-import { ArrowIcon } from '@/components/_icons/ArrowIcon';
-import { Button } from '@/components/Button';
+import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
 import { ProductCard } from '@/components/ProductCard';
 import { IProduct, StockStatus } from '@/types/product';
 
@@ -32,6 +31,7 @@ export const ProductsCarousel = ({
   items,
 }: IProductsCarouselProps) => {
   const [products, setProducts] = useState<null | IProduct[]>(null);
+  const [shouldShowButtons, setShouldShowButtons] = useState(true);
 
   const swiperRef = useRef<TSwiper | null>(null);
 
@@ -65,10 +65,25 @@ export const ProductsCarousel = ({
   const productsToDisplay = items || products;
 
   if (!productsToDisplay) return null;
+
+  const handleSwiperInit = (swiper: TSwiper) => {
+    swiperRef.current = swiper;
+    const currentSlidesPerView = swiper.params.slidesPerView as number;
+    setShouldShowButtons(productsToDisplay.length > currentSlidesPerView);
+  };
+
+  const handleResize = (swiper: TSwiper) => {
+    swiperRef.current = swiper;
+    const currentSlidesPerView = swiper.params.slidesPerView as number;
+    setShouldShowButtons(productsToDisplay.length > currentSlidesPerView);
+  };
+
   return (
     <div className={clsx(styles['products-carousel-wrapper'])}>
       <Swiper
-        onSwiper={(swiper) => {
+        onSwiper={handleSwiperInit}
+        onResize={handleResize}
+        onSlideChange={(swiper) => {
           swiperRef.current = swiper;
         }}
         watchSlidesProgress
@@ -101,15 +116,12 @@ export const ProductsCarousel = ({
         className={clsx(styles['products-carousel'])}
         {...swiperConfig}
       >
-        {/* TODO: HIDE ON SMALL AMOUNT OF SLIDES */}
-        {!hideButtons && (
-          <Button
-            variant='blank'
-            className={clsx(styles['products-btn'], swiperButtonPrev)}
-            onClick={handleNextSlide}
-          >
-            <ArrowIcon />
-          </Button>
+        {!hideButtons && shouldShowButtons && (
+          <NavigationButton
+            handleNextSlide={handlePrevSlide}
+            swiperButtonPrev={swiperButtonPrev}
+            direction='prev'
+          />
         )}
         {productsToDisplay.map((product) => (
           <SwiperSlide
@@ -120,14 +132,12 @@ export const ProductsCarousel = ({
             <ProductCard product={product} />
           </SwiperSlide>
         ))}
-        {!hideButtons && (
-          <Button
-            variant='blank'
-            className={clsx(styles['products-btn'], swiperButtonNext)}
-            onClick={handlePrevSlide}
-          >
-            <ArrowIcon />
-          </Button>
+        {!hideButtons && shouldShowButtons && (
+          <NavigationButton
+            handleNextSlide={handleNextSlide}
+            swiperButtonPrev={swiperButtonNext}
+            direction='next'
+          />
         )}
       </Swiper>
     </div>

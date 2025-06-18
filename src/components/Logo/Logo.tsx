@@ -1,5 +1,7 @@
 import Image, { ImageProps } from 'next/image';
 
+import fortGunsLogo from '../../../public/pictures/fortguns-logo.webp';
+
 interface ILogoProps {
   className?: string;
   imageProps: Omit<ImageProps, 'src' | 'alt'>;
@@ -11,7 +13,7 @@ export const Logo = ({
 }: ILogoProps) => {
   return (
     <Image
-      src='https://fortguns.pl/wp-content/uploads/2024/09/cropped-logo-transparent-600x200.png.webp'
+      src={fortGunsLogo}
       alt='Fortguns'
       width={600}
       height={200}

@@ -11,8 +11,8 @@ import { ProductCard } from '@/components/ProductCard';
 import { ProductCardSkeleton } from '@/components/ProductCard/ProductCardSkeleton';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { useProducts } from '@/hooks/useProducts';
-import { useRouter } from '@/i18n/navigation';
 import { ICategory } from '@/types/categories';
 import { SortOption } from '@/types/filters';
 import { IProduct } from '@/types/product';
@@ -62,10 +62,11 @@ export const Products = ({
   pageDescription,
   category,
 }: IProductsProps) => {
-  const { push } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const t = useTranslations();
+
+  const { push } = useAppRouter();
 
   const {
     products,

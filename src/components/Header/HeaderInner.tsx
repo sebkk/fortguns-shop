@@ -66,7 +66,7 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
             isScrolling={isScrolling}
           />
         )}
-        <div />
+        {/* <Search className={styles['header-search']} /> */}
         {isSmallScreen && (
           <HamburgerMenu
             className={styles['header-hamburger-btn']}

@@ -66,7 +66,7 @@
 .header-link {
   position: absolute;
 
-  left: 0;
+  left: to-rem(16);
 }
 
 .header_contact-address-bar {
@@ -90,4 +90,11 @@
 
 .header-logo-link--image {
   margin: 0 auto;
+}
+
+.header-search {
+  @include respond-above($breakpoint-md) {
+    position: absolute;
+    right: to-rem(16);
+  }
 }

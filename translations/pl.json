@@ -16,5 +16,7 @@
   "notFound": "Nie znaleziono strony",
   "goBackToHome": "Wróć do strony głównej",
   "errorLoadingProducts": "Nie udało się załadować produktów.",
-  "noProductsToDisplay": "Brak produktów do wyświetlenia."
+  "noProductsToDisplay": "Brak produktów do wyświetlenia.",
+  "contactForWeapon": "Skontaktuj się z nami aby zapytać o produkt lub zarezerwować.",
+  "search": "Szukaj..."
 }

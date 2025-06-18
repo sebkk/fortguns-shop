@@ -1,0 +1,90 @@
+.gallery-carousel {
+  margin-bottom: to-rem(20);
+  border-radius: to-rem(8);
+  padding: to-rem(10);
+  aspect-ratio: 16/9;
+  width: 100%;
+
+  .main-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.gallery-carousel-wrapper {
+  display: grid;
+
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    width: to-rem(40);
+    height: to-rem(40);
+    color: #fff;
+
+    &:after {
+      font-size: to-rem(20);
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+}
+
+.products-btn {
+  &_prev,
+  &_next {
+    display: flex;
+  }
+
+  &_prev {
+    left: to-rem(10);
+  }
+
+  &_next {
+    right: to-rem(10);
+  }
+}
+
+.gallery-carousel-thumbs {
+  width: 100%;
+
+  .thumb-slide {
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    border-radius: to-rem(4);
+    width: auto;
+    height: to-rem(60);
+    overflow: hidden;
+
+    @include box-shadow();
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &--active {
+      opacity: 1;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

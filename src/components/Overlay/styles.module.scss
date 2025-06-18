@@ -5,13 +5,14 @@
   bottom: 0;
   left: 0;
   opacity: 0;
-  z-index: 40;
+  z-index: 60;
   transition: opacity 0.3s ease-in-out;
-  background-color: #000000;
+  background-color: $color-background-default;
   pointer-events: none;
 }
 
 .overlay--open {
-  opacity: 0.5;
+  opacity: 1;
+  background-color: rgba($color-background-default, 0.5);
   pointer-events: auto;
 }

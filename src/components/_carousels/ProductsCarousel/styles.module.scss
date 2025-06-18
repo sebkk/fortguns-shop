@@ -1,0 +1,49 @@
+.products-carousel-wrapper {
+  position: relative;
+  margin: 0 to-rem(-16);
+  padding: 0;
+
+  @include respond-above($breakpoint-md) {
+    margin: 0;
+
+    padding: 0 to-rem(10);
+  }
+}
+
+.products-carousel {
+  position: static !important;
+
+  padding: to-rem(10);
+}
+
+.products-btn {
+  &_prev,
+  &_next {
+    display: none;
+
+    @include respond-above($breakpoint-md) {
+      display: flex;
+    }
+  }
+
+  @include respond-above($breakpoint-xl) {
+    &_prev {
+      left: to-rem(-15);
+    }
+    &_next {
+      right: to-rem(-15);
+    }
+  }
+
+  @include respond-above($breakpoint-2xl) {
+    &_prev {
+      left: to-rem(-25);
+    }
+    &_next {
+      right: to-rem(-25);
+    }
+  }
+}
+
+.products-carousel-swiper-slide {
+}

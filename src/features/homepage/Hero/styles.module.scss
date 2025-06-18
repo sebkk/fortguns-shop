@@ -15,7 +15,7 @@
   }
 
   &--scrolling {
-    top: $header-height-mobile;
+    top: calc($header-height-mobile - to-rem(15));
 
     @include respond-above($breakpoint-md) {
       top: $header-height-scrolling;

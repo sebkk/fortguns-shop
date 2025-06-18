@@ -1,11 +1,26 @@
+.product-price-container {
+  display: flex;
+  align-items: baseline;
+
+  gap: to-rem(10);
+}
+
 .product-price {
   color: $color-text-default;
   font-weight: 800;
-  font-size: to-rem(24);
-  line-height: 1.25;
+  font-size: to-rem(20);
+  line-height: 1;
 
   .dark & {
     color: $color-text-button-primary;
+  }
+
+  &--small {
+    font-size: to-rem(20);
+  }
+
+  &--large {
+    font-size: to-rem(30);
   }
 }
 
@@ -13,4 +28,20 @@
   color: $color-error-light;
 
   font-size: to-rem(18);
+}
+
+.product-price--old {
+  opacity: 0.5;
+  color: $color-text-default;
+  font-weight: 400;
+
+  text-decoration: line-through;
+
+  &--small {
+    font-size: to-rem(15);
+  }
+
+  &--large {
+    font-size: to-rem(20);
+  }
 }

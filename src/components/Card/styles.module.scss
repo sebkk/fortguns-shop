@@ -1,0 +1,39 @@
+.card {
+  &--with-shadow {
+    @include box-shadow();
+  }
+
+  &--rounded {
+    border-radius: to-rem(10);
+  }
+
+  &--with-border {
+    border: 1px solid $color-white-2;
+  }
+
+  &--rounded,
+  &--with-border,
+  &--with-shadow {
+    padding: to-rem(10);
+  }
+}
+
+.card-v--primary {
+  &--with-background {
+    background-color: $color-text-bg-dark;
+  }
+
+  &--with-border {
+    border: 1px solid $color-white-2;
+  }
+}
+
+.card-v--secondary {
+  &--with-background {
+    background-color: $color-primary-default;
+  }
+
+  &--with-border {
+    border: 1px solid $color-primary-default;
+  }
+}

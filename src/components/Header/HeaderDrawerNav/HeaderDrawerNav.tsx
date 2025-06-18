@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
 import { LinkBtnNav } from '@/components/LinkBtnNav';
-import { useRouter } from '@/i18n/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { MenuItem } from '@/types/menus';
 
 import styles from './styles.module.scss';
@@ -29,7 +29,7 @@ export const HeaderDrawerNav = ({
 
   const [selectedItem, setSelectedItem] = useState<ISelectedItem | null>(null);
 
-  const { push } = useRouter();
+  const { push } = useAppRouter();
 
   const handleSelectChildItems = (
     item: {

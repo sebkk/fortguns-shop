@@ -1,6 +1,6 @@
 // import axios from 'axios';
 
-import { ProductsCarousel } from '@/components/ProductsCarousel';
+import { ProductsCarousel } from '@/components/_carousels/ProductsCarousel';
 import { SectionWrapper } from '@/components/SectionWrapper';
 import { Spacer } from '@/components/Spacer';
 import { ShootingRange } from '@/features/content/ShootingRange';

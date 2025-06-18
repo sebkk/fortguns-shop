@@ -9,7 +9,7 @@ import { Link } from '@/components/Link';
 import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
-import { useRouter } from '@/i18n/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { IProduct } from '@/types/product';
 
 import styles from './styles.module.scss';
@@ -20,7 +20,7 @@ interface IProductCardProps {
 
 export const ProductCard = ({ product }: IProductCardProps) => {
   const t = useTranslations();
-  const { push } = useRouter();
+  const { push } = useAppRouter();
 
   const { images, price, sale_price, categories, name, slug, stock_status } =
     product || {};

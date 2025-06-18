@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import productsApi from '@/api/woocommerce/products';
-import { ProductsCarousel } from '@/components/ProductsCarousel';
+import { ProductsCarousel } from '@/components/_carousels/ProductsCarousel';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { IProduct, StockStatus } from '@/types/product';
