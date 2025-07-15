@@ -15,10 +15,6 @@ export const PATHNAMES = {
     pl: '/kontakt',
     en: NAVIGATION_ROUTE.CONTACT,
   },
-  [NAVIGATION_ROUTE.FAQ]: {
-    pl: '/najczestsze-pytania',
-    en: NAVIGATION_ROUTE.FAQ,
-  },
   [NAVIGATION_ROUTE.PRODUCT_DETAILS]: {
     pl: '/produkt/[productSlug]',
     en: NAVIGATION_ROUTE.PRODUCT_DETAILS,

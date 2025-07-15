@@ -72,10 +72,17 @@ export const useProducts = ({
         params.order = order;
       }
 
+      if (currentSort === 'default') {
+        delete params.orderby;
+        delete params.order;
+      }
+
       const response = await productsApi.getProducts(params);
+
       setProducts(response.data);
       setTotalPages(Number(response.headers['x-wp-totalpages']));
       setTotalProducts(Number(response.headers['x-wp-total']));
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
       setError(t('errorLoadingProducts'));
@@ -88,6 +95,11 @@ export const useProducts = ({
     (value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set('sort', value);
+
+      if (value === 'default') {
+        params.delete('sort');
+      }
+
       return params.toString();
     },
     [searchParams],

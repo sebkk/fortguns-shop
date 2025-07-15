@@ -13,6 +13,8 @@ export const fetchProducts = async ({
   try {
     const res = await productsApi.getProducts({
       per_page: 12,
+      orderby: 'date',
+      order: 'asc',
       ...params,
       page: params.page ? +params.page : 1,
     });

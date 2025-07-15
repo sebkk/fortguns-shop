@@ -18,6 +18,7 @@ export const Link = ({
   anchorProps = {},
   nextLinkProps = {},
   shouldFillIcon = false,
+  nativeLink = false,
 }: ILinkProps) => {
   const variantClassMap = {
     primary: styles['link-primary'],
@@ -38,6 +39,42 @@ export const Link = ({
     shouldFillIcon && styles['link-should-fill-icon'],
     className,
   );
+
+  const isExternal = (url: string) => {
+    try {
+      const urlObj = new URL(url);
+
+      return (
+        urlObj.protocol.startsWith('http') &&
+        urlObj.host !== window.location.host
+      );
+    } catch {
+      return false;
+    }
+  };
+
+  if (isExternal(href as string) || nativeLink) {
+    return (
+      <a
+        href={href as string}
+        className={classNames}
+        target='_blank'
+        rel='noopener noreferrer'
+        {...anchorProps}
+      >
+        {leadingIcon && (
+          <span className={styles['leading-icon-wrapper']}>{leadingIcon}</span>
+        )}
+        {children}
+        {trailingIcon && (
+          <span className={styles['trailing-icon-wrapper']}>
+            {trailingIcon}
+          </span>
+        )}
+      </a>
+    );
+  }
+
   return (
     <NextLink
       href={href}

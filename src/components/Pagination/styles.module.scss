@@ -6,6 +6,7 @@
 }
 
 .pagination-button {
+  cursor: pointer;
   border-width: to-rem(1);
   padding: to-rem(4) to-rem(8);
   width: to-rem(45);

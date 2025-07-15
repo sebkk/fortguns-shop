@@ -181,7 +181,7 @@ export const Products = ({
         )}
         {!error && (
           <>
-            {!isLoading && products && products.length > 0 ? (
+            {!isLoading && products && products.length > 0 && (
               <ul className={styles['products-grid']}>
                 {products.map((product) => (
                   <li key={product.id}>
@@ -189,7 +189,8 @@ export const Products = ({
                   </li>
                 ))}
               </ul>
-            ) : (
+            )}
+            {!isLoading && !products && (
               <p className={styles['no-products-text']}>
                 {t('noProductsToDisplay')}
               </p>

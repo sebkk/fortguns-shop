@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import styles from './styles.module.scss';
 
-interface ISpacerProps {
+export interface ISpacerProps {
   size?: 'sm' | 'md' | 'default' | 'lg' | 'xl';
 }
 

@@ -1,0 +1,1 @@
+export { SectionVariant } from './SectionVariant';

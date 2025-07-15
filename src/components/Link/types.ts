@@ -26,4 +26,5 @@ export interface ILinkProps {
   anchorProps?: AnchorHTMLAttributes<HTMLAnchorElement>;
   nextLinkProps?: Omit<LinkProps, 'href' | 'locale'>;
   shouldFillIcon?: boolean;
+  nativeLink?: boolean;
 }

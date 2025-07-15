@@ -1,0 +1,14 @@
+.section-accordion-item {
+  margin-bottom: to-rem(40);
+}
+
+.section-accordion-item-title {
+  margin-bottom: to-rem(20);
+}
+
+.section-accordion-item-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: to-rem(20);
+}
