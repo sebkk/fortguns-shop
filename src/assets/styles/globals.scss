@@ -46,7 +46,7 @@ body {
 .container {
   @include apply-container-styles();
 
-  @include respond-above($breakpoint-sm) {
+  @include respond-above($breakpoint-xl) {
     padding: 0 to-rem(16);
   }
 }

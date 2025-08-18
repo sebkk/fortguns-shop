@@ -5,6 +5,10 @@ import path from 'path';
 
 import globalInfosApi from '@/api/global_infos';
 
+// Configure for static export
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export async function GET() {
   try {
     const response = await globalInfosApi.getGlobalInfos();

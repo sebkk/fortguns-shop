@@ -13,7 +13,7 @@
   & {
     padding: to-rem(16) to-rem(10) !important;
     @include respond-above($breakpoint-xl) {
-      padding: to-rem(16) 0 !important;
+      padding: to-rem(16) to-rem(10) !important;
     }
   }
 }
