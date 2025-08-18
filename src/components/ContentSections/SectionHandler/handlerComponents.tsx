@@ -2,9 +2,13 @@ import dynamic from 'next/dynamic';
 
 import {
   IHandlerComponents,
+  TSectionAboutUsProps,
   TSectionAccordionProps,
+  TSectionGalleryProps,
+  TSectionHeroProps,
   TSectionHtmlProps,
   TSectionPageHeaderProps,
+  TSectionProductsCarouselProps,
   TSectionVariantProps,
   TSpacerSectionProps,
 } from '@/types/handlerComponents';
@@ -36,6 +40,28 @@ const SectionVariant = dynamic(() =>
   ),
 );
 
+const SectionAboutUs = dynamic(() =>
+  import('@/components/_sections/SectionAboutUs').then(
+    (mod) => mod.SectionAboutUs,
+  ),
+);
+
+const SectionGallery = dynamic(() =>
+  import('@/components/_sections/SectionGallery').then(
+    (mod) => mod.SectionGallery,
+  ),
+);
+
+const SectionProductsCarousel = dynamic(() =>
+  import('@/components/_sections/SectionProductsCarousel').then(
+    (mod) => mod.SectionProductsCarousel,
+  ),
+);
+
+const SectionHero = dynamic(() =>
+  import('@/components/_sections/SectionHero').then((mod) => mod.SectionHero),
+);
+
 export const handlerComponents: IHandlerComponents = {
   section_page_header: ({ section }: TSectionPageHeaderProps) => (
     <SectionPageHeader section={section} />
@@ -49,5 +75,17 @@ export const handlerComponents: IHandlerComponents = {
   ),
   section_variant: ({ section }: TSectionVariantProps) => (
     <SectionVariant section={section} />
+  ),
+  section_about_us: ({ section }: TSectionAboutUsProps) => (
+    <SectionAboutUs section={section} />
+  ),
+  section_gallery: ({ section }: TSectionGalleryProps) => (
+    <SectionGallery section={section} />
+  ),
+  section_products_carousel: ({ section }: TSectionProductsCarouselProps) => (
+    <SectionProductsCarousel section={section} />
+  ),
+  section_hero: ({ section }: TSectionHeroProps) => (
+    <SectionHero section={section} />
   ),
 };

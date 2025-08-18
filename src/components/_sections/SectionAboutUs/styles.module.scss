@@ -1,16 +1,5 @@
-.about-us-section {
-  background-color: $color-background-light;
-  padding: to-rem(56) to-rem(16);
-}
-
-.about-us-container {
-  @include apply-container-styles();
-}
-
-.about-us-heading {
+.section-about-us-title-desc-wrapper {
   margin-bottom: to-rem(40);
-  font-size: to-rem(36);
-  text-align: center;
 }
 
 .content-grid {

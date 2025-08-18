@@ -1,4 +1,6 @@
 import { FacebookIcon } from '@/components/_icons/FacebookIcon';
+import { MailIcon } from '@/components/_icons/MailIcon';
+import { PhoneIcon } from '@/components/_icons/PhoneIcon';
 import { TelegramIcon } from '@/components/_icons/TelegramIcon';
 import { WhatsAppIcon } from '@/components/_icons/WhatsAppIcon';
 import { TLinkHref } from '@/types/footer';
@@ -23,4 +25,15 @@ export const getLinkIcon = (type: TLinkHref) => {
   };
 
   return linkIcons[type];
+};
+
+export const getContactInfoIcon = (type: string, className?: string) => {
+  switch (type) {
+    case 'phone':
+      return <PhoneIcon className={className} />;
+    case 'mail':
+      return <MailIcon className={className} />;
+    default:
+      return null;
+  }
 };

@@ -9,6 +9,7 @@ interface INavigationButtonProps {
   handleNextSlide: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   swiperButtonPrev: string;
   direction: 'next' | 'prev';
+  theme?: 'light' | 'dark';
   className?: string;
 }
 
@@ -16,6 +17,7 @@ export const NavigationButton = ({
   handleNextSlide,
   swiperButtonPrev,
   direction = 'next',
+  theme = 'light',
   className,
 }: INavigationButtonProps) => {
   return (
@@ -24,6 +26,7 @@ export const NavigationButton = ({
       className={clsx(
         styles['products-btn'],
         styles[`products-btn-dir-${direction}`],
+        styles[`products-btn-theme-${theme}`],
         swiperButtonPrev,
         className,
       )}

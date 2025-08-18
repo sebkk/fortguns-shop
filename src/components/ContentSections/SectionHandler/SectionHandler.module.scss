@@ -1,0 +1,11 @@
+.section-handler_bg-light {
+  background-color: $color-background-light;
+}
+
+.section-handler_default {
+  background-color: $color-background-default;
+}
+
+.section-handler_full-size-wrapper {
+  padding: to-rem(40) to-rem(16);
+}

@@ -1,14 +1,19 @@
 .hero-wrapper {
+  display: flex;
   position: fixed;
   top: $layout-top-padding-mobile;
   left: 0;
   z-index: 1;
   transition: top 0.3s ease-in-out;
   width: 100%;
-  height: $scroll-container-height;
+
+  height: $scroll-container-height-mobile;
 
   min-height: $scroll-container-min-height;
-  pointer-events: none;
+
+  @include respond-above($breakpoint-md) {
+    height: $scroll-container-height;
+  }
 
   @include respond-above($breakpoint-md) {
     top: $layout-top-padding;
@@ -21,6 +26,11 @@
       top: $header-height-scrolling;
     }
   }
+}
+
+.hero-swiper {
+  height: 100%;
+  pointer-events: auto;
 }
 
 .hero-image-container {
@@ -41,7 +51,8 @@
 .hero-content-container {
   @include apply-container-styles();
   position: absolute;
-  bottom: to-rem(24);
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 2;
   margin: 0 auto;
   max-width: to-rem(900);

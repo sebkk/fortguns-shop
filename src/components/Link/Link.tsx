@@ -53,13 +53,15 @@ export const Link = ({
     }
   };
 
-  if (isExternal(href as string) || nativeLink) {
+  const isExternalLink = isExternal(href as string);
+
+  if (isExternalLink || nativeLink) {
     return (
       <a
         href={href as string}
         className={classNames}
         target='_blank'
-        rel='noopener noreferrer'
+        // rel='noopener noreferrer'
         {...anchorProps}
       >
         {leadingIcon && (

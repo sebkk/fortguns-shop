@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
@@ -30,6 +32,8 @@ interface GalleryCarouselProps {
   hideButtons?: boolean;
   swiperConfig?: SwiperProps;
   swiperThumbsConfig?: SwiperProps;
+  hideThumbs?: boolean;
+  hideMainCarousel?: boolean;
 }
 
 export const GalleryCarousel = ({
@@ -37,6 +41,8 @@ export const GalleryCarousel = ({
   hideButtons = false,
   swiperConfig = {},
   swiperThumbsConfig = {},
+  hideThumbs,
+  hideMainCarousel,
 }: GalleryCarouselProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -50,6 +56,14 @@ export const GalleryCarousel = ({
     swiperRef.current?.slideNext();
   };
 
+  const swiperConfigMainCarousel = hideMainCarousel
+    ? {
+        slidesPerView: 6,
+        spaceBetween: 20,
+        ...swiperConfig,
+      }
+    : { ...swiperConfig };
+
   useEffect(() => {
     thumbsSwiper?.slideTo(activeIndex);
   }, [activeIndex]);
@@ -57,9 +71,9 @@ export const GalleryCarousel = ({
   return (
     <div className={styles['gallery-carousel-wrapper']}>
       <Swiper
+        autoHeight
         spaceBetween={10}
         loop
-        {...swiperConfig}
         navigation={{
           nextEl: swiperButtonPrev,
           prevEl: swiperButtonNext,
@@ -72,20 +86,33 @@ export const GalleryCarousel = ({
         onSlideChange={(swiper) => {
           setActiveIndex(swiper.realIndex);
         }}
-        thumbs={{ swiper: thumbsSwiper }}
+        thumbs={{
+          swiper: !hideThumbs && !hideMainCarousel ? thumbsSwiper : null,
+        }}
         modules={[Navigation, Thumbs]}
         className={styles['gallery-carousel']}
+        {...swiperConfigMainCarousel}
       >
         {!hideButtons && (
           <NavigationButton
             handleNextSlide={handlePrevSlide}
             swiperButtonPrev={swiperButtonPrev}
             direction='prev'
+            theme='dark'
           />
         )}
         {images.map(({ id, url, alt }, index) => (
           <SwiperSlide key={`${id}-${index}`} className={styles['main-slide']}>
-            <Image src={url} alt={alt} fill />
+            <Image
+              src={url}
+              alt={alt}
+              height={hideMainCarousel ? 225 : 576}
+              width={hideMainCarousel ? 300 : 768}
+              className={clsx(
+                styles['gallery-carousel_image'],
+                hideMainCarousel && styles['gallery-carousel_image--main'],
+              )}
+            />
           </SwiperSlide>
         ))}
         {!hideButtons && (
@@ -93,36 +120,39 @@ export const GalleryCarousel = ({
             handleNextSlide={handleNextSlide}
             swiperButtonPrev={swiperButtonNext}
             direction='next'
+            theme='dark'
           />
         )}
       </Swiper>
 
-      <Swiper
-        onSwiper={(swiper) => {
-          setThumbsSwiper(swiper);
-        }}
-        spaceBetween={15}
-        slidesPerView={4.5}
-        modules={[Thumbs]}
-        className={styles['gallery-carousel-thumbs']}
-        threshold={5}
-        {...swiperThumbsConfig}
-      >
-        {images.map(({ id, url, alt }, index) => (
-          <SwiperSlide
-            key={`${id}-${index}-thumbs`}
-            className={clsx(
-              styles['thumb-slide'],
-              index === activeIndex && styles['thumb-slide--active'],
-            )}
-            onClick={() => {
-              swiperRef.current?.slideTo(index);
-            }}
-          >
-            <Image src={url} alt={alt} fill />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {!hideThumbs && !hideMainCarousel && (
+        <Swiper
+          onSwiper={(swiper) => {
+            setThumbsSwiper(swiper);
+          }}
+          spaceBetween={15}
+          slidesPerView={6}
+          modules={[Thumbs]}
+          className={styles['gallery-carousel-thumbs']}
+          threshold={5}
+          {...swiperThumbsConfig}
+        >
+          {images.map(({ id, url, alt }, index) => (
+            <SwiperSlide
+              key={`${id}-${index}-thumbs`}
+              className={clsx(
+                styles['thumb-slide'],
+                index === activeIndex && styles['thumb-slide--active'],
+              )}
+              onClick={() => {
+                swiperRef.current?.slideTo(index);
+              }}
+            >
+              <Image src={url} alt={alt} width={300} height={225} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </div>
   );
 };

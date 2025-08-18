@@ -12,10 +12,9 @@ class Pages {
   }
 
   public async getPageBySlug(slug: string, params?: IGetPagesParams) {
-    const res = await baseAPI.get<IWordPressPage[]>(
-      `${this.pagesPath}?slug=${slug}`,
-      { params },
-    );
+    const res = await baseAPI.get<IWordPressPage[]>(`${this.pagesPath}`, {
+      params: { slug, acf_format: 'standard', ...params },
+    });
 
     return res.data;
   }

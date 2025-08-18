@@ -10,3 +10,5 @@ export const fieldsRewrites = [
 export const fieldsStaticPaths = ['acf.slugs_list', 'acf.destination'].join(
   ',',
 );
+
+export const homepageSlug = 'home';

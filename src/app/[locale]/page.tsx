@@ -1,35 +1,20 @@
-// import axios from 'axios';
+import Head from 'next/head';
 
-import { ProductsCarousel } from '@/components/_carousels/ProductsCarousel';
-import { SectionWrapper } from '@/components/SectionWrapper';
-import { Spacer } from '@/components/Spacer';
-import { ShootingRange } from '@/features/content/ShootingRange';
-import { Hero } from '@/features/homepage';
-import { AboutUs } from '@/features/homepage/AboutUs';
+import { ContentSections } from '@/components/ContentSections';
+import { homepageSlug } from '@/constants/pages';
+import { getPageContent } from '@/handlers/page/getPageContent';
 
 import styles from './styles.module.scss';
 
 const Home = async () => {
+  const { pageTitle, sections } = await getPageContent(homepageSlug);
+
   return (
     <div className={styles['homepage-container']}>
-      <Hero />
-      <div className={styles['homepage-content-container']}>
-        <div className='container'>
-          <Spacer />
-          <SectionWrapper sectionHeadingProps={{ title: 'Najnowsze produkty' }}>
-            <ProductsCarousel
-              swiperConfig={{
-                loop: true,
-              }}
-            />
-          </SectionWrapper>
-        </div>
-        <Spacer />
-        <AboutUs />
-        <Spacer />
-        <ShootingRange />
-        <Spacer />
-      </div>
+      <Head>
+        <title>{pageTitle}</title>
+      </Head>
+      <ContentSections sections={sections} />
     </div>
   );
 };

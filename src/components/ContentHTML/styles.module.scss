@@ -1,4 +1,6 @@
 .content-html {
+  line-height: 1.2;
+
   * {
     line-height: 1.2;
   }
@@ -47,7 +49,9 @@
 
   ul,
   ol {
-    margin: to-rem(20) 0;
+    margin: to-rem(20) to-rem(20);
+
+    list-style: unset;
   }
 
   li {

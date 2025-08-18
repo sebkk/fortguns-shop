@@ -3,13 +3,22 @@
 import Image from 'next/image';
 
 import clsx from 'clsx';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Typography } from '@/components/Typography';
 import { useScroll } from '@/providers/ScrollProvider';
+import { ISectionHero } from '@/types/sections';
+
+// Import Swiper styles
+import 'swiper/css';
 
 import styles from './styles.module.scss';
 
-export const Hero = () => {
+interface IHeroProps {
+  slides: ISectionHero['slides'];
+}
+
+export const Hero = ({ slides }: IHeroProps) => {
   const { isScrolling } = useScroll();
 
   return (
@@ -21,29 +30,44 @@ export const Hero = () => {
           isScrolling && styles['hero-wrapper--scrolling'],
         )}
       >
-        <div className={styles['hero-image-container']}>
-          <Image
-            width={1600}
-            height={1067}
-            alt='page hero image'
-            src='https://fortguns.pl/wp-content/uploads/2024/10/grafika.webp'
-            className={styles['hero-image']}
-            priority
-          />
-          <div className={styles['hero-content-container']}>
-            <Typography
-              variant='main-heading'
-              className={styles['hero-main-heading']}
-              tag='h1'
-            >
-              {'Bezpieczeństwo,\r\n jakość i sumienność.'}
-            </Typography>
-            <Typography variant='subheading' tag='p'>
-              Przekonaj się – Sprawdź naszą ofertę i znajdź idealną jednostkę
-              dla siebie!
-            </Typography>
-          </div>
-        </div>
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{
+            delay: 2500,
+          }}
+          className={styles['hero-swiper']}
+        >
+          {[...slides, ...slides].map(
+            ({ title, picture, description }, index) => (
+              <SwiperSlide key={`${picture.id}-${index}`}>
+                <div className={styles['hero-image-container']}>
+                  <Image
+                    width={1600}
+                    height={1067}
+                    alt='page hero image'
+                    src={picture.url}
+                    className={styles['hero-image']}
+                    priority
+                  />
+                  <div className={styles['hero-content-container']}>
+                    <Typography
+                      variant='main-heading'
+                      className={styles['hero-main-heading']}
+                      tag='h1'
+                    >
+                      {title}
+                    </Typography>
+                    <Typography variant='subheading' tag='p'>
+                      {description}
+                    </Typography>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ),
+          )}
+        </Swiper>
       </div>
     </>
   );

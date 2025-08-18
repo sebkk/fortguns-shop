@@ -21,12 +21,10 @@ interface NavColumn {
 
 interface NavAboutUs {
   title: string;
-  links: NavLink[];
 }
 
 interface FollowUs {
   title: string;
-  links: NavLink[];
 }
 
 export interface FooterElement {

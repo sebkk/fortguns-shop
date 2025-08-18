@@ -39,6 +39,9 @@ $color-warning-dark: #7b5b10;
 $color-white-default: #ffffff;
 $color-white-2: #ffffff48;
 
+$color-black-default: #000000;
+$color-black-2: #00000061;
+
 $color-text-default: #dddddd;
 $color-text-medium-dark: #cacacaf0;
 $color-text-dark: #bababad8;
@@ -51,15 +54,6 @@ $color-text-button-secondary: #161a16;
 
 $color-shadow-default: rgba(87, 87, 87, 0.514);
 
-// CONTAINER
-
-$container-padding: 1rem;
-$container-screen-default: 100%;
-$container-screen-2xl: 1200px;
-
-$scroll-container-min-height: 300px;
-$scroll-container-height: 85vh;
-
 // HEADER
 
 $layout-top-padding: 140px;
@@ -67,6 +61,16 @@ $layout-top-padding-mobile: 70px;
 $header-height: 98px;
 $header-height-mobile: 70px;
 $header-height-scrolling: 62px;
+
+// CONTAINER
+
+$container-padding: 1rem;
+$container-screen-default: 100%;
+$container-screen-2xl: 1200px;
+
+$scroll-container-min-height: 300px;
+$scroll-container-height: calc(100vh - $header-height);
+$scroll-container-height-mobile: calc(100vh - $header-height-mobile);
 
 // DRAWER
 

@@ -1,0 +1,1 @@
+export { SectionAboutUs } from './SectionAboutUs';

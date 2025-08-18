@@ -7,18 +7,13 @@
     transform 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
   border-radius: 50%;
-  background-color: $color-white-2;
+
   padding: to-rem(5);
   width: to-rem(30);
   height: to-rem(30);
 
   &:hover {
     transform: scale(1.2);
-    @include custom-box-shadow($color-white-default, 0, 0, 10em, true);
-  }
-
-  &:active {
-    @include custom-box-shadow($color-white-2, 0, 0, 10em, true);
   }
 }
 
@@ -35,5 +30,29 @@
 
   svg {
     transform: rotate(-90deg);
+  }
+}
+
+.products-btn-theme-light {
+  background-color: $color-white-2;
+
+  &:hover {
+    @include custom-box-shadow($color-white-default, 0, 0, 10em, true);
+  }
+
+  &:active {
+    @include custom-box-shadow($color-white-2, 0, 0, 10em, true);
+  }
+}
+
+.products-btn-theme-dark {
+  background-color: $color-black-2;
+
+  &:hover {
+    @include custom-box-shadow($color-black-default, 0, 0, 10em, true);
+  }
+
+  &:active {
+    @include custom-box-shadow($color-black-2, 0, 0, 10em, true);
   }
 }

@@ -4,15 +4,17 @@ import { Link } from '@/components/Link';
 import { Typography } from '@/components/Typography';
 import { getLinkIcon } from '@/helpers/links';
 import { FooterElement, TLinkHref } from '@/types/footer';
+import { Social } from '@/types/globalInfos';
 
 import styles from '../styles.module.scss';
 
 interface ISocialsSectionProps {
   footer: FooterElement['follow_us'];
+  socials: Social[];
 }
 
-export const SocialsSection = ({ footer }: ISocialsSectionProps) => {
-  const { title, links } = footer || {};
+export const SocialsSection = ({ footer, socials }: ISocialsSectionProps) => {
+  const { title } = footer || {};
 
   return (
     <div>
@@ -25,7 +27,7 @@ export const SocialsSection = ({ footer }: ISocialsSectionProps) => {
           styles['footer-nav-list__socials'],
         )}
       >
-        {links.map(({ href, title, type }) => (
+        {socials.map(({ href, title, type }) => (
           <li key={href}>
             <Link
               href={href}
