@@ -1,4 +1,7 @@
+/* eslint-disable prettier/prettier */
+
 // This file is auto-generated. Do not edit manually.
+
 import { GlobalInfos } from '@/types/globalInfos';
 
 export const globalInfos: GlobalInfos = {
