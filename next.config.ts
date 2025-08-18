@@ -6,8 +6,6 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  distDir: 'dist',
   sassOptions: {
     includePaths: [join(__dirname, 'src/assets/styles')],
     additionalData: `@use '_variables' as *;
