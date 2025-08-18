@@ -6,6 +6,8 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  output: 'export',
+  distDir: 'dist',
   sassOptions: {
     includePaths: [join(__dirname, 'src/assets/styles')],
     additionalData: `@use '_variables' as *;
@@ -23,10 +25,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  onError: (err: Error) => {
-    console.error('Detailed error:', err);
-  },
-
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {
       config.devtool = 'source-map';
