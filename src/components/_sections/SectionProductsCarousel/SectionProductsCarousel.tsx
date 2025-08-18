@@ -12,7 +12,7 @@ import styles from './SectionProductsCarousel.module.scss';
 export const SectionProductsCarousel = ({
   section,
 }: TSectionProductsCarouselProps) => {
-  const { title, /*products_category,*/ show_listing_link } = section;
+  const { title, products, show_listing_link } = section;
 
   const t = useTranslations();
 
@@ -38,6 +38,7 @@ export const SectionProductsCarousel = ({
         swiperConfig={{
           loop: true,
         }}
+        items={products}
       />
     </SectionWrapper>
   );

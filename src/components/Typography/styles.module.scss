@@ -20,11 +20,11 @@
 }
 
 .variant-body {
-  font-size: to-rem(16);
+  font-size: to-rem(18);
 }
 
 .variant-caption {
-  font-size: to-rem(14);
+  font-size: to-rem(16);
 }
 
 // Colors
@@ -43,16 +43,16 @@
 
 // Font Sizes
 .font-size-xs {
-  font-size: to-rem(12);
-}
-.font-size-sm {
   font-size: to-rem(14);
 }
-.font-size-base {
+.font-size-sm {
   font-size: to-rem(16);
 }
+.font-size-base {
+  font-size: to-rem(18);
+}
 .font-size-xl {
-  font-size: to-rem(20);
+  font-size: to-rem(22);
 }
 .font-size-2xl {
   font-size: to-rem(24);

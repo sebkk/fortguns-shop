@@ -50,6 +50,7 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
                 <Link
                   className={styles['contact-link']}
                   href={getLinkHref(href, type as TLinkHref)}
+                  size='xxLarge'
                 >
                   {getContactInfoIcon(type, styles['contact-icon'])} {href}
                 </Link>

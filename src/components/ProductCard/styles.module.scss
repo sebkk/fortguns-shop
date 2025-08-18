@@ -98,3 +98,16 @@
     background-position: -200% 0;
   }
 }
+
+.product-card-promotion {
+  position: absolute;
+  top: to-rem(20);
+  left: 0;
+  border-top-right-radius: to-rem(8);
+  border-bottom-right-radius: to-rem(8);
+  background-color: $color-error-light;
+  padding: to-rem(8) to-rem(16);
+  color: $color-text-button-primary;
+  font-weight: 600;
+  font-size: to-rem(18);
+}

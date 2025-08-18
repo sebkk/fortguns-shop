@@ -4,14 +4,15 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
 import { GalleryCarousel } from '@/components/_carousels/GalleryCarousel';
-import { MailIcon } from '@/components/_icons/MailIcon';
-import { PhoneIcon } from '@/components/_icons/PhoneIcon';
 import { Card } from '@/components/Card';
 import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { Typography } from '@/components/Typography';
+import globalInfos from '@/constants/api/global-infos';
 import { createMailToQuery } from '@/helpers/createMailToQuery';
+import { getContactInfoIcon, getLinkHref } from '@/helpers/links';
+import { TLinkHref } from '@/types/footer';
 import { IProduct } from '@/types/product';
 
 import styles from './styles.module.scss';
@@ -23,8 +24,18 @@ interface IProductMainSectionProps {
 export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
   const t = useTranslations();
 
-  const { name, price, sale_price, images, stock_status, categories, id } =
-    product || {};
+  const {
+    name,
+    regular_price,
+    sale_price,
+    images,
+    stock_status,
+    categories,
+    id,
+  } = product || {};
+
+  const phone = globalInfos.contact_infos.find(({ type }) => type === 'phone');
+  const email = globalInfos.contact_infos.find(({ type }) => type === 'mail');
 
   return (
     <div className={styles['product-main-section']}>
@@ -58,7 +69,7 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
         <ProductPrice
           wrapperClassName={styles['product-details-price']}
           salePrice={sale_price}
-          price={price}
+          price={regular_price}
           stockStatus={stock_status}
           size='large'
         />
@@ -73,20 +84,23 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
             <a
               className={styles['product-contact-wrapper_link']}
               href={createMailToQuery(
-                'fortguns@gmail.com',
+                email?.href as string,
                 name,
                 id.toString(),
               )}
             >
-              <MailIcon />
-              fortguns@gmail.com
+              {getContactInfoIcon(email?.type as string)}
+              {email?.label}
             </a>
             <a
               className={styles['product-contact-wrapper_link']}
-              href='tel:+48791111111'
+              href={getLinkHref(
+                phone?.href as string,
+                phone?.type as TLinkHref,
+              )}
             >
-              <PhoneIcon />
-              +48 791 111 111
+              {getContactInfoIcon(phone?.type as string)}
+              {phone?.label}
             </a>
           </div>
         </Card>

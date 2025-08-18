@@ -22,8 +22,17 @@ export const ProductCard = ({ product }: IProductCardProps) => {
   const t = useTranslations();
   const { push } = useAppRouter();
 
-  const { images, price, sale_price, categories, name, slug, stock_status } =
-    product || {};
+  const {
+    images,
+    regular_price,
+    sale_price,
+    categories,
+    name,
+    slug,
+    stock_status,
+  } = product || {};
+
+  const isPromotion = sale_price && sale_price < regular_price;
 
   const firstImage = images?.[0];
 
@@ -40,6 +49,9 @@ export const ProductCard = ({ product }: IProductCardProps) => {
 
   return (
     <article className={styles['product-card']}>
+      {isPromotion && (
+        <div className={styles['product-card-promotion']}>{t('promotion')}</div>
+      )}
       {firstImage && (
         <div className={styles['image-wrapper']}>
           <Image
@@ -65,7 +77,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
 
         <div className={styles['actions-section']}>
           <ProductPrice
-            price={price}
+            price={regular_price}
             salePrice={sale_price}
             stockStatus={stock_status}
           />

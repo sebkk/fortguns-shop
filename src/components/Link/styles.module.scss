@@ -94,15 +94,23 @@
 
 .link-size {
   &--small {
-    font-size: to-rem(14);
-  }
-
-  &--medium {
     font-size: to-rem(16);
   }
 
-  &--large {
+  &--medium {
     font-size: to-rem(18);
+  }
+
+  &--large {
+    font-size: to-rem(20);
+  }
+
+  &--x-large {
+    font-size: to-rem(22);
+  }
+
+  &--xx-large {
+    font-size: to-rem(24);
   }
 }
 

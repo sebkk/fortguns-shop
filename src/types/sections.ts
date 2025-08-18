@@ -1,5 +1,6 @@
 import { ISpacerSize } from './components';
 import { IPhoto } from './pages';
+import { IProduct } from './product';
 
 interface ITitleAndDescription {
   title: string;
@@ -70,6 +71,7 @@ export interface ISectionProductsCarousel extends ISectionOptions {
   title: string;
   products_category: 'all';
   show_listing_link: boolean;
+  products: IProduct[];
 }
 
 interface ISectionHeroSlide {
@@ -92,7 +94,8 @@ export type TFlexibleContentLayout =
   | ISectionAboutUs
   | ISectionGallery
   | ISectionProductsCarousel
-  | ISectionHero;
+  | ISectionHero
+  | ISectionVariant;
 
 interface ISlugItem {
   locale: string;

@@ -5,7 +5,7 @@ import { LinkProps } from 'next/link';
 import { UrlObject } from 'url';
 
 export type TLinkVariant = 'primary' | 'secondary' | 'accent';
-export type TLinkSize = 'small' | 'medium' | 'large';
+export type TLinkSize = 'small' | 'medium' | 'large' | 'xLarge' | 'xxLarge';
 
 export interface ILinkProps {
   href:

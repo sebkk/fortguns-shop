@@ -19,7 +19,7 @@ export const getPageContent = async (
 
     const { title, acf } = page || {};
 
-    const sections = mapPageSectionsData(acf?.sections || []);
+    const sections = await mapPageSectionsData(acf?.sections || []);
 
     return { pageTitle: title?.rendered, sections };
   } catch (error) {

@@ -30,6 +30,8 @@ export const Link = ({
     small: styles['link-size--small'],
     medium: styles['link-size--medium'],
     large: styles['link-size--large'],
+    xLarge: styles['link-size--x-large'],
+    xxLarge: styles['link-size--xx-large'],
   };
 
   const classNames = clsx(

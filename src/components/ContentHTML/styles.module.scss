@@ -1,8 +1,9 @@
 .content-html {
-  line-height: 1.2;
+  line-height: 1.55;
 
   * {
-    line-height: 1.2;
+    font-size: to-rem(18);
+    line-height: 1.55;
   }
 
   h1,
