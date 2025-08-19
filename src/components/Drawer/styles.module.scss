@@ -3,7 +3,7 @@
   top: 0;
   right: 0;
   transform: translateX(100%);
-  z-index: 50;
+  z-index: $z-index-drawer;
   transition: transform 0.3s ease-in-out;
 
   @include custom-box-shadow($color-shadow-default, 0, to-rem(2), 0.05);

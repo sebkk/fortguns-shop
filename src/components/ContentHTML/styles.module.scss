@@ -24,7 +24,7 @@
   }
 
   h3 {
-    font-size: to-rem(38);
+    font-size: to-rem(36);
   }
 
   h4 {
@@ -50,13 +50,19 @@
 
   ul,
   ol {
-    margin: to-rem(20) to-rem(20);
+    margin: to-rem(20) 0;
+  }
 
-    list-style: unset;
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
   }
 
   li {
-    margin: to-rem(10) 0;
+    margin: to-rem(10) 0 0 to-rem(40);
   }
 
   a {

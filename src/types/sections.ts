@@ -56,6 +56,8 @@ export interface ISectionAboutUs extends ITitleAndDescription, ISectionOptions {
   acf_fc_layout: 'section_about_us';
   show_map: boolean;
   code_html: string;
+  content: string;
+  location_description: string;
 }
 
 export interface ISectionGallery extends ITitleAndDescription, ISectionOptions {

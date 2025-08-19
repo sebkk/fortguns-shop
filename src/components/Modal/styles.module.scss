@@ -1,5 +1,5 @@
 .modal {
-  z-index: 200;
+  z-index: $z-index-modal;
   border-radius: to-rem(10);
   background-color: $color-background-light;
 

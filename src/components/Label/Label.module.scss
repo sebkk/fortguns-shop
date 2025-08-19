@@ -1,0 +1,21 @@
+.label {
+  display: block;
+
+  border-radius: to-rem(12);
+  padding: to-rem(8) to-rem(16);
+  color: $color-text-button-primary;
+  font-size: to-rem(14);
+  line-height: 1.1;
+
+  text-transform: uppercase;
+
+  &--c-primary {
+    border: to-rem(1) solid $color-primary-default;
+    background-color: $color-primary-light;
+  }
+
+  &--c-error {
+    border: to-rem(1) solid $color-error-default;
+    background-color: $color-error-light;
+  }
+}

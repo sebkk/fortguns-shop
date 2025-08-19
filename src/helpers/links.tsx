@@ -1,4 +1,5 @@
 import { FacebookIcon } from '@/components/_icons/FacebookIcon';
+import { LocationIcon } from '@/components/_icons/LocationIcon';
 import { MailIcon } from '@/components/_icons/MailIcon';
 import { PhoneIcon } from '@/components/_icons/PhoneIcon';
 import { TelegramIcon } from '@/components/_icons/TelegramIcon';
@@ -33,6 +34,8 @@ export const getContactInfoIcon = (type: string, className?: string) => {
       return <PhoneIcon className={className} />;
     case 'mail':
       return <MailIcon className={className} />;
+    case 'address':
+      return <LocationIcon className={className} />;
     default:
       return null;
   }

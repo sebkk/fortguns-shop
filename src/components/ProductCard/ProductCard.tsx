@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import { useTranslations } from 'next-intl';
@@ -13,6 +14,10 @@ import { useAppRouter } from '@/hooks/useAppRouter';
 import { IProduct } from '@/types/product';
 
 import styles from './styles.module.scss';
+
+const Label = dynamic(() =>
+  import('@/components/Label').then((mod) => mod.Label),
+);
 
 interface IProductCardProps {
   product: IProduct;
@@ -43,53 +48,58 @@ export const ProductCard = ({ product }: IProductCardProps) => {
     params: { productSlug: slug },
   };
 
-  const handleNavigate = () => {
+  const handleNavigate = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     push(navigationObj);
   };
 
   return (
     <article className={styles['product-card']}>
-      {isPromotion && (
-        <div className={styles['product-card-promotion']}>{t('promotion')}</div>
-      )}
-      {firstImage && (
-        <div className={styles['image-wrapper']}>
-          <Image
-            src={firstImage.src}
-            alt={firstImage.alt || name || 'Product image'}
-            width={300}
-            height={300}
-            className={styles['product-image']}
-          />
-        </div>
-      )}
-      <div className={styles['content-wrapper']}>
-        <div className={styles['info-section']}>
-          <Link href={navigationObj} className={styles['product-name-link']}>
-            {name}
-          </Link>
-          <ProductCategories
-            categories={categories}
-            size='small'
-            classNameWrapper={styles['product-categories']}
-          />
-        </div>
+      <Link className={styles['product-card-link']} href={navigationObj}>
+        {isPromotion && (
+          <div className={styles['product-card-promotion']}>
+            <Label color='error'>{t('promotion')}</Label>
+          </div>
+        )}
+        {firstImage && (
+          <div className={styles['image-wrapper']}>
+            <Image
+              src={firstImage.src}
+              alt={firstImage.alt || name || 'Product image'}
+              width={300}
+              height={300}
+              className={styles['product-image']}
+            />
+          </div>
+        )}
+        <div className={styles['content-wrapper']}>
+          <div className={styles['info-section']}>
+            <h5 className={styles['product-name-link']}>{name}</h5>
+            <ProductCategories
+              categories={categories}
+              size='small'
+              classNameWrapper={styles['product-categories']}
+            />
+          </div>
 
-        <div className={styles['actions-section']}>
-          <ProductPrice
-            price={regular_price}
-            salePrice={sale_price}
-            stockStatus={stock_status}
-          />
-          <Button
-            onClick={handleNavigate}
-            className={styles['product-button']}
-            size='small'
-          >
-            {t('showProduct')}
-          </Button>
+          <div className={styles['actions-section']}>
+            <ProductPrice
+              price={regular_price}
+              salePrice={sale_price}
+              stockStatus={stock_status}
+            />
+            <Button
+              onClick={handleNavigate}
+              className={styles['product-button']}
+              size='small'
+            >
+              {t('showProduct')}
+            </Button>
+          </div>
         </div>
-      </div>
+      </Link>
     </article>
   );
 };

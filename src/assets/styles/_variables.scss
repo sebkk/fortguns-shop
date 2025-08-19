@@ -76,6 +76,13 @@ $scroll-container-height-mobile: calc(100vh - $header-height-mobile);
 
 $drawer-max-width: 448px;
 
+// Z-INDEX
+
+$z-index-drawer: 100;
+$z-index-overlay: 80;
+$z-index-header: 50;
+$z-index-modal: 110;
+
 // BREAKPOINTS
 
 $breakpoint-xs: 480px;

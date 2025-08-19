@@ -50,10 +50,19 @@
 .footer-nav {
   display: grid;
   position: relative;
-  grid-template-columns: repeat(3, 1fr);
-  gap: to-rem(8);
+  grid-template-columns: repeat(2, 1fr);
+  gap: to-rem(20);
 
   border-bottom: $color-text-dark to-rem(1) solid;
 
   padding: to-rem(20) 0 to-rem(35);
+
+  @include respond-below($breakpoint-xs) {
+    grid-template-columns: 1fr;
+  }
+
+  @include respond-above($breakpoint-md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: to-rem(40);
+  }
 }

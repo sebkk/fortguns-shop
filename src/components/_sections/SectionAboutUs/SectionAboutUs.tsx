@@ -2,12 +2,13 @@ import { ContentHTML } from '@/components/ContentHTML';
 import { GoogleMapComponent } from '@/components/GoogleMapComponent';
 import { Link } from '@/components/Link';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { Typography } from '@/components/Typography';
 import globalInfos from '@/constants/api/global-infos';
 import { getContactInfoIcon, getLinkHref } from '@/helpers/links';
 import { TLinkHref } from '@/types/footer';
 import { TSectionAboutUsProps } from '@/types/handlerComponents';
 
-import styles from './styles.module.scss';
+import styles from './SectionAboutUs.module.scss';
 
 const containerStyle = {
   width: '100%',
@@ -15,7 +16,14 @@ const containerStyle = {
 };
 
 export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
-  const { title, description, show_map, code_html } = section;
+  const {
+    title,
+    description,
+    show_map,
+    code_html,
+    content,
+    location_description,
+  } = section;
 
   const address = globalInfos.contact_infos.find(
     ({ type }) => type === 'address',
@@ -34,15 +42,28 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
       />
       <div className={styles['content-grid']}>
         <div className={styles['info-column']}>
+          {content && (
+            <Typography tag='p' className={styles['content-text']}>
+              {content}
+            </Typography>
+          )}
           <address className={styles['address-block']}>
             <a
               href={`maps:?q=${address?.href}`}
               target='_blank'
               className={styles['address-link']}
             >
-              {address?.href}
+              {getContactInfoIcon(
+                address?.type as string,
+                styles['contact-icon'],
+              )}
+              <span>{address?.href}</span>
             </a>
-            <p className={styles['address-details']}>{description}</p>
+            {location_description && (
+              <Typography tag='p' className={styles['location-description']}>
+                {location_description}
+              </Typography>
+            )}
           </address>
           <ul className={styles['contact-list']}>
             {contactInfosFiltered.map(({ href, type }) => (
@@ -57,7 +78,10 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
               </li>
             ))}
           </ul>
-          <ContentHTML content={code_html} />
+          <ContentHTML
+            content={code_html}
+            className={styles['content-html--mobile']}
+          />
         </div>
         {show_map && (
           <GoogleMapComponent
@@ -66,6 +90,10 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
           />
         )}
       </div>
+      <ContentHTML
+        content={code_html}
+        className={styles['content-html--desktop']}
+      />
     </div>
   );
 };

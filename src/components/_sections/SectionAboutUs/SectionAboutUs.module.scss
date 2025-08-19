@@ -1,0 +1,112 @@
+.section-about-us {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(40);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: to-rem(40);
+
+  @include respond-above($breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-text {
+  margin-bottom: to-rem(20);
+}
+
+.address-block {
+  margin-bottom: to-rem(24);
+  font-style: normal;
+  font-weight: bold;
+  font-size: to-rem(24);
+}
+
+.address-link {
+  display: flex;
+  align-items: center;
+
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.address-details {
+  font-weight: normal;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: to-rem(10);
+
+  &_socials {
+    display: flex;
+  }
+}
+
+.contact-list-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  color: $color-text-default;
+
+  > span {
+    display: block;
+
+    line-height: 1;
+  }
+}
+
+.contact-icon {
+  margin-right: to-rem(8);
+
+  width: to-rem(28);
+}
+
+.content-html {
+  &--desktop {
+    display: none;
+
+    justify-self: center;
+
+    text-align: center;
+
+    p {
+      margin: 0 auto;
+      max-width: to-rem(950);
+    }
+  }
+
+  @include respond-above($breakpoint-lg) {
+    &--mobile {
+      display: none;
+    }
+
+    &--desktop {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+.location-description {
+  margin-top: to-rem(6);
+
+  font-weight: normal;
+}
