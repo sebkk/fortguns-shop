@@ -20,6 +20,7 @@ export const GoogleMapComponent = ({
   return (
     <div className={stylesCss['map-wrapper']}>
       <iframe
+        title='FortGuns Google Map'
         width='600'
         height='450'
         style={styles}

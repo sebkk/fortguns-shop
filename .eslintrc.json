@@ -1,20 +1,27 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript",
-    "prettier"
-  ],
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
   "plugins": ["import", "prettier"],
+  "ignorePatterns": ["src/constants/api/**/*"],
   "rules": {
-    "prettier/prettier": ["error", {
-      "singleQuote": true,
-      "jsxSingleQuote": true,
-      "endOfLine": "lf"
-    }],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "jsxSingleQuote": true,
+        "endOfLine": "lf"
+      }
+    ],
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"], "object", "type"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"],
+          "object",
+          "type"
+        ],
         "pathGroups": [
           { "pattern": "react", "group": "builtin", "position": "before" },
           { "pattern": "next/**", "group": "builtin", "position": "before" },
@@ -25,11 +32,14 @@
         "alphabetize": { "order": "asc", "caseInsensitive": true }
       }
     ],
-    "@typescript-eslint/no-unused-vars": ["error", { 
-      "argsIgnorePattern": "^_",
-      "varsIgnorePattern": "^_",
-      "ignoreRestSiblings": true
-    }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
     "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
     "eol-last": ["error", "always"],
@@ -38,4 +48,4 @@
     "quotes": ["error", "single", { "avoidEscape": true }],
     "jsx-quotes": ["error", "prefer-single"]
   }
-} 
+}

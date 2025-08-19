@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
@@ -20,6 +21,8 @@ export const NavigationButton = ({
   theme = 'light',
   className,
 }: INavigationButtonProps) => {
+  const t = useTranslations();
+
   return (
     <Button
       variant='blank'
@@ -31,6 +34,9 @@ export const NavigationButton = ({
         className,
       )}
       onClick={handleNextSlide}
+      buttonProps={{
+        'aria-label': direction === 'next' ? t('nextSlide') : t('prevSlide'),
+      }}
     >
       <ArrowIcon />
     </Button>

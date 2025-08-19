@@ -7,14 +7,11 @@ interface IProductPagePaginationProps {
   params: Promise<{ pageNumber: string }>;
 }
 
-export const config = {
-  revalidate: 600,
-  dynamicParams: true,
-};
-
 export const generateStaticParams = async () => {
   return [];
 };
+
+export const revalidate = 3600;
 
 const ProductPagePagination = async ({
   params,

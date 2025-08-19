@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 
+import parseHTML from 'html-react-parser';
+
 import pagesApi from '@/api/pages';
 import { fields } from '@/constants/pages';
 import { IGetPagesParams } from '@/types/pages';
@@ -21,7 +23,7 @@ export const getPageContent = async (
 
     const sections = await mapPageSectionsData(acf?.sections || []);
 
-    return { pageTitle: title?.rendered, sections };
+    return { pageTitle: parseHTML(title?.rendered || ''), sections };
   } catch (error) {
     console.error(error);
 

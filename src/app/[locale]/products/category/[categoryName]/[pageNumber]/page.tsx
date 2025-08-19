@@ -1,26 +1,28 @@
 import { notFound } from 'next/navigation';
 
 import categoriesApi from '@/api/woocommerce/categories';
+import { DEFAULT_LOCALE } from '@/constants/locales';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 
 interface IProductCategoryPaginationPageProps {
   params: Promise<{
+    locale: string;
     categoryName: string;
     pageNumber: string;
   }>;
 }
 
-export const config = {
-  revalidate: 600,
-  dynamicParams: true,
-};
+export const revalidate = 600;
 
 export const generateStaticParams = async () => {
   const res = await categoriesApi.getCategories();
+
   return res.data.map((category) => ({
+    locale: DEFAULT_LOCALE,
     categoryName: category.slug,
+    pageNumber: '1',
   }));
 };
 

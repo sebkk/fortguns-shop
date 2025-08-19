@@ -5,7 +5,7 @@
   gap: to-rem(40);
   padding-bottom: to-rem(40);
 
-  @include respond-above($breakpoint-2md) {
+  @include respond-above($breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
   }
 }

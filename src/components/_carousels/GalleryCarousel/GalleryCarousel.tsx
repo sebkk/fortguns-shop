@@ -47,6 +47,16 @@ export const GalleryCarousel = ({
   const swiperRef = useRef<SwiperType | null>(null);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const hasEnoughSlides = images.length > 1;
+  const isLoop = hasEnoughSlides && swiperConfig.loop !== false;
+  const shouldShowPrevButton =
+    !hideButtons && hasEnoughSlides && (isLoop || !isBeginning);
+
+  const shouldShowNextButton =
+    !hideButtons && hasEnoughSlides && (isLoop || !isEnd);
 
   const handlePrevSlide = () => {
     swiperRef.current?.slidePrev();
@@ -73,7 +83,7 @@ export const GalleryCarousel = ({
       <Swiper
         autoHeight
         spaceBetween={10}
-        loop
+        loop={isLoop}
         navigation={{
           nextEl: swiperButtonPrev,
           prevEl: swiperButtonNext,
@@ -85,6 +95,8 @@ export const GalleryCarousel = ({
         }}
         onSlideChange={(swiper) => {
           setActiveIndex(swiper.realIndex);
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
         }}
         thumbs={{
           swiper: !hideThumbs && !hideMainCarousel ? thumbsSwiper : null,
@@ -93,7 +105,7 @@ export const GalleryCarousel = ({
         className={styles['gallery-carousel']}
         {...swiperConfigMainCarousel}
       >
-        {!hideButtons && (
+        {shouldShowPrevButton && (
           <NavigationButton
             handleNextSlide={handlePrevSlide}
             swiperButtonPrev={swiperButtonPrev}
@@ -115,7 +127,7 @@ export const GalleryCarousel = ({
             />
           </SwiperSlide>
         ))}
-        {!hideButtons && (
+        {shouldShowNextButton && (
           <NavigationButton
             handleNextSlide={handleNextSlide}
             swiperButtonPrev={swiperButtonNext}

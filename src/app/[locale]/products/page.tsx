@@ -1,6 +1,13 @@
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 
+export const revalidate = 600;
+export const dynamic = 'force-static';
+
+export const generateStaticParams = async () => {
+  return [];
+};
+
 const ProductsPage = async () => {
   const { products, totalPages, totalProducts } = await fetchProducts({
     params: {

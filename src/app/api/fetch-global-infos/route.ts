@@ -28,7 +28,9 @@ export async function GET() {
       };
     }, {});
 
-    const tsContent = `// This file is auto-generated. Do not edit manually.
+    const tsContent = `
+    /* eslint-disable prettier/prettier */
+    // This file is auto-generated. Do not edit manually.
       import { GlobalInfos } from '@/types/globalInfos';
 
       export const globalInfos: GlobalInfos = ${JSON.stringify(

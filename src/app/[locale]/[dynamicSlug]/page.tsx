@@ -6,11 +6,26 @@ import { fieldsStaticPaths } from '@/constants/pages';
 import { getPageContent } from '@/handlers/page/getPageContent';
 
 export const dynamicParams = false;
+export const dynamic = 'force-static';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; dynamicSlug: string }>;
+}) {
+  const { dynamicSlug } = await params;
+
+  const { pageTitle } = await getPageContent(dynamicSlug);
+
+  return {
+    title: pageTitle,
+  };
+}
 
 const DynamicPage = async ({
   params,
 }: {
-  params: Promise<{ dynamicSlug: string }>;
+  params: Promise<{ locale: string; dynamicSlug: string }>;
 }) => {
   const { dynamicSlug } = await params;
 
@@ -37,11 +52,10 @@ export const generateStaticParams = async () => {
       .filter(({ acf }) => acf?.destination?.includes('dynamicSlug'))
       .flatMap(
         ({ acf }) =>
-          acf?.slugs_list?.map(({ pathname }) => {
-            return {
-              dynamicSlug: pathname,
-            };
-          }) || [],
+          acf?.slugs_list?.map(({ pathname, locale }) => ({
+            locale,
+            dynamicSlug: pathname,
+          })) || [],
       );
 
     return params;
