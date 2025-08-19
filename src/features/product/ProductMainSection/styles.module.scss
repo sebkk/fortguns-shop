@@ -13,7 +13,7 @@
 .product-title-wrapper {
   text-align: center;
 
-  @include respond-above($breakpoint-2md) {
+  @include respond-above($breakpoint-lg) {
     text-align: left;
 
     &--top {
@@ -30,7 +30,7 @@
 
 .product-title-wrapper--bottom {
   display: none;
-  @include respond-above($breakpoint-2md) {
+  @include respond-above($breakpoint-lg) {
     display: block;
   }
 }
@@ -41,7 +41,7 @@
 
   gap: to-rem(40);
 
-  @include respond-above($breakpoint-2md) {
+  @include respond-above($breakpoint-lg) {
     gap: 0;
   }
 }

@@ -50,7 +50,9 @@ export const GalleryCarousel = ({
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
-  const hasEnoughSlides = images.length > 1;
+  const currentSlidesPerView = swiperRef.current?.params.slidesPerView || 1;
+
+  const hasEnoughSlides = images.length > Number(currentSlidesPerView);
   const isLoop = hasEnoughSlides && swiperConfig.loop !== false;
   const shouldShowPrevButton =
     !hideButtons && hasEnoughSlides && (isLoop || !isBeginning);
@@ -68,15 +70,18 @@ export const GalleryCarousel = ({
 
   const swiperConfigMainCarousel = hideMainCarousel
     ? {
-        slidesPerView: 6,
+        slidesPerView: 1,
+        slidesPerGroup: 1,
         spaceBetween: 20,
         ...swiperConfig,
       }
     : { ...swiperConfig };
 
   useEffect(() => {
-    thumbsSwiper?.slideTo(activeIndex);
-  }, [activeIndex]);
+    if (thumbsSwiper && activeIndex >= 0) {
+      thumbsSwiper.slideTo(activeIndex);
+    }
+  }, [activeIndex, thumbsSwiper]);
 
   return (
     <div className={styles['gallery-carousel-wrapper']}>
@@ -85,16 +90,23 @@ export const GalleryCarousel = ({
         spaceBetween={10}
         loop={isLoop}
         navigation={{
-          nextEl: swiperButtonPrev,
-          prevEl: swiperButtonNext,
+          nextEl: swiperButtonNext,
+          prevEl: swiperButtonPrev,
           disabledClass: styles['products-btn--disabled'],
           hiddenClass: styles['products-btn--hidden'],
         }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
+          // Initialize active index when swiper is ready
+          if (swiper.realIndex !== undefined && !isNaN(swiper.realIndex)) {
+            setActiveIndex(swiper.realIndex);
+          }
         }}
         onSlideChange={(swiper) => {
-          setActiveIndex(swiper.realIndex);
+          const realIndex = swiper.realIndex;
+          if (typeof realIndex === 'number' && !isNaN(realIndex)) {
+            setActiveIndex(realIndex);
+          }
           setIsBeginning(swiper.isBeginning);
           setIsEnd(swiper.isEnd);
         }}
@@ -157,10 +169,18 @@ export const GalleryCarousel = ({
                 index === activeIndex && styles['thumb-slide--active'],
               )}
               onClick={() => {
-                swiperRef.current?.slideTo(index);
+                if (swiperRef.current) {
+                  swiperRef.current.slideToLoop(index);
+                }
               }}
             >
-              <Image src={url} alt={alt} width={300} height={225} />
+              <Image
+                src={url}
+                alt={alt}
+                width={300}
+                height={225}
+                className={styles['gallery-carousel-thumbs-image']}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

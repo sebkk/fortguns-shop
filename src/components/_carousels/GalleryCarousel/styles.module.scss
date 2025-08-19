@@ -16,6 +16,9 @@
 
 .gallery-carousel_image {
   border-radius: to-rem(8);
+
+  width: 100%;
+  height: 100%;
 }
 
 .gallery-carousel_image--main {
@@ -94,11 +97,11 @@
     &--active {
       opacity: 1;
     }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   }
+}
+
+.gallery-carousel-thumbs-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
