@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 
 import { Overlay } from '@/components/Overlay';
+import { useMounted } from '@/hooks/useMounted';
 
 import { Button } from '../Button';
 import { Typography } from '../Typography';
@@ -28,7 +29,11 @@ export const Modal = ({
 }: ModalProps) => {
   const modalRef = useRef<HTMLDialogElement>(null);
 
+  const isMounted = useMounted();
+
   useEffect(() => {
+    if (!isMounted) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
         modalRef.current &&
@@ -51,7 +56,7 @@ export const Modal = ({
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [isMounted]);
 
   return createPortal(
     <Overlay
