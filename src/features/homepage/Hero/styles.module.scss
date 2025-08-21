@@ -11,6 +11,64 @@
 
   min-height: $scroll-container-min-height;
 
+  :global(.swiper-pagination) {
+    bottom: to-rem(80);
+  }
+
+  :global(.swiper-pagination-bullet) {
+    transition:
+      scale 0.3s ease,
+      background-color 0.3s ease;
+    background-color: $color-white-default;
+    width: to-rem(14);
+    height: to-rem(14);
+
+    &:hover {
+      scale: 1.2;
+    }
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    opacity: 1;
+    background-color: $color-primary-default;
+  }
+
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0.8;
+
+    border-radius: 50%;
+    width: to-rem(35);
+    height: to-rem(35);
+
+    color: $color-white-default;
+
+    &::after {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      transition: scale 0.3s ease;
+
+      border-radius: 50%;
+      background-color: $color-white-2;
+
+      padding: to-rem(10);
+      width: to-rem(35);
+      height: to-rem(35);
+    }
+
+    &:hover {
+      &::after {
+        scale: 1.2;
+      }
+    }
+  }
+
   @include respond-above($breakpoint-md) {
     height: $scroll-container-height;
   }
@@ -65,10 +123,6 @@
 
 .hero-scroll-container {
   height: $scroll-container-height;
-  // padding-top: $layout-top-padding-mobile;
-  min-height: $scroll-container-min-height;
 
-  @include respond-above($breakpoint-md) {
-    // padding-top: $layout-top-padding;
-  }
+  min-height: $scroll-container-min-height;
 }

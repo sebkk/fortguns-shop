@@ -35,10 +35,6 @@
   padding-left: $container-padding;
   width: $container-screen-default;
   max-width: $container-screen-2xl;
-
-  @include respond-above($container-screen-2xl) {
-    padding: 0;
-  }
 }
 
 @mixin respond-above($breakpoint-input) {

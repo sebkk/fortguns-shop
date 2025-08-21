@@ -12,6 +12,7 @@ interface ICategoryPageProps {
   }>;
 }
 
+export const dynamic = 'force-static';
 export const revalidate = 600;
 
 export const generateStaticParams = async () => {

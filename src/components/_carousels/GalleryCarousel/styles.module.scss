@@ -12,13 +12,38 @@
     width: 100%;
     height: 100%;
   }
+
+  :global(.swiper-pagination) {
+    position: static;
+
+    margin-top: to-rem(15);
+  }
+
+  :global(.swiper-pagination-bullet) {
+    transition:
+      scale 0.3s ease,
+      background-color 0.3s ease;
+
+    background-color: $color-white-default;
+    width: to-rem(11);
+    height: to-rem(11);
+    &:hover {
+      scale: 1.2;
+    }
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    background-color: $color-primary-light;
+  }
 }
 
 .gallery-carousel_image {
   border-radius: to-rem(8);
 
-  width: 100%;
+  width: auto;
   height: 100%;
+
+  max-height: to-rem(340);
 }
 
 .gallery-carousel_image--main {
@@ -28,11 +53,10 @@
 
 .gallery-carousel-wrapper {
   display: grid;
-
   position: relative;
-
   width: 100%;
   max-width: 100%;
+  min-height: to-rem(200);
 
   .swiper-wrapper {
     height: auto;

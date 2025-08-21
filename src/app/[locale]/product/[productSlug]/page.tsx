@@ -6,7 +6,7 @@ import { ProductDescriptionSection } from '@/features/product/ProductDescription
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
 
 export const revalidate = 3600;
 

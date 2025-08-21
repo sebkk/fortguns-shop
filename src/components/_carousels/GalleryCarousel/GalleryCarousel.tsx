@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 import clsx from 'clsx';
-import { Navigation, Thumbs } from 'swiper/modules';
+import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 
 import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
@@ -70,12 +70,17 @@ export const GalleryCarousel = ({
 
   const swiperConfigMainCarousel = hideMainCarousel
     ? {
+        slidesPerView: 6,
+        slidesPerGroup: 6,
+        spaceBetween: 20,
+        ...swiperConfig,
+      }
+    : {
         slidesPerView: 1,
         slidesPerGroup: 1,
         spaceBetween: 20,
         ...swiperConfig,
-      }
-    : { ...swiperConfig };
+      };
 
   useEffect(() => {
     if (thumbsSwiper && activeIndex >= 0) {
@@ -84,10 +89,16 @@ export const GalleryCarousel = ({
   }, [activeIndex, thumbsSwiper]);
 
   return (
-    <div className={styles['gallery-carousel-wrapper']}>
+    <div
+      className={styles['gallery-carousel-wrapper']}
+      style={
+        {
+          '--swiper-theme-color': '#4caf50',
+        } as React.CSSProperties
+      }
+    >
       <Swiper
         autoHeight
-        spaceBetween={10}
         loop={isLoop}
         navigation={{
           nextEl: swiperButtonNext,
@@ -97,7 +108,6 @@ export const GalleryCarousel = ({
         }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
-          // Initialize active index when swiper is ready
           if (swiper.realIndex !== undefined && !isNaN(swiper.realIndex)) {
             setActiveIndex(swiper.realIndex);
           }
@@ -113,7 +123,8 @@ export const GalleryCarousel = ({
         thumbs={{
           swiper: !hideThumbs && !hideMainCarousel ? thumbsSwiper : null,
         }}
-        modules={[Navigation, Thumbs]}
+        modules={[Navigation, Thumbs, Pagination]}
+        pagination={hideMainCarousel && { clickable: true }}
         className={styles['gallery-carousel']}
         {...swiperConfigMainCarousel}
       >
