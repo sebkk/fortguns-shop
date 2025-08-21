@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 
 import clsx from 'clsx';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 
 import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
+import { IPhoto } from '@/types/pages';
 
 import styles from './styles.module.scss';
 
@@ -23,17 +24,21 @@ import 'swiper/css/thumbs';
 const swiperButtonPrev = styles['products-btn_prev'];
 const swiperButtonNext = styles['products-btn_next'];
 
-interface GalleryCarouselProps {
-  images: {
-    id: string | number;
-    url: string;
-    alt: string;
-  }[];
+export interface GalleryCarouselProps {
+  images: IPhoto[] | { id: number; url: string; alt: string }[];
   hideButtons?: boolean;
   swiperConfig?: SwiperProps;
   swiperThumbsConfig?: SwiperProps;
   hideThumbs?: boolean;
   hideMainCarousel?: boolean;
+  id?: string;
+  mainImageProps?: ImageProps;
+  thumbsImageProps?: ImageProps;
+  onClickOnImage?: (
+    e: React.MouseEvent<HTMLImageElement>,
+    index: number,
+  ) => void;
+  swiperWrapperClassName?: string;
 }
 
 export const GalleryCarousel = ({
@@ -43,6 +48,11 @@ export const GalleryCarousel = ({
   swiperThumbsConfig = {},
   hideThumbs,
   hideMainCarousel,
+  id,
+  mainImageProps,
+  thumbsImageProps,
+  onClickOnImage,
+  swiperWrapperClassName,
 }: GalleryCarouselProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -90,7 +100,12 @@ export const GalleryCarousel = ({
 
   return (
     <div
-      className={styles['gallery-carousel-wrapper']}
+      className={clsx(
+        styles['gallery-carousel-wrapper'],
+        hideMainCarousel &&
+          styles['gallery-carousel-wrapper--hide-main-carousel'],
+        swiperWrapperClassName,
+      )}
       style={
         {
           '--swiper-theme-color': '#4caf50',
@@ -100,6 +115,7 @@ export const GalleryCarousel = ({
       <Swiper
         autoHeight
         loop={isLoop}
+        id={id}
         navigation={{
           nextEl: swiperButtonNext,
           prevEl: swiperButtonPrev,
@@ -136,17 +152,24 @@ export const GalleryCarousel = ({
             theme='dark'
           />
         )}
-        {images.map(({ id, url, alt }, index) => (
-          <SwiperSlide key={`${id}-${index}`} className={styles['main-slide']}>
+        {images.map((image, index) => (
+          <SwiperSlide
+            key={`${image.id}-${index}`}
+            className={styles['main-slide']}
+          >
             <Image
-              src={url}
-              alt={alt}
+              src={image.url}
+              alt={image.alt}
               height={hideMainCarousel ? 225 : 576}
               width={hideMainCarousel ? 300 : 768}
+              priority={index === 0}
               className={clsx(
                 styles['gallery-carousel_image'],
                 hideMainCarousel && styles['gallery-carousel_image--main'],
+                onClickOnImage && styles['gallery-carousel_image--clickable'],
               )}
+              onClick={(e) => onClickOnImage && onClickOnImage(e, index)}
+              {...mainImageProps}
             />
           </SwiperSlide>
         ))}
@@ -159,7 +182,6 @@ export const GalleryCarousel = ({
           />
         )}
       </Swiper>
-
       {!hideThumbs && !hideMainCarousel && (
         <Swiper
           onSwiper={(swiper) => {
@@ -172,9 +194,9 @@ export const GalleryCarousel = ({
           threshold={5}
           {...swiperThumbsConfig}
         >
-          {images.map(({ id, url, alt }, index) => (
+          {images.map((image, index) => (
             <SwiperSlide
-              key={`${id}-${index}-thumbs`}
+              key={`${image.id}-${index}-thumbs`}
               className={clsx(
                 styles['thumb-slide'],
                 index === activeIndex && styles['thumb-slide--active'],
@@ -186,11 +208,12 @@ export const GalleryCarousel = ({
               }}
             >
               <Image
-                src={url}
-                alt={alt}
+                src={image.url}
+                alt={image.alt}
                 width={300}
                 height={225}
                 className={styles['gallery-carousel-thumbs-image']}
+                {...thumbsImageProps}
               />
             </SwiperSlide>
           ))}

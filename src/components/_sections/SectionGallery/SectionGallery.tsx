@@ -1,5 +1,5 @@
-import { GalleryCarousel } from '@/components/_carousels/GalleryCarousel';
 import { ContentHTML } from '@/components/ContentHTML';
+import { GalleryWithModal } from '@/components/GalleryWithModal/GalleryWithModal';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { TSectionGalleryProps } from '@/types/handlerComponents';
 
@@ -26,10 +26,17 @@ export const SectionGallery = ({ section }: TSectionGalleryProps) => {
         content={html_code}
         className={styles['section-gallery-content-html']}
       />
-      <GalleryCarousel
-        images={photos}
-        hideThumbs={hide_thumbnails}
-        hideMainCarousel={hide_main_carousel}
+      <GalleryWithModal
+        galleryCarouselProps={{
+          images: photos,
+          hideThumbs: hide_thumbnails,
+          hideMainCarousel: hide_main_carousel,
+        }}
+        galleryCarouselModalProps={{
+          images: photos,
+          hideMainCarousel: false,
+        }}
+        showModalWithGallery
       />
     </div>
   );

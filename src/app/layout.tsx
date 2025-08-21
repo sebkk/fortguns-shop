@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { RouteChangeProgress } from '@/components/RouteChangeProgress';
+import { DEFAULT_LOCALE } from '@/constants/locales';
 import { Providers } from '@/providers';
 
 import type { Metadata } from 'next';
@@ -25,7 +26,7 @@ const RootLayout = async ({ children, params }: IRootLayoutProps) => {
   const { locale } = (await params) || {};
 
   return (
-    <html lang={locale}>
+    <html lang={locale || DEFAULT_LOCALE}>
       <body>
         <NextIntlClientProvider locale={locale}>
           <Providers>

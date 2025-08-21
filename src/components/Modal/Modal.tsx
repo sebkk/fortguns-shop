@@ -1,5 +1,8 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
+import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 
 import { Overlay } from '@/components/Overlay';
@@ -8,11 +11,12 @@ import { Button } from '../Button';
 import { Typography } from '../Typography';
 import styles from './styles.module.scss';
 
-interface ModalProps {
+export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   modalTitle?: string;
+  modalClassName?: string;
 }
 
 export const Modal = ({
@@ -20,8 +24,9 @@ export const Modal = ({
   onClose,
   children,
   modalTitle,
+  modalClassName,
 }: ModalProps) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,12 +38,20 @@ export const Modal = ({
       }
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [onClose]);
 
   return createPortal(
     <Overlay
@@ -46,11 +59,27 @@ export const Modal = ({
       onClose={onClose}
       className={styles['modal_overlay']}
     >
-      <div className={styles['modal']} ref={modalRef}>
-        <div className={styles['modal-header']}>
-          <Typography fontSize='3xl' tag='h2' className={styles['modal-title']}>
-            {modalTitle}
-          </Typography>
+      <dialog
+        onClick={(e) => e.stopPropagation()}
+        open={isOpen}
+        className={clsx(styles['modal'], modalClassName)}
+        ref={modalRef}
+      >
+        <div
+          className={clsx(
+            styles['modal-header'],
+            modalTitle && styles['modal-header--with-title'],
+          )}
+        >
+          {modalTitle && (
+            <Typography
+              fontSize='3xl'
+              tag='h2'
+              className={styles['modal-title']}
+            >
+              {modalTitle}
+            </Typography>
+          )}
           <Button
             variant='blank'
             className={styles['modal-header-btn']}
@@ -60,7 +89,7 @@ export const Modal = ({
           </Button>
         </div>
         <div className={styles['modal-content']}>{children}</div>
-      </div>
+      </dialog>
     </Overlay>,
     document.body,
   );

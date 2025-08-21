@@ -3,8 +3,8 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
-import { GalleryCarousel } from '@/components/_carousels/GalleryCarousel';
 import { Card } from '@/components/Card';
+import { GalleryWithModal } from '@/components/GalleryWithModal';
 import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
@@ -48,8 +48,14 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
           title={name}
           titleProps={{ tag: 'h1' }}
         />
-        <GalleryCarousel
-          images={images.map(({ id, src, alt }) => ({ id, url: src, alt }))}
+        <GalleryWithModal
+          galleryCarouselProps={{
+            images: images.map(({ id, src, alt }) => ({ id, url: src, alt })),
+          }}
+          modalProps={{
+            modalTitle: name,
+          }}
+          showModalWithGallery
         />
       </div>
       <div>

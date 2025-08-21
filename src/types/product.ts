@@ -10,7 +10,7 @@ export enum StockStatus {
   ONBACKORDER = 'onbackorder',
 }
 
-interface IProductImage {
+export interface IProductImage {
   id: number;
   date_created: string;
   date_created_gmt: string;
