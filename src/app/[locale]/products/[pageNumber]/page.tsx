@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 
@@ -20,7 +21,7 @@ const ProductPagePagination = async ({
   }
 
   const { products, totalPages, totalProducts } = await fetchProducts({
-    params: { per_page: 12, page: pageNumber ? +pageNumber : 1 },
+    params: { per_page: PER_PAGE_DEFAULT, page: pageNumber ? +pageNumber : 1 },
   });
 
   return (

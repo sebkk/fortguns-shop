@@ -1,0 +1,62 @@
+.pagination-with-count-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: to-rem(16);
+
+  @include respond-above($breakpoint-xxs) {
+    flex-direction: row;
+  }
+}
+
+.pagination-with-count-pagination-wrapper {
+  display: flex;
+
+  flex-direction: flex-end;
+  justify-content: stretch;
+
+  align-self: flex-end;
+
+  button,
+  select {
+    height: to-rem(34);
+  }
+  @include respond-above($breakpoint-xxs) {
+    align-self: unset;
+  }
+
+  @include respond-above($breakpoint-md) {
+    justify-content: flex-end;
+    justify-content: stretch;
+  }
+}
+
+.pagination-with-count-select-wrapper {
+  display: flex;
+  align-items: center;
+
+  align-self: flex-start;
+
+  margin-bottom: 0;
+
+  &--select-label {
+    margin-right: to-rem(12);
+    margin-bottom: 0;
+
+    font-size: to-rem(16);
+  }
+
+  select {
+    padding: to-rem(4) to-rem(8) to-rem(4) to-rem(16);
+    width: auto;
+    min-width: to-rem(65);
+
+    height: to-rem(34);
+  }
+
+  @include respond-above($breakpoint-xxs) {
+    align-self: unset;
+  }
+}

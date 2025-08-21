@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 
 import categoriesApi from '@/api/woocommerce/categories';
 import { DEFAULT_LOCALE } from '@/constants/locales';
+import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
@@ -35,7 +36,7 @@ const CategoryPage = async ({ params }: ICategoryPageProps) => {
 
   const { products, totalPages, totalProducts } = await fetchProducts({
     params: {
-      per_page: 12,
+      per_page: PER_PAGE_DEFAULT,
       page: 1,
       category: category?.id.toString(),
     },

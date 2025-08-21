@@ -1,3 +1,4 @@
+import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 
@@ -11,7 +12,7 @@ export const generateStaticParams = async () => {
 const ProductsPage = async () => {
   const { products, totalPages, totalProducts } = await fetchProducts({
     params: {
-      per_page: 12,
+      per_page: PER_PAGE_DEFAULT,
       page: 1,
     },
   });

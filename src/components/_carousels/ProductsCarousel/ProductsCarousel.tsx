@@ -10,6 +10,7 @@ import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 import productsApi from '@/api/woocommerce/products';
 import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
 import { ProductCard } from '@/components/ProductCard';
+import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { IProduct, StockStatus } from '@/types/product';
 
 import styles from './styles.module.scss';
@@ -38,7 +39,7 @@ export const ProductsCarousel = ({
   const fetchProducts = async () => {
     try {
       const res = await productsApi.getProducts({
-        per_page: 12,
+        per_page: PER_PAGE_DEFAULT,
         stock_status: StockStatus.INSTOCK,
       });
 

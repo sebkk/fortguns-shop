@@ -6,42 +6,19 @@ import { usePathname, useSearchParams } from 'next/navigation';
 
 import { useTranslations } from 'next-intl';
 
-import { Pagination } from '@/components/Pagination';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductCardSkeleton } from '@/components/ProductCard/ProductCardSkeleton';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { SORT_OPTIONS } from '@/constants/products';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { useProducts } from '@/hooks/useProducts';
 import { ICategory } from '@/types/categories';
-import { SortOption } from '@/types/filters';
 import { IProduct } from '@/types/product';
 
+import { PaginationWithCount } from './PaginationWithCount';
+import styles from './Products.module.scss'; // Import the SCSS module
 import { ProductsHeader } from './ProductsHeader';
-import styles from './styles.module.scss'; // Import the SCSS module
-
-const sortOptions: SortOption[] = [
-  { value: 'default', label: 'Domyślnie' },
-  {
-    value: 'price-asc',
-    label: 'Cena: Rosnąco',
-    orderby: 'price',
-    order: 'asc',
-  },
-  {
-    value: 'price-desc',
-    label: 'Cena: Malejąco',
-    orderby: 'price',
-    order: 'desc',
-  },
-  { value: 'date-desc', label: 'Najnowsze', orderby: 'date', order: 'desc' },
-  {
-    value: 'popularity',
-    label: 'Popularność',
-    orderby: 'popularity',
-    order: 'desc',
-  },
-];
 
 interface IProductsProps {
   pageNumber?: number;
@@ -77,6 +54,8 @@ export const Products = ({
     totalPages,
     totalProducts,
     page,
+    currentPerPage,
+    handlePerPageChange,
   } = useProducts({
     initialProducts,
     categoryId: category?.id.toString(),
@@ -88,6 +67,17 @@ export const Products = ({
 
   const onSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const queryString = handleSortChange(e.target.value);
+
+    let newPathname = pathname;
+    if (pathname.includes(`/${currentPage}`)) {
+      newPathname = pathname.replace(`/${currentPage}`, '');
+    }
+
+    push(`${newPathname}?${queryString}`);
+  };
+
+  const onPerPageChange = (perPage: number) => {
+    const queryString = handlePerPageChange(perPage);
 
     let newPathname = pathname;
     if (pathname.includes(`/${currentPage}`)) {
@@ -112,12 +102,13 @@ export const Products = ({
           totalProducts={initialTotalProducts}
           currentSort={currentSort}
           handleSortChange={onSortChange}
-          sortOptions={sortOptions}
+          sortOptions={SORT_OPTIONS}
+          currentPerPage={currentPerPage}
         />
         <div className={styles['main-content-container']}>
           <Spacer size='md' />
           <ul className={styles['products-grid']}>
-            {Array.from({ length: 12 }).map((_, index) => (
+            {Array.from({ length: currentPerPage }).map((_, index) => (
               <ProductCardSkeleton key={index} />
             ))}
           </ul>
@@ -159,15 +150,18 @@ export const Products = ({
         totalProducts={totalProducts}
         currentSort={currentSort}
         handleSortChange={onSortChange}
-        sortOptions={sortOptions}
+        sortOptions={SORT_OPTIONS}
+        currentPerPage={currentPerPage}
       />
       <div className={styles['main-content-container']}>
         <Spacer size='md' />
-        <Pagination
+        <PaginationWithCount
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
-          wrapperClassName={styles['products-pagination-wrapper']}
+          selectId='products-per-page-top'
+          onPerPageChange={onPerPageChange}
+          currentPerPage={currentPerPage}
         />
         <Spacer size='md' />
         {isLoading && !error && (
@@ -201,11 +195,13 @@ export const Products = ({
           <p className={styles['error-text']}>{t('errorLoadingProducts')}</p>
         )}
         <Spacer />
-        <Pagination
+        <PaginationWithCount
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
-          wrapperClassName={styles['products-pagination-wrapper']}
+          selectId='products-per-page-bottom'
+          onPerPageChange={onPerPageChange}
+          currentPerPage={currentPerPage}
         />
       </div>
       <Spacer />

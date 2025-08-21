@@ -4,7 +4,7 @@ import { Select } from '@/components/_form/Select';
 import { ProductsCount } from '@/components/ProductsCount';
 import { SortOption } from '@/types/filters';
 
-import styles from './styles.module.scss';
+import styles from './ProductsHeader.module.scss';
 
 interface IProductsHeaderProps {
   pageNumber: number;
@@ -12,6 +12,7 @@ interface IProductsHeaderProps {
   currentSort: string;
   handleSortChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   sortOptions: SortOption[];
+  currentPerPage: number;
 }
 
 export const ProductsHeader = ({
@@ -20,19 +21,27 @@ export const ProductsHeader = ({
   currentSort,
   handleSortChange,
   sortOptions,
+  currentPerPage,
 }: IProductsHeaderProps) => {
   const t = useTranslations();
 
   return (
     <div className={styles['header-bar']}>
       <div className={styles['header-bar-inner']}>
-        <ProductsCount pageNumber={pageNumber} totalProducts={+totalProducts} />
+        <ProductsCount
+          pageNumber={pageNumber}
+          totalProducts={+totalProducts}
+          perPage={currentPerPage}
+        />
         <div className={styles['controls-container']}>
           <Select
             label={t('sorting')}
             selectProps={{ value: currentSort, onChange: handleSortChange }}
             id='products-sort'
-            options={sortOptions}
+            options={sortOptions.map((option) => ({
+              ...option,
+              label: t(option.label),
+            }))}
             wrapperClassName={styles['sort-select-wrapper']}
           />
         </div>

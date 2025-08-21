@@ -1,5 +1,5 @@
 .link-base {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   transition:
@@ -115,7 +115,7 @@
 }
 
 .icon-wrapper {
-  display: inline-flex;
+  display: flex;
   align-items: center;
 }
 

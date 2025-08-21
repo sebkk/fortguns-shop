@@ -67,6 +67,12 @@ interface IProductLinks {
   collection: IProductLink[];
 }
 
+interface IProductBrand {
+  id: number;
+  name: string;
+  slug: string;
+}
+
 export interface IProduct {
   id: number;
   name: string;
@@ -141,7 +147,7 @@ export interface IProduct {
   uagb_comment_info: number;
   uagb_excerpt: string;
   jetpack_sharing_enabled: boolean;
-  // brands: any[];
+  brands: IProductBrand[];
   _links: IProductLinks;
 }
 

@@ -6,7 +6,7 @@ import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
 import { useScreenWidth } from '@/hooks/useScreenWidth';
 
-import styles from './styles.module.scss';
+import styles from './Pagination.module.scss';
 
 const DOTS = '...';
 

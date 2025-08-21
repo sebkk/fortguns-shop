@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import productsApi from '@/api/woocommerce/products';
+import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { IProduct, StockStatus } from '@/types/product';
 
 interface UseProductsOptions {
@@ -25,11 +26,13 @@ interface UseProductsReturn {
   totalPages: number;
   totalProducts: number;
   page: number;
+  currentPerPage: number;
+  handlePerPageChange: (perPage: number) => void;
 }
 
 export const useProducts = ({
   initialProducts,
-  perPage = 12,
+  perPage = PER_PAGE_DEFAULT,
   categoryId,
   initialTotalPages,
   initialTotalProducts,
@@ -51,6 +54,7 @@ export const useProducts = ({
   const currentPage = searchParams.get('page')
     ? Number(searchParams.get('page'))
     : 1;
+  const currentPerPage = Number(searchParams.get('per_page')) || perPage;
 
   const fetchProducts = useCallback(async () => {
     setIsLoading(true);
@@ -58,7 +62,7 @@ export const useProducts = ({
 
     try {
       const params: Record<string, string | number> = {
-        per_page: perPage,
+        per_page: currentPerPage,
         stock_status: StockStatus.INSTOCK,
         page: currentPage,
       };
@@ -89,7 +93,7 @@ export const useProducts = ({
     } finally {
       setIsLoading(false);
     }
-  }, [currentSort, perPage, categoryId, currentPage]);
+  }, [currentSort, currentPerPage, categoryId, currentPage]);
 
   const handleSortChange = useCallback(
     (value: string) => {
@@ -98,6 +102,20 @@ export const useProducts = ({
 
       if (value === 'default') {
         params.delete('sort');
+      }
+      return params.toString();
+    },
+    [searchParams],
+  );
+
+  const handlePerPageChange = useCallback(
+    (perPage: number) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      params.set('per_page', perPage.toString());
+
+      if (perPage === PER_PAGE_DEFAULT) {
+        params.delete('per_page');
       }
 
       return params.toString();
@@ -110,10 +128,14 @@ export const useProducts = ({
   };
 
   useEffect(() => {
-    if (currentSort !== 'default' || currentPage !== 1) {
+    if (
+      currentSort !== 'default' ||
+      currentPage !== 1 ||
+      currentPerPage !== perPage
+    ) {
       fetchProducts();
     }
-  }, [currentSort, currentPage]);
+  }, [currentSort, currentPage, currentPerPage]);
 
   useEffect(() => {
     if (searchParams.toString() === '') {
@@ -126,7 +148,9 @@ export const useProducts = ({
     isLoading,
     error,
     currentSort,
+    currentPerPage,
     handleSortChange,
+    handlePerPageChange,
     refreshProducts,
     totalPages,
     totalProducts,

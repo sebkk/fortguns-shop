@@ -4,6 +4,7 @@ import productsApi from '@/api/woocommerce/products';
 import { ProductsCarousel } from '@/components/_carousels/ProductsCarousel';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { IProduct, StockStatus } from '@/types/product';
 
 interface IProductRelatedItemsProps {
@@ -16,7 +17,7 @@ export const ProductRelatedItems = async ({
   const t = await getTranslations();
 
   const response = await productsApi.getProducts({
-    per_page: 12,
+    per_page: PER_PAGE_DEFAULT,
     include: relatedIds.join(','),
     stock_status: StockStatus.INSTOCK,
   });

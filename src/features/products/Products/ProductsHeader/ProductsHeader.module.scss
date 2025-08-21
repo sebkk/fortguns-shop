@@ -10,12 +10,9 @@
   gap: to-rem(16);
 
   @include apply-container-styles();
-  & {
-    padding: to-rem(16) to-rem(10) !important;
-    @include respond-above($breakpoint-xl) {
-      padding: to-rem(16) to-rem(10) !important;
-    }
-  }
+
+  padding-top: to-rem(16);
+  padding-bottom: to-rem(16);
 }
 .sort-select-wrapper {
   display: flex;

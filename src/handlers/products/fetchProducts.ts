@@ -1,4 +1,5 @@
 import productsApi from '@/api/woocommerce/products';
+import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { IGetProductsParams, IProduct } from '@/types/product';
 
 export const fetchProducts = async ({
@@ -12,7 +13,7 @@ export const fetchProducts = async ({
 }> => {
   try {
     const res = await productsApi.getProducts({
-      per_page: 12,
+      per_page: PER_PAGE_DEFAULT,
       orderby: 'date',
       order: 'asc',
       ...params,

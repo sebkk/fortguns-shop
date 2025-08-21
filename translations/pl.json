@@ -22,5 +22,11 @@
   "showProducts": "Pokaż produkty",
   "promotion": "Promocja",
   "prevSlide": "Przewiń w lewo",
-  "nextSlide": "Przewiń w prawo"
+  "nextSlide": "Przewiń w prawo",
+  "labelDefault": "Domyślnie",
+  "labelPriceAsc": "Cena: Rosnąco",
+  "labelPriceDesc": "Cena: Malejąco",
+  "labelNewest": "Najnowsze",
+  "labelPopularity": "Popularność",
+  "perPage": "Na stronę"
 }
