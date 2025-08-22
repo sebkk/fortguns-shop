@@ -28,5 +28,7 @@
   "labelPriceDesc": "Cena: Malejąco",
   "labelNewest": "Najnowsze",
   "labelPopularity": "Popularność",
-  "perPage": "Na stronę"
+  "perPage": "Na stronę",
+  "labelBrands": "Marki",
+  "labelBrandsDescriptionWithCount": "Oferujemy najlepszą broń palną z <strong>{count}</strong> marek"
 }

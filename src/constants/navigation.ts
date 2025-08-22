@@ -7,4 +7,5 @@ export const NAVIGATION_ROUTE = {
   CONTACT: '/contact',
   FAQ: '/faq',
   PRODUCT_DETAILS: '/product/[productSlug]',
+  BRANDS: '/brands',
 };

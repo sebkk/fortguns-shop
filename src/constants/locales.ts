@@ -35,4 +35,8 @@ export const PATHNAMES = {
     pl: '/produkty/kategoria/[categoryName]/[pageNumber]',
     en: NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY_PAGINATION,
   },
+  [NAVIGATION_ROUTE.BRANDS]: {
+    pl: '/marki',
+    en: NAVIGATION_ROUTE.BRANDS,
+  },
 };

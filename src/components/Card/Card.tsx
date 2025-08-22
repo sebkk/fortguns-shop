@@ -1,3 +1,5 @@
+import React from 'react';
+
 import clsx from 'clsx';
 
 import styles from './styles.module.scss';
@@ -10,6 +12,7 @@ interface ICardProps {
   withBorder?: boolean;
   withBackground?: boolean;
   variant?: 'primary' | 'secondary';
+  tag?: keyof React.JSX.IntrinsicElements;
 }
 
 export const Card = ({
@@ -20,7 +23,10 @@ export const Card = ({
   withBorder,
   withBackground,
   variant = 'primary',
+  tag = 'div',
 }: ICardProps) => {
+  const Tag = tag;
+
   const classNames = clsx(
     styles['card'],
     isRounded && styles['card--rounded'],
@@ -31,5 +37,5 @@ export const Card = ({
     className,
   );
 
-  return <div className={classNames}>{children}</div>;
+  return <Tag className={classNames}>{children}</Tag>;
 };

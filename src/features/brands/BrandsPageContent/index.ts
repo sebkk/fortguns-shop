@@ -1,0 +1,1 @@
+export { BrandsPageContent } from './BrandsPageContent';
