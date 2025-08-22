@@ -1,6 +1,7 @@
 .map-wrapper {
-  outline: 2px solid $color-accent-dark;
-  border-radius: to-rem(20);
-
-  overflow: hidden;
+  iframe {
+    outline: to-rem(1) solid $color-accent-dark;
+    @include box-shadow();
+    border-radius: to-rem(10);
+  }
 }
