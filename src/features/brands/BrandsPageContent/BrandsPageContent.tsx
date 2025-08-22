@@ -31,7 +31,7 @@ export const BrandsPageContent = ({
             section_background: 'default',
             section_layout: 'container',
           },
-          title: t('labelBrands'),
+          title: t.markup('labelBrands'),
           description: t.markup('labelBrandsDescriptionWithCount', {
             count: totalProducts,
             strong: (chunks: React.ReactNode) => `<strong>${chunks}</strong>`,
