@@ -2,12 +2,14 @@
 
 import { createContext, useContext, useMemo, useState } from 'react';
 
-interface IScrollContext {
+export interface IScrollContext {
   isScrolling: boolean;
   handleScrolling: (_value: boolean) => void;
 }
 
-const ScrollContext = createContext<IScrollContext | undefined>(undefined);
+export const ScrollContext = createContext<IScrollContext | undefined>(
+  undefined,
+);
 
 export const ScrollProvider = ({ children }: { children: React.ReactNode }) => {
   const [isScrolling, setIsScrolling] = useState(false);

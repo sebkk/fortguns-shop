@@ -58,6 +58,7 @@ export const Modal = ({
     };
   }, [isMounted]);
 
+  if (!isMounted) return;
   return createPortal(
     <Overlay
       isOpen={isOpen}

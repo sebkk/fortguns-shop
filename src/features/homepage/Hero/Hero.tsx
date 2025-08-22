@@ -1,4 +1,5 @@
 'use client';
+import { useContext } from 'react';
 
 import Image from 'next/image';
 
@@ -7,7 +8,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Typography } from '@/components/Typography';
-import { useScroll } from '@/providers/ScrollProvider';
+import { IScrollContext, ScrollContext } from '@/providers/ScrollProvider';
 import { ISectionHero } from '@/types/sections';
 
 // Import Swiper styles
@@ -21,7 +22,7 @@ interface IHeroProps {
 }
 
 export const Hero = ({ slides }: IHeroProps) => {
-  const { isScrolling } = useScroll();
+  const { isScrolling } = useContext(ScrollContext) as IScrollContext;
 
   return (
     <>

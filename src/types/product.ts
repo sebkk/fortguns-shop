@@ -4,7 +4,7 @@ export interface IProductCategory {
   slug: string;
 }
 
-export enum StockStatus {
+export enum STOCK_STATUS {
   INSTOCK = 'instock',
   OUTOFSTOCK = 'outofstock',
   ONBACKORDER = 'onbackorder',
@@ -138,7 +138,7 @@ export interface IProduct {
   price_html: string;
   related_ids: number[];
   meta_data: IProductMetaData[];
-  stock_status: StockStatus;
+  stock_status: STOCK_STATUS;
   has_options: boolean;
   post_password: string;
   global_unique_id: string;
@@ -151,20 +151,29 @@ export interface IProduct {
   _links: IProductLinks;
 }
 
+export enum PRODUCTS_ORDER_BY {
+  DATE = 'date',
+  ID = 'id',
+  INCLUDE = 'include',
+  TITLE = 'title',
+  SLUG = 'slug',
+  PRICE = 'price',
+  POPULARITY = 'popularity',
+  RATING = 'rating',
+}
+
+export enum PRODUCTS_ORDER {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
 export interface IGetProductsParams {
-  orderby?:
-    | 'date'
-    | 'id'
-    | 'include'
-    | 'title'
-    | 'slug'
-    | 'price'
-    | 'popularity'
-    | 'rating';
-  order?: 'asc' | 'desc';
+  orderby?: PRODUCTS_ORDER_BY;
+  order?: PRODUCTS_ORDER;
   per_page?: number;
-  stock_status?: StockStatus;
+  stock_status?: STOCK_STATUS;
   include?: string;
   page?: number;
   category?: string;
+  _fields?: string;
 }

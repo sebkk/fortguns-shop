@@ -11,7 +11,7 @@ import productsApi from '@/api/woocommerce/products';
 import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
 import { ProductCard } from '@/components/ProductCard';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
-import { IProduct, StockStatus } from '@/types/product';
+import { IProduct, PRODUCTS_ORDER, PRODUCTS_ORDER_BY } from '@/types/product';
 
 import styles from './styles.module.scss';
 
@@ -33,6 +33,7 @@ export const ProductsCarousel = ({
 }: IProductsCarouselProps) => {
   const [products, setProducts] = useState<null | IProduct[]>(null);
   const [shouldShowButtons, setShouldShowButtons] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const swiperRef = useRef<TSwiper | null>(null);
 
@@ -40,7 +41,8 @@ export const ProductsCarousel = ({
     try {
       const res = await productsApi.getProducts({
         per_page: PER_PAGE_DEFAULT,
-        stock_status: StockStatus.INSTOCK,
+        orderby: PRODUCTS_ORDER_BY.DATE,
+        order: PRODUCTS_ORDER.DESC,
       });
 
       setProducts(res?.data);
@@ -61,7 +63,7 @@ export const ProductsCarousel = ({
     if (!items) {
       fetchProducts();
     }
-  }, []);
+  }, [items]);
 
   const productsToDisplay = items || products;
 
@@ -71,6 +73,7 @@ export const ProductsCarousel = ({
     swiperRef.current = swiper;
     const currentSlidesPerView = swiper.params.slidesPerView as number;
     setShouldShowButtons(productsToDisplay.length > currentSlidesPerView);
+    setIsInitialized(true);
   };
 
   const handleResize = (swiper: TSwiper) => {
@@ -114,7 +117,11 @@ export const ProductsCarousel = ({
           hiddenClass: styles['products-btn--hidden'],
         }}
         modules={[Mousewheel, Keyboard, Navigation]}
-        className={clsx(styles['products-carousel'])}
+        className={clsx(
+          styles['products-carousel'],
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          !isInitialized && styles['products-carousel--loading'],
+        )}
         {...swiperConfig}
       >
         {!hideButtons && shouldShowButtons && (
@@ -126,11 +133,15 @@ export const ProductsCarousel = ({
         )}
         {productsToDisplay.map((product) => (
           <SwiperSlide
-            className={styles['products-carousel-swiper-slide']}
+            className={clsx(
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              !isInitialized &&
+                styles['products-carousel-swiper-slide--not-initialized'],
+            )}
             style={{ height: 'auto' }}
             key={product.id}
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} imageProps={{ loading: 'lazy' }} />
           </SwiperSlide>
         ))}
         {!hideButtons && shouldShowButtons && (

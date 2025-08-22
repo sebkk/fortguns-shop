@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import clsx from 'clsx';
 
@@ -10,7 +10,8 @@ import { Logo } from '@/components/Logo';
 import { useOnScrollEvent } from '@/hooks/useOnScrollEvent';
 import { useScreenWidth } from '@/hooks/useScreenWidth';
 import { Link } from '@/i18n/navigation';
-import { useScroll } from '@/providers/ScrollProvider';
+import { ScrollContext } from '@/providers/ScrollProvider';
+import { IScrollContext } from '@/providers/ScrollProvider/ScrollProvider';
 import { MenuItem } from '@/types/menus';
 
 import { HeaderDrawerNav } from './HeaderDrawerNav';
@@ -29,7 +30,7 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
     useOnScrollEvent<HTMLElement>({
       elementId: headerId,
     });
-  const { handleScrolling } = useScroll();
+  const { handleScrolling } = useContext(ScrollContext) as IScrollContext;
 
   useEffect(() => {
     handleScrolling(isScrolling);

@@ -1,5 +1,6 @@
 .map-wrapper {
-  overflow: hidden;
+  outline: 2px solid $color-accent-dark;
   border-radius: to-rem(20);
-  border: 2px solid $color-accent-dark;
+
+  overflow: hidden;
 }

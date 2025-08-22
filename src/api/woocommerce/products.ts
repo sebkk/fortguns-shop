@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { IGetProductsParams, IProduct, StockStatus } from '@/types/product';
+import { PRODUCT_DETAILS_FIELDS, PRODUCTS_FIELDS } from '@/constants/products';
+import { IGetProductsParams, IProduct, STOCK_STATUS } from '@/types/product';
 
 import baseAPI from '..';
 
@@ -19,7 +20,8 @@ class Products {
         password: consumerSecret as string,
       },
       params: {
-        stock_status: StockStatus.INSTOCK,
+        _fields: PRODUCTS_FIELDS.join(','),
+        stock_status: STOCK_STATUS.INSTOCK,
         ...params,
       },
     });
@@ -32,6 +34,9 @@ class Products {
       auth: {
         username: consumerKey as string,
         password: consumerSecret as string,
+      },
+      params: {
+        _fields: PRODUCT_DETAILS_FIELDS.join(','),
       },
     });
   }

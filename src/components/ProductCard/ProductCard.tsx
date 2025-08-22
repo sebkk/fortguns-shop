@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 
 import { useTranslations } from 'next-intl';
 
@@ -21,9 +21,13 @@ const Label = dynamic(() =>
 
 interface IProductCardProps {
   product: IProduct;
+  imageProps?: Omit<ImageProps, 'src' | 'alt' | 'width' | 'height'>;
 }
 
-export const ProductCard = ({ product }: IProductCardProps) => {
+export const ProductCard = ({
+  product,
+  imageProps = {},
+}: IProductCardProps) => {
   const t = useTranslations();
   const { push } = useAppRouter();
 
@@ -71,6 +75,9 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               width={300}
               height={300}
               className={styles['product-image']}
+              placeholder='blur'
+              blurDataURL={firstImage.src}
+              {...imageProps}
             />
           </div>
         )}

@@ -13,6 +13,7 @@ interface IProductsHeaderProps {
   handleSortChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   sortOptions: SortOption[];
   currentPerPage: number;
+  noProducts?: boolean;
 }
 
 export const ProductsHeader = ({
@@ -22,6 +23,7 @@ export const ProductsHeader = ({
   handleSortChange,
   sortOptions,
   currentPerPage,
+  noProducts,
 }: IProductsHeaderProps) => {
   const t = useTranslations();
 
@@ -33,18 +35,20 @@ export const ProductsHeader = ({
           totalProducts={+totalProducts}
           perPage={currentPerPage}
         />
-        <div className={styles['controls-container']}>
-          <Select
-            label={t('sorting')}
-            selectProps={{ value: currentSort, onChange: handleSortChange }}
-            id='products-sort'
-            options={sortOptions.map((option) => ({
-              ...option,
-              label: t(option.label),
-            }))}
-            wrapperClassName={styles['sort-select-wrapper']}
-          />
-        </div>
+        {!noProducts && (
+          <div className={styles['controls-container']}>
+            <Select
+              label={t('sorting')}
+              selectProps={{ value: currentSort, onChange: handleSortChange }}
+              id='products-sort'
+              options={sortOptions.map((option) => ({
+                ...option,
+                label: t(option.label),
+              }))}
+              wrapperClassName={styles['sort-select-wrapper']}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -14,6 +14,10 @@
   position: static !important;
 
   padding: to-rem(10);
+
+  &--loading {
+    display: flex;
+  }
 }
 
 .products-btn {
@@ -45,5 +49,18 @@
   }
 }
 
-.products-carousel-swiper-slide {
+.products-carousel-swiper-slide--not-initialized {
+  width: calc(100% / 1.2);
+
+  @media (min-width: 530px) {
+    width: calc(100% / 2.2 - (20px / 2.2)) !important;
+  }
+
+  @media (min-width: 768px) {
+    width: calc(100% / 3 - (15px / 3)) !important;
+  }
+
+  @media (min-width: 1020px) {
+    width: calc(100% / 4 - (20px / 4)) !important;
+  }
 }

@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import productsApi from '@/api/woocommerce/products';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
-import { IProduct, StockStatus } from '@/types/product';
+import { IProduct, STOCK_STATUS } from '@/types/product';
 
 interface UseProductsOptions {
   initialProducts?: IProduct[];
@@ -63,7 +63,7 @@ export const useProducts = ({
     try {
       const params: Record<string, string | number> = {
         per_page: currentPerPage,
-        stock_status: StockStatus.INSTOCK,
+        stock_status: STOCK_STATUS.INSTOCK,
         page: currentPage,
       };
 

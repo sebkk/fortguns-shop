@@ -10,6 +10,7 @@ import { ProductCard } from '@/components/ProductCard';
 import { ProductCardSkeleton } from '@/components/ProductCard/ProductCardSkeleton';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
+import { Typography } from '@/components/Typography';
 import { SORT_OPTIONS } from '@/constants/products';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { useProducts } from '@/hooks/useProducts';
@@ -136,6 +137,8 @@ export const Products = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const noProducts = !isLoading && (!products || !products.length);
+
   return (
     <div className={styles['products-container']}>
       <Spacer />
@@ -152,17 +155,20 @@ export const Products = ({
         handleSortChange={onSortChange}
         sortOptions={SORT_OPTIONS}
         currentPerPage={currentPerPage}
+        noProducts={noProducts}
       />
       <div className={styles['main-content-container']}>
         <Spacer size='md' />
-        <PaginationWithCount
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-          selectId='products-per-page-top'
-          onPerPageChange={onPerPageChange}
-          currentPerPage={currentPerPage}
-        />
+        {!noProducts && (
+          <PaginationWithCount
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+            selectId='products-per-page-top'
+            onPerPageChange={onPerPageChange}
+            currentPerPage={currentPerPage}
+          />
+        )}
         <Spacer size='md' />
         {isLoading && !error && (
           <ul className={styles['products-grid']}>
@@ -177,17 +183,23 @@ export const Products = ({
           <>
             {!isLoading && products && products.length > 0 && (
               <ul className={styles['products-grid']}>
-                {products.map((product) => (
+                {products.map((product, index) => (
                   <li key={product.id}>
-                    <ProductCard product={product} />
+                    <ProductCard
+                      product={product}
+                      imageProps={{ loading: index > 8 ? 'lazy' : 'eager' }}
+                    />
                   </li>
                 ))}
               </ul>
             )}
-            {!isLoading && !products && (
-              <p className={styles['no-products-text']}>
+            {noProducts && (
+              <Typography
+                variant='c-heading'
+                className={styles['no-products-text']}
+              >
                 {t('noProductsToDisplay')}
-              </p>
+              </Typography>
             )}
           </>
         )}
@@ -195,14 +207,16 @@ export const Products = ({
           <p className={styles['error-text']}>{t('errorLoadingProducts')}</p>
         )}
         <Spacer />
-        <PaginationWithCount
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-          selectId='products-per-page-bottom'
-          onPerPageChange={onPerPageChange}
-          currentPerPage={currentPerPage}
-        />
+        {!noProducts && (
+          <PaginationWithCount
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+            selectId='products-per-page-bottom'
+            onPerPageChange={onPerPageChange}
+            currentPerPage={currentPerPage}
+          />
+        )}
       </div>
       <Spacer />
     </div>

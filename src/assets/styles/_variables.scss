@@ -111,4 +111,9 @@ $default-font-family:
 
 // BOX-SHADOW
 
-$box-shadow-default: 0px 0px 10px 0px $color-shadow-default;
+$box-shadow-default:
+  inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
+  /* shadow ring  */ 0 0 0 1px hsla(0, 1%, 22%, 0.05),
+  /* multiple soft shadows 👇 */ 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+  0 0.9px 1.5px hsla(0, 0%, 21%, 0.045),
+  0 3.5px 6px hsla(0, 0%, 14%, 0.09);
