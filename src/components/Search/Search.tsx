@@ -1,65 +1,131 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
+import debounce from 'lodash/debounce';
 import { useTranslations } from 'next-intl';
 
 import { SearchIcon } from '@/components/_icons/SearchIcon';
 import { Button } from '@/components/Button';
+import { fetchBrands } from '@/handlers/brands/fetchBrands';
+import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { IBrand } from '@/types/brands';
+import { IProduct } from '@/types/product';
 
 import styles from './styles.module.scss';
 
+const DEBOUNCE_TIME_MS = 500;
+
 interface SearchProps {
-  onSearch?: (query: string) => void;
   placeholder?: string;
   className?: string;
   initialValue?: string;
 }
 
-// TODO: FIX SEARCH
-
 export const Search = ({
-  onSearch,
   placeholder,
   className,
   initialValue = '',
 }: SearchProps) => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(initialValue);
+
+  const [loading, setLoading] = useState({
+    marks: false,
+    products: false,
+  });
+  const [_products, setProducts] = useState<IProduct[]>([]);
+  const [_brands, setBrands] = useState<IBrand[]>([]);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [searchQuery, setSearchQuery] = useState(initialValue);
+
   const t = useTranslations();
 
-  // Handle focus/blur with timeout to allow button click
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    // Only collapse if focus moves outside the wrapper
-    if (!wrapperRef.current?.contains(e.relatedTarget)) {
-      setIsFocused(false);
+  const searchProducts = async (query: string) => {
+    setLoading({ ...loading, products: true });
+    try {
+      const result = await fetchProducts({
+        params: { search: query, per_page: 3 },
+      });
+
+      setProducts(result.products);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading({ ...loading, products: false });
     }
   };
 
-  const handleSearch = () => {
-    if (onSearch) {
-      onSearch(searchQuery);
+  const searchMarks = async (query: string) => {
+    setLoading({ ...loading, marks: true });
+    try {
+      const result = await fetchBrands({
+        params: { search: query, per_page: 3 },
+      });
+
+      setBrands(result.brands);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading({ ...loading, marks: false });
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInternalSearch = useMemo(
+    () =>
+      debounce(async (query: string) => {
+        await Promise.all([searchProducts(query), searchMarks(query)]);
+      }, DEBOUNCE_TIME_MS),
+    [],
+  );
+
+  const handleExpand = () => {
+    setIsExpanded(true);
+
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+  };
+
+  const handleCollapse = () => {
+    if (!searchQuery.trim()) {
+      setIsExpanded(false);
+      setSearchQuery('');
+    }
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+
+    if (query.trim()) {
+      handleInternalSearch(query.trim());
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      handleSearch(searchQuery);
+    } else if (e.key === 'Escape') {
+      handleCollapse();
     }
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSearchButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (inputRef.current && !isFocused) {
-      setIsFocused(true);
-      inputRef.current.focus();
-      return;
+
+    if (!isExpanded) {
+      handleExpand();
+    } else {
+      handleSearch(searchQuery);
     }
-    handleSearch();
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (!wrapperRef.current?.contains(e.relatedTarget)) {
+      handleCollapse();
+    }
   };
 
   return (
@@ -67,32 +133,36 @@ export const Search = ({
       ref={wrapperRef}
       className={clsx(
         styles['search'],
-        isFocused && styles['search--focused'],
+        isExpanded && styles['search--expanded'],
         className,
       )}
-      tabIndex={-1}
-      onFocus={handleFocus}
       onBlur={handleBlur}
     >
       <div className={styles['search-input-wrapper']}>
         <input
+          ref={inputRef}
           type='text'
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
           placeholder={placeholder || t('search')}
           className={styles['search-input']}
-          onKeyDown={handleKeyPress}
-          ref={inputRef}
-          tabIndex={isFocused ? 0 : -1}
-          style={{ pointerEvents: isFocused ? 'auto' : 'none' }}
+          onKeyDown={handleKeyDown}
+          style={{
+            opacity: isExpanded ? 1 : 0,
+            pointerEvents: isExpanded ? 'auto' : 'none',
+            width: isExpanded ? '100%' : '0px',
+          }}
+          disabled={loading.products || loading.marks}
         />
       </div>
       <Button
-        onClick={handleClick}
+        onClick={handleSearchButtonClick}
         className={styles['search-button']}
         variant='blank'
+        disabled={loading.products || loading.marks}
+        // aria-label={isExpanded ? t('search') : t('expandSearch')}
       >
-        <SearchIcon />
+        {loading.products || loading.marks ? '...' : <SearchIcon />}
       </Button>
     </div>
   );

@@ -14,6 +14,7 @@ interface UseProductsOptions {
   categoryId?: string;
   initialTotalPages?: number;
   initialTotalProducts?: number;
+  brandId?: number;
 }
 
 interface UseProductsReturn {
@@ -36,6 +37,7 @@ export const useProducts = ({
   categoryId,
   initialTotalPages,
   initialTotalProducts,
+  brandId,
 }: UseProductsOptions): UseProductsReturn => {
   const searchParams = useSearchParams();
   const t = useTranslations();
@@ -81,6 +83,11 @@ export const useProducts = ({
         delete params.order;
       }
 
+      if (brandId) {
+        params.brand = brandId;
+        params.stock_status = undefined as unknown as STOCK_STATUS;
+      }
+
       const response = await productsApi.getProducts(params);
 
       setProducts(response.data);
@@ -93,7 +100,7 @@ export const useProducts = ({
     } finally {
       setIsLoading(false);
     }
-  }, [currentSort, currentPerPage, categoryId, currentPage]);
+  }, [currentSort, currentPerPage, categoryId, currentPage, brandId]);
 
   const handleSortChange = useCallback(
     (value: string) => {

@@ -30,5 +30,6 @@
   "labelPopularity": "Popularność",
   "perPage": "Na stronę",
   "labelBrands": "Marki",
-  "labelBrandsDescriptionWithCount": "Oferujemy najlepszą broń palną z <strong>{count}</strong> marek"
+  "labelBrandsDescriptionWithCount": "Oferujemy najlepszą broń palną z <strong>{count}</strong> marek",
+  "expandSearch": "Rozwiń wyszukiwanie"
 }

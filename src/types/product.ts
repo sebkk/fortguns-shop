@@ -176,4 +176,6 @@ export interface IGetProductsParams {
   page?: number;
   category?: string;
   _fields?: string;
+  brand?: number;
+  search?: string;
 }

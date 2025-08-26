@@ -39,4 +39,12 @@ export const PATHNAMES = {
     pl: '/marki',
     en: NAVIGATION_ROUTE.BRANDS,
   },
+  [NAVIGATION_ROUTE.BRAND_LISTING]: {
+    pl: '/marki/[brandSlug]',
+    en: NAVIGATION_ROUTE.BRAND_LISTING,
+  },
+  [NAVIGATION_ROUTE.BRAND_LISTING_PAGINATION]: {
+    pl: '/marki/[brandSlug]/[pageNumber]',
+    en: NAVIGATION_ROUTE.BRAND_LISTING_PAGINATION,
+  },
 };

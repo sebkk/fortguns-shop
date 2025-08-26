@@ -29,6 +29,7 @@ interface IProductsProps {
   pageTitle?: string;
   pageDescription?: string;
   category?: ICategory;
+  brandId?: number;
 }
 
 export const Products = ({
@@ -39,6 +40,7 @@ export const Products = ({
   pageTitle,
   pageDescription,
   category,
+  brandId,
 }: IProductsProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -62,6 +64,7 @@ export const Products = ({
     categoryId: category?.id.toString(),
     initialTotalPages,
     initialTotalProducts,
+    brandId,
   });
 
   const currentPage = searchParams.get('page') ? page : pageNumber;

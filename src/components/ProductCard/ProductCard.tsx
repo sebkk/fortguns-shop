@@ -11,7 +11,7 @@ import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { useAppRouter } from '@/hooks/useAppRouter';
-import { IProduct } from '@/types/product';
+import { IProduct, STOCK_STATUS } from '@/types/product';
 
 import styles from './styles.module.scss';
 
@@ -41,7 +41,10 @@ export const ProductCard = ({
     stock_status,
   } = product || {};
 
-  const isPromotion = sale_price && sale_price < regular_price;
+  const isPromotion =
+    sale_price &&
+    stock_status === STOCK_STATUS.INSTOCK &&
+    sale_price < regular_price;
 
   const firstImage = images?.[0];
 

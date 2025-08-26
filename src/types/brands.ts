@@ -13,4 +13,5 @@ export interface IGetBrandsParams {
   per_page?: number;
   fields?: string;
   page?: number;
+  search?: string;
 }

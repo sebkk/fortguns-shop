@@ -20,6 +20,7 @@
     "dotenv": "^17.2.1",
     "eslint-plugin-import": "^2.31.0",
     "html-react-parser": "^5.2.5",
+    "lodash": "^4.17.21",
     "modern-normalize": "^3.0.1",
     "next": "15.1.6",
     "next-intl": "^4.1.0",
@@ -31,6 +32,7 @@
     "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "@types/node": "^20.17.52",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",

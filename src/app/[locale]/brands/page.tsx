@@ -4,10 +4,6 @@ import { fetchBrands } from '@/handlers/brands/fetchBrands';
 export const revalidate = 600;
 export const dynamic = 'force-static';
 
-export const generateStaticParams = async () => {
-  return [];
-};
-
 const BrandsPage = async () => {
   const { brands, totalProducts } = await fetchBrands({
     params: { per_page: 50 },

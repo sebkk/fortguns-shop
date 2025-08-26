@@ -1,9 +1,9 @@
-import Link from 'next/link';
-
 import parseHTML from 'html-react-parser';
 
 import { Card } from '@/components/Card';
+import { Link } from '@/components/Link';
 import { Typography } from '@/components/Typography';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { IBrand } from '@/types/brands';
 
 import styles from './BrandsList.module.scss';
@@ -26,7 +26,12 @@ export const BrandsList = ({ brands }: IBrandsListProps) => {
           >
             <Link
               className={styles['brands-list__item-link']}
-              href={`/brands/${slug}`}
+              href={{
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                pathname: NAVIGATION_ROUTE.BRAND_LISTING,
+                params: { brandSlug: slug },
+              }}
             >
               {parseHTML(name)}
               <Typography

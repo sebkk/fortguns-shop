@@ -5,24 +5,23 @@
 
   transition:
     border-color 0.3s ease,
-    max-width 0.3s ease;
+    max-width 0.3s ease,
+    width 0.3s ease;
 
-  border: 0.5px solid $color-white-2;
+  border: to-rem(0.5) solid $color-white-1;
+  border-radius: to-rem(10);
 
-  border-radius: to-rem(6);
-  width: auto;
-
-  max-width: to-rem(250);
-
+  width: to-rem(40);
+  max-width: to-rem(40);
   overflow: hidden;
 
-  &--focused {
+  &--expanded {
+    width: to-rem(250);
     max-width: to-rem(250);
   }
 
   &:focus-within {
     border: 0.5px solid $color-white-default;
-
     color: $color-white-default;
 
     svg {
@@ -31,15 +30,16 @@
   }
 
   svg {
-    flex: 1;
-    transition: color 0.3s ease;
+    flex-shrink: 0;
+    transition:
+      color 0.3s ease,
+      opacity 0.3s ease;
     color: $color-white-2;
   }
 
   &-input-wrapper {
-    transition:
-      border-color 0.3s ease,
-      max-width 0.3s ease;
+    flex: 1;
+    transition: all 0.3s ease;
     max-width: 0;
     overflow: hidden;
     pointer-events: none;
@@ -53,7 +53,6 @@
       padding 0.3s ease;
 
     border: none;
-
     background-color: transparent;
     padding: to-rem(8) to-rem(12);
     width: 0;
@@ -66,15 +65,52 @@
     }
 
     &::placeholder {
+      color: $color-white-1;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+
+      border-color: $color-white-2;
+
+      pointer-events: none;
       color: $color-white-2;
     }
   }
 
-  &--focused &-input-wrapper {
-    opacity: 1;
-    // padding: to-rem(8) to-rem(12);
-    width: to-rem(160);
-    max-width: 100%;
+  &--expanded &-input-wrapper {
+    max-width: to-rem(200);
     pointer-events: auto;
+  }
+
+  &--expanded &-input {
+    opacity: 1;
+    width: 100%;
+  }
+
+  &-button {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: to-rem(-5);
+    padding: to-rem(8);
+    min-width: to-rem(40);
+    height: to-rem(40);
+
+    &:disabled {
+      opacity: 0.5;
+
+      pointer-events: none;
+
+      svg {
+        color: $color-white-2;
+      }
+    }
+
+    svg {
+      color: $color-white-1;
+    }
   }
 }

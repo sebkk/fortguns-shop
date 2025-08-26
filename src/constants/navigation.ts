@@ -8,4 +8,6 @@ export const NAVIGATION_ROUTE = {
   FAQ: '/faq',
   PRODUCT_DETAILS: '/product/[productSlug]',
   BRANDS: '/brands',
+  BRAND_LISTING: '/brands/[brandSlug]',
+  BRAND_LISTING_PAGINATION: '/brands/[brandSlug]/[pageNumber]',
 };

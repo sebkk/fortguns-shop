@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { ContactAddressesBar } from '@/components/ContactAddressesBar';
 import { HamburgerMenu } from '@/components/HamburgerMenu';
 import { Logo } from '@/components/Logo';
+import { Search } from '@/components/Search';
 import { useOnScrollEvent } from '@/hooks/useOnScrollEvent';
 import { useScreenWidth } from '@/hooks/useScreenWidth';
 import { Link } from '@/i18n/navigation';
@@ -67,7 +68,7 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
             isScrolling={isScrolling}
           />
         )}
-        {/* <Search className={styles['header-search']} /> */}
+        <Search className={styles['header-search']} />
         {isSmallScreen && (
           <HamburgerMenu
             className={styles['header-hamburger-btn']}

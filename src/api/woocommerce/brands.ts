@@ -26,6 +26,23 @@ class Brands {
       },
     });
   }
+
+  public async getBrand(
+    slug: string,
+    params: IGetBrandsParams = {},
+  ): Promise<AxiosResponse<IBrand[]>> {
+    return await baseAPI.get(this.basePath, {
+      auth: {
+        username: consumerKey as string,
+        password: consumerSecret as string,
+      },
+      params: {
+        fields: BRANDS_FIELDS.join(','),
+        slug,
+        ...params,
+      },
+    });
+  }
 }
 
 const brands = new Brands();
