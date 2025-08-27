@@ -44,6 +44,10 @@ $color-white-2: #ffffff48;
 $color-black-default: #000000;
 $color-black-2: #00000061;
 
+$color-gray-default: #e5e7eb;
+$color-gray-light: #f3f4f6;
+$color-gray-dark: #d1d5db;
+
 $color-text-default: #dddddd;
 $color-text-medium-dark: #cacacaf0;
 $color-text-dark: #bababad8;
@@ -84,6 +88,7 @@ $z-index-drawer: 100;
 $z-index-overlay: 80;
 $z-index-header: 50;
 $z-index-modal: 110;
+$z-index-search-dropdown: 120;
 
 // BREAKPOINTS
 

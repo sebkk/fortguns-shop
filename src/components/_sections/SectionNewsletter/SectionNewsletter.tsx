@@ -34,7 +34,14 @@ export const SectionNewsletter = ({
             register={register}
             wrapperClassName={styles['section-newsletter_form-wrapper_input']}
           />
-          <Button>{t('subscribeToNewsletter')}</Button>
+          <Button
+            onClick={() => {
+              alert('do obsłużenia!');
+            }}
+            className={styles['section-newsletter_form-wrapper_btn']}
+          >
+            {t('subscribeToNewsletter')}
+          </Button>
         </div>
         <ContentHTML
           content={section.content}

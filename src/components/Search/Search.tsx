@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import debounce from 'lodash/debounce';
@@ -13,6 +13,7 @@ import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { IBrand } from '@/types/brands';
 import { IProduct } from '@/types/product';
 
+import { SearchDropdown } from './SearchDropdown';
 import styles from './styles.module.scss';
 
 const DEBOUNCE_TIME_MS = 500;
@@ -21,6 +22,12 @@ interface SearchProps {
   placeholder?: string;
   className?: string;
   initialValue?: string;
+}
+
+export interface ISearchResult<T> {
+  items: T[];
+  totalPages: number;
+  totalProducts: number;
 }
 
 export const Search = ({
@@ -35,49 +42,64 @@ export const Search = ({
     marks: false,
     products: false,
   });
-  const [_products, setProducts] = useState<IProduct[]>([]);
-  const [_brands, setBrands] = useState<IBrand[]>([]);
+  const [products, setProducts] = useState<ISearchResult<IProduct>>({
+    items: [],
+    totalPages: 0,
+    totalProducts: 0,
+  });
+  const [brands, setBrands] = useState<ISearchResult<IBrand>>({
+    items: [],
+    totalPages: 0,
+    totalProducts: 0,
+  });
 
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const t = useTranslations();
 
-  const searchProducts = async (query: string) => {
-    setLoading({ ...loading, products: true });
+  const searchProducts = useCallback(async (query: string) => {
+    setLoading((prev) => ({ ...prev, products: true }));
     try {
       const result = await fetchProducts({
         params: { search: query, per_page: 3 },
       });
 
-      setProducts(result.products);
+      setProducts({
+        ...result,
+        items: result.products,
+      });
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading({ ...loading, products: false });
+      setLoading((prev) => ({ ...prev, products: false }));
     }
-  };
+  }, []);
 
-  const searchMarks = async (query: string) => {
-    setLoading({ ...loading, marks: true });
+  const searchMarks = useCallback(async (query: string) => {
+    setLoading((prev) => ({ ...prev, marks: true }));
     try {
       const result = await fetchBrands({
         params: { search: query, per_page: 3 },
       });
 
-      setBrands(result.brands);
+      setBrands({
+        ...result,
+        items: result.brands,
+      });
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading({ ...loading, marks: false });
+      setLoading((prev) => ({ ...prev, marks: false }));
     }
-  };
+  }, []);
 
   const handleInternalSearch = useMemo(
     () =>
       debounce(async (query: string) => {
         await Promise.all([searchProducts(query), searchMarks(query)]);
       }, DEBOUNCE_TIME_MS),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -140,6 +162,7 @@ export const Search = ({
     >
       <div className={styles['search-input-wrapper']}>
         <input
+          id='search'
           ref={inputRef}
           type='text'
           value={searchQuery}
@@ -164,6 +187,15 @@ export const Search = ({
       >
         {loading.products || loading.marks ? '...' : <SearchIcon />}
       </Button>
+      <SearchDropdown
+        isVisible={isExpanded && searchQuery.trim().length > 0}
+        isLoading={loading.products || loading.marks}
+        products={products}
+        brands={brands}
+        searchQuery={searchQuery}
+        onItemClick={handleCollapse}
+        parentRef={wrapperRef}
+      />
     </div>
   );
 };

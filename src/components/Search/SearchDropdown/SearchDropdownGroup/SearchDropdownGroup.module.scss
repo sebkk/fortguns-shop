@@ -1,0 +1,40 @@
+.search-dropdown-group {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: to-rem(12);
+
+    border-bottom: to-rem(1) solid $color-white-2;
+
+    padding-bottom: to-rem(6);
+  }
+
+  &__header {
+    text-decoration: none !important;
+  }
+
+  &__title {
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  &__title-count {
+    opacity: 0.7;
+    margin-left: to-rem(8);
+    font-size: to-rem(14);
+  }
+
+  &__arrow-icon {
+    transform: rotate(-90deg);
+    width: to-rem(20);
+    height: to-rem(20);
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(8);
+  }
+}

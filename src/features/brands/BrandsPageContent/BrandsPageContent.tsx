@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { SectionPageHeader } from '@/components/_sections/SectionPageHeader';
 import { Spacer } from '@/components/Spacer';
 import { IBrand } from '@/types/brands';
+import { ESectionBackground, ESectionLayout } from '@/types/sections';
 
 import { BrandsList } from '../BrandsList';
 
@@ -28,8 +29,8 @@ export const BrandsPageContent = ({
         section={{
           acf_fc_layout: 'section_page_header',
           section_options: {
-            section_background: 'default',
-            section_layout: 'container',
+            section_background: ESectionBackground.DEFAULT,
+            section_layout: ESectionLayout.CONTAINER,
           },
           title: t.markup('labelBrands'),
           description: t.markup('labelBrandsDescriptionWithCount', {
