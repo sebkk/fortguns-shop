@@ -33,7 +33,7 @@ export const SearchDropdown = ({
   products,
   brands,
   searchQuery,
-  onItemClick,
+  // onItemClick,
   parentRef,
 }: SearchDropdownProps) => {
   const t = useTranslations();
