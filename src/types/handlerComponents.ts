@@ -4,6 +4,7 @@ import {
   ISectionGallery,
   ISectionHero,
   ISectionHtml,
+  ISectionNewsletter,
   ISectionPageHeader,
   ISectionProductsCarousel,
   ISectionVariant,
@@ -25,6 +26,8 @@ export type TSectionGalleryProps = IHandlerComponentsProps<ISectionGallery>;
 export type TSectionProductsCarouselProps =
   IHandlerComponentsProps<ISectionProductsCarousel>;
 export type TSectionHeroProps = IHandlerComponentsProps<ISectionHero>;
+export type TSectionNewsletterProps =
+  IHandlerComponentsProps<ISectionNewsletter>;
 
 export type THandlerComponentsProps = TSectionPageHeaderProps &
   TSpacerSectionProps &
@@ -33,7 +36,8 @@ export type THandlerComponentsProps = TSectionPageHeaderProps &
   TSectionVariantProps &
   TSectionAboutUsProps &
   TSectionGalleryProps &
-  TSectionProductsCarouselProps;
+  TSectionProductsCarouselProps &
+  TSectionNewsletterProps;
 
 export interface IHandlerComponents {
   section_page_header: (props: TSectionPageHeaderProps) => React.ReactNode;
@@ -47,4 +51,5 @@ export interface IHandlerComponents {
     props: TSectionProductsCarouselProps,
   ) => React.ReactNode;
   section_hero: (props: TSectionHeroProps) => React.ReactNode;
+  section_newsletter: (props: TSectionNewsletterProps) => React.ReactNode;
 }

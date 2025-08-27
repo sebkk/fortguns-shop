@@ -31,5 +31,6 @@
   "perPage": "Na stronę",
   "labelBrands": "Marki",
   "labelBrandsDescriptionWithCount": "Oferujemy najlepszą broń palną z <strong>{count}</strong> marek",
-  "expandSearch": "Rozwiń wyszukiwanie"
+  "expandSearch": "Rozwiń wyszukiwanie",
+  "subscribeToNewsletter": "Zapisz się"
 }

@@ -1,4 +1,5 @@
 import api from '@/api';
+import { GLOBAL_INFOS_FIELDS } from '@/constants/globalInfos';
 import { GlobalInfosResponse } from '@/types/globalInfos';
 
 class GlobalInfos {
@@ -6,8 +7,19 @@ class GlobalInfos {
 
   async getGlobalInfos() {
     const res = await api.get<GlobalInfosResponse[]>(this.globalInfosPath, {
-      params: { _fields: 'acf' },
+      params: { _fields: GLOBAL_INFOS_FIELDS.join(',') },
     });
+
+    return res.data;
+  }
+
+  async getGlobalInfosById(id: string) {
+    const res = await api.get<GlobalInfosResponse>(
+      `${this.globalInfosPath}/${id}`,
+      {
+        params: { _fields: GLOBAL_INFOS_FIELDS.join(',') },
+      },
+    );
 
     return res.data;
   }

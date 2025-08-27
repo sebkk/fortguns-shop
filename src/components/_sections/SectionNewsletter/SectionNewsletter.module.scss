@@ -1,0 +1,28 @@
+.section-newsletter {
+  display: flex;
+  align-items: center;
+
+  gap: to-rem(20);
+}
+
+.section-newsletter_content-html {
+  * {
+    font-size: to-rem(12);
+  }
+
+  p {
+    margin: to-rem(10) 0 0;
+  }
+}
+
+.section-newsletter_form-wrapper {
+  display: flex;
+
+  gap: to-rem(10);
+}
+
+.section-newsletter_form-wrapper_input {
+  width: 100%;
+
+  max-width: to-rem(300);
+}

@@ -8,11 +8,12 @@ import { UseFormRegister } from 'react-hook-form';
 import styles from './styles.module.scss'; // Importujemy moduł SCSS
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   id: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: UseFormRegister<any>;
   error?: string;
+  wrapperClassName?: string;
 }
 
 export const Input = ({
@@ -21,13 +22,16 @@ export const Input = ({
   register,
   error,
   className,
+  wrapperClassName,
   ...rest
 }: InputProps) => {
   return (
-    <div className={styles['input-wrapper']}>
-      <label htmlFor={id} className={styles['input-label']}>
-        {label}
-      </label>
+    <div className={clsx(styles['input-wrapper'], wrapperClassName)}>
+      {label && (
+        <label htmlFor={id} className={styles['input-label']}>
+          {label}
+        </label>
+      )}
       <input
         id={id}
         {...register(id)}

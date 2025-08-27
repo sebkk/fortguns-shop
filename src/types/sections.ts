@@ -2,6 +2,23 @@ import { ISpacerSize } from './components';
 import { IPhoto } from './pages';
 import { IProduct } from './product';
 
+export enum EVariants {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+}
+
+export enum ESectionBackground {
+  DEFAULT = 'default',
+  BG_LIGHT = 'bg-light',
+  BG_PRIMARY = 'bg-primary',
+  BG_SECONDARY = 'bg-secondary',
+}
+
+export enum ESectionLayout {
+  CONTAINER = 'container',
+  FULL_SIZE = 'full-size',
+}
+
 interface ITitleAndDescription {
   title: string;
   description: string;
@@ -19,8 +36,8 @@ interface IAccordionGroup {
 
 export interface ISectionOptions {
   section_options: {
-    section_background: 'default' | 'bg-light';
-    section_layout: 'container' | 'full-size';
+    section_background: ESectionBackground;
+    section_layout: ESectionLayout;
   };
 }
 
@@ -80,12 +97,19 @@ interface ISectionHeroSlide {
   title: string;
   description: string;
   picture: IPhoto;
-  variant: 'primary' | 'secondary';
+  variant: EVariants.PRIMARY | EVariants.SECONDARY;
 }
 
 export interface ISectionHero extends ISectionOptions {
   acf_fc_layout: 'section_hero';
   slides: ISectionHeroSlide[];
+}
+
+export interface ISectionNewsletter extends ISectionOptions {
+  acf_fc_layout: 'section_newsletter';
+  title: string;
+  content: string;
+  variant: EVariants.PRIMARY;
 }
 
 export type TFlexibleContentLayout =
@@ -97,7 +121,8 @@ export type TFlexibleContentLayout =
   | ISectionGallery
   | ISectionProductsCarousel
   | ISectionHero
-  | ISectionVariant;
+  | ISectionVariant
+  | ISectionNewsletter;
 
 interface ISlugItem {
   locale: string;

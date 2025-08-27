@@ -4,6 +4,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 import globalInfosApi from '@/api/global_infos';
+import { GLOBAL_INFOS_CONTACT_INFOS_ID } from '@/constants/globalInfos';
 
 // Configure for static export
 export const dynamic = 'force-static';
@@ -11,7 +12,9 @@ export const revalidate = false;
 
 export async function GET() {
   try {
-    const response = await globalInfosApi.getGlobalInfos();
+    const response = await globalInfosApi.getGlobalInfosById(
+      GLOBAL_INFOS_CONTACT_INFOS_ID,
+    );
 
     const OUTPUT_FILE = path.join(
       process.cwd(),
@@ -20,7 +23,7 @@ export async function GET() {
     const outputDir = path.dirname(OUTPUT_FILE);
     await fs.mkdir(outputDir, { recursive: true });
 
-    const globalInfosData = response[0].acf.data.reduce((prev, item) => {
+    const globalInfosData = response.acf.data.reduce((prev, item) => {
       return {
         ...prev,
         [item.acf_fc_layout]:

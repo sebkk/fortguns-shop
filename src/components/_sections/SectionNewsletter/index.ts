@@ -1,0 +1,1 @@
+export { SectionNewsletter } from './SectionNewsletter';

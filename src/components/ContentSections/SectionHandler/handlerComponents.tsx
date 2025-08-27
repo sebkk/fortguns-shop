@@ -7,6 +7,7 @@ import {
   TSectionGalleryProps,
   TSectionHeroProps,
   TSectionHtmlProps,
+  TSectionNewsletterProps,
   TSectionPageHeaderProps,
   TSectionProductsCarouselProps,
   TSectionVariantProps,
@@ -62,6 +63,12 @@ const SectionHero = dynamic(() =>
   import('@/components/_sections/SectionHero').then((mod) => mod.SectionHero),
 );
 
+const SectionNewsletter = dynamic(() =>
+  import('@/components/_sections/SectionNewsletter').then(
+    (mod) => mod.SectionNewsletter,
+  ),
+);
+
 export const handlerComponents: IHandlerComponents = {
   section_page_header: ({ section }: TSectionPageHeaderProps) => (
     <SectionPageHeader section={section} />
@@ -87,5 +94,8 @@ export const handlerComponents: IHandlerComponents = {
   ),
   section_hero: ({ section }: TSectionHeroProps) => (
     <SectionHero section={section} />
+  ),
+  section_newsletter: ({ section }: TSectionNewsletterProps) => (
+    <SectionNewsletter section={section} />
   ),
 };
