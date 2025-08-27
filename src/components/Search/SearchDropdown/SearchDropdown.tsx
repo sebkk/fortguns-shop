@@ -86,7 +86,7 @@ export const SearchDropdown = ({
       }
     >
       {isSearching ? (
-        <Spinner showText />
+        <Spinner showText className={styles['search-dropdown__spinner']} />
       ) : hasResults ? (
         <div className={styles['search-dropdown__content']}>
           {products.items.length > 0 && (
@@ -104,12 +104,13 @@ export const SearchDropdown = ({
           {brands.items.length > 0 && (
             <SearchDropdownGroup
               title={t('brands')}
-              itemsLength={brands.totalProducts}
               href={NAVIGATION_ROUTE.BRANDS}
             >
-              {brands.items.map((brand) => (
-                <BrandItem key={brand.id} brand={brand} />
-              ))}
+              <ul className={styles['search-dropdown__content-list']}>
+                {brands.items.map((brand) => (
+                  <BrandItem key={brand.id} brand={brand} />
+                ))}
+              </ul>
             </SearchDropdownGroup>
           )}
         </div>

@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl';
 
 import { SearchIcon } from '@/components/_icons/SearchIcon';
 import { Button } from '@/components/Button';
+import { Spinner } from '@/components/Spinner';
+import { BRANDS_FIELDS_FOR_SEARCH } from '@/constants/brands';
 import { fetchBrands } from '@/handlers/brands/fetchBrands';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { IBrand } from '@/types/brands';
@@ -42,6 +44,9 @@ export const Search = ({
     marks: false,
     products: false,
   });
+
+  const isLoading = loading.products || loading.marks;
+
   const [products, setProducts] = useState<ISearchResult<IProduct>>({
     items: [],
     totalPages: 0,
@@ -80,7 +85,11 @@ export const Search = ({
     setLoading((prev) => ({ ...prev, marks: true }));
     try {
       const result = await fetchBrands({
-        params: { search: query, per_page: 3 },
+        params: {
+          search: query,
+          per_page: 3,
+          fields: BRANDS_FIELDS_FOR_SEARCH.join(','),
+        },
       });
 
       setBrands({
@@ -156,11 +165,12 @@ export const Search = ({
       className={clsx(
         styles['search'],
         isExpanded && styles['search--expanded'],
+        isLoading && styles['search--loading'],
         className,
       )}
       onBlur={handleBlur}
     >
-      <div className={styles['search-input-wrapper']}>
+      <div className={clsx(styles['search-input-wrapper'])}>
         <input
           id='search'
           ref={inputRef}
@@ -175,21 +185,21 @@ export const Search = ({
             pointerEvents: isExpanded ? 'auto' : 'none',
             width: isExpanded ? '100%' : '0px',
           }}
-          disabled={loading.products || loading.marks}
+          disabled={isLoading}
         />
       </div>
       <Button
         onClick={handleSearchButtonClick}
         className={styles['search-button']}
         variant='blank'
-        disabled={loading.products || loading.marks}
+        disabled={isLoading}
         // aria-label={isExpanded ? t('search') : t('expandSearch')}
       >
-        {loading.products || loading.marks ? '...' : <SearchIcon />}
+        {isLoading ? <Spinner /> : <SearchIcon />}
       </Button>
       <SearchDropdown
         isVisible={isExpanded && searchQuery.trim().length > 0}
-        isLoading={loading.products || loading.marks}
+        isLoading={isLoading}
         products={products}
         brands={brands}
         searchQuery={searchQuery}

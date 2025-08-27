@@ -7,4 +7,6 @@ export const BRANDS_FIELDS = [
   'count',
 ];
 
+export const BRANDS_FIELDS_FOR_SEARCH = ['name', 'slug', 'count'];
+
 export const BRANDS_PER_PAGE = 100;

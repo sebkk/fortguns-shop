@@ -163,6 +163,7 @@ export const GalleryCarousel = ({
               height={hideMainCarousel ? 225 : 576}
               width={hideMainCarousel ? 300 : 768}
               priority={index === 0}
+              loading={index === 0 ? 'eager' : 'lazy'}
               className={clsx(
                 styles['gallery-carousel_image'],
                 hideMainCarousel && styles['gallery-carousel_image--main'],

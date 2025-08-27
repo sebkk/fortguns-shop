@@ -21,8 +21,9 @@
   }
 
   &__title-count {
-    opacity: 0.7;
     margin-left: to-rem(8);
+
+    color: $color-text-medium-dark;
     font-size: to-rem(14);
   }
 

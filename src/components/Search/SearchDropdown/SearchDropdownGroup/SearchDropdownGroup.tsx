@@ -8,7 +8,7 @@ import styles from './SearchDropdownGroup.module.scss';
 
 interface SearchDropdownGroupProps {
   title: string;
-  itemsLength: number;
+  itemsLength?: number;
   href: string;
   children: ReactNode;
 }
@@ -27,6 +27,7 @@ export const SearchDropdownGroup = ({
           className={styles['search-dropdown-group__title']}
         >
           {title}
+          {/* @ts-expect-error - itemsLength is optional */}
           {itemsLength >= 0 && (
             <span className={styles['search-dropdown-group__title-count']}>
               ({itemsLength})
@@ -35,7 +36,7 @@ export const SearchDropdownGroup = ({
         </Typography>
         <ArrowIcon className={styles['search-dropdown-group__arrow-icon']} />
       </Link>
-      <ul className={styles['search-dropdown-group__items']}>{children}</ul>
+      <div className={styles['search-dropdown-group__items']}>{children}</div>
     </div>
   );
 };

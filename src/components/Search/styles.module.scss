@@ -15,6 +15,10 @@
   max-width: to-rem(40);
   overflow: hidden;
 
+  &--loading {
+    border-color: $color-gray-dark-2;
+  }
+
   &--expanded {
     width: to-rem(250);
     max-width: to-rem(250);
@@ -71,10 +75,8 @@
     &:disabled {
       opacity: 0.5;
 
-      border-color: $color-white-2;
-
       pointer-events: none;
-      color: $color-white-2;
+      color: $color-gray-dark-2;
     }
   }
 
@@ -86,6 +88,10 @@
   &--expanded &-input {
     opacity: 1;
     width: 100%;
+  }
+
+  &--expanded &-button {
+    margin-left: 0;
   }
 
   &-button {
@@ -105,12 +111,22 @@
       pointer-events: none;
 
       svg {
-        color: $color-white-2;
+        color: $color-gray-dark-2;
       }
     }
 
     svg {
       color: $color-white-1;
+    }
+
+    > div {
+      width: to-rem(20);
+      height: to-rem(20);
+
+      > div {
+        width: to-rem(20);
+        height: to-rem(20);
+      }
     }
   }
 }
