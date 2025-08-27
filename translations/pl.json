@@ -36,6 +36,5 @@
   "products": "Produkty",
   "brands": "Marki",
   "searching": "Szukam...",
-  "noResultsFound": "Nie znaleziono wyników",
-  "productsCount": "{count} produktów"
+  "noResultsFound": "Nie znaleziono wyników"
 }
