@@ -1,6 +1,7 @@
 import brandsAPI from '@/api/woocommerce/brands';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { IProductListing } from '@/types/product';
 
 export const revalidate = 600;
 export const dynamic = 'force-static';
@@ -20,12 +21,13 @@ const BrandListingPage = async ({
     description: brandDescription,
   } = brand || {};
 
-  const { products, totalPages, totalProducts } = await fetchProducts({
-    params: {
-      brand: brandId,
-      stock_status: undefined,
-    },
-  });
+  const { products, totalPages, totalProducts } =
+    await fetchProducts<IProductListing>({
+      params: {
+        brand: brandId,
+        stock_status: undefined,
+      },
+    });
 
   return (
     <Products
