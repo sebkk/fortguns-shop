@@ -9,10 +9,11 @@ import styles from './styles.module.scss';
 
 interface IProductCategoriesProps {
   categories: IProductCategory[];
-  size?: 'small' | 'large';
+  size?: 'x-small' | 'small' | 'large';
   className?: string;
   classNameWrapper?: string;
   asLink?: boolean;
+  showFirstCategory?: boolean;
 }
 
 export const ProductCategories = ({
@@ -21,15 +22,23 @@ export const ProductCategories = ({
   className,
   classNameWrapper,
   asLink,
+  showFirstCategory,
 }: IProductCategoriesProps) => {
   const filteredCategories = categories.filter(
     (category) => category.name !== UNCATEGORIZED_CATEGORY_NAME,
   );
 
   if (!filteredCategories.length) return null;
+
+  let categoriesToRender = filteredCategories;
+
+  if (showFirstCategory && filteredCategories.length > 1) {
+    categoriesToRender = filteredCategories.slice(0, 1);
+  }
+
   return (
     <ul className={clsx(styles['product-categories'], classNameWrapper)}>
-      {filteredCategories.map(({ name, slug }, index, array) => (
+      {categoriesToRender.map(({ name, slug }, index, array) => (
         <li
           className={clsx(
             styles['product-categories-item'],

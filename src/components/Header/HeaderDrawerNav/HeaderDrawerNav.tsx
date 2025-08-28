@@ -68,6 +68,7 @@ export const HeaderDrawerNav = ({
             onClick={() => push(selectedItem?.href || '')}
           >
             {selectedItem?.title}
+            <ArrowIcon />
           </Button>
         </li>
       )}

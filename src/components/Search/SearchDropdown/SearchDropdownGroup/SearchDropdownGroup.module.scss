@@ -4,15 +4,25 @@
     justify-content: space-between;
     align-items: center;
 
-    margin-bottom: to-rem(12);
+    margin-bottom: to-rem(20);
 
     border-bottom: to-rem(1) solid $color-white-2;
 
-    padding-bottom: to-rem(6);
+    padding-bottom: to-rem(10);
   }
 
   &__header {
     text-decoration: none !important;
+
+    span {
+      transition: color 0.3s ease-in-out;
+    }
+
+    &:hover {
+      span {
+        color: inherit;
+      }
+    }
   }
 
   &__title {
@@ -31,11 +41,5 @@
     transform: rotate(-90deg);
     width: to-rem(20);
     height: to-rem(20);
-  }
-
-  &__items {
-    display: flex;
-    flex-direction: column;
-    gap: to-rem(8);
   }
 }

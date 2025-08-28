@@ -11,7 +11,11 @@ import productsApi from '@/api/woocommerce/products';
 import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
 import { ProductCard } from '@/components/ProductCard';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
-import { IProduct, PRODUCTS_ORDER, PRODUCTS_ORDER_BY } from '@/types/product';
+import {
+  IProductListing,
+  PRODUCTS_ORDER,
+  PRODUCTS_ORDER_BY,
+} from '@/types/product';
 
 import styles from './styles.module.scss';
 
@@ -23,7 +27,7 @@ const swiperButtonNext = styles['products-btn_next'];
 interface IProductsCarouselProps {
   swiperConfig?: SwiperProps;
   hideButtons?: boolean;
-  items?: IProduct[];
+  items?: IProductListing[];
 }
 
 export const ProductsCarousel = ({
@@ -31,7 +35,7 @@ export const ProductsCarousel = ({
   hideButtons = false,
   items,
 }: IProductsCarouselProps) => {
-  const [products, setProducts] = useState<null | IProduct[]>(null);
+  const [products, setProducts] = useState<null | IProductListing[]>(null);
   const [shouldShowButtons, setShouldShowButtons] = useState(true);
   const [isInitialized, setIsInitialized] = useState(false);
 
@@ -39,7 +43,7 @@ export const ProductsCarousel = ({
 
   const fetchProducts = async () => {
     try {
-      const res = await productsApi.getProducts({
+      const res = await productsApi.getProducts<IProductListing>({
         per_page: PER_PAGE_DEFAULT,
         orderby: PRODUCTS_ORDER_BY.DATE,
         order: PRODUCTS_ORDER.DESC,

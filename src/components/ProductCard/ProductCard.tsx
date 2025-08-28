@@ -11,7 +11,7 @@ import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { useAppRouter } from '@/hooks/useAppRouter';
-import { IProduct, STOCK_STATUS } from '@/types/product';
+import { IProductListing, STOCK_STATUS } from '@/types/product';
 
 import styles from './styles.module.scss';
 
@@ -20,7 +20,7 @@ const Label = dynamic(() =>
 );
 
 interface IProductCardProps {
-  product: IProduct;
+  product: IProductListing;
   imageProps?: Omit<ImageProps, 'src' | 'alt' | 'width' | 'height'>;
 }
 

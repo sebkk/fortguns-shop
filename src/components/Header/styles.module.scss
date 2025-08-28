@@ -48,11 +48,16 @@
 
 .header-logo-image {
   transition: width 0.3s ease-in-out;
-  width: to-rem(150);
+  width: to-rem(140);
+
   height: auto;
 
   &--scrolling {
     width: to-rem(120);
+  }
+
+  @include respond-above($breakpoint-2md) {
+    width: to-rem(150);
   }
 
   @include respond-above($breakpoint-md) {
@@ -93,6 +98,12 @@
 }
 
 .header-search {
+  display: none;
+
+  @include respond-above($breakpoint-s) {
+    display: flex;
+  }
+
   @include respond-above($breakpoint-md) {
     position: absolute;
     right: to-rem(16);

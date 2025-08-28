@@ -1,6 +1,6 @@
 import { ISpacerSize } from './components';
 import { IPhoto } from './pages';
-import { IProduct } from './product';
+import { IProductListing } from './product';
 
 export enum EVariants {
   PRIMARY = 'primary',
@@ -90,7 +90,7 @@ export interface ISectionProductsCarousel extends ISectionOptions {
   title: string;
   products_category: 'all';
   show_listing_link: boolean;
-  products: IProduct[];
+  products: IProductListing[];
 }
 
 interface ISectionHeroSlide {

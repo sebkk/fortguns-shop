@@ -10,13 +10,24 @@ export const PRODUCTS_FIELDS = [
   'slug',
   'stock_status',
   'categories',
-  'brands',
   'date_created',
+];
+
+export const PRODUCTS_FIELDS_FOR_SEARCH = [
+  'id',
+  'name',
+  'slug',
+  'regular_price',
+  'sale_price',
+  'stock_status',
+  'images',
+  'categories',
 ];
 
 export const PRODUCT_DETAILS_FIELDS = [
   ...PRODUCTS_FIELDS,
   'description',
+  'brands',
   'related_ids',
 ];
 

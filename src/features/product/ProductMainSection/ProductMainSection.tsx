@@ -13,12 +13,12 @@ import globalInfos from '@/constants/api/global-infos';
 import { createMailToQuery } from '@/helpers/createMailToQuery';
 import { getContactInfoIcon, getLinkHref } from '@/helpers/links';
 import { TLinkHref } from '@/types/footer';
-import { IProduct } from '@/types/product';
+import { IProductDetails } from '@/types/product';
 
 import styles from './styles.module.scss';
 
 interface IProductMainSectionProps {
-  product: IProduct;
+  product: IProductDetails;
 }
 
 export const ProductMainSection = ({ product }: IProductMainSectionProps) => {

@@ -15,6 +15,10 @@
     color: $color-text-button-primary;
   }
 
+  &--x-small {
+    font-size: to-rem(14);
+  }
+
   &--small {
     font-size: to-rem(20);
   }
@@ -36,6 +40,10 @@
   font-weight: 400;
 
   text-decoration: line-through;
+
+  &--x-small {
+    font-size: to-rem(11);
+  }
 
   &--small {
     font-size: to-rem(15);

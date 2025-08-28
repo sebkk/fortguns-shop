@@ -15,7 +15,7 @@ import { SORT_OPTIONS } from '@/constants/products';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { useProducts } from '@/hooks/useProducts';
 import { ICategory } from '@/types/categories';
-import { IProduct } from '@/types/product';
+import { IProductListing } from '@/types/product';
 
 import { PaginationWithCount } from './PaginationWithCount';
 import styles from './Products.module.scss'; // Import the SCSS module
@@ -25,7 +25,7 @@ interface IProductsProps {
   pageNumber?: number;
   totalPages?: number;
   totalProducts?: number;
-  products?: IProduct[];
+  products?: IProductListing[];
   pageTitle?: string;
   pageDescription?: string;
   category?: ICategory;
@@ -59,7 +59,7 @@ export const Products = ({
     page,
     currentPerPage,
     handlePerPageChange,
-  } = useProducts({
+  } = useProducts<IProductListing>({
     initialProducts,
     categoryId: category?.id.toString(),
     initialTotalPages,

@@ -10,10 +10,18 @@
   align-items: center;
   transition: all 0.2s ease-in-out;
 
-  font-size: to-rem(25);
+  font-size: to-rem(14);
 
   text-decoration: none;
   text-transform: uppercase;
+
+  @include respond-above($breakpoint-2md) {
+    font-size: to-rem(18);
+  }
+
+  @include respond-above($breakpoint-lg) {
+    font-size: to-rem(25);
+  }
 }
 .nav-link-icon {
   transition: transform 0.2s ease-in-out;

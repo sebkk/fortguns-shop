@@ -1,5 +1,5 @@
 'use client';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -22,8 +22,9 @@ interface IHeroProps {
 }
 
 export const Hero = ({ slides }: IHeroProps) => {
-  const { isScrolling } = useContext(ScrollContext) as IScrollContext;
+  const [isInitialized, setIsInitialized] = useState(false);
 
+  const { isScrolling } = useContext(ScrollContext) as IScrollContext;
   return (
     <>
       <div className={styles['hero-scroll-container']} />
@@ -52,13 +53,23 @@ export const Hero = ({ slides }: IHeroProps) => {
           pagination={{
             clickable: true,
           }}
+          onSwiper={(swiper) => {
+            // @ts-expect-error - swiper.initialized is not typed, but exists at runtime.
+            setIsInitialized(swiper.initialized);
+          }}
         >
           {slides.map(({ title, picture, description }, index) => (
-            <SwiperSlide key={`${picture.id}-${index}`}>
+            <SwiperSlide
+              className={clsx(
+                !isInitialized && styles['hero-swiper-slide--not-initialized'],
+              )}
+              key={`${picture.id}-${index}`}
+            >
               <div className={styles['hero-image-container']}>
                 <Image
-                  width={1600}
-                  height={1067}
+                  // width={1920}
+                  // height={1080}
+                  fill
                   alt='page hero image'
                   src={picture.url}
                   className={styles['hero-image']}

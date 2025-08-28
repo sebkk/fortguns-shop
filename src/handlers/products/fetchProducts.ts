@@ -2,22 +2,21 @@ import productsApi from '@/api/woocommerce/products';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import {
   IGetProductsParams,
-  IProduct,
   PRODUCTS_ORDER,
   PRODUCTS_ORDER_BY,
 } from '@/types/product';
 
-export const fetchProducts = async ({
+export const fetchProducts = async <T>({
   params,
 }: {
   params: IGetProductsParams;
 }): Promise<{
-  products: IProduct[];
+  products: T[];
   totalPages: number;
   totalProducts: number;
 }> => {
   try {
-    const res = await productsApi.getProducts({
+    const res = await productsApi.getProducts<T>({
       per_page: PER_PAGE_DEFAULT,
       orderby: PRODUCTS_ORDER_BY.DATE,
       order: PRODUCTS_ORDER.ASC,

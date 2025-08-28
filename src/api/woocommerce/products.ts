@@ -1,7 +1,11 @@
 import { AxiosResponse } from 'axios';
 
 import { PRODUCT_DETAILS_FIELDS, PRODUCTS_FIELDS } from '@/constants/products';
-import { IGetProductsParams, IProduct, STOCK_STATUS } from '@/types/product';
+import {
+  IGetProductsParams,
+  IProductDetails,
+  STOCK_STATUS,
+} from '@/types/product';
 
 import baseAPI from '..';
 
@@ -11,9 +15,9 @@ const consumerSecret = process.env.NEXT_PUBLIC_CONSUMER_SECRET;
 class Products {
   private readonly basePath = '/wp-json/wc/v3/products';
 
-  public async getProducts(
+  public async getProducts<T>(
     params?: IGetProductsParams,
-  ): Promise<AxiosResponse<IProduct[]>> {
+  ): Promise<AxiosResponse<T[]>> {
     return await baseAPI.get(this.basePath, {
       auth: {
         username: consumerKey as string,
@@ -29,7 +33,7 @@ class Products {
 
   public async getProductDetails(
     slug: string,
-  ): Promise<AxiosResponse<IProduct[]>> {
+  ): Promise<AxiosResponse<IProductDetails[]>> {
     return await baseAPI.get(`${this.basePath}?slug=${slug}`, {
       auth: {
         username: consumerKey as string,

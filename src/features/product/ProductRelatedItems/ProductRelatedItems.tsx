@@ -5,7 +5,7 @@ import { ProductsCarousel } from '@/components/_carousels/ProductsCarousel';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
-import { IProduct, STOCK_STATUS } from '@/types/product';
+import { IProduct, IProductListing, STOCK_STATUS } from '@/types/product';
 
 interface IProductRelatedItemsProps {
   relatedIds: IProduct['related_ids'];
@@ -16,7 +16,7 @@ export const ProductRelatedItems = async ({
 }: IProductRelatedItemsProps) => {
   const t = await getTranslations();
 
-  const response = await productsApi.getProducts({
+  const response = await productsApi.getProducts<IProductListing>({
     per_page: PER_PAGE_DEFAULT,
     include: relatedIds.join(','),
     stock_status: STOCK_STATUS.INSTOCK,

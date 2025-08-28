@@ -6,10 +6,10 @@ import { useTranslations } from 'next-intl';
 
 import productsApi from '@/api/woocommerce/products';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
-import { IProduct, STOCK_STATUS } from '@/types/product';
+import { STOCK_STATUS } from '@/types/product';
 
-interface UseProductsOptions {
-  initialProducts?: IProduct[];
+interface UseProductsOptions<T> {
+  initialProducts?: T[];
   perPage?: number;
   categoryId?: string;
   initialTotalPages?: number;
@@ -17,8 +17,8 @@ interface UseProductsOptions {
   brandId?: number;
 }
 
-interface UseProductsReturn {
-  products: IProduct[] | undefined;
+interface UseProductsReturn<T> {
+  products: T[] | undefined;
   isLoading: boolean;
   error: string | null;
   currentSort: string;
@@ -31,20 +31,18 @@ interface UseProductsReturn {
   handlePerPageChange: (perPage: number) => void;
 }
 
-export const useProducts = ({
+export const useProducts = <T>({
   initialProducts,
   perPage = PER_PAGE_DEFAULT,
   categoryId,
   initialTotalPages,
   initialTotalProducts,
   brandId,
-}: UseProductsOptions): UseProductsReturn => {
+}: UseProductsOptions<T>): UseProductsReturn<T> => {
   const searchParams = useSearchParams();
   const t = useTranslations();
 
-  const [products, setProducts] = useState<IProduct[] | undefined>(
-    initialProducts,
-  );
+  const [products, setProducts] = useState<T[] | undefined>(initialProducts);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [totalPages, setTotalPages] = useState<number>(initialTotalPages || 0);
@@ -57,6 +55,7 @@ export const useProducts = ({
     ? Number(searchParams.get('page'))
     : 1;
   const currentPerPage = Number(searchParams.get('per_page')) || perPage;
+  const currentSearch = searchParams.get('search') || '';
 
   const fetchProducts = useCallback(async () => {
     setIsLoading(true);
@@ -88,7 +87,11 @@ export const useProducts = ({
         params.stock_status = undefined as unknown as STOCK_STATUS;
       }
 
-      const response = await productsApi.getProducts(params);
+      if (currentSearch) {
+        params.search = currentSearch;
+      }
+
+      const response = await productsApi.getProducts<T>(params);
 
       setProducts(response.data);
       setTotalPages(Number(response.headers['x-wp-totalpages']));
@@ -100,7 +103,14 @@ export const useProducts = ({
     } finally {
       setIsLoading(false);
     }
-  }, [currentSort, currentPerPage, categoryId, currentPage, brandId]);
+  }, [
+    currentSort,
+    currentPerPage,
+    categoryId,
+    currentPage,
+    brandId,
+    currentSearch,
+  ]);
 
   const handleSortChange = useCallback(
     (value: string) => {
@@ -138,11 +148,12 @@ export const useProducts = ({
     if (
       currentSort !== 'default' ||
       currentPage !== 1 ||
-      currentPerPage !== perPage
+      currentPerPage !== perPage ||
+      currentSearch
     ) {
       fetchProducts();
     }
-  }, [currentSort, currentPage, currentPerPage]);
+  }, [currentSort, currentPage, currentPerPage, currentSearch]);
 
   useEffect(() => {
     if (searchParams.toString() === '') {

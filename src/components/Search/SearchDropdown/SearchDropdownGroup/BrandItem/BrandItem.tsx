@@ -16,7 +16,13 @@ export const BrandItem = ({ brand }: BrandItemProps) => {
   const { name, slug, count } = brand || {};
 
   return (
-    <Card tag='li' withShadow withBorder isRounded>
+    <Card
+      tag='li'
+      withShadow
+      withBorder
+      isRounded
+      className={styles['brand-item-card']}
+    >
       <Link
         href={{
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -26,14 +32,14 @@ export const BrandItem = ({ brand }: BrandItemProps) => {
         }}
         className={styles['brand-item']}
       >
-        <Typography fontWeight='bold' fontSize='xs'>
+        <Typography fontWeight='bold' fontSize='xxs'>
           {parseHTML(name)}
         </Typography>
         <Typography
           tag='span'
           color='text-medium_dark'
           fontWeight='medium'
-          fontSize='xs'
+          fontSize='xxs'
         >
           ({count})
         </Typography>

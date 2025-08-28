@@ -4,12 +4,12 @@ import { useTranslations } from 'next-intl';
 
 import { ContentHTML } from '@/components/ContentHTML';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
-import { IProduct } from '@/types/product';
+import { IProductDetails } from '@/types/product';
 
 import styles from './styles.module.scss';
 
 interface IProductMainSectionProps {
-  product: IProduct;
+  product: IProductDetails;
 }
 
 export const ProductDescriptionSection = ({

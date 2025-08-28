@@ -3,6 +3,7 @@ import productsApi from '@/api/woocommerce/products';
 import { GLOBAL_INFOS_NEWSLETTER_ID } from '@/constants/globalInfos';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import {
+  IProductListing,
   PRODUCTS_ORDER,
   PRODUCTS_ORDER_BY,
   STOCK_STATUS,
@@ -14,7 +15,7 @@ import {
 } from '@/types/sections';
 
 const mapProductsCarousel = async (section: ISectionProductsCarousel) => {
-  const productsRes = await productsApi.getProducts({
+  const productsRes = await productsApi.getProducts<IProductListing>({
     per_page: PER_PAGE_DEFAULT,
     stock_status: STOCK_STATUS.INSTOCK,
     orderby: PRODUCTS_ORDER_BY.DATE,

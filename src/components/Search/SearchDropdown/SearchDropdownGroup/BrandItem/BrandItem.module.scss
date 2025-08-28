@@ -1,7 +1,30 @@
 .brand-item {
   display: flex;
+
+  flex: 1;
   justify-content: space-between;
   align-items: center;
 
+  padding: to-rem(10) to-rem(12);
+
+  height: 100%;
+
   text-decoration: none !important;
+
+  span {
+    transition: color 0.3s ease-in-out;
+
+    color: inherit;
+  }
+}
+
+.brand-item-card {
+  display: flex;
+
+  transition: border-color 0.3s ease-in-out;
+  padding: 0;
+
+  &:hover {
+    border-color: $color-primary-default !important;
+  }
 }

@@ -18,6 +18,7 @@ export const Logo = ({
       width={600}
       height={200}
       className={className}
+      quality={100}
       {...imageProps}
     />
   );

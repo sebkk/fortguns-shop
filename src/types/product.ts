@@ -151,6 +151,27 @@ export interface IProduct {
   _links: IProductLinks;
 }
 
+export interface IProductSearch {
+  categories: IProduct['categories'];
+  id: IProduct['id'];
+  images: IProduct['images'];
+  name: IProduct['name'];
+  regular_price: IProduct['regular_price'];
+  sale_price: IProduct['sale_price'];
+  stock_status: IProduct['stock_status'];
+  slug: IProduct['slug'];
+}
+
+export interface IProductListing extends IProductSearch {
+  date_created: IProduct['date_created'];
+}
+
+export interface IProductDetails extends IProductListing {
+  description: IProduct['description'];
+  brands: IProduct['brands'];
+  related_ids: IProduct['related_ids'];
+}
+
 export enum PRODUCTS_ORDER_BY {
   DATE = 'date',
   ID = 'id',

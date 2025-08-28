@@ -63,9 +63,9 @@ $color-shadow-default: rgba(87, 87, 87, 0.514);
 
 // HEADER
 
-$layout-top-padding: 140px;
+$layout-top-padding: 125px;
 $layout-top-padding-mobile: 70px;
-$header-height: 98px;
+$header-height: 85px;
 $header-height-mobile: 70px;
 $header-height-scrolling: 62px;
 
@@ -95,6 +95,7 @@ $z-index-search-dropdown: 120;
 
 $breakpoint-xxs: 350px;
 $breakpoint-xs: 480px;
+$breakpoint-s: 550px;
 $breakpoint-sm: 640px;
 $breakpoint-md: 768px;
 $breakpoint-2md: 850px;

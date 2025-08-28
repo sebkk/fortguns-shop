@@ -9,7 +9,7 @@ import { Spinner } from '@/components/Spinner';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { useMounted } from '@/hooks/useMounted';
 import { IBrand } from '@/types/brands';
-import { IProduct } from '@/types/product';
+import { IProductSearch } from '@/types/product';
 
 import { ISearchResult } from '../Search';
 import styles from './SearchDropdown.module.scss';
@@ -20,10 +20,10 @@ import { ProductItem } from './SearchDropdownGroup/ProductItem';
 interface SearchDropdownProps {
   isVisible: boolean;
   isLoading: boolean;
-  products: ISearchResult<IProduct>;
+  products: ISearchResult<IProductSearch>;
   brands: ISearchResult<IBrand>;
   searchQuery: string;
-  onItemClick?: () => void;
+  handleCloseDropdown: () => void;
   parentRef: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -33,12 +33,12 @@ export const SearchDropdown = ({
   products,
   brands,
   searchQuery,
-  // onItemClick,
+  handleCloseDropdown,
   parentRef,
 }: SearchDropdownProps) => {
-  const t = useTranslations();
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
+  const t = useTranslations();
   const isMounted = useMounted();
 
   useEffect(() => {
@@ -55,23 +55,31 @@ export const SearchDropdown = ({
       };
 
       updatePosition();
-
-      // Update position on scroll and resize
-      window.addEventListener('scroll', updatePosition, true);
-      window.addEventListener('resize', updatePosition);
-
-      return () => {
-        window.removeEventListener('scroll', updatePosition, true);
-        window.removeEventListener('resize', updatePosition);
-      };
     }
   }, [isVisible, parentRef]);
+
+  useEffect(() => {
+    if (isVisible) {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          handleCloseDropdown();
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [isVisible]);
 
   if (!isMounted || !isVisible || !searchQuery.trim()) {
     return null;
   }
 
-  const hasResults = products.items.length > 0 || brands.items.length > 0;
+  const hasResults =
+    (products.items?.length || 0) > 0 || (brands.items?.length || 0) > 0;
   const isSearching = isLoading && searchQuery.trim().length > 0;
 
   const dropdownContent = (
@@ -89,25 +97,27 @@ export const SearchDropdown = ({
         <Spinner showText className={styles['search-dropdown__spinner']} />
       ) : hasResults ? (
         <div className={styles['search-dropdown__content']}>
-          {products.items.length > 0 && (
+          {(products.items?.length as number) > 0 && (
             <SearchDropdownGroup
               title={t('products')}
               itemsLength={products.totalProducts}
               href={NAVIGATION_ROUTE.PRODUCTS_LISTING}
             >
-              {products.items.map((product) => (
-                <ProductItem key={product.id} product={product} />
-              ))}
+              <ul className={styles['search-dropdown__products-content-list']}>
+                {products.items?.map((product) => (
+                  <ProductItem key={product.id} product={product} />
+                ))}
+              </ul>
             </SearchDropdownGroup>
           )}
 
-          {brands.items.length > 0 && (
+          {(brands.items?.length as number) > 0 && (
             <SearchDropdownGroup
               title={t('brands')}
               href={NAVIGATION_ROUTE.BRANDS}
             >
               <ul className={styles['search-dropdown__content-list']}>
-                {brands.items.map((brand) => (
+                {brands.items?.map((brand) => (
                   <BrandItem key={brand.id} brand={brand} />
                 ))}
               </ul>

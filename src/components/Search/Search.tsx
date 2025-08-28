@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import debounce from 'lodash/debounce';
@@ -10,10 +10,13 @@ import { SearchIcon } from '@/components/_icons/SearchIcon';
 import { Button } from '@/components/Button';
 import { Spinner } from '@/components/Spinner';
 import { BRANDS_FIELDS_FOR_SEARCH } from '@/constants/brands';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
+import { PRODUCTS_FIELDS_FOR_SEARCH } from '@/constants/products';
 import { fetchBrands } from '@/handlers/brands/fetchBrands';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { useRouter as useNextIntlRouter } from '@/i18n/navigation';
 import { IBrand } from '@/types/brands';
-import { IProduct } from '@/types/product';
+import { IProductSearch } from '@/types/product';
 
 import { SearchDropdown } from './SearchDropdown';
 import styles from './styles.module.scss';
@@ -27,7 +30,7 @@ interface SearchProps {
 }
 
 export interface ISearchResult<T> {
-  items: T[];
+  items: T[] | null;
   totalPages: number;
   totalProducts: number;
 }
@@ -38,7 +41,11 @@ export const Search = ({
   initialValue = '',
 }: SearchProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState(initialValue);
+
+  const router = useNextIntlRouter();
 
   const [loading, setLoading] = useState({
     marks: false,
@@ -47,16 +54,23 @@ export const Search = ({
 
   const isLoading = loading.products || loading.marks;
 
-  const [products, setProducts] = useState<ISearchResult<IProduct>>({
-    items: [],
+  const [products, setProducts] = useState<ISearchResult<IProductSearch>>({
+    items: null,
     totalPages: 0,
     totalProducts: 0,
   });
   const [brands, setBrands] = useState<ISearchResult<IBrand>>({
-    items: [],
+    items: null,
     totalPages: 0,
     totalProducts: 0,
   });
+
+  const isFetched = !!(
+    products.items &&
+    brands.items &&
+    !loading.products &&
+    !loading.marks
+  );
 
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -66,8 +80,12 @@ export const Search = ({
   const searchProducts = useCallback(async (query: string) => {
     setLoading((prev) => ({ ...prev, products: true }));
     try {
-      const result = await fetchProducts({
-        params: { search: query, per_page: 3 },
+      const result = await fetchProducts<IProductSearch>({
+        params: {
+          search: query,
+          per_page: 3,
+          _fields: PRODUCTS_FIELDS_FOR_SEARCH.join(','),
+        },
       });
 
       setProducts({
@@ -107,6 +125,8 @@ export const Search = ({
     () =>
       debounce(async (query: string) => {
         await Promise.all([searchProducts(query), searchMarks(query)]);
+
+        setOpenDropdown(true);
       }, DEBOUNCE_TIME_MS),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -121,10 +141,11 @@ export const Search = ({
   };
 
   const handleCollapse = () => {
-    if (!searchQuery.trim()) {
-      setIsExpanded(false);
-      setSearchQuery('');
-    }
+    setIsExpanded(false);
+  };
+
+  const handleCloseDropdown = () => {
+    setOpenDropdown(false);
   };
 
   const handleSearch = (query: string) => {
@@ -135,9 +156,20 @@ export const Search = ({
     }
   };
 
+  const handleNavigateToSearchPage = () => {
+    if (searchQuery.trim()) {
+      router.push({
+        pathname: NAVIGATION_ROUTE.PRODUCTS_LISTING,
+        query: {
+          search: searchQuery,
+        },
+      });
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSearch(searchQuery);
+      handleNavigateToSearchPage();
     } else if (e.key === 'Escape') {
       handleCollapse();
     }
@@ -149,7 +181,7 @@ export const Search = ({
     if (!isExpanded) {
       handleExpand();
     } else {
-      handleSearch(searchQuery);
+      handleNavigateToSearchPage();
     }
   };
 
@@ -158,6 +190,15 @@ export const Search = ({
       handleCollapse();
     }
   };
+
+  useEffect(() => {
+    if (!isExpanded) {
+      handleCloseDropdown();
+    }
+  }, [isExpanded]);
+
+  const isVisibleDropdown =
+    openDropdown && isExpanded && searchQuery.trim().length > 0 && isFetched;
 
   return (
     <div
@@ -193,17 +234,17 @@ export const Search = ({
         className={styles['search-button']}
         variant='blank'
         disabled={isLoading}
-        // aria-label={isExpanded ? t('search') : t('expandSearch')}
+        aria-label={isExpanded ? t('search') : t('expandSearch')}
       >
         {isLoading ? <Spinner /> : <SearchIcon />}
       </Button>
       <SearchDropdown
-        isVisible={isExpanded && searchQuery.trim().length > 0}
+        isVisible={isVisibleDropdown}
         isLoading={isLoading}
         products={products}
         brands={brands}
         searchQuery={searchQuery}
-        onItemClick={handleCollapse}
+        handleCloseDropdown={handleCloseDropdown}
         parentRef={wrapperRef}
       />
     </div>

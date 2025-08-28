@@ -31,6 +31,7 @@ type TVariant =
 type TFontWeight = 'normal' | 'medium' | 'semibold' | 'bold';
 
 type TFontSize =
+  | 'xxs'
   | 'xs'
   | 'sm'
   | 'base'
@@ -63,6 +64,7 @@ const colorMap: { [_key in TColor]: string } = {
 };
 
 const fontSizeMap: { [_key in TFontSize]: string } = {
+  xxs: styles['font-size-xxs'],
   xs: styles['font-size-xs'],
   sm: styles['font-size-sm'],
   base: styles['font-size-base'],

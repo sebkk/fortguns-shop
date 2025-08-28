@@ -25,7 +25,9 @@ interface IHeaderInnerProps {
 const headerId = 'navbar-fixed';
 
 export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
-  const { isSmallScreen } = useScreenWidth();
+  const { isSmallScreen, isBreakpoint } = useScreenWidth();
+
+  const isSearchVisible = isBreakpoint('s');
 
   const { isScrolling, scrollingRef: headerRef } =
     useOnScrollEvent<HTMLElement>({
@@ -68,7 +70,7 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
             isScrolling={isScrolling}
           />
         )}
-        <Search className={styles['header-search']} />
+        {isSearchVisible && <Search className={styles['header-search']} />}
         {isSmallScreen && (
           <HamburgerMenu
             className={styles['header-hamburger-btn']}

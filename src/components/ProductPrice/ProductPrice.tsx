@@ -12,7 +12,7 @@ interface IProductPrice {
   className?: string;
   wrapperClassName?: string;
   stockStatus: IProduct['stock_status'];
-  size?: 'small' | 'large';
+  size?: 'x-small' | 'small' | 'large';
 }
 
 export const ProductPrice = ({
