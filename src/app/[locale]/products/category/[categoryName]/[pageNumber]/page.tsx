@@ -6,6 +6,7 @@ import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { IProductListing } from '@/types/product';
 
 interface IProductCategoryPaginationPageProps {
   params: Promise<{
@@ -39,13 +40,14 @@ const ProductCategoryPaginationPage = async ({
     notFound();
   }
 
-  const { products, totalPages, totalProducts } = await fetchProducts({
-    params: {
-      per_page: PER_PAGE_DEFAULT,
-      page: pageNumber ? +pageNumber : 1,
-      category: category?.id.toString(),
-    },
-  });
+  const { products, totalPages, totalProducts } =
+    await fetchProducts<IProductListing>({
+      params: {
+        per_page: PER_PAGE_DEFAULT,
+        page: pageNumber ? +pageNumber : 1,
+        category: category?.id.toString(),
+      },
+    });
   return (
     <Products
       products={products}
