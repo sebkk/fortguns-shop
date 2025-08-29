@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import pagesApi from '@/api/pages';
 import { ContentSections } from '@/components/ContentSections';
+import { DEFAULT_LOCALE } from '@/constants/locales';
 import { fieldsStaticPaths } from '@/constants/pages';
 import { getPageContent } from '@/handlers/page/getPageContent';
 
@@ -56,7 +57,8 @@ export const generateStaticParams = async () => {
             locale,
             dynamicSlug: pathname,
           })) || [],
-      );
+      )
+      .filter(({ locale }) => locale === DEFAULT_LOCALE);
 
     return params;
   } catch {
