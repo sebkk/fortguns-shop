@@ -1,5 +1,11 @@
 .section-contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: to-rem(40);
+  grid-template-columns: 1fr;
+
+  gap: to-rem(30);
+
+  @include respond-above($breakpoint-2md) {
+    grid-template-columns: 1fr 1fr;
+    gap: to-rem(40);
+  }
 }

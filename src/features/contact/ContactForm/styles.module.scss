@@ -13,9 +13,16 @@
 }
 
 .form-submit-container {
+  display: flex;
+  justify-content: flex-end;
+
   text-align: center;
 }
 
 .form-submit-button {
-  width: to-rem(200);
+  width: 100%;
+
+  @include respond-above($breakpoint-xs) {
+    width: to-rem(250);
+  }
 }
