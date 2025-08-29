@@ -1,28 +1,15 @@
-.input-wrapper {
-  // margin-bottom: to-rem(16);
-}
-
-.input-label {
-  display: block;
-  margin-bottom: to-rem(4);
-  color: $color-text-button-primary;
-  font-weight: 500;
-  font-size: to-rem(14);
-}
-
 .input-field {
   display: block;
-  border: 1px solid $color-accent-default;
-  border-radius: to-rem(6);
-  background-color: $color-background-default;
-  padding: to-rem(10) to-rem(16);
-  width: 100%;
-  color: $color-text-button-primary;
 
-  @include custom-box-shadow($color-shadow-default, 0, to-rem(2), 0.05);
   transition:
     border-color 0.2s ease-in-out,
     box-shadow 0.2s ease-in-out;
+  border: to-rem(2) solid $color-border-dark-2;
+  border-radius: to-rem(6);
+  background-color: $color-background-2;
+  padding: to-rem(10) to-rem(16);
+  width: 100%;
+  color: $color-text-button-primary;
 
   font-size: to-rem(14);
 

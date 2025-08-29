@@ -81,3 +81,43 @@
     }
   }
 }
+
+:global(.company-info) {
+  display: flex;
+  flex-direction: column;
+
+  gap: to-rem(3);
+
+  margin-bottom: to-rem(20);
+
+  p {
+    margin: 0;
+  }
+}
+
+:global(.open-hours) {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(5);
+
+  h5 {
+    margin-bottom: to-rem(10);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(10);
+
+    margin-top: to-rem(20);
+
+    > div {
+      display: flex;
+      gap: to-rem(10);
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import categoriesApi from '@/api/woocommerce/categories';
+import { CATEGORIES_FIELDS_FOR_STATIC_PARAMS } from '@/constants/categories';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
@@ -18,7 +19,9 @@ export const dynamic = 'force-static';
 export const revalidate = 600;
 
 export const generateStaticParams = async () => {
-  const res = await categoriesApi.getCategories();
+  const res = await categoriesApi.getCategories({
+    _fields: CATEGORIES_FIELDS_FOR_STATIC_PARAMS.join(','),
+  });
 
   return res.data.map((category) => ({
     locale: DEFAULT_LOCALE,

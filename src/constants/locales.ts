@@ -10,11 +10,6 @@ export const PATHNAMES = {
     pl: '/',
     en: '/',
   },
-
-  [NAVIGATION_ROUTE.CONTACT]: {
-    pl: '/kontakt',
-    en: NAVIGATION_ROUTE.CONTACT,
-  },
   [NAVIGATION_ROUTE.PRODUCT_DETAILS]: {
     pl: '/produkt/[productSlug]',
     en: NAVIGATION_ROUTE.PRODUCT_DETAILS,

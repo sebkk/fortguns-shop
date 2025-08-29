@@ -1,16 +1,21 @@
 .contact-form-wrapper {
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
   width: 100%;
   max-width: $breakpoint-md;
 }
 
 .contact-form {
-  & > * + * {
-    margin-top: to-rem(16);
-  }
+  display: flex;
+  flex-direction: column;
+
+  gap: to-rem(24);
 }
 
 .form-submit-container {
   text-align: center;
+}
+
+.form-submit-button {
+  width: to-rem(200);
 }

@@ -1,0 +1,5 @@
+.section-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: to-rem(40);
+}

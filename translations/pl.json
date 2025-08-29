@@ -36,5 +36,13 @@
   "products": "Produkty",
   "brands": "Marki",
   "searching": "Szukam...",
-  "noResultsFound": "Nie znaleziono wyników"
+  "noResultsFound": "Nie znaleziono wyników",
+  "contactFormTopic": "Wybierz temat",
+  "contactFormTopicGeneral": "Pytanie ogólne",
+  "contactFormTopicOffer": "Pytanie o ofertę",
+  "contactFormTopicService": "Zapytanie serwisowe",
+  "contactFormTopicOther": "Inny temat",
+  "contactFormTitle": "Tytuł wiadomości",
+  "contactFormMessage": "Twoja wiadomość",
+  "contactFormSubmit": "Wyślij wiadomość"
 }

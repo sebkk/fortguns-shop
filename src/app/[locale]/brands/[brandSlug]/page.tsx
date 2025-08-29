@@ -1,10 +1,22 @@
 import brandsAPI from '@/api/woocommerce/brands';
+import { BRANDS_FIELDS_FOR_STATIC_PARAMS } from '@/constants/brands';
+import { DEFAULT_LOCALE } from '@/constants/locales';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { IProductListing } from '@/types/product';
 
 export const revalidate = 600;
 export const dynamic = 'force-static';
+
+export const generateStaticParams = async () => {
+  const res = await brandsAPI.getBrands({
+    fields: BRANDS_FIELDS_FOR_STATIC_PARAMS.join(','),
+  });
+  return res.data.map((brand) => ({
+    locale: DEFAULT_LOCALE,
+    brandSlug: brand.slug,
+  }));
+};
 
 const BrandListingPage = async ({
   params,

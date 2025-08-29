@@ -5,6 +5,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { UseFormRegister } from 'react-hook-form';
 
+import { Label } from '@/components/_form/Label';
+
 import styles from './styles.module.scss';
 
 interface TextareaProps {
@@ -29,9 +31,7 @@ export const Textarea = ({
 }: TextareaProps) => {
   return (
     <div className={styles['textarea-wrapper']}>
-      <label htmlFor={id} className={styles['textarea-label']}>
-        {label}
-      </label>
+      <Label htmlFor={id}>{label}</Label>
       <textarea
         id={id}
         {...register(id)}

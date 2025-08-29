@@ -64,7 +64,7 @@ export interface ISectionHtml extends ITitleAndDescription, ISectionOptions {
 
 export interface ISectionVariant extends ITitleAndDescription, ISectionOptions {
   acf_fc_layout: 'section_variant';
-  variant: 'about_us';
+  variant: 'about_us' | 'contact';
   show_map: boolean;
   code_html: string;
 }
@@ -75,6 +75,12 @@ export interface ISectionAboutUs extends ITitleAndDescription, ISectionOptions {
   code_html: string;
   content: string;
   location_description: string;
+}
+
+export interface ISectionContact extends ITitleAndDescription, ISectionOptions {
+  acf_fc_layout: 'section_contact';
+  code_html: string;
+  content: string;
 }
 
 export interface ISectionGallery extends ITitleAndDescription, ISectionOptions {

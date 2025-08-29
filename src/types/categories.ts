@@ -21,4 +21,5 @@ export interface IGetCategoriesParams {
   page?: number;
   search?: string;
   slug?: string;
+  _fields?: string;
 }

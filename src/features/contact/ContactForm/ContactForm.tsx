@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -20,6 +21,8 @@ const ContactFormSchema = z.object({
 type ContactFormInputs = z.infer<typeof ContactFormSchema>;
 
 export const ContactForm = () => {
+  const t = useTranslations();
+
   const {
     register,
     handleSubmit,
@@ -33,11 +36,11 @@ export const ContactForm = () => {
   };
 
   const topics = [
-    { value: '', label: 'Wybierz temat' },
-    { value: 'ogolne', label: 'Pytanie ogólne' },
-    { value: 'oferta', label: 'Pytanie o ofertę' },
-    { value: 'serwis', label: 'Zapytanie serwisowe' },
-    { value: 'inne', label: 'Inny temat' },
+    { value: '', label: t('contactFormTopic') },
+    { value: 'ogolne', label: t('contactFormTopicGeneral') },
+    { value: 'oferta', label: t('contactFormTopicOffer') },
+    { value: 'serwis', label: t('contactFormTopicService') },
+    { value: 'inne', label: t('contactFormTopicOther') },
   ];
 
   return (
@@ -47,29 +50,34 @@ export const ContactForm = () => {
         className={styles['contact-form']}
       >
         <Select
-          label='Temat'
+          label={t('contactFormTopic')}
           id='topic'
           register={register}
           error={errors.topic?.message}
           options={topics}
         />
         <Input
-          label='Tytuł wiadomości'
+          label={t('contactFormTitle')}
           id='title'
           type='text'
           register={register}
           error={errors.title?.message}
         />
         <Textarea
-          label='Twoja wiadomość'
+          label={t('contactFormMessage')}
           id='message'
           register={register}
           error={errors.message?.message}
           rows={7}
         />
         <div className={styles['form-submit-container']}>
-          <Button type='submit' color='primary' size='medium'>
-            Wyślij wiadomość
+          <Button
+            className={styles['form-submit-button']}
+            type='submit'
+            color='primary'
+            size='medium'
+          >
+            {t('contactFormSubmit')}
           </Button>
         </div>
       </form>

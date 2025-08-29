@@ -5,6 +5,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { UseFormRegister } from 'react-hook-form';
 
+import { Label } from '@/components/_form/Label';
+
 import styles from './Select.module.scss';
 
 interface SelectProps {
@@ -41,12 +43,9 @@ export const Select = ({
   return (
     <div className={finalWrapperClassName}>
       {label && (
-        <label
-          htmlFor={id}
-          className={clsx(styles['select-label'], labelClassName)}
-        >
+        <Label htmlFor={id} className={labelClassName}>
           {label}
-        </label>
+        </Label>
       )}
       <select
         id={id}

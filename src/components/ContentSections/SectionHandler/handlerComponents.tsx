@@ -42,7 +42,7 @@ const SectionVariant = dynamic(() =>
 );
 
 const SectionAboutUs = dynamic(() =>
-  import('@/components/_sections/SectionAboutUs').then(
+  import('@/components/_sections/SectionVariant/SectionAboutUs').then(
     (mod) => mod.SectionAboutUs,
   ),
 );
