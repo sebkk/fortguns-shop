@@ -1,5 +1,3 @@
-import Head from 'next/head';
-
 import { ContentSections } from '@/components/ContentSections';
 import { LOCALES } from '@/constants/locales';
 import { homepageSlug } from '@/constants/pages';
@@ -28,13 +26,10 @@ export async function generateMetadata({
 }
 
 const Home = async () => {
-  const { pageTitle, sections } = await getPageContent(homepageSlug);
+  const { sections } = await getPageContent(homepageSlug);
 
   return (
     <div className={styles['homepage-container']}>
-      <Head>
-        <title>{pageTitle}</title>
-      </Head>
       <ContentSections sections={sections} />
     </div>
   );

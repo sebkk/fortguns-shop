@@ -20,7 +20,7 @@
   }
 
   @include respond-above($breakpoint-lg) {
-    font-size: to-rem(25);
+    font-size: to-rem(23);
   }
 }
 .nav-link-icon {

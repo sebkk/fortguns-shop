@@ -1,5 +1,3 @@
-import Head from 'next/head';
-
 import pagesApi from '@/api/pages';
 import { ContentSections } from '@/components/ContentSections';
 import { DEFAULT_LOCALE } from '@/constants/locales';
@@ -30,13 +28,10 @@ const DynamicPage = async ({
 }) => {
   const { dynamicSlug } = await params;
 
-  const { pageTitle, sections } = await getPageContent(dynamicSlug);
+  const { sections } = await getPageContent(dynamicSlug);
 
   return (
     <div className='spacing-top-30'>
-      <Head>
-        <title>{pageTitle}</title>
-      </Head>
       <ContentSections sections={sections} />
     </div>
   );
