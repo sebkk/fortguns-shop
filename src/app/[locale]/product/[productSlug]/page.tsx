@@ -6,9 +6,9 @@ import { ProductDescriptionSection } from '@/features/product/ProductDescription
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
 export async function generateMetadata({
   params,

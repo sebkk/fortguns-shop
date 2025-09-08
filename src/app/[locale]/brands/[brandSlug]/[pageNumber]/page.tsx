@@ -3,8 +3,8 @@ import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { IProductListing } from '@/types/product';
 
-export const revalidate = 600;
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
+// export const revalidate = 600;
 
 const BrandListingPageNavigation = async ({
   params,

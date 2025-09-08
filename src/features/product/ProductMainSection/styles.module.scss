@@ -14,8 +14,8 @@
   text-align: center;
 
   @include respond-above($breakpoint-lg) {
+    align-self: start;
     text-align: left;
-
     &--top {
       display: none;
     }

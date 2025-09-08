@@ -36,6 +36,13 @@ export const ProductCategories = ({
     categoriesToRender = filteredCategories.slice(0, 1);
   }
 
+  const navigationObj = (slug: string) => ({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    pathname: NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY,
+    params: { categoryName: slug },
+  });
+
   return (
     <ul className={clsx(styles['product-categories'], classNameWrapper)}>
       {categoriesToRender.map(({ name, slug }, index, array) => (
@@ -50,9 +57,7 @@ export const ProductCategories = ({
           key={name}
         >
           {asLink ? (
-            <Link href={`${NAVIGATION_ROUTE.PRODUCTS_LISTING}/${slug}`}>
-              {name}
-            </Link>
+            <Link href={navigationObj(slug)}>{name}</Link>
           ) : (
             <span>{name}</span>
           )}

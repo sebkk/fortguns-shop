@@ -11,4 +11,6 @@ export const fieldsStaticPaths = ['acf.slugs_list', 'acf.destination'].join(
   ',',
 );
 
+export const fieldsStaticPathsForSitemap = ['acf.slugs_list'].join(',');
+
 export const homepageSlug = 'home';

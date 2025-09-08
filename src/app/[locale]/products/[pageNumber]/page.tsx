@@ -9,8 +9,7 @@ interface IProductPagePaginationProps {
   params: Promise<{ pageNumber: string }>;
 }
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 const ProductPagePagination = async ({
   params,

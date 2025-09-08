@@ -1,6 +1,6 @@
 import Image, { ImageProps } from 'next/image';
 
-import fortGunsLogo from '../../../public/pictures/fortguns-logo.webp';
+import fortGunsLogo from '../../../public/pictures/fortguns-logo.png';
 
 interface ILogoProps {
   className?: string;

@@ -80,8 +80,14 @@ export const GalleryCarousel = ({
 
   const swiperConfigMainCarousel = hideMainCarousel
     ? {
-        slidesPerView: 6,
-        slidesPerGroup: 6,
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+        breakpoints: {
+          730: {
+            slidesPerView: 6,
+            slidesPerGroup: 6,
+          },
+        },
         spaceBetween: 20,
         ...swiperConfig,
       }
@@ -189,7 +195,12 @@ export const GalleryCarousel = ({
             setThumbsSwiper(swiper);
           }}
           spaceBetween={15}
-          slidesPerView={6}
+          slidesPerView={3}
+          breakpoints={{
+            730: {
+              slidesPerView: 6,
+            },
+          }}
           modules={[Thumbs]}
           className={styles['gallery-carousel-thumbs']}
           threshold={5}

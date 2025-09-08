@@ -1,6 +1,10 @@
 // Variants
 .variant-main-heading {
-  font-size: to-rem(60);
+  font-size: to-rem(42);
+
+  @include respond-above($breakpoint-md) {
+    font-size: to-rem(60);
+  }
 }
 
 .variant-section-heading {
@@ -8,15 +12,27 @@
 }
 
 .variant-subheading {
-  font-size: to-rem(36);
+  font-size: to-rem(28);
+
+  @include respond-above($breakpoint-md) {
+    font-size: to-rem(36);
+  }
 }
 
 .variant-c-heading {
-  font-size: to-rem(30);
+  font-size: to-rem(26);
+
+  @include respond-above($breakpoint-md) {
+    font-size: to-rem(30);
+  }
 }
 
 .variant-subtitle {
-  font-size: to-rem(24);
+  font-size: to-rem(22);
+
+  @include respond-above($breakpoint-md) {
+    font-size: to-rem(24);
+  }
 }
 
 .variant-body {
@@ -24,7 +40,11 @@
 }
 
 .variant-caption {
-  font-size: to-rem(16);
+  font-size: to-rem(14);
+
+  @include respond-above($breakpoint-md) {
+    font-size: to-rem(16);
+  }
 }
 
 // Colors

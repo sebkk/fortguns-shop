@@ -51,6 +51,26 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
         <GalleryWithModal
           galleryCarouselProps={{
             images: images.map(({ id, src, alt }) => ({ id, url: src, alt })),
+            swiperThumbsConfig: {
+              breakpoints: {
+                550: {
+                  slidesPerView: 4,
+                  slidesPerGroup: 4,
+                },
+                860: {
+                  slidesPerView: 5,
+                  slidesPerGroup: 5,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  slidesPerGroup: 3,
+                },
+                1200: {
+                  slidesPerView: 5,
+                  slidesPerGroup: 5,
+                },
+              },
+            },
           }}
           modalProps={{
             modalTitle: name,
