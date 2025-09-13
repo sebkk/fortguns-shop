@@ -6,18 +6,19 @@ import { useTranslations } from 'next-intl';
 
 import { SectionPageHeader } from '@/components/_sections/SectionPageHeader';
 import { Spacer } from '@/components/Spacer';
-import { IBrand } from '@/types/brands';
+import { IBrand, IGroupedBrands } from '@/types/brands';
 import { ESectionBackground, ESectionLayout } from '@/types/sections';
 
 import { BrandsList } from '../BrandsList';
 
 interface IBrandsPageContentProps {
   brands: IBrand[];
+  groupedBrands: IGroupedBrands[];
   totalProducts: number;
 }
 
 export const BrandsPageContent = ({
-  brands,
+  groupedBrands,
   totalProducts,
 }: IBrandsPageContentProps) => {
   const t = useTranslations();
@@ -40,7 +41,7 @@ export const BrandsPageContent = ({
         }}
       />
       <Spacer />
-      <BrandsList brands={brands} />
+      <BrandsList groupedBrands={groupedBrands} />
       <Spacer size='lg' />
     </div>
   );

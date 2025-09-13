@@ -1,3 +1,5 @@
+import parseHTML from 'html-react-parser';
+
 import brandsAPI from '@/api/woocommerce/brands';
 import { BRANDS_FIELDS_FOR_STATIC_PARAMS } from '@/constants/brands';
 import { DEFAULT_LOCALE } from '@/constants/locales';
@@ -14,7 +16,7 @@ export const generateStaticParams = async () => {
   });
   return res.data.map((brand) => ({
     locale: DEFAULT_LOCALE,
-    brandSlug: brand.slug,
+    brandSlug: parseHTML(brand.slug),
   }));
 };
 

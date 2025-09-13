@@ -1,3 +1,17 @@
+.brands-group {
+  margin-bottom: to-rem(40);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.brands-group__letter {
+  margin-bottom: to-rem(20);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
 .brands-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

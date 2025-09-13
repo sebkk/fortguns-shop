@@ -15,3 +15,8 @@ export interface IGetBrandsParams {
   page?: number;
   search?: string;
 }
+
+export interface IGroupedBrands {
+  letter: string;
+  brands: IBrand[];
+}

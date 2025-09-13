@@ -28,7 +28,7 @@ export const BrandItem = ({ brand }: BrandItemProps) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           pathname: NAVIGATION_ROUTE.BRAND_LISTING,
-          params: { brandSlug: slug },
+          params: { brandSlug: parseHTML(slug) },
         }}
         className={styles['brand-item']}
       >

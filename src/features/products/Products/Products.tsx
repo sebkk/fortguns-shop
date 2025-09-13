@@ -129,11 +129,17 @@ export const Products = ({
       push(`${pathname}?${params.toString()}`);
     } else {
       let path = pathname;
+
       if (path.includes(`/${currentPage}`)) {
         path = path.replace(`/${currentPage}`, `/${page}`);
       } else {
         path = path + `/${page}`;
       }
+
+      if (page === 1) {
+        path = path.replace(`/${page}`, '');
+      }
+
       push(path);
     }
 

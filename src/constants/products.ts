@@ -31,6 +31,10 @@ export const PRODUCT_DETAILS_FIELDS = [
   'related_ids',
 ];
 
+export const PRODUCTS_FIELDS_FOR_SITEMAP = ['slug', 'stock_status'];
+
+export const PRODUCTS_FIELDS_FOR_SITEMAP_LISTING = ['id'];
+
 export const UNCATEGORIZED_CATEGORY_NAME = 'Uncategorized';
 export const PER_PAGE_DEFAULT = 12;
 

@@ -5,11 +5,20 @@ export const revalidate = 600;
 export const dynamic = 'force-static';
 
 const BrandsPage = async () => {
-  const { brands, totalProducts } = await fetchBrands({
+  const { brands, groupedBrands, totalProducts } = await fetchBrands({
     params: { per_page: 50 },
   });
 
-  return <BrandsPageContent brands={brands} totalProducts={totalProducts} />;
+  return (
+    <>
+      {/* <BreadcrumbsExample /> */}
+      <BrandsPageContent
+        brands={brands}
+        groupedBrands={groupedBrands}
+        totalProducts={totalProducts}
+      />
+    </>
+  );
 };
 
 export default BrandsPage;

@@ -162,6 +162,11 @@ export interface IProductSearch {
   slug: IProduct['slug'];
 }
 
+export interface IProductSitemap {
+  slug: IProduct['slug'];
+  stock_status: IProduct['stock_status'];
+}
+
 export interface IProductListing extends IProductSearch {
   date_created: IProduct['date_created'];
 }

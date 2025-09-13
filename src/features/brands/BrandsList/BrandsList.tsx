@@ -4,46 +4,59 @@ import { Card } from '@/components/Card';
 import { Link } from '@/components/Link';
 import { Typography } from '@/components/Typography';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
-import { IBrand } from '@/types/brands';
+import { IGroupedBrands } from '@/types/brands';
 
 import styles from './BrandsList.module.scss';
 
 interface IBrandsListProps {
-  brands: IBrand[];
+  groupedBrands: IGroupedBrands[];
 }
 
-export const BrandsList = ({ brands }: IBrandsListProps) => {
+export const BrandsList = ({ groupedBrands }: IBrandsListProps) => {
   return (
     <div className='container'>
-      <ul className={styles['brands-list']}>
-        {brands.map(({ id, slug, name, count }) => (
-          <Card
-            tag='li'
-            isRounded
-            withShadow
-            key={id}
-            className={styles['brands-list__item']}
-          >
-            <Link
-              className={styles['brands-list__item-link']}
-              href={{
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                pathname: NAVIGATION_ROUTE.BRAND_LISTING,
-                params: { brandSlug: slug },
-              }}
+      <ul>
+        {groupedBrands.map(({ letter, brands }) => (
+          <li key={letter} className={styles['brands-group']}>
+            <Typography
+              tag='h2'
+              variant='subheading'
+              className={styles['brands-group__letter']}
             >
-              {parseHTML(name)}
-              <Typography
-                tag='span'
-                variant='caption'
-                className={styles['brands-list__item-count']}
-                color='text-medium_dark'
-              >
-                {count}
-              </Typography>
-            </Link>
-          </Card>
+              {letter}
+            </Typography>
+            <ul className={styles['brands-list']}>
+              {brands.map(({ id, slug, name, count }) => (
+                <Card
+                  tag='li'
+                  isRounded
+                  withShadow
+                  key={id}
+                  className={styles['brands-list__item']}
+                >
+                  <Link
+                    className={styles['brands-list__item-link']}
+                    href={{
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      pathname: NAVIGATION_ROUTE.BRAND_LISTING,
+                      params: { brandSlug: parseHTML(slug) },
+                    }}
+                  >
+                    {parseHTML(name)}
+                    <Typography
+                      tag='span'
+                      variant='caption'
+                      className={styles['brands-list__item-count']}
+                      color='text-medium_dark'
+                    >
+                      {count}
+                    </Typography>
+                  </Link>
+                </Card>
+              ))}
+            </ul>
+          </li>
         ))}
       </ul>
     </div>

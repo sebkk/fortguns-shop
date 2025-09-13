@@ -1,5 +1,28 @@
 import brandsAPI from '@/api/woocommerce/brands';
-import { IBrand, IGetBrandsParams } from '@/types/brands';
+import { IBrand, IGetBrandsParams, IGroupedBrands } from '@/types/brands';
+
+const groupBrandsByFirstLetter = (brands: IBrand[]): IGroupedBrands[] => {
+  const grouped = brands.reduce(
+    (acc, brand) => {
+      const firstLetter = brand.name.charAt(0).toUpperCase();
+
+      if (!acc[firstLetter]) {
+        acc[firstLetter] = [];
+      }
+
+      acc[firstLetter].push(brand);
+      return acc;
+    },
+    {} as Record<string, IBrand[]>,
+  );
+
+  return Object.keys(grouped)
+    .sort()
+    .map((letter) => ({
+      letter,
+      brands: grouped[letter].sort((a, b) => a.name.localeCompare(b.name)),
+    }));
+};
 
 export const fetchBrands = async ({
   params = {},
@@ -7,6 +30,7 @@ export const fetchBrands = async ({
   params?: IGetBrandsParams;
 } = {}): Promise<{
   brands: IBrand[];
+  groupedBrands: IGroupedBrands[];
   totalPages: number;
   totalProducts: number;
 }> => {
@@ -37,8 +61,11 @@ export const fetchBrands = async ({
       brands = firstPageData;
     }
 
+    const groupedBrands = groupBrandsByFirstLetter(brands);
+
     return {
       brands,
+      groupedBrands,
       totalPages,
       totalProducts,
     };
@@ -47,6 +74,7 @@ export const fetchBrands = async ({
 
     return {
       brands,
+      groupedBrands: [],
       totalPages: 0,
       totalProducts: 0,
     };
