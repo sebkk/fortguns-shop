@@ -37,6 +37,8 @@
 
   @include respond-above($breakpoint-xxs) {
     flex-direction: row;
+
+    align-items: flex-start;
   }
 }
 
@@ -44,6 +46,8 @@
   flex: 1;
 
   width: auto;
+
+  text-align: left;
 
   @include respond-above($breakpoint-2md) {
     max-width: to-rem(300);
@@ -53,11 +57,29 @@
 .section-newsletter_form-wrapper_btn {
   width: 100%;
 
+  min-height: to-rem(40.09);
+
   @include respond-above($breakpoint-xxs) {
-    width: to-rem(130);
+    width: to-rem(160);
   }
 
   @include respond-above($breakpoint-2md) {
     width: to-rem(150);
+  }
+}
+
+.section-newsletter_modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: to-rem(20);
+
+  padding: to-rem(20) 0;
+
+  text-align: center;
+
+  button {
+    min-width: to-rem(160);
   }
 }

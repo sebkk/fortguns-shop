@@ -181,16 +181,16 @@ export async function POST(request: NextRequest) {
     // Validate required fields
     if (!topic || !title || !message || !senderEmail || !name) {
       return NextResponse.json(
-        { success: false, error: 'Missing required fields' },
+        { success: false, error: 'formErrorRootMissingRequiredFields' },
         { status: 400 },
       );
     }
 
     // Check if required environment variables are set
     if (!USER_EMAIL || !process.env.EMAIL_PASSWORD) {
-      console.error('Missing email credentials in environment variables');
+      console.error('formErrorEmailServiceNotConfigured');
       return NextResponse.json(
-        { success: false, error: 'Email service not configured' },
+        { success: false, error: 'formErrorEmailServiceNotConfigured' },
         { status: 500 },
       );
     }
@@ -235,14 +235,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Email sent successfully',
+      message: 'formSuccessMailSending',
     });
   } catch (error) {
     console.error('Error sending email:', error);
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to send email',
+        error: 'formErrorRoot',
       },
       { status: 500 },
     );

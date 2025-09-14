@@ -58,5 +58,14 @@
   "contactFormSuccessMessage": "Wiadomość została wysłana pomyślnie!",
   "contactFormErrorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie.",
   "contactFormName": "Imię",
-  "contactFormNameToShort": "Imię musi zawierać co najmniej 3 znaki"
+  "contactFormNameToShort": "Imię musi zawierać co najmniej 3 znaki",
+  "formErrorNameToShort": "Imię musi zawierać co najmniej 3 znaki",
+  "formRequired": "Pole jest wymagane",
+  "formErrorRoot": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie.",
+  "formErrorRootMissingRequiredFields": "Brak wymaganych pól.",
+  "formErrorEmailServiceNotConfigured": "Serwis email nie jest skonfigurowany.",
+  "formSuccessMailSending": "Email wysłany pomyślnie!",
+  "formSuccessNewsletterSubscriptionModalTitle": "Subskrypcja Newslettera",
+  "formSuccessNewsletterSubscription": "Zapisano do newslettera pomyślnie!",
+  "formErrorNewsletterSubscription": "Wystąpił błąd podczas zapisu do newslettera. Spróbuj ponownie."
 }

@@ -1,6 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -14,22 +18,28 @@ import { CONTACT_FORM_TOPICS } from '@/constants/forms/contact';
 import styles from './styles.module.scss';
 
 const ContactFormSchema = z.object({
-  topic: z.string().min(1, 'formErrorTopicToShort'),
-  title: z.string().min(3, 'formErrorTitleToShort'),
-  message: z.string().min(10, 'formErrorMessageToShort'),
-  email: z.string().email('formErrorEmailInvalid'),
-  name: z.string().min(3, 'formErrorNameToShort'),
+  topic: z.string().nonempty('formRequired'),
+  title: z.string().nonempty('formRequired').min(3, 'formErrorTitleToShort'),
+  message: z
+    .string()
+    .nonempty('formRequired')
+    .min(10, 'formErrorMessageToShort'),
+  email: z.string().nonempty('formRequired').email('formErrorEmailInvalid'),
+  name: z.string().nonempty('formRequired').min(3, 'formErrorNameToShort'),
 });
 
 type ContactFormInputs = z.infer<typeof ContactFormSchema>;
 
 export const ContactForm = () => {
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
   const t = useTranslations();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
     reset,
   } = useForm<ContactFormInputs>({
     resolver: zodResolver(ContactFormSchema),
@@ -47,26 +57,36 @@ export const ContactForm = () => {
     };
 
     try {
-      const response = await fetch('/api/send-email-smtp', {
-        method: 'POST',
+      const response = await axios.post('/api/send-email-smtp', sendData, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(sendData),
       });
 
-      const result = await response.json();
+      const result = response.data;
 
-      // eslint-disable-next-line no-console
-      console.log('RESULT', result.success);
+      if (!result.success) {
+        setSuccessMessage(null);
+
+        setError('root', { message: result.error });
+        throw new Error(result.error);
+      }
+
+      setSuccessMessage(result.message);
 
       reset();
     } catch (error) {
       console.error('Error sending email:', error);
+
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.error || error.message;
+        setError('root', { message: errorMessage });
+        setSuccessMessage(null);
+      }
     }
   };
 
-  const { topic, title, message, email, name } = errors;
+  const { topic, title, message, email, name, root } = errors;
 
   return (
     <div className={styles['contact-form-wrapper']}>
@@ -116,6 +136,16 @@ export const ContactForm = () => {
           required
         />
         <div className={styles['form-submit-container']}>
+          {(root?.message || successMessage) && (
+            <p
+              className={clsx(
+                root?.message && styles['form-submit-error'],
+                successMessage && styles['form-submit-success'],
+              )}
+            >
+              {t(root?.message || (successMessage as string))}
+            </p>
+          )}
           <Button
             className={styles['form-submit-button']}
             type='submit'

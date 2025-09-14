@@ -14,9 +14,24 @@
 
 .form-submit-container {
   display: flex;
+
+  flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
+
+  gap: to-rem(20);
 
   text-align: center;
+
+  @include respond-above($breakpoint-xs) {
+    flex-direction: row;
+  }
+
+  @include respond-above($breakpoint-2md) {
+    flex-direction: column;
+
+    align-items: flex-end;
+  }
 }
 
 .form-submit-button {
@@ -25,4 +40,12 @@
   @include respond-above($breakpoint-xs) {
     width: to-rem(250);
   }
+}
+
+.form-submit-error {
+  color: $color-error-default;
+}
+
+.form-submit-success {
+  color: $color-success-default;
 }
