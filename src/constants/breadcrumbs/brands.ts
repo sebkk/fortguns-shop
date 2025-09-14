@@ -8,7 +8,8 @@ const BRANDS_BREADCRUMB = {
   shouldTranslate: true,
 };
 
-export const BRAND_LISTING_BREADCRUMB = (brandName: string) => ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const BRAND_LISTING_BREADCRUMB = (brandName: any) => ({
   label: brandName,
   isActive: true,
   shouldTranslate: false,
@@ -16,7 +17,8 @@ export const BRAND_LISTING_BREADCRUMB = (brandName: string) => ({
 
 export const BRANDS_BREADCRUMBS = [HOMEPAGE_BREADCRUMB, BRANDS_BREADCRUMB];
 
-export const BRAND_LISTING_BREADCRUMBS = (brandName: string) => [
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const BRAND_LISTING_BREADCRUMBS = (brandName: any) => [
   HOMEPAGE_BREADCRUMB,
   BRANDS_BREADCRUMB,
   BRAND_LISTING_BREADCRUMB(brandName),

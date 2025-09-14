@@ -93,14 +93,18 @@ export const Breadcrumbs = ({
                       className={styles['breadcrumb-link']}
                       size={size}
                     >
-                      {parseHTML(shouldTranslate ? t(label as string) : label)}
+                      {parseHTML(
+                        shouldTranslate ? t(label as string) : label || '',
+                      )}
                     </Link>
                   ) : (
                     <span
                       className={styles['breadcrumb-current']}
                       aria-current={isActiveItem ? 'page' : undefined}
                     >
-                      {parseHTML(shouldTranslate ? t(label as string) : label)}
+                      {parseHTML(
+                        shouldTranslate ? t(label as string) : label || '',
+                      )}
                     </span>
                   )}
                   {!isLast && (

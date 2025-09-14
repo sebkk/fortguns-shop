@@ -47,12 +47,14 @@ const BrandListingPage = async ({
   return (
     <>
       <Spacer size='sm' />
-      <Breadcrumbs items={BRAND_LISTING_BREADCRUMBS(brandName)} size='large' />
+      <Breadcrumbs
+        items={BRAND_LISTING_BREADCRUMBS(brandName || 'Unknown Brand')}
+        size='large'
+      />
       <Products
         products={products}
         totalPages={totalPages}
         totalProducts={totalProducts}
-        pageNumber={1}
         pageTitle={brandName}
         pageDescription={brandDescription}
         brandId={brandId}

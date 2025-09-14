@@ -34,6 +34,7 @@ export const Drawer = ({
     if (isOpen) {
       onClose();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (
