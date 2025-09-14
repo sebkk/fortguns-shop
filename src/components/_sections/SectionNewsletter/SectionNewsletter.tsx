@@ -27,7 +27,7 @@ export const SectionNewsletter = ({
 }: {
   section: ISectionNewsletter;
 }) => {
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   const {
     register,
