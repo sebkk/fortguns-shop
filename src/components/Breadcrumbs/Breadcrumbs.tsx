@@ -61,10 +61,10 @@ export const Breadcrumbs = ({
 
   const breadcrumbClassNames = clsx(
     styles.breadcrumbs,
+    styles['breadcrumbs-nav'],
     styles[`breadcrumbs--${size}`],
     styles[`breadcrumbs--${variant}`],
     isTruncated && styles['breadcrumbs--truncated'],
-    'container',
     className,
   );
 
@@ -72,8 +72,8 @@ export const Breadcrumbs = ({
   return (
     <>
       {!hideSpacer && <Spacer size='sm' />}
-      <nav aria-label='Breadcrumb' className={breadcrumbClassNames}>
-        <ol className={styles.breadcrumbs}>
+      <nav aria-label='Breadcrumb' className={clsx(breadcrumbClassNames)}>
+        <ol className={clsx(styles.breadcrumbs, styles['breadcrumbs-wrapper'])}>
           {displayItems.map(
             ({ label, href, isActive, shouldTranslate }, index) => {
               const isLast = index === displayItems.length - 1;

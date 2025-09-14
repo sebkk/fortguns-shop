@@ -29,12 +29,30 @@ export const ContactForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<ContactFormInputs>({
     resolver: zodResolver(ContactFormSchema),
   });
 
-  const onSubmit: SubmitHandler<ContactFormInputs> = (_data) => {
-    alert('Wiadomość wysłana (symulacja)!');
+  const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
+    try {
+      const response = await fetch('/api/send-email-smtp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      // eslint-disable-next-line no-console
+      console.debug('result', result);
+
+      reset();
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
   };
 
   const topics = CONTACT_FORM_TOPICS.map((topic) => ({

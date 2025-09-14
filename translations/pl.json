@@ -54,5 +54,7 @@
   "formErrorTitleToShort": "Tytuł musi zawierać co najmniej 3 znaki",
   "formErrorMessageToShort": "Wiadomość musi zawierać co najmniej 10 znaków",
   "contactFormEmail": "Email",
-  "formErrorEmailInvalid": "Email musi być poprawny"
+  "formErrorEmailInvalid": "Email musi być poprawny",
+  "contactFormSuccessMessage": "Wiadomość została wysłana pomyślnie!",
+  "contactFormErrorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie."
 }
