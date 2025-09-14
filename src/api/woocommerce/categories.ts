@@ -22,12 +22,16 @@ class Categories {
     });
   }
 
-  public async getCategoryById(id: number): Promise<AxiosResponse<ICategory>> {
+  public async getCategoryById(
+    id: number,
+    params?: IGetCategoriesParams,
+  ): Promise<AxiosResponse<ICategory>> {
     return await baseAPI.get(`${this.basePath}/${id}`, {
       auth: {
         username: consumerKey as string,
         password: consumerSecret as string,
       },
+      params,
     });
   }
 }

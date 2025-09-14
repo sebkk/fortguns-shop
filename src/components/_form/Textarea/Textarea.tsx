@@ -18,6 +18,7 @@ interface TextareaProps {
   rows?: number;
   textareaProps?: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
   className?: string;
+  required?: boolean;
 }
 
 export const Textarea = ({
@@ -28,10 +29,13 @@ export const Textarea = ({
   className,
   rows = 4,
   textareaProps = {},
+  required,
 }: TextareaProps) => {
   return (
     <div className={styles['textarea-wrapper']}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id} required={required}>
+        {label}
+      </Label>
       <textarea
         id={id}
         {...register(id)}

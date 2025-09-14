@@ -31,7 +31,7 @@ export const AboutUsSection = ({
               <Typography tag='span'>
                 <Link
                   className={styles['footer-nav-link']}
-                  anchorProps={{ target: '_blank' }}
+                  anchorProps={{ target: '_blank', rel: 'noopener' }}
                   href={getLinkHref(href, type as TLinkHref)}
                   nativeLink
                 >

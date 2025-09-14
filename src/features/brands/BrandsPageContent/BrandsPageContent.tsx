@@ -6,20 +6,19 @@ import { useTranslations } from 'next-intl';
 
 import { SectionPageHeader } from '@/components/_sections/SectionPageHeader';
 import { Spacer } from '@/components/Spacer';
-import { IBrand, IGroupedBrands } from '@/types/brands';
+import { IGroupedBrands } from '@/types/brands';
 import { ESectionBackground, ESectionLayout } from '@/types/sections';
 
 import { BrandsList } from '../BrandsList';
 
 interface IBrandsPageContentProps {
-  brands: IBrand[];
   groupedBrands: IGroupedBrands[];
-  totalProducts: number;
+  totalBrands: number;
 }
 
 export const BrandsPageContent = ({
   groupedBrands,
-  totalProducts,
+  totalBrands,
 }: IBrandsPageContentProps) => {
   const t = useTranslations();
 
@@ -35,7 +34,7 @@ export const BrandsPageContent = ({
           },
           title: t.markup('labelBrands'),
           description: t.markup('labelBrandsDescriptionWithCount', {
-            count: totalProducts,
+            count: totalBrands,
             strong: (chunks: React.ReactNode) => `<strong>${chunks}</strong>`,
           }),
         }}

@@ -31,7 +31,11 @@ export const SocialsSection = ({ footer, socials }: ISocialsSectionProps) => {
           <li key={href}>
             <Link
               href={href}
-              anchorProps={{ target: '_blank', 'aria-label': title }}
+              anchorProps={{
+                target: '_blank',
+                'aria-label': title,
+                rel: 'noopener',
+              }}
               className={clsx(
                 styles['footer-nav-link'],
                 styles['footer-nav-link__social'],

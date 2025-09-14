@@ -1,7 +1,10 @@
 import parseHTML from 'html-react-parser';
 
 import brandsAPI from '@/api/woocommerce/brands';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Spacer } from '@/components/Spacer';
 import { BRANDS_FIELDS_FOR_STATIC_PARAMS } from '@/constants/brands';
+import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
@@ -44,15 +47,19 @@ const BrandListingPage = async ({
     });
 
   return (
-    <Products
-      products={products}
-      totalPages={totalPages}
-      totalProducts={totalProducts}
-      pageNumber={1}
-      pageTitle={brandName}
-      pageDescription={brandDescription}
-      brandId={brandId}
-    />
+    <>
+      <Spacer size='sm' />
+      <Breadcrumbs items={BRAND_LISTING_BREADCRUMBS(brandName)} size='large' />
+      <Products
+        products={products}
+        totalPages={totalPages}
+        totalProducts={totalProducts}
+        pageNumber={1}
+        pageTitle={brandName}
+        pageDescription={brandDescription}
+        brandId={brandId}
+      />
+    </>
   );
 };
 

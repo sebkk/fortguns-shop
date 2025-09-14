@@ -1,5 +1,8 @@
 import pagesApi from '@/api/pages';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { ContentSections } from '@/components/ContentSections';
+import { Spacer } from '@/components/Spacer';
+import { DYNAMIC_PAGE_BREADCRUMBS } from '@/constants/breadcrumbs/dynamicPages';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { fieldsStaticPaths } from '@/constants/pages';
 import { getPageContent } from '@/handlers/page/getPageContent';
@@ -28,10 +31,16 @@ const DynamicPage = async ({
 }) => {
   const { dynamicSlug } = await params;
 
-  const { sections } = await getPageContent(dynamicSlug);
+  const { pageTitle, sections } = await getPageContent(dynamicSlug);
 
   return (
     <div className='spacing-top-30'>
+      <Breadcrumbs
+        items={DYNAMIC_PAGE_BREADCRUMBS(pageTitle as string)}
+        size='large'
+        hideSpacer
+      />
+      <Spacer />
       <ContentSections sections={sections} />
     </div>
   );

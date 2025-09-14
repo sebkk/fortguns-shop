@@ -52,6 +52,7 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
               href={`maps:?q=${address?.href}`}
               target='_blank'
               className={styles['address-link']}
+              rel='noopener'
             >
               {getContactInfoIcon(
                 address?.type as string,

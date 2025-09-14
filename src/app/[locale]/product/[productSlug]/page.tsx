@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
 
-import products from '@/api/woocommerce/products';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Spacer } from '@/components/Spacer';
 import { ProductDescriptionSection } from '@/features/product/ProductDescriptionSection';
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
+import { fetchProductDetails } from '@/handlers/products/fetchProductDetails';
+import { createProductDetailsBreadcrumbs } from '@/helpers/breadcrumbs/createProductDetailsBreadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,7 +19,7 @@ export async function generateMetadata({
 }) {
   try {
     const { productSlug } = await params;
-    const product = await fetchProduct(productSlug);
+    const product = await fetchProductDetails(productSlug);
 
     if (!product) {
       return {
@@ -36,19 +38,6 @@ export async function generateMetadata({
   }
 }
 
-const fetchProduct = async (productSlug: string) => {
-  try {
-    const response = await products.getProductDetails(productSlug);
-
-    if (response.data) return response.data[0];
-
-    return null;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-};
-
 interface IProductPageProps {
   params: Promise<{
     locale: string;
@@ -59,16 +48,19 @@ interface IProductPageProps {
 const ProductPage = async ({ params }: IProductPageProps) => {
   try {
     const { productSlug } = await params;
-    const product = await fetchProduct(productSlug);
+    const product = await fetchProductDetails(productSlug);
 
     if (!product) {
       notFound();
     }
 
-    const { related_ids } = product;
+    const { related_ids, categories, name } = product;
+
+    const breadcrumbs = createProductDetailsBreadcrumbs(name, categories);
 
     return (
       <>
+        <Breadcrumbs items={breadcrumbs} size='large' />
         <Spacer size='lg' />
         <div className='container'>
           <ProductMainSection product={product} />

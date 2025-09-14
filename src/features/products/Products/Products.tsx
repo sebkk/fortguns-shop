@@ -91,15 +91,23 @@ export const Products = ({
     push(`${newPathname}?${queryString}`);
   };
 
+  const title = pageTitle || category?.name || t('productsListingTitle');
+  const description = pageDescription || category?.description;
+  const titleWithDesc = (title || description) && (
+    <>
+      <Spacer size='sm' />
+      <TitleWithDesc
+        wrapperClassName={styles['products-title-desc-wrapper']}
+        title={pageTitle || category?.name || t('productsListingTitle')}
+        description={pageDescription || category?.description}
+      />
+    </>
+  );
+
   if (isLoading && !products) {
     return (
       <div className={styles['products-container']}>
-        <Spacer />
-        <TitleWithDesc
-          wrapperClassName={styles['products-title-desc-wrapper']}
-          title={pageTitle || category?.name}
-          description={pageDescription || category?.description}
-        />
+        {titleWithDesc}
         <Spacer />
         <ProductsHeader
           pageNumber={pageNumber}
@@ -150,12 +158,7 @@ export const Products = ({
 
   return (
     <div className={styles['products-container']}>
-      <Spacer />
-      <TitleWithDesc
-        wrapperClassName={styles['products-title-desc-wrapper']}
-        title={pageTitle || category?.name}
-        description={pageDescription || category?.description}
-      />
+      {titleWithDesc}
       <Spacer />
       <ProductsHeader
         pageNumber={currentPage}

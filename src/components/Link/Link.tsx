@@ -63,7 +63,7 @@ export const Link = ({
         href={href as string}
         className={classNames}
         target='_blank'
-        // rel='noopener noreferrer'
+        rel='noopener'
         {...anchorProps}
       >
         {leadingIcon && (

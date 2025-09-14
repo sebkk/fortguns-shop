@@ -4,6 +4,8 @@ export const DEFAULT_LOCALE = 'pl';
 
 export const LOCALES = [DEFAULT_LOCALE];
 
+export type TLocale = 'pl' | 'en';
+
 // TODO: FETCH PAGES AND GENERATE
 export const PATHNAMES = {
   '/': {

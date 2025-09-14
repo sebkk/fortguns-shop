@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import categoriesApi from '@/api/woocommerce/categories';
+import { Breadcrumbs, IBreadcrumbItem } from '@/components/Breadcrumbs';
 import { CATEGORIES_FIELDS_FOR_STATIC_PARAMS } from '@/constants/categories';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
@@ -32,29 +33,32 @@ export const generateStaticParams = async () => {
 const CategoryPage = async ({ params }: ICategoryPageProps) => {
   const { categoryName } = await params;
 
-  const { category } = await fetchCategoryBySlug({ slug: categoryName });
+  const { category, breadcrumbs } = await fetchCategoryBySlug({
+    slug: categoryName,
+  });
 
   if (!category) {
-    notFound();
+    return notFound();
   }
 
   const { products, totalPages, totalProducts } =
     await fetchProducts<IProductListing>({
       params: {
         per_page: PER_PAGE_DEFAULT,
-        page: 1,
         category: category?.id.toString(),
       },
     });
 
   return (
-    <Products
-      products={products}
-      totalPages={totalPages}
-      totalProducts={totalProducts}
-      pageNumber={1}
-      category={category}
-    />
+    <>
+      <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
+      <Products
+        products={products}
+        totalPages={totalPages}
+        totalProducts={totalProducts}
+        category={category}
+      />
+    </>
   );
 };
 

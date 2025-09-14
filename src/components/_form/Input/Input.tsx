@@ -16,6 +16,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<any>;
   error?: string;
   wrapperClassName?: string;
+  required?: boolean;
 }
 
 export const Input = ({
@@ -25,14 +26,19 @@ export const Input = ({
   error,
   className,
   wrapperClassName,
+  required,
   ...rest
 }: InputProps) => {
   return (
     <div className={clsx(styles['input-wrapper'], wrapperClassName)}>
-      {label && <Label htmlFor={id}>{label}</Label>}
+      {label && (
+        <Label htmlFor={id} required={required}>
+          {label}
+        </Label>
+      )}
       <input
         id={id}
-        {...register(id)}
+        {...register(id, { required })}
         className={clsx(
           styles['input-field'],
           error && styles['input-field-error'],

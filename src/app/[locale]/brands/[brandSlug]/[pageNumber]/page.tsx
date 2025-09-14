@@ -1,4 +1,6 @@
 import brandsAPI from '@/api/woocommerce/brands';
+import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
+import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { IProductListing } from '@/types/product';
@@ -31,15 +33,18 @@ const BrandListingPageNavigation = async ({
     });
 
   return (
-    <Products
-      products={products}
-      totalPages={totalPages}
-      totalProducts={totalProducts}
-      pageNumber={+pageNumber}
-      pageTitle={brandName}
-      pageDescription={brandDescription}
-      brandId={brandId}
-    />
+    <>
+      <Breadcrumbs items={BRAND_LISTING_BREADCRUMBS(brandName)} size='large' />
+      <Products
+        products={products}
+        totalPages={totalPages}
+        totalProducts={totalProducts}
+        pageNumber={+pageNumber}
+        pageTitle={brandName}
+        pageDescription={brandDescription}
+        brandId={brandId}
+      />
+    </>
   );
 };
 

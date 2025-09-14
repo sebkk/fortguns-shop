@@ -45,5 +45,14 @@
   "contactFormTitle": "Tytuł wiadomości",
   "contactFormMessage": "Twoja wiadomość",
   "contactFormSubmit": "Wyślij wiadomość",
-  "pageTitleManifest": "FortGuns - Sklep z bronią palną"
+  "pageTitleManifest": "FortGuns - Sklep z bronią palną",
+  "productsListingTitle": "Produkty",
+  "breadcrumbsHomePage": "Strona główna",
+  "breadcrumbsBrands": "Marki",
+  "breadcrumbsProductsListing": "Produkty",
+  "formErrorTopicToShort": "Temat musi zawierać co najmniej 1 znak",
+  "formErrorTitleToShort": "Tytuł musi zawierać co najmniej 3 znaki",
+  "formErrorMessageToShort": "Wiadomość musi zawierać co najmniej 10 znaków",
+  "contactFormEmail": "Email",
+  "formErrorEmailInvalid": "Email musi być poprawny"
 }

@@ -1,3 +1,5 @@
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PRODUCTS_BREADCRUMBS } from '@/constants/breadcrumbs/products';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
@@ -16,12 +18,14 @@ const ProductsPage = async () => {
     });
 
   return (
-    <Products
-      products={products}
-      totalPages={totalPages}
-      totalProducts={totalProducts}
-      pageNumber={1}
-    />
+    <>
+      <Breadcrumbs items={PRODUCTS_BREADCRUMBS} size='large' />
+      <Products
+        products={products}
+        totalPages={totalPages}
+        totalProducts={totalProducts}
+      />
+    </>
   );
 };
 

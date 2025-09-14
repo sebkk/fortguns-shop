@@ -113,6 +113,7 @@ export const Search = ({
       setBrands({
         ...result,
         items: result.brands,
+        totalProducts: result.totalBrands,
       });
     } catch (error) {
       console.error(error);
@@ -234,7 +235,9 @@ export const Search = ({
         className={styles['search-button']}
         variant='blank'
         disabled={isLoading}
-        aria-label={isExpanded ? t('search') : t('expandSearch')}
+        buttonProps={{
+          'aria-label': isExpanded ? t('search') : t('expandSearch'),
+        }}
       >
         {isLoading ? <Spinner /> : <SearchIcon />}
       </Button>

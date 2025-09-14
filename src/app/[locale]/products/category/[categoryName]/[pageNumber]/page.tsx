@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import categoriesApi from '@/api/woocommerce/categories';
-import { DEFAULT_LOCALE } from '@/constants/locales';
+import { Breadcrumbs, IBreadcrumbItem } from '@/components/Breadcrumbs';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
@@ -19,22 +18,24 @@ interface IProductCategoryPaginationPageProps {
 export const dynamic = 'force-dynamic';
 // export const revalidate = 600;
 
-export const generateStaticParams = async () => {
-  const res = await categoriesApi.getCategories();
+// export const generateStaticParams = async () => {
+//   const res = await categoriesApi.getCategories();
 
-  return res.data.map((category) => ({
-    locale: DEFAULT_LOCALE,
-    categoryName: category.slug,
-    pageNumber: '1',
-  }));
-};
+//   return res.data.map((category) => ({
+//     locale: DEFAULT_LOCALE,
+//     categoryName: category.slug,
+//     pageNumber: '1',
+//   }));
+// };
 
 const ProductCategoryPaginationPage = async ({
   params,
 }: IProductCategoryPaginationPageProps) => {
   const { categoryName, pageNumber } = await params;
 
-  const { category } = await fetchCategoryBySlug({ slug: categoryName });
+  const { category, breadcrumbs } = await fetchCategoryBySlug({
+    slug: categoryName,
+  });
 
   if (!category) {
     notFound();
@@ -49,13 +50,16 @@ const ProductCategoryPaginationPage = async ({
       },
     });
   return (
-    <Products
-      products={products}
-      totalPages={totalPages}
-      totalProducts={totalProducts}
-      pageNumber={+pageNumber}
-      category={category}
-    />
+    <>
+      <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
+      <Products
+        products={products}
+        totalPages={totalPages}
+        totalProducts={totalProducts}
+        pageNumber={+pageNumber}
+        category={category}
+      />
+    </>
   );
 };
 

@@ -5,3 +5,8 @@
   font-weight: 500;
   font-size: to-rem(17);
 }
+
+.label-required {
+  margin-left: to-rem(4);
+  color: $color-error-light;
+}

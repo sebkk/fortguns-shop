@@ -4,14 +4,7 @@
   align-items: center;
   gap: to-rem(4);
   margin: 0;
-  padding: 0;
   list-style: none;
-
-  :first-of-type {
-    .breadcrumb-link {
-      padding-left: 0 !important;
-    }
-  }
 }
 
 .breadcrumb-item {
@@ -54,8 +47,6 @@
 
   .breadcrumb-link,
   .breadcrumb-current {
-    padding: to-rem(2) to-rem(4);
-
     font-size: to-rem(12);
   }
 }
@@ -65,8 +56,6 @@
 
   .breadcrumb-link,
   .breadcrumb-current {
-    padding: to-rem(4) to-rem(6);
-
     font-size: to-rem(14);
   }
 }
@@ -76,20 +65,18 @@
 
   .breadcrumb-link,
   .breadcrumb-current {
-    padding: to-rem(6) to-rem(8);
-
     font-size: to-rem(16);
   }
 }
 
 // Variants
-.breadcrumbs--minimal {
-}
+// .breadcrumbs--minimal {
+// }
 
 // Responsive behavior
 @media (max-width: 768px) {
   .breadcrumbs {
-    gap: to-rem(2);
+    gap: to-rem(6);
   }
 
   .breadcrumbs--small {
@@ -105,7 +92,6 @@
   }
 }
 
-// Truncation for long breadcrumbs
 .breadcrumbs--truncated {
   .breadcrumb-item:not(:first-child):not(:last-child) {
     display: none;

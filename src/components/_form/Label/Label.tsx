@@ -7,12 +7,14 @@ export interface ILabelProps {
   className?: string;
   htmlFor?: string;
   labelClassName?: string;
+  required?: boolean;
 }
 
 export const Label = ({
   children,
   className,
   htmlFor,
+  required,
   labelClassName,
 }: ILabelProps) => {
   return (
@@ -21,6 +23,7 @@ export const Label = ({
       htmlFor={htmlFor}
     >
       {children}
+      {required && <span className={styles['label-required']}>*</span>}
     </label>
   );
 };

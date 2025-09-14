@@ -32,14 +32,14 @@ export const fetchBrands = async ({
   brands: IBrand[];
   groupedBrands: IGroupedBrands[];
   totalPages: number;
-  totalProducts: number;
+  totalBrands: number;
 }> => {
   let brands: IBrand[] = [];
 
   try {
     const { data: firstPageData, headers } = await brandsAPI.getBrands(params);
 
-    const totalProducts = parseInt(headers['x-wp-total'] || '0', 10);
+    const totalBrands = parseInt(headers['x-wp-total'] || '0', 10);
     const totalPages = parseInt(headers['x-wp-totalpages'] || '0', 10);
 
     if (totalPages > 1) {
@@ -67,7 +67,7 @@ export const fetchBrands = async ({
       brands,
       groupedBrands,
       totalPages,
-      totalProducts,
+      totalBrands,
     };
   } catch (error) {
     console.error('Error fetching brands:', error);
@@ -76,7 +76,7 @@ export const fetchBrands = async ({
       brands,
       groupedBrands: [],
       totalPages: 0,
-      totalProducts: 0,
+      totalBrands: 0,
     };
   }
 };

@@ -21,6 +21,7 @@ interface SelectProps {
   wrapperClassName?: string;
   placeholder?: string;
   labelClassName?: string;
+  required?: boolean;
 }
 
 export const Select = ({
@@ -34,6 +35,7 @@ export const Select = ({
   wrapperClassName,
   placeholder,
   labelClassName,
+  required,
 }: SelectProps) => {
   const finalWrapperClassName = clsx(
     styles['select-wrapper'],
@@ -43,7 +45,7 @@ export const Select = ({
   return (
     <div className={finalWrapperClassName}>
       {label && (
-        <Label htmlFor={id} className={labelClassName}>
+        <Label htmlFor={id} className={labelClassName} required={required}>
           {label}
         </Label>
       )}
