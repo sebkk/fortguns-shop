@@ -243,6 +243,7 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error: 'formErrorRoot',
+        data: error,
       },
       { status: 500 },
     );
