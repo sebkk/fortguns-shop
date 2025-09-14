@@ -4,6 +4,8 @@ import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import clsx from 'clsx';
 
+import { Spinner } from '@/components/Spinner';
+
 import styles from './styles.module.scss';
 import { TButtonColor, TButtonSize, TButtonVariant } from './types';
 
@@ -17,6 +19,7 @@ interface IButtonProps {
   color?: TButtonColor;
   size?: TButtonSize;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export const Button = ({
@@ -29,6 +32,7 @@ export const Button = ({
   size = 'medium',
   variant = 'filled',
   color = 'primary',
+  isLoading,
 }: IButtonProps) => {
   const sizeMap: { [_key in TButtonSize]: string } = {
     large: styles['button-size--large'],
@@ -63,10 +67,11 @@ export const Button = ({
       type={type}
       onClick={handleClick}
       className={buttonClassNames}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       {...buttonProps}
     >
       {children}
+      {isLoading && <Spinner className={styles['button-loading-spinner']} />}
     </button>
   );
 };

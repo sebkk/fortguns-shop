@@ -1,5 +1,3 @@
-import parseHTML from 'html-react-parser';
-
 import brandsAPI from '@/api/woocommerce/brands';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Spacer } from '@/components/Spacer';
@@ -19,7 +17,7 @@ export const generateStaticParams = async () => {
   });
   return res.data.map((brand) => ({
     locale: DEFAULT_LOCALE,
-    brandSlug: parseHTML(brand.slug),
+    brandSlug: brand.slug,
   }));
 };
 

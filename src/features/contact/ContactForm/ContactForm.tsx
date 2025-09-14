@@ -18,6 +18,7 @@ const ContactFormSchema = z.object({
   title: z.string().min(3, 'formErrorTitleToShort'),
   message: z.string().min(10, 'formErrorMessageToShort'),
   email: z.string().email('formErrorEmailInvalid'),
+  name: z.string().min(3, 'formErrorNameToShort'),
 });
 
 type ContactFormInputs = z.infer<typeof ContactFormSchema>;
@@ -28,26 +29,36 @@ export const ContactForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<ContactFormInputs>({
     resolver: zodResolver(ContactFormSchema),
   });
 
+  const topics = CONTACT_FORM_TOPICS.map((topic) => ({
+    value: topic.value,
+    label: t(topic.label),
+  }));
+
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
+    const sendData = {
+      ...data,
+      topic: topics.find((topic) => topic.value === data.topic)?.label,
+    };
+
     try {
       const response = await fetch('/api/send-email-smtp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(sendData),
       });
 
       const result = await response.json();
 
       // eslint-disable-next-line no-console
-      console.debug('result', result);
+      console.log('RESULT', result.success);
 
       reset();
     } catch (error) {
@@ -55,17 +66,15 @@ export const ContactForm = () => {
     }
   };
 
-  const topics = CONTACT_FORM_TOPICS.map((topic) => ({
-    value: topic.value,
-    label: t(topic.label),
-  }));
-
-  const { topic, title, message, email } = errors;
+  const { topic, title, message, email, name } = errors;
 
   return (
     <div className={styles['contact-form-wrapper']}>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          handleSubmit(onSubmit)(e);
+          e.preventDefault();
+        }}
         className={styles['contact-form']}
       >
         <Input
@@ -73,6 +82,13 @@ export const ContactForm = () => {
           id='email'
           register={register}
           error={email?.message ? t(email?.message) : undefined}
+          required
+        />
+        <Input
+          label={t('contactFormName')}
+          id='name'
+          register={register}
+          error={name?.message ? t(name?.message) : undefined}
           required
         />
         <Select
@@ -105,6 +121,7 @@ export const ContactForm = () => {
             type='submit'
             color='primary'
             size='medium'
+            isLoading={isSubmitting}
           >
             {t('contactFormSubmit')}
           </Button>

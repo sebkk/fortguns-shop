@@ -122,3 +122,13 @@
     color: $color-secondary-light;
   }
 }
+
+.button-loading-spinner {
+  margin-left: to-rem(12);
+
+  > div {
+    border-width: to-rem(2.5);
+    width: to-rem(18);
+    height: to-rem(18);
+  }
+}

@@ -56,5 +56,7 @@
   "contactFormEmail": "Email",
   "formErrorEmailInvalid": "Email musi być poprawny",
   "contactFormSuccessMessage": "Wiadomość została wysłana pomyślnie!",
-  "contactFormErrorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie."
+  "contactFormErrorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie.",
+  "contactFormName": "Imię",
+  "contactFormNameToShort": "Imię musi zawierać co najmniej 3 znaki"
 }
