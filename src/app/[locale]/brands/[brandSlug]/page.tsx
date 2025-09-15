@@ -5,8 +5,7 @@ import { BRANDS_FIELDS_FOR_STATIC_PARAMS } from '@/constants/brands';
 import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { Products } from '@/features/products/Products';
-import { fetchProducts } from '@/handlers/products/fetchProducts';
-import { IProductListing } from '@/types/product';
+import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 
 export const revalidate = 600;
 export const dynamic = 'force-static';
@@ -27,28 +26,21 @@ const BrandListingPage = async ({
   params: Promise<{ brandSlug: string }>;
 }) => {
   const { brandSlug } = await params;
-  const { data } = await brandsAPI.getBrand(brandSlug);
-  const [brand] = data;
+
+  const { brand, products, totalPages, totalProducts } =
+    await fetchBrandBySlug(brandSlug);
 
   const {
-    id: brandId,
     name: brandName,
     description: brandDescription,
+    id: brandId,
   } = brand || {};
-
-  const { products, totalPages, totalProducts } =
-    await fetchProducts<IProductListing>({
-      params: {
-        brand: brandId,
-        stock_status: undefined,
-      },
-    });
 
   return (
     <>
       <Spacer size='sm' />
       <Breadcrumbs
-        items={BRAND_LISTING_BREADCRUMBS(brandName || 'Unknown Brand')}
+        items={BRAND_LISTING_BREADCRUMBS(brandName as string)}
         size='large'
       />
       <Products
