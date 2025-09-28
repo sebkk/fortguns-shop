@@ -1,22 +1,31 @@
-import { IGetPagesParams, IWordPressPage } from '@/types/pages';
+import { IGetPagesParams } from '@/types/pages';
 
 import baseAPI from '.';
 
 class Pages {
   private readonly pagesPath = '/wp-json/wp/v2/pages';
 
-  public async getPages(params?: IGetPagesParams) {
-    const res = await baseAPI.get<IWordPressPage[]>(this.pagesPath, { params });
+  public async getPages<T>(params?: IGetPagesParams) {
+    const res = await baseAPI.get<T[]>(this.pagesPath, { params });
 
     return res.data;
   }
 
-  public async getPageBySlug(slug: string, params?: IGetPagesParams) {
-    const res = await baseAPI.get<IWordPressPage[]>(`${this.pagesPath}`, {
-      params: { slug, acf_format: 'standard', ...params },
-    });
+  public async getPageBySlug<T>(
+    slug: string,
+    params?: IGetPagesParams,
+  ): Promise<T[] | null> {
+    try {
+      const res = await baseAPI.get<T[]>(`${this.pagesPath}`, {
+        params: { slug, acf_format: 'standard', ...params },
+      });
 
-    return res.data;
+      return res.data;
+    } catch (error) {
+      console.error(error);
+
+      return [];
+    }
   }
 }
 

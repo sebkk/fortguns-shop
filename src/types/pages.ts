@@ -1,4 +1,4 @@
-import { IAcfData } from './sections';
+import { IAcfData, ISlugItem, TFlexibleContentLayout } from './sections';
 
 interface IRenderedText {
   rendered: string;
@@ -183,6 +183,7 @@ export interface IWordPressPage {
   class_list?: string[];
   acf?: IAcfData;
   rankMath?: IRankMath;
+  rank_math_seo?: IRankMathSeo;
 }
 
 export interface IPhoto {
@@ -241,4 +242,41 @@ export interface IPhoto {
     'woocommerce_gallery_thumbnail-width': number;
     'woocommerce_gallery_thumbnail-height': number;
   };
+}
+
+export interface IRankMathSeo {
+  rank_math_focus_keyword: [string];
+}
+
+export interface IWordPressPageStandard {
+  link: IWordPressPage['link'];
+  title: IWordPressPage['title'];
+  acf: IWordPressPage['acf'];
+  slug: IWordPressPage['slug'];
+  rank_math_seo: IWordPressPage['rank_math_seo'];
+}
+
+export interface IWordPressPageSeoStandard {
+  link: IWordPressPage['link'];
+  rank_math_seo: { rank_math_focus_keyword: string | undefined };
+}
+
+export interface IWordPressPageRewrites {
+  slug: IWordPressPage['slug'];
+  acf: IWordPressPage['acf'];
+  source: string;
+  destination: string;
+  slugs_list: ISlugItem[];
+}
+
+export interface IWordPressPageStaticPaths {
+  acf: { slugs_list: ISlugItem[]; destination: string };
+}
+
+export interface IWordPressPageStaticPathsForSitemap {
+  acf: { slugs_list: ISlugItem[] };
+}
+
+export interface IWordPressPageFaqPageMetadata {
+  acf: { sections: TFlexibleContentLayout[] };
 }

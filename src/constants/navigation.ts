@@ -10,3 +10,7 @@ export const NAVIGATION_ROUTE = {
   BRAND_LISTING: '/brands/[brandSlug]',
   BRAND_LISTING_PAGINATION: '/brands/[brandSlug]/[pageNumber]',
 };
+
+export const PL_SLUGS = {
+  [NAVIGATION_ROUTE.FAQ]: 'najczestsze-pytania',
+};

@@ -130,7 +130,7 @@ export type TFlexibleContentLayout =
   | ISectionVariant
   | ISectionNewsletter;
 
-interface ISlugItem {
+export interface ISlugItem {
   locale: string;
   pathname: string;
 }

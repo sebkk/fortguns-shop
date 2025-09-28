@@ -6,6 +6,9 @@ import { DYNAMIC_PAGE_BREADCRUMBS } from '@/constants/breadcrumbs/dynamicPages';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { fieldsStaticPaths } from '@/constants/pages';
 import { getPageContent } from '@/handlers/page/getPageContent';
+import { getPageMetadata } from '@/handlers/page/getPageMetadata';
+import { TMetadataType } from '@/types/metadata';
+import { IWordPressPageStaticPaths } from '@/types/pages';
 
 export const dynamicParams = false;
 export const dynamic = 'force-static';
@@ -17,10 +20,17 @@ export async function generateMetadata({
 }) {
   const { dynamicSlug } = await params;
 
+  const { metadata } = await getPageMetadata(
+    dynamicSlug,
+    {},
+    TMetadataType.DYNAMIC_PAGE,
+  );
+
   const { pageTitle } = await getPageContent(dynamicSlug);
 
   return {
     title: pageTitle,
+    ...metadata,
   };
 }
 
@@ -48,7 +58,7 @@ const DynamicPage = async ({
 
 export const generateStaticParams = async () => {
   try {
-    const pages = await pagesApi.getPages({
+    const pages = await pagesApi.getPages<IWordPressPageStaticPaths>({
       _fields: fieldsStaticPaths,
       status: 'publish',
     });

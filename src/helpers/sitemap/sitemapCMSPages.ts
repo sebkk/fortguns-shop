@@ -3,6 +3,7 @@ import { MetadataRoute } from 'next';
 import pagesApi from '@/api/pages';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { fieldsStaticPathsForSitemap } from '@/constants/pages';
+import { IWordPressPageStaticPathsForSitemap } from '@/types/pages';
 
 import { createSitemapObject } from './createSitemapObject';
 import { createUrl } from './createUrl';
@@ -10,7 +11,7 @@ import { createUrl } from './createUrl';
 export const createCMSPagesSitemaps = async (): Promise<
   MetadataRoute.Sitemap[]
 > => {
-  const pages = await pagesApi.getPages({
+  const pages = await pagesApi.getPages<IWordPressPageStaticPathsForSitemap>({
     _fields: fieldsStaticPathsForSitemap,
     status: 'publish',
   });
