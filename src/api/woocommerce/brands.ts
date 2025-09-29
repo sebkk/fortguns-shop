@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { BRANDS_FIELDS, BRANDS_PER_PAGE } from '@/constants/brands';
 import { IBrand, IGetBrandsParams } from '@/types/brands';
@@ -31,17 +31,24 @@ class Brands {
     slug: string,
     params: IGetBrandsParams = {},
   ): Promise<AxiosResponse<IBrand[]>> {
-    return await baseAPI.get(this.basePath, {
-      auth: {
-        username: consumerKey as string,
-        password: consumerSecret as string,
-      },
-      params: {
-        fields: BRANDS_FIELDS.join(','),
-        slug,
-        ...params,
-      },
-    });
+    try {
+      const response = await baseAPI.get(this.basePath, {
+        auth: {
+          username: consumerKey as string,
+          password: consumerSecret as string,
+        },
+        params: {
+          fields: BRANDS_FIELDS.join(','),
+          slug,
+          ...params,
+        },
+      });
+
+      return response;
+    } catch (error) {
+      console.error((error as AxiosError).response?.data);
+      throw error;
+    }
   }
 }
 

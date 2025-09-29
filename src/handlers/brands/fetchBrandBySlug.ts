@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import brandsAPI from '@/api/woocommerce/brands';
 import { IGetBrandsParams } from '@/types/brands';
 import { IGetProductsParams, IProductListing } from '@/types/product';
@@ -15,7 +17,9 @@ export const fetchBrandBySlug = async (
   } = {},
 ) => {
   try {
-    const { data } = await brandsAPI.getBrand(slug, brandParams);
+    const response = await brandsAPI.getBrand(slug, brandParams);
+    const { data } = response || {};
+
     const [brand] = data;
 
     const { id: brandId } = brand || {};
@@ -36,7 +40,7 @@ export const fetchBrandBySlug = async (
       totalProducts,
     };
   } catch (error) {
-    console.error(error);
+    console.error(console.error((error as AxiosError).response?.data));
     return {
       brand: null,
       products: [],

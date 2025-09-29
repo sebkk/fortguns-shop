@@ -14,6 +14,11 @@ export interface ICategory {
   };
   count: number;
   menu_order: number;
+  _links: {
+    self: {
+      href: string;
+    }[];
+  };
 }
 
 export interface IGetCategoriesParams {

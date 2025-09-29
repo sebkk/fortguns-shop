@@ -5,6 +5,7 @@ import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { getCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import { IProductListing } from '@/types/product';
 
 interface IProductCategoryPaginationPageProps {
@@ -27,6 +28,16 @@ export const dynamic = 'force-dynamic';
 //     pageNumber: '1',
 //   }));
 // };
+
+export const generateMetadata = async ({
+  params,
+}: IProductCategoryPaginationPageProps) => {
+  const { categoryName } = await params;
+
+  const { metadata } = await getCategoryProductMetadata(categoryName);
+
+  return metadata;
+};
 
 const ProductCategoryPaginationPage = async ({
   params,
