@@ -18,6 +18,9 @@ export const getPageContent = async (
   slug: string,
   params: IGetPagesParams = {},
 ): Promise<IGetPageContentResponse> => {
+  // eslint-disable-next-line no-console
+  console.log(`🛫 [GET_PAGE_CONTENT] START - ${slug} 🛫`);
+
   try {
     const [page] =
       (await pagesApi.getPageBySlug<IWordPressPageStandard>(slug, {
@@ -29,12 +32,16 @@ export const getPageContent = async (
 
     const sections = await mapPageSectionsData(acf?.sections || []);
 
+    // eslint-disable-next-line no-console
+    console.log(`✅ [GET_PAGE_CONTENT] SUCCESS - ${slug} ✅`);
+
     return {
       pageTitle: parseHTML(title?.rendered || '') as string,
       sections,
     };
   } catch (error) {
-    console.error(error);
+    // eslint-disable-next-line no-console
+    console.error(`❌ [GET_PAGE_CONTENT] ERROR - ${slug} ❌`, error);
 
     return notFound();
   }

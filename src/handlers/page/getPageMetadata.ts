@@ -35,6 +35,9 @@ export const getPageMetadata = async (
   params: IGetPagesParams = {},
   type: TMetadataType = TMetadataType.DEFAULT_PAGE,
 ): Promise<{ metadata: TMetadataTransformResult }> => {
+  // eslint-disable-next-line no-console
+  console.log(`🛫 [GET_PAGE_METADATA] START - ${slug} 🛫`);
+
   try {
     const [page] =
       (await pagesApi.getPageBySlug<IWordPressPageSeoStandard>(slug, {
@@ -67,11 +70,15 @@ export const getPageMetadata = async (
       };
     }
 
+    // eslint-disable-next-line no-console
+    console.log(`✅ [GET_PAGE_METADATA] SUCCESS - ${slug} ✅`);
+
     return {
       metadata,
     };
   } catch (error) {
-    console.error(error);
+    // eslint-disable-next-line no-console
+    console.error(`❌ [GET_PAGE_METADATA] ERROR - ${slug} ❌`, error);
 
     return {
       metadata: {} as TMetadataTransformResult,

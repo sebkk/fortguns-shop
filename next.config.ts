@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    staticGenerationMaxConcurrency: 5,
+    staticGenerationRetryCount: 3,
+    staticGenerationMinPagesPerWorker: 25,
+  },
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {
       config.devtool = 'source-map';
