@@ -79,13 +79,14 @@ export const Link = ({
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const props: any = {
+    ...(nextLinkProps as any), // eslint-disable-line @typescript-eslint/no-explicit-any
+    ...(anchorProps as any), // eslint-disable-line @typescript-eslint/no-explicit-any
+  };
+
   return (
-    <NextLink
-      href={href}
-      className={classNames}
-      {...nextLinkProps}
-      {...anchorProps}
-    >
+    <NextLink href={href} className={classNames} {...props}>
       {leadingIcon && (
         <span className={styles['leading-icon-wrapper']}>{leadingIcon}</span>
       )}

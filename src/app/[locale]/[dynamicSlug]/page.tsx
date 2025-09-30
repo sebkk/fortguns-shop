@@ -1,5 +1,5 @@
 import pagesApi from '@/api/pages';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { BreadcrumbsServer } from '@/components/Breadcrumbs/BreadcrumbsServer';
 import { ContentSections } from '@/components/ContentSections';
 import { Spacer } from '@/components/Spacer';
 import { DYNAMIC_PAGE_BREADCRUMBS } from '@/constants/breadcrumbs/dynamicPages';
@@ -45,7 +45,7 @@ const DynamicPage = async ({
 
   return (
     <div className='spacing-top-30'>
-      <Breadcrumbs
+      <BreadcrumbsServer
         items={DYNAMIC_PAGE_BREADCRUMBS(pageTitle as string)}
         size='large'
         hideSpacer

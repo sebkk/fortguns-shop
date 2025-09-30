@@ -23,7 +23,7 @@ export interface ILinkProps {
   size?: TLinkSize;
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
-  anchorProps?: AnchorHTMLAttributes<HTMLAnchorElement>;
+  anchorProps?: Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'popover'>;
   nextLinkProps?: Omit<LinkProps, 'href' | 'locale'>;
   shouldFillIcon?: boolean;
   nativeLink?: boolean;

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { BreadcrumbsServer } from '@/components/Breadcrumbs/BreadcrumbsServer';
 import { Spacer } from '@/components/Spacer';
 import { ProductDescriptionSection } from '@/features/product/ProductDescriptionSection';
 import { ProductMainSection } from '@/features/product/ProductMainSection';
@@ -60,7 +60,7 @@ const ProductPage = async ({ params }: IProductPageProps) => {
 
     return (
       <>
-        <Breadcrumbs items={breadcrumbs} size='large' />
+        <BreadcrumbsServer items={breadcrumbs} size='large' />
         <Spacer size='lg' />
         <div className='container'>
           <ProductMainSection product={product} />

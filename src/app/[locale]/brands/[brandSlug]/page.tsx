@@ -1,10 +1,10 @@
 import brandsAPI from '@/api/woocommerce/brands';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { BreadcrumbsServer } from '@/components/Breadcrumbs/BreadcrumbsServer';
 import { Spacer } from '@/components/Spacer';
 import { BRANDS_FIELDS_FOR_STATIC_PARAMS } from '@/constants/brands';
 import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { DEFAULT_LOCALE } from '@/constants/locales';
-import { Products } from '@/features/products/Products';
+import { ProductsServer } from '@/features/products';
 import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 
 export const revalidate = 600;
@@ -39,11 +39,11 @@ const BrandListingPage = async ({
   return (
     <>
       <Spacer size='sm' />
-      <Breadcrumbs
+      <BreadcrumbsServer
         items={BRAND_LISTING_BREADCRUMBS(brandName as string)}
         size='large'
       />
-      <Products
+      <ProductsServer
         products={products}
         totalPages={totalPages}
         totalProducts={totalProducts}

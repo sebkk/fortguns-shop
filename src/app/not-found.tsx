@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
-import { LinkBtnNav } from '@/components/LinkBtnNav';
+import { LinkBtnNavServer } from '@/components/LinkBtnNav/LinkBtnNavServer';
 
 import styles from './styles.module.scss';
 
@@ -15,7 +15,7 @@ const NotFound = async () => {
     <div className={styles['not-found']}>
       <h2>404</h2>
       <p>{notFoundText}</p>
-      <LinkBtnNav
+      <LinkBtnNavServer
         href='/'
         className={styles['not-found-link']}
         linkProps={{
@@ -25,7 +25,7 @@ const NotFound = async () => {
       >
         {linkText}
         <ArrowIcon />
-      </LinkBtnNav>
+      </LinkBtnNavServer>
     </div>
   );
 };

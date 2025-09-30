@@ -1,6 +1,6 @@
-import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
+import { BreadcrumbsServer } from '@/components/Breadcrumbs/BreadcrumbsServer';
 import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
-import { Products } from '@/features/products/Products';
+import { ProductsServer } from '@/features/products';
 import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 
 export const dynamic = 'force-dynamic';
@@ -30,11 +30,11 @@ const BrandListingPageNavigation = async ({
 
   return (
     <>
-      <Breadcrumbs
+      <BreadcrumbsServer
         items={BRAND_LISTING_BREADCRUMBS(brandName as string)}
         size='large'
       />
-      <Products
+      <ProductsServer
         products={products}
         totalPages={totalPages}
         totalProducts={totalProducts}

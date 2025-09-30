@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
+import { BreadcrumbsServer } from '@/components/Breadcrumbs/BreadcrumbsServer';
 import { BRANDS_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { BrandsPageContent } from '@/features/brands/BrandsPageContent';
 import { fetchBrands } from '@/handlers/brands/fetchBrands';
@@ -13,7 +13,7 @@ const BrandsPage = async () => {
 
   return (
     <>
-      <Breadcrumbs items={BRANDS_BREADCRUMBS} size='large' />
+      <BreadcrumbsServer items={BRANDS_BREADCRUMBS} size='large' />
       <BrandsPageContent
         groupedBrands={groupedBrands}
         totalBrands={totalBrands}

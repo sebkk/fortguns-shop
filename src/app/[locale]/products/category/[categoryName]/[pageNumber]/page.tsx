@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 
-import { Breadcrumbs, IBreadcrumbItem } from '@/components/Breadcrumbs';
+import { IBreadcrumbItem } from '@/components/Breadcrumbs';
+import { BreadcrumbsServer } from '@/components/Breadcrumbs/BreadcrumbsServer';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
-import { Products } from '@/features/products/Products';
+import { ProductsServer } from '@/features/products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { getCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
@@ -62,8 +63,11 @@ const ProductCategoryPaginationPage = async ({
     });
   return (
     <>
-      <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
-      <Products
+      <BreadcrumbsServer
+        items={breadcrumbs as IBreadcrumbItem[]}
+        size='large'
+      />
+      <ProductsServer
         products={products}
         totalPages={totalPages}
         totalProducts={totalProducts}
