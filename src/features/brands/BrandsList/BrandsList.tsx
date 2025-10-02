@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import parseHTML from 'html-react-parser';
 
 import { Card } from '@/components/Card';
@@ -32,10 +33,14 @@ export const BrandsList = ({ groupedBrands }: IBrandsListProps) => {
                   isRounded
                   withShadow
                   key={id}
-                  className={styles['brands-list__item']}
+                  className={clsx(
+                    styles['brands-list__item'],
+                    !(count > 0) && styles['brands-list__item--disabled'],
+                  )}
+                  withBorder={count > 0}
                 >
                   <Link
-                    className={styles['brands-list__item-link']}
+                    className={clsx(styles['brands-list__item-link'])}
                     href={{
                       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                       // @ts-ignore
@@ -44,14 +49,14 @@ export const BrandsList = ({ groupedBrands }: IBrandsListProps) => {
                     }}
                   >
                     {parseHTML(name)}
-                    <Typography
+                    {/* <Typography
                       tag='span'
                       variant='caption'
                       className={styles['brands-list__item-count']}
                       color='text-medium_dark'
                     >
                       {count}
-                    </Typography>
+                    </Typography> */}
                   </Link>
                 </Card>
               ))}

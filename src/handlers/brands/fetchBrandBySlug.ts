@@ -28,7 +28,6 @@ export const fetchBrandBySlug = async (
       await fetchProducts<IProductListing>({
         params: {
           brand: brandId,
-          stock_status: undefined,
           ...productParams,
         },
       });

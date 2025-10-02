@@ -103,7 +103,7 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
           className={styles['product-contact-wrapper']}
           withBorder
           isRounded
-          variant='secondary'
+          variant='primary'
         >
           <Typography fontSize='xl'>{t('contactForWeapon')}</Typography>
           <div className={styles['product-contact-wrapper_links']}>

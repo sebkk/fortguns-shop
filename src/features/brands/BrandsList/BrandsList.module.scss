@@ -24,17 +24,28 @@
 
   transition: scale 0.2s ease-in-out;
 
+  cursor: pointer;
+
+  border-color: $color-white-2;
+
   padding: 0;
 
   &:hover {
     scale: 1.05;
   }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .brands-list__item-link {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  // justify-content: space-between;
+  // align-items: center;
+
+  justify-content: center;
 
   padding: to-rem(20);
 
