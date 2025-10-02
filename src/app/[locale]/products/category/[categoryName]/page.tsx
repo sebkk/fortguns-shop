@@ -17,8 +17,9 @@ interface ICategoryPageProps {
   }>;
 }
 
-export const dynamic = 'force-static';
 export const revalidate = 600;
+export const dynamic = 'force-static';
+export const dynamicParams = true;
 
 export const generateStaticParams = async () => {
   const res = await categoriesApi.getCategories({

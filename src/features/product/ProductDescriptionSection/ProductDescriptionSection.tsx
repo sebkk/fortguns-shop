@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+// import { useTranslations } from 'next-intl';
 
 import { ContentHTML } from '@/components/ContentHTML';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
@@ -15,7 +15,7 @@ interface IProductMainSectionProps {
 export const ProductDescriptionSection = ({
   product,
 }: IProductMainSectionProps) => {
-  const t = useTranslations();
+  // const t = useTranslations();
 
   const { description } = product || {};
 
@@ -25,7 +25,7 @@ export const ProductDescriptionSection = ({
       <TitleWithDesc
         wrapperClassName={styles['product-description-title']}
         titleProps={{ variant: 'section-heading' }}
-        title={t('description')}
+        // title={t('description')}
       />
       <ContentHTML content={description} />
     </div>

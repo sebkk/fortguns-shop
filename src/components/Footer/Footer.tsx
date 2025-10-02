@@ -1,4 +1,4 @@
-import footerApi from '@/api/footer';
+import footer from '@/constants/api/footer';
 import globalInfos from '@/constants/api/global-infos';
 
 import { AboutUsSection } from './AboutUsSection/AboutUsSection';
@@ -10,11 +10,7 @@ import styles from './styles.module.scss';
 export const revalidate = 3000;
 
 export const Footer = async () => {
-  const footer = await footerApi.getFooter();
-
-  const [{ acf }] = footer;
-
-  const { nav_column, nav_about_us, follow_us } = acf;
+  const { nav_column, nav_about_us, follow_us } = footer;
 
   const { socials, contact_infos } = globalInfos;
 

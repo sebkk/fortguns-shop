@@ -4,10 +4,11 @@ import parseHTML from 'html-react-parser';
 
 import pagesApi from '@/api/pages';
 import { fields } from '@/constants/pages';
+import { buildLog } from '@/helpers/build/buildLog';
 import { IGetPagesParams, IWordPressPageStandard } from '@/types/pages';
 import { TFlexibleContentLayout } from '@/types/sections';
 
-import { mapPageSectionsData } from './mapPageSectionsData';
+import { mapPageSectionsData } from './sectionsDataHandlers/mapPageSectionsData';
 
 interface IGetPageContentResponse {
   pageTitle: string;
@@ -18,8 +19,11 @@ export const getPageContent = async (
   slug: string,
   params: IGetPagesParams = {},
 ): Promise<IGetPageContentResponse> => {
-  // eslint-disable-next-line no-console
-  console.log(`🛫 [GET_PAGE_CONTENT] START - ${slug} 🛫`);
+  buildLog({
+    type: 'info',
+    message: `START - ${slug}`,
+    functionName: 'getPageContent',
+  });
 
   try {
     const [page] =
@@ -32,16 +36,27 @@ export const getPageContent = async (
 
     const sections = await mapPageSectionsData(acf?.sections || []);
 
-    // eslint-disable-next-line no-console
-    console.log(`✅ [GET_PAGE_CONTENT] SUCCESS - ${slug} ✅`);
+    buildLog({
+      type: 'success',
+      message: slug,
+      functionName: 'getPageContent',
+    });
+
+    const pageTitle = title?.rendered
+      ? (parseHTML(title?.rendered || '') as string)
+      : '';
 
     return {
-      pageTitle: parseHTML(title?.rendered || '') as string,
+      pageTitle,
       sections,
     };
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(`❌ [GET_PAGE_CONTENT] ERROR - ${slug} ❌`, error);
+    buildLog({
+      type: 'error',
+      message: slug,
+      functionName: 'getPageContent',
+      additionalLog: error,
+    });
 
     return notFound();
   }

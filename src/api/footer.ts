@@ -4,7 +4,7 @@ import { FooterData } from '@/types/footer';
 class Footer {
   private readonly footerPath = '/wp-json/wp/v2/footer';
 
-  async getFooter(): Promise<FooterData> {
+  async fetchFooter(): Promise<FooterData> {
     const res = await api.get(this.footerPath, {
       params: { _fields: 'acf', slug: 'footer' },
     });

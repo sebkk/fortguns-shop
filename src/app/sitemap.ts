@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 
+import { buildLog } from '@/helpers/build/buildLog';
 import {
   createBrandsSitemaps,
   createCMSPagesSitemaps,
@@ -8,24 +9,47 @@ import {
 } from '@/helpers/sitemap';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap[]> {
-  // DEFAULT PAGES
-  const defaultPages = await createCMSPagesSitemaps();
+  try {
+    buildLog({
+      type: 'info',
+      message: 'START',
+      functionName: 'sitemap',
+    });
 
-  // BRANDS PAGES
-  const brandsPages = await createBrandsSitemaps();
+    // DEFAULT PAGES
+    const defaultPages = await createCMSPagesSitemaps();
 
-  // PRODUCTS PAGES
-  const productsPages = await createProductsSitemaps();
+    // BRANDS PAGES
+    const brandsPages = await createBrandsSitemaps();
 
-  // PRODUCTS LISTING PAGES
-  const productsListingPages = await createProductsListingSitemaps();
+    // PRODUCTS PAGES
+    const productsPages = await createProductsSitemaps();
 
-  const sitemap = [
-    ...defaultPages,
-    ...brandsPages,
-    ...productsPages,
-    ...productsListingPages,
-  ];
+    // PRODUCTS LISTING PAGES
+    const productsListingPages = await createProductsListingSitemaps();
 
-  return sitemap;
+    const sitemap = [
+      ...defaultPages,
+      ...brandsPages,
+      ...productsPages,
+      ...productsListingPages,
+    ];
+
+    // eslint-disable-next-line no-console
+    buildLog({
+      type: 'success',
+      message: 'SUCCESS',
+      functionName: 'sitemap',
+    });
+
+    return sitemap;
+  } catch (error) {
+    buildLog({
+      type: 'error',
+      message: 'ERROR',
+      functionName: 'sitemap',
+      additionalLog: error,
+    });
+    return [];
+  }
 }

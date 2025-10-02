@@ -55,8 +55,12 @@ export const transformToMetadata = async (
         const key = item.property.replace('og:', '');
 
         if (metadata.openGraph) {
-          (metadata.openGraph as Record<string, unknown>)[key] =
-            item.content ?? '';
+          if (item.content === 'product') {
+            metadata.other!['og:type'] = 'product.group';
+          } else {
+            (metadata.openGraph as Record<string, unknown>)[key] =
+              item.content ?? '';
+          }
         }
       } else {
         metadata.other![item.property!] = item.content! ?? '';

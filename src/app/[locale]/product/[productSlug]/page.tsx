@@ -1,16 +1,20 @@
 import { notFound } from 'next/navigation';
 
+import rankMath from '@/api/rankmath';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Spacer } from '@/components/Spacer';
+import { PRODUCT_DETAILS_FIELDS_FOR_METADATA } from '@/constants/products';
 import { ProductDescriptionSection } from '@/features/product/ProductDescriptionSection';
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
+import { parseMetadata } from '@/handlers/page/getPageMetadata';
 import { fetchProductDetails } from '@/handlers/products/fetchProductDetails';
 import { createProductDetailsBreadcrumbs } from '@/helpers/breadcrumbs/createProductDetailsBreadcrumbs';
+import { transformToMetadata } from '@/helpers/metadata/transformMetadata';
+import { TMetadataTransformResult, TMetadataType } from '@/types/metadata';
+import { IProductDetails, IProductDetailsMetadata } from '@/types/product';
 
 export const dynamic = 'force-dynamic';
-
-// export const revalidate = 3600;
 
 export async function generateMetadata({
   params,
@@ -19,17 +23,29 @@ export async function generateMetadata({
 }) {
   try {
     const { productSlug } = await params;
-    const product = await fetchProductDetails(productSlug);
+    const product = await fetchProductDetails<IProductDetailsMetadata>(
+      productSlug,
+      { _fields: PRODUCT_DETAILS_FIELDS_FOR_METADATA.join(',') },
+    );
 
-    if (!product) {
-      return {
-        title: 'Product Not Found',
-      };
+    const rankMathResponse = await rankMath.getMetadata(
+      product?.permalink as string,
+    );
+
+    let metadata = {} as TMetadataTransformResult;
+
+    if (rankMathResponse.success) {
+      const metadataObjects = await parseMetadata(rankMathResponse);
+
+      const transformedMetadata = await transformToMetadata(metadataObjects, {
+        slug: productSlug,
+        type: TMetadataType.PRODUCT_PAGE,
+      });
+
+      metadata = transformedMetadata;
     }
 
-    return {
-      title: product.name,
-    };
+    return metadata;
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {
@@ -48,7 +64,9 @@ interface IProductPageProps {
 const ProductPage = async ({ params }: IProductPageProps) => {
   try {
     const { productSlug } = await params;
-    const product = await fetchProductDetails(productSlug);
+    const product = await fetchProductDetails<IProductDetails>(productSlug, {
+      _fields: undefined,
+    });
 
     if (!product) {
       notFound();

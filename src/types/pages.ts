@@ -258,7 +258,7 @@ export interface IWordPressPageStandard {
 
 export interface IWordPressPageSeoStandard {
   link: IWordPressPage['link'];
-  rank_math_seo: { rank_math_focus_keyword: string | undefined };
+  rank_math_seo: string | undefined;
 }
 
 export interface IWordPressPageRewrites {

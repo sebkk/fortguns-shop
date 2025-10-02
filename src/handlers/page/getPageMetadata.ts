@@ -4,6 +4,7 @@ import { HTMLToJSON } from 'html-to-json-parser';
 import pagesApi from '@/api/pages';
 import rankMath from '@/api/rankmath';
 import { fieldsMetadata } from '@/constants/pages';
+import { buildLog } from '@/helpers/build/buildLog';
 import {
   filterMetadata,
   mapMetadata,
@@ -17,9 +18,16 @@ import {
 import { IGetPagesParams, IWordPressPageSeoStandard } from '@/types/pages';
 
 export const parseMetadata = async (metadataResponse: { head: string }) => {
-  const parsedMetadata = await HTMLToJSON(
-    `<head>${metadataResponse.head}</head>`,
-  );
+  // Clean HTML entities before parsing
+  const cleanedHead = metadataResponse.head
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+
+  const parsedMetadata = await HTMLToJSON(`<head>${cleanedHead}</head>`);
 
   const metadataContent = parsedMetadata.content as THeadContentItem[];
 
@@ -35,8 +43,11 @@ export const getPageMetadata = async (
   params: IGetPagesParams = {},
   type: TMetadataType = TMetadataType.DEFAULT_PAGE,
 ): Promise<{ metadata: TMetadataTransformResult }> => {
-  // eslint-disable-next-line no-console
-  console.log(`🛫 [GET_PAGE_METADATA] START - ${slug} 🛫`);
+  buildLog({
+    type: 'info',
+    message: `START - ${slug}`,
+    functionName: 'getPageMetadata',
+  });
 
   try {
     const [page] =
@@ -50,35 +61,48 @@ export const getPageMetadata = async (
 
     let metadata: TMetadataTransformResult = {} as TMetadataTransformResult;
 
-    const rank_math_focus_keyword =
-      rank_math_seo?.rank_math_focus_keyword?.[0] || '';
+    const rank_math_focus_keyword = rank_math_seo || '';
 
     const metadataResponse = await rankMath.getMetadata(link || '');
 
     if (metadataResponse.success) {
       const metadataObjects = await parseMetadata(metadataResponse);
 
-      const transformedMetadataWithoutScript =
+      buildLog({
+        type: 'info',
+        message: 'rank_math_focus_keyword',
+        functionName: 'getPageMetadata',
+        additionalLog: rank_math_focus_keyword,
+      });
+
+      const transformedMetadata =
         (await transformToMetadata(metadataObjects, {
           slug,
           type,
         })) || {};
 
       metadata = {
-        ...transformedMetadataWithoutScript,
+        ...transformedMetadata,
         keywords: rank_math_focus_keyword?.split(',') || [],
       };
     }
 
-    // eslint-disable-next-line no-console
-    console.log(`✅ [GET_PAGE_METADATA] SUCCESS - ${slug} ✅`);
+    buildLog({
+      type: 'success',
+      message: slug,
+      functionName: 'getPageMetadata',
+    });
 
     return {
       metadata,
     };
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(`❌ [GET_PAGE_METADATA] ERROR - ${slug} ❌`, error);
+    buildLog({
+      type: 'error',
+      message: slug,
+      functionName: 'getPageMetadata',
+      additionalLog: error,
+    });
 
     return {
       metadata: {} as TMetadataTransformResult,

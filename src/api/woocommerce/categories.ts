@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 
+import { wait } from '@/helpers/wait';
 import { ICategory, IGetCategoriesParams } from '@/types/categories';
 
 import baseAPI from '..';
@@ -13,6 +14,10 @@ class Categories {
   public async getCategories(
     params?: IGetCategoriesParams,
   ): Promise<AxiosResponse<ICategory[]>> {
+    await wait({
+      name: params?.slug ? `Categories ${params.slug}` : 'Categories',
+    });
+
     return await baseAPI.get(this.basePath, {
       auth: {
         username: consumerKey as string,
@@ -26,6 +31,8 @@ class Categories {
     id: number,
     params?: IGetCategoriesParams,
   ): Promise<AxiosResponse<ICategory>> {
+    await wait({ name: `CategoryById ${id}` });
+
     return await baseAPI.get(`${this.basePath}/${id}`, {
       auth: {
         username: consumerKey as string,

@@ -37,6 +37,7 @@ export const fetchCategoryBySlug = async ({
 
       category = res.data;
     }
+
     const breadcrumbs = await createCategoryBreadcrumb(category as ICategory);
 
     return {

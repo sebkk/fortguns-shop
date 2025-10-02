@@ -1,6 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { BRANDS_FIELDS, BRANDS_PER_PAGE } from '@/constants/brands';
+import { wait } from '@/helpers/wait';
 import { IBrand, IGetBrandsParams } from '@/types/brands';
 
 import baseAPI from '..';
@@ -14,6 +15,8 @@ class Brands {
   public async getBrands(
     params: IGetBrandsParams = {},
   ): Promise<AxiosResponse<IBrand[]>> {
+    await wait({ name: 'Brands' });
+
     return await baseAPI.get(this.basePath, {
       auth: {
         username: consumerKey as string,
@@ -32,6 +35,8 @@ class Brands {
     params: IGetBrandsParams = {},
   ): Promise<AxiosResponse<IBrand[]>> {
     try {
+      await wait({ name: `Brands ${slug}` });
+
       const response = await baseAPI.get(this.basePath, {
         auth: {
           username: consumerKey as string,

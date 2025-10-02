@@ -10,7 +10,7 @@ export const getHeaderNavigation =
 
       return menu;
     } catch (err) {
-      console.error(err);
+      console.error('ERROR', err);
 
       return null;
     }

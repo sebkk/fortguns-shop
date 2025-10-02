@@ -15,6 +15,7 @@ export const Logo = ({
     <Image
       src={fortGunsLogo}
       alt='Fortguns'
+      title='Fortguns'
       width={600}
       height={200}
       className={className}

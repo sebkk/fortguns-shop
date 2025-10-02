@@ -14,11 +14,13 @@ import { BrandsList } from '../BrandsList';
 interface IBrandsPageContentProps {
   groupedBrands: IGroupedBrands[];
   totalBrands: number;
+  pageTitle?: string;
 }
 
 export const BrandsPageContent = ({
   groupedBrands,
   totalBrands,
+  pageTitle,
 }: IBrandsPageContentProps) => {
   const t = useTranslations();
 
@@ -32,7 +34,7 @@ export const BrandsPageContent = ({
             section_background: ESectionBackground.DEFAULT,
             section_layout: ESectionLayout.CONTAINER,
           },
-          title: t.markup('labelBrands'),
+          title: pageTitle || t.markup('labelBrands'),
           description: t.markup('labelBrandsDescriptionWithCount', {
             count: totalBrands,
             strong: (chunks: React.ReactNode) => `<strong>${chunks}</strong>`,

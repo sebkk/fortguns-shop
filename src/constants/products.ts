@@ -31,6 +31,8 @@ export const PRODUCT_DETAILS_FIELDS = [
   'related_ids',
 ];
 
+export const PRODUCT_DETAILS_FIELDS_FOR_METADATA = ['permalink'];
+
 export const PRODUCTS_FIELDS_FOR_SITEMAP = ['slug', 'stock_status'];
 
 export const PRODUCTS_FIELDS_FOR_SITEMAP_LISTING = ['id'];

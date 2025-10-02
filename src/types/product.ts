@@ -205,3 +205,7 @@ export interface IGetProductsParams {
   brand?: number;
   search?: string;
 }
+
+export interface IProductDetailsMetadata {
+  permalink: string;
+}

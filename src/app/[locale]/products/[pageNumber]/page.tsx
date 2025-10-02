@@ -1,10 +1,16 @@
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
+import { ContentSections } from '@/components/ContentSections';
 import { PRODUCTS_BREADCRUMBS } from '@/constants/breadcrumbs/products';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
+import { PAGES_SLUGS } from '@/constants/pages';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
+import { getPageContent } from '@/handlers/page/getPageContent';
+import { getPageMetadata } from '@/handlers/page/getPageMetadata';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { TMetadataType } from '@/types/metadata';
 import { IProductListing } from '@/types/product';
 
 interface IProductPagePaginationProps {
@@ -12,6 +18,15 @@ interface IProductPagePaginationProps {
 }
 
 export const dynamic = 'force-dynamic';
+export const generateMetadata = async () => {
+  const { metadata } = await getPageMetadata(
+    PAGES_SLUGS[NAVIGATION_ROUTE.PRODUCTS_LISTING],
+    {},
+    TMetadataType.DEFAULT_PAGE,
+  );
+
+  return metadata;
+};
 
 const ProductPagePagination = async ({
   params,
@@ -30,6 +45,10 @@ const ProductPagePagination = async ({
       },
     });
 
+  const { sections, pageTitle } = await getPageContent(
+    PAGES_SLUGS[NAVIGATION_ROUTE.PRODUCTS_LISTING],
+  );
+
   return (
     <>
       <Breadcrumbs items={PRODUCTS_BREADCRUMBS} size='large' />
@@ -38,7 +57,9 @@ const ProductPagePagination = async ({
         totalPages={totalPages}
         totalProducts={totalProducts}
         pageNumber={+pageNumber}
+        pageTitle={pageTitle}
       />
+      {sections && <ContentSections sections={sections} />}
     </>
   );
 };

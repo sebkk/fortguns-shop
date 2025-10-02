@@ -36,19 +36,19 @@ export interface MenuItem {
   description: string;
   classes: string[];
   xfn: string;
-  slug: string;
+  slug?: string;
   child_items?: MenuItem[];
 }
 
 export interface NavMenuResponse {
   term_id: number;
   name: string;
-  slug: string;
-  term_group: number;
-  term_taxonomy_id: number;
+  slug?: string;
+  term_group?: number;
+  term_taxonomy_id?: number;
   taxonomy: string;
   description: string;
-  parent: number;
+  parent?: number;
   count: number;
   filter: string;
   items: MenuItem[];

@@ -1,11 +1,8 @@
 import { AxiosResponse } from 'axios';
 
 import { PRODUCT_DETAILS_FIELDS, PRODUCTS_FIELDS } from '@/constants/products';
-import {
-  IGetProductsParams,
-  IProductDetails,
-  STOCK_STATUS,
-} from '@/types/product';
+import { wait } from '@/helpers/wait';
+import { IGetProductsParams, STOCK_STATUS } from '@/types/product';
 
 import baseAPI from '..';
 
@@ -18,6 +15,8 @@ class Products {
   public async getProducts<T>(
     params?: IGetProductsParams,
   ): Promise<AxiosResponse<T[]>> {
+    await wait({ name: 'Products' });
+
     return await baseAPI.get(this.basePath, {
       auth: {
         username: consumerKey as string,
@@ -31,9 +30,12 @@ class Products {
     });
   }
 
-  public async getProductDetails(
+  public async getProductDetails<T>(
     slug: string,
-  ): Promise<AxiosResponse<IProductDetails[]>> {
+    params: IGetProductsParams = {},
+  ): Promise<AxiosResponse<T[]>> {
+    await wait({ name: `ProductDetails ${slug}` });
+
     return await baseAPI.get(`${this.basePath}?slug=${slug}`, {
       auth: {
         username: consumerKey as string,
@@ -41,6 +43,7 @@ class Products {
       },
       params: {
         _fields: PRODUCT_DETAILS_FIELDS.join(','),
+        ...params,
       },
     });
   }

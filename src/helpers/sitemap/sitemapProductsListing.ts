@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import pLimit from 'p-limit';
 
 import categoriesAPI from '@/api/woocommerce/categories';
 import productsAPI from '@/api/woocommerce/products';
@@ -61,18 +62,24 @@ export const createProductsListingSitemaps = async (): Promise<
       undefined,
     );
 
-  const resCategories = await categoriesAPI.getCategories({
-    _fields: CATEGORIES_FIELDS_FOR_SITEMAP.join(','),
-  });
+  const limit = pLimit(3);
+
+  const resCategories = await limit(() =>
+    categoriesAPI.getCategories({
+      _fields: CATEGORIES_FIELDS_FOR_SITEMAP.join(','),
+    }),
+  );
 
   const categories = await Promise.all(
     resCategories.data.map(async ({ slug, id }) => {
-      const categoriesPagesPagination = await createCategoryPaginationSitemap(
-        slug,
-        PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY_PAGINATION][
-          DEFAULT_LOCALE
-        ],
-        id,
+      const categoriesPagesPagination = await limit(() =>
+        createCategoryPaginationSitemap(
+          slug,
+          PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY_PAGINATION][
+            DEFAULT_LOCALE
+          ],
+          id,
+        ),
       );
 
       return [
