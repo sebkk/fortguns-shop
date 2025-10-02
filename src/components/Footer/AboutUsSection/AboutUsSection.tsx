@@ -1,4 +1,5 @@
 import { Link } from '@/components/Link';
+import { ObfuscatedEmail } from '@/components/ObfuscatedEmail';
 import { Typography } from '@/components/Typography';
 import { getLinkHref } from '@/helpers/links';
 import { FooterElement, TLinkHref } from '@/types/footer';
@@ -25,20 +26,32 @@ export const AboutUsSection = ({
       <ul className={styles['footer-nav-list']}>
         {contactInfos.map(({ href, title, type }) => {
           const isAddress = type === 'address';
+          const isEmail = type === 'mail';
 
           return (
             <li key={href}>
               <Typography tag='span'>
-                <Link
-                  className={styles['footer-nav-link']}
-                  anchorProps={{ target: '_blank', rel: 'noopener' }}
-                  href={getLinkHref(href, type as TLinkHref)}
-                  nativeLink
-                >
-                  {!isAddress && (title || href)}
-                  {!isAddress && title && `: ${href}`}
-                  {isAddress && href}
-                </Link>
+                {isEmail ? (
+                  <ObfuscatedEmail
+                    email={href}
+                    linkProps={{
+                      className: styles['footer-nav-link'],
+                    }}
+                  >
+                    {title || href}: {href}
+                  </ObfuscatedEmail>
+                ) : (
+                  <Link
+                    className={styles['footer-nav-link']}
+                    anchorProps={{ target: '_blank', rel: 'noopener' }}
+                    href={getLinkHref(href, type as TLinkHref)}
+                    nativeLink
+                  >
+                    {!isAddress && (title || href)}
+                    {!isAddress && title && `: ${href}`}
+                    {isAddress && href}
+                  </Link>
+                )}
               </Typography>
             </li>
           );

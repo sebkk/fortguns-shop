@@ -1,6 +1,7 @@
 import { ContentHTML } from '@/components/ContentHTML';
 import { GoogleMapComponent } from '@/components/GoogleMapComponent';
 import { Link } from '@/components/Link';
+import { ObfuscatedEmail } from '@/components/ObfuscatedEmail';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { Typography } from '@/components/Typography';
 import globalInfos from '@/constants/api/global-infos';
@@ -69,13 +70,25 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
           <ul className={styles['contact-list']}>
             {contactInfosFiltered.map(({ href, type }) => (
               <li className={styles['contact-list-item']} key={type}>
-                <Link
-                  className={styles['contact-link']}
-                  href={getLinkHref(href, type as TLinkHref)}
-                  size='xxLarge'
-                >
-                  {getContactInfoIcon(type, styles['contact-icon'])} {href}
-                </Link>
+                {type === 'mail' ? (
+                  <ObfuscatedEmail
+                    email={href}
+                    linkProps={{
+                      className: styles['contact-link'],
+                      size: 'xxLarge',
+                    }}
+                  >
+                    {getContactInfoIcon(type, styles['contact-icon'])} {href}
+                  </ObfuscatedEmail>
+                ) : (
+                  <Link
+                    className={styles['contact-link']}
+                    href={getLinkHref(href, type as TLinkHref)}
+                    size='xxLarge'
+                  >
+                    {getContactInfoIcon(type, styles['contact-icon'])} {href}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

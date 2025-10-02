@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { Card } from '@/components/Card';
 import { GalleryWithModal } from '@/components/GalleryWithModal';
+import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
@@ -107,9 +108,9 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
         >
           <Typography fontSize='xl'>{t('contactForWeapon')}</Typography>
           <div className={styles['product-contact-wrapper_links']}>
-            <a
+            <ObfuscatedEmail
               className={styles['product-contact-wrapper_link']}
-              href={createMailToQuery(
+              email={createMailToQuery(
                 email?.href as string,
                 name,
                 id.toString(),
@@ -117,7 +118,7 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
             >
               {getContactInfoIcon(email?.type as string)}
               {email?.label}
-            </a>
+            </ObfuscatedEmail>
             <a
               className={styles['product-contact-wrapper_link']}
               href={getLinkHref(

@@ -1,0 +1,16 @@
+.obfuscated-email {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+
+  font-size: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  span {
+    margin-left: 0.5rem;
+  }
+}
