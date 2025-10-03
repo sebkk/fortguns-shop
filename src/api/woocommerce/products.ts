@@ -25,6 +25,7 @@ class Products {
       params: {
         _fields: PRODUCTS_FIELDS.join(','),
         stock_status: STOCK_STATUS.INSTOCK,
+        status: 'publish',
         ...params,
       },
     });
@@ -43,6 +44,7 @@ class Products {
       },
       params: {
         _fields: PRODUCT_DETAILS_FIELDS.join(','),
+        status: 'publish',
         ...params,
       },
     });

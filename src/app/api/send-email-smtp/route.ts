@@ -6,9 +6,12 @@ import tls from 'tls';
 
 import globalInfos from '@/constants/api/global-infos';
 
-const USER_EMAIL = globalInfos.contact_infos.find(
+const USER_EMAIL_RAW = globalInfos.contact_infos.find(
   ({ type }) => type === 'mail',
 )?.href;
+
+// Remove mailto: prefix if present
+const USER_EMAIL = USER_EMAIL_RAW?.replace(/^mailto:/, '');
 
 // SMTP email sending using Node.js built-in modules
 async function sendSMTPEmail({
@@ -25,8 +28,8 @@ async function sendSMTPEmail({
   replyTo: string;
 }) {
   return new Promise((resolve, reject) => {
-    // SMTP configuration for home.pl
-    const smtpHost = process.env.SMTP_HOST || 'smtp.home.pl';
+    // SMTP configuration
+    const smtpHost = process.env.SMTP_HOST;
     const smtpPort = parseInt(process.env.SMTP_PORT || '');
     const password = process.env.EMAIL_PASSWORD;
 
@@ -36,6 +39,25 @@ async function sendSMTPEmail({
       reject(new Error('Email credentials not configured'));
       return;
     }
+
+    if (!smtpHost || !smtpPort) {
+      reject(new Error('SMTP host and port must be configured'));
+      return;
+    }
+
+    console.debug('SMTP Configuration:', {
+      host: smtpHost,
+      port: smtpPort,
+      username: username,
+      hasPassword: !!password,
+    });
+
+    // Debug: Check if username is properly formatted
+    console.debug('Username details:', {
+      raw: USER_EMAIL_RAW,
+      processed: username,
+      length: username?.length,
+    });
 
     // Create the email message in MIME format
     const boundary = '----=_Part_' + Math.random().toString(36).substr(2, 9);
@@ -58,35 +80,93 @@ async function sendSMTPEmail({
     let socket: net.Socket | tls.TLSSocket;
     let tlsSocket: tls.TLSSocket;
     let step = 0;
+    let authMethod = 'PLAIN'; // Start with PLAIN, fallback to LOGIN if needed
 
     const sendCommand = (command: string) => {
       return new Promise((resolve, reject) => {
         const currentSocket = tlsSocket || socket;
+        console.debug('SMTP Command:', command);
         currentSocket.write(command + '\r\n');
 
-        currentSocket.once('data', (data: Buffer) => {
-          const response = data.toString();
-          console.debug('SMTP Response:', response);
+        let responseData = '';
+        let timeout: NodeJS.Timeout = null as unknown as NodeJS.Timeout;
 
-          if (response.startsWith('2') || response.startsWith('3')) {
-            resolve(response);
-          } else {
-            reject(new Error(`SMTP Error: ${response}`));
+        const onData = (data: Buffer) => {
+          responseData += data.toString();
+
+          // Check if response is complete (ends with \r\n)
+          if (responseData.endsWith('\r\n')) {
+            clearTimeout(timeout);
+            currentSocket.removeListener('data', onData);
+            const response = responseData.trim();
+            console.debug('SMTP Response:', response);
+
+            // Check if response indicates success (2xx or 3xx codes)
+            const lines = response.split('\r\n');
+            const lastLine = lines[lines.length - 1];
+            const statusCode = lastLine.substring(0, 3);
+
+            if (statusCode.startsWith('2') || statusCode.startsWith('3')) {
+              resolve(response);
+            } else {
+              // Check if it's an authentication error and we can retry with LOGIN
+              if (
+                (statusCode === '535' || statusCode === '530') &&
+                authMethod === 'PLAIN' &&
+                step === 4
+              ) {
+                console.debug('AUTH PLAIN failed, trying AUTH LOGIN');
+                authMethod = 'LOGIN';
+                step = 4; // Retry authentication with LOGIN method
+                resolve(response); // Don't reject, retry instead
+              } else {
+                reject(new Error(`SMTP Error (${statusCode}): ${response}`));
+              }
+            }
           }
-        });
+        };
+
+        // Set timeout for command response
+        timeout = setTimeout(() => {
+          currentSocket.removeListener('data', onData);
+          reject(new Error(`SMTP command timeout: ${command}`));
+        }, 30000); // 30 second timeout
+
+        currentSocket.on('data', onData);
       });
     };
 
     const connect = () => {
-      socket = net.createConnection(smtpPort, smtpHost, () => {
-        console.debug(`Connected to ${smtpHost}:${smtpPort}`);
-        handleSMTP();
-      });
+      if (smtpPort === 465) {
+        // Port 465 uses SSL/TLS from the start (SMTPS)
+        tlsSocket = tls.connect(
+          smtpPort,
+          smtpHost,
+          {
+            rejectUnauthorized: false,
+          },
+          () => {
+            console.debug(`Connected to ${smtpHost}:${smtpPort} with SSL/TLS`);
+            handleSMTP();
+          },
+        );
 
-      socket.on('error', (err: Error) => {
-        console.error('Socket error:', err);
-        reject(err);
-      });
+        tlsSocket.on('error', (err: Error) => {
+          console.error('TLS socket error:', err);
+          reject(err);
+        });
+      } else {
+        // Port 587 or 25 - regular connection
+        socket = net.createConnection(smtpPort, smtpHost, () => {
+          console.debug(`Connected to ${smtpHost}:${smtpPort}`);
+          handleSMTP();
+        });
+
+        socket.on('error', (err: Error) => {
+          console.error('Socket error:', err);
+          reject(err);
+        });
+      }
     };
 
     const handleSMTP = async () => {
@@ -100,12 +180,15 @@ async function sendSMTPEmail({
             if (smtpPort === 587) {
               await sendCommand('STARTTLS');
               step++;
+            } else if (smtpPort === 465) {
+              // Port 465 already uses SSL/TLS, skip STARTTLS and go directly to auth
+              step = 4;
             } else {
               step = 3; // Skip TLS for port 25
             }
             break;
           case 2:
-            // Upgrade to TLS
+            // Upgrade to TLS (only for port 587)
             tlsSocket = tls.connect(
               {
                 socket: socket,
@@ -127,16 +210,31 @@ async function sendSMTPEmail({
             step++;
             break;
           case 4:
-            await sendCommand('AUTH LOGIN');
-            step++;
+            console.debug('Starting authentication with username:', username);
+            if (authMethod === 'PLAIN') {
+              // Try AUTH PLAIN first (more compatible)
+              const authString = `\0${username}\0${password}`;
+              await sendCommand(
+                `AUTH PLAIN ${Buffer.from(authString).toString('base64')}`,
+              );
+              step = 7; // Skip to MAIL FROM after successful auth
+            } else {
+              // Fallback to AUTH LOGIN
+              await sendCommand('AUTH LOGIN');
+              step++;
+            }
             break;
           case 5:
+            // AUTH LOGIN - send username
+            console.debug('Sending username in base64');
             await sendCommand(Buffer.from(username).toString('base64'));
             step++;
             break;
           case 6:
+            // AUTH LOGIN - send password
+            console.debug('Sending password in base64');
             await sendCommand(Buffer.from(password).toString('base64'));
-            step++;
+            step = 7; // Skip to MAIL FROM after successful auth
             break;
           case 7:
             await sendCommand(`MAIL FROM:<${from}>`);

@@ -84,8 +84,12 @@ export const GalleryCarousel = ({
         slidesPerGroup: 3,
         breakpoints: {
           730: {
-            slidesPerView: 6,
-            slidesPerGroup: 6,
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+          },
+          1050: {
+            slidesPerView: 5,
+            slidesPerGroup: 5,
           },
         },
         spaceBetween: 20,
