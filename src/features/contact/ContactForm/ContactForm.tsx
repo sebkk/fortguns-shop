@@ -149,9 +149,11 @@ export const ContactForm = () => {
         <Input
           label={t('contactFormEmail')}
           id='email'
+          type='email'
           register={register}
           error={email?.message ? t(email?.message) : undefined}
           required
+          autoComplete='email'
         />
         <Input
           label={t('contactFormName')}

@@ -9,7 +9,7 @@ import { TMetadataType } from '@/types/metadata';
 import styles from './styles.module.scss';
 
 export const dynamic = 'force-static';
-// export const dynamic = 'force-dynamic';
+export const dynamicParams = false;
 
 export const generateMetadata = async () => {
   const { metadata } = await getPageMetadata(

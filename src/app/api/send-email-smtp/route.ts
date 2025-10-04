@@ -85,7 +85,7 @@ async function sendSMTPEmail({
     const sendCommand = (command: string) => {
       return new Promise((resolve, reject) => {
         const currentSocket = tlsSocket || socket;
-        console.debug('SMTP Command:', command);
+        // console.debug('SMTP Command:', command);
         currentSocket.write(command + '\r\n');
 
         let responseData = '';
@@ -295,6 +295,13 @@ export async function POST(request: NextRequest) {
 
     const companyEmail = USER_EMAIL;
 
+    console.log('Email details:', {
+      from: USER_EMAIL,
+      to: companyEmail,
+      replyTo: senderEmail,
+      subject: `${topic}: ${title}`,
+    });
+
     // Create HTML email content
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -323,13 +330,15 @@ export async function POST(request: NextRequest) {
     `;
 
     // Send email
-    await sendSMTPEmail({
+    const emailResult = await sendSMTPEmail({
       to: companyEmail,
       subject: `${topic}: ${title}`,
       html: htmlContent,
       from: USER_EMAIL,
       replyTo: senderEmail,
     });
+
+    console.log('Email sent successfully:', emailResult);
 
     return NextResponse.json({
       success: true,

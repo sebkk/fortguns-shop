@@ -34,6 +34,10 @@ export const getPageContent = async (
       })) || [];
     const { title, acf } = page || ({} as IWordPressPageStandard);
 
+    if (!page) {
+      return notFound();
+    }
+
     const sections = await mapPageSectionsData(acf?.sections || []);
 
     buildLog({

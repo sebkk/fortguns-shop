@@ -14,6 +14,7 @@ import { Button } from '@/components/Button';
 import { ContentHTML } from '@/components/ContentHTML';
 import { Modal } from '@/components/Modal';
 import { Typography } from '@/components/Typography';
+import { useRecaptchaVerification } from '@/hooks/useRecaptchaVerification';
 import { ISectionNewsletter } from '@/types/sections';
 
 import styles from './SectionNewsletter.module.scss';
@@ -30,6 +31,13 @@ export const SectionNewsletter = ({
   const [openModal, setOpenModal] = useState(false);
 
   const {
+    verifyRecaptcha,
+    executeRecaptcha,
+    isRecaptchaReady,
+    isVerifying: isRecaptchaVerifying,
+  } = useRecaptchaVerification();
+
+  const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -42,6 +50,20 @@ export const SectionNewsletter = ({
   const t = useTranslations();
 
   const handleSubscribeNewsletter = async ({ email }: { email: string }) => {
+    if (!isRecaptchaReady) {
+      setError('email', { message: 'formErrorRecaptchaRequired' });
+      return;
+    }
+
+    const token = await executeRecaptcha('newsletter_subscription');
+
+    const verification = await verifyRecaptcha(token);
+
+    if (!verification.verified) {
+      setError('email', { message: 'formErrorRecaptchaInvalid' });
+      return;
+    }
+
     try {
       const response = await axios.post('/api/subscribe-newsletter', {
         email: email,
@@ -92,11 +114,14 @@ export const SectionNewsletter = ({
                   )
                 : undefined
             }
+            type='email'
+            autoComplete='email'
           />
           <Button
             type='submit'
             className={styles['section-newsletter_form-wrapper_btn']}
-            isLoading={isSubmitting}
+            isLoading={isSubmitting || isRecaptchaVerifying}
+            disabled={isSubmitting || isRecaptchaVerifying}
           >
             {t('subscribeToNewsletter')}
           </Button>

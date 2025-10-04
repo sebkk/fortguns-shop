@@ -10,7 +10,7 @@ import { getPageMetadata } from '@/handlers/page/getPageMetadata';
 import { TMetadataType } from '@/types/metadata';
 import { IWordPressPageStaticPaths } from '@/types/pages';
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 export const dynamic = 'force-static';
 export const revalidate = 600;
 
@@ -43,7 +43,6 @@ const DynamicPage = async ({
   const { dynamicSlug } = await params;
 
   const { pageTitle, sections } = await getPageContent(dynamicSlug);
-
   return (
     <div className='spacing-top-30'>
       <Breadcrumbs
