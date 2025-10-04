@@ -1,0 +1,1 @@
+export { NewsletterFormWithRecaptcha } from './NewsletterFormWithRecaptcha';

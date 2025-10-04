@@ -67,5 +67,9 @@
   "formSuccessMailSending": "Email wysłany pomyślnie!",
   "formSuccessNewsletterSubscriptionModalTitle": "Subskrypcja Newslettera",
   "formSuccessNewsletterSubscription": "Zapisano do newslettera pomyślnie!",
-  "formErrorNewsletterSubscription": "Wystąpił błąd podczas zapisu do newslettera. Spróbuj ponownie."
+  "formErrorNewsletterSubscription": "Wystąpił błąd podczas zapisu do newslettera. Spróbuj ponownie.",
+  "formErrorRecaptchaRequired": "Proszę potwierdzić, że nie jesteś robotem.",
+  "formErrorRecaptchaFailed": "Weryfikacja reCaptcha nie powiodła się. Spróbuj ponownie.",
+  "formErrorRecaptchaInvalid": "Weryfikacja reCaptcha nie powiodła się. Spróbuj ponownie.",
+  "formSubmitSending": "Wysyłanie..."
 }

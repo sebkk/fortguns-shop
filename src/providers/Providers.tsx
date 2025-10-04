@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 
 import { ProgressProvider } from '@bprogress/next/app';
 
+import { ReCaptchaProvider } from './ReCaptchaProvider';
 import { ScrollProvider } from './ScrollProvider';
 
 const COLOR_PRIMARY_DARK = '#4d633b';
@@ -13,7 +14,9 @@ export const Providers = ({ children }: { children: ReactNode }) => {
       options={{ showSpinner: false }}
       color={COLOR_PRIMARY_DARK}
     >
-      <ScrollProvider>{children}</ScrollProvider>
+      <ReCaptchaProvider>
+        <ScrollProvider>{children}</ScrollProvider>
+      </ReCaptchaProvider>
     </ProgressProvider>
   );
 };

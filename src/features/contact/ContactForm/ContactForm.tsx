@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -14,6 +14,7 @@ import { Select } from '@/components/_form/Select';
 import { Textarea } from '@/components/_form/Textarea';
 import { Button } from '@/components/Button';
 import { CONTACT_FORM_TOPICS } from '@/constants/forms/contact';
+import { useRecaptchaVerification } from '@/hooks/useRecaptchaVerification';
 
 import styles from './styles.module.scss';
 
@@ -26,14 +27,18 @@ const ContactFormSchema = z.object({
     .min(10, 'formErrorMessageToShort'),
   email: z.string().nonempty('formRequired').email('formErrorEmailInvalid'),
   name: z.string().nonempty('formRequired').min(3, 'formErrorNameToShort'),
+  recaptchaToken: z.string().optional(),
 });
 
 type ContactFormInputs = z.infer<typeof ContactFormSchema>;
 
 export const ContactForm = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [isRecaptchaVerified, setIsRecaptchaVerified] = useState(false);
 
   const t = useTranslations();
+  const { verifyRecaptcha, executeRecaptcha, isRecaptchaReady } =
+    useRecaptchaVerification();
 
   const {
     register,
@@ -50,7 +55,50 @@ export const ContactForm = () => {
     label: t(topic.label),
   }));
 
+  const handleRecaptchaVerify = useCallback(
+    async (token?: string) => {
+      if (!token) {
+        try {
+          token = await executeRecaptcha('contact_form');
+        } catch (error) {
+          console.error('Error executing reCaptcha:', error);
+          setError('root', { message: 'formErrorRecaptchaFailed' });
+          return;
+        }
+      }
+
+      // Verify the token
+      const verification = await verifyRecaptcha(token);
+
+      if (verification.verified) {
+        setIsRecaptchaVerified(true);
+        // Clear any previous recaptcha errors
+        if (errors.root?.message === 'formErrorRecaptchaRequired') {
+          setError('root', { message: '' });
+        }
+      } else {
+        setIsRecaptchaVerified(false);
+        setError('root', { message: 'formErrorRecaptchaInvalid' });
+
+        console.error(verification.error);
+      }
+    },
+    [executeRecaptcha, verifyRecaptcha, errors.root?.message, setError],
+  );
+
+  // Automatically execute reCaptcha when ready
+  useEffect(() => {
+    if (isRecaptchaReady && !isRecaptchaVerified) {
+      handleRecaptchaVerify();
+    }
+  }, [isRecaptchaReady, isRecaptchaVerified, handleRecaptchaVerify]);
+
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
+    if (!isRecaptchaVerified) {
+      setError('root', { message: 'formErrorRecaptchaRequired' });
+      return;
+    }
+
     const sendData = {
       ...data,
       topic: topics.find((topic) => topic.value === data.topic)?.label,
@@ -75,6 +123,7 @@ export const ContactForm = () => {
       setSuccessMessage(result.message);
 
       reset();
+      setIsRecaptchaVerified(false);
     } catch (error) {
       console.error('Error sending email:', error);
 
@@ -152,8 +201,13 @@ export const ContactForm = () => {
             color='primary'
             size='medium'
             isLoading={isSubmitting}
+            disabled={isSubmitting || !isRecaptchaVerified}
           >
-            {t('contactFormSubmit')}
+            {isSubmitting
+              ? t('formSubmitSending')
+              : !isRecaptchaVerified
+                ? 'Oczekiwanie na weryfikację...'
+                : t('contactFormSubmit')}
           </Button>
         </div>
       </form>

@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { Analytics } from '@vercel/analytics/react';
+
 import type { Metadata, Viewport } from 'next';
 
 import '@/assets/styles/globals.scss';
@@ -37,7 +39,10 @@ interface IRootLayoutProps {
 const RootLayout = ({ children }: IRootLayoutProps) => {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 };
