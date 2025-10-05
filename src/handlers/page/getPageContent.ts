@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import parseHTML from 'html-react-parser';
 
 import pagesApi from '@/api/pages';
+import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { fields } from '@/constants/pages';
 import { buildLog } from '@/helpers/build/buildLog';
 import { IGetPagesParams, IWordPressPageStandard } from '@/types/pages';
@@ -34,7 +36,12 @@ export const getPageContent = async (
       })) || [];
     const { title, acf } = page || ({} as IWordPressPageStandard);
 
-    if (!page) {
+    const isProductsOrBrandsPage =
+      PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE].includes(
+        slug,
+      ) || PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE].includes(slug);
+
+    if (!page && !isProductsOrBrandsPage) {
       return notFound();
     }
 

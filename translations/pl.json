@@ -72,5 +72,8 @@
   "formErrorRecaptchaFailed": "Weryfikacja reCaptcha nie powiodła się. Spróbuj ponownie.",
   "formErrorRecaptchaInvalid": "Weryfikacja reCaptcha nie powiodła się. Spróbuj ponownie.",
   "formSubmitSending": "Wysyłanie...",
-  "Required": "Pole jest wymagane"
+  "Required": "Pole jest wymagane",
+  "cookieConsentMessage": "Ta strona używa plików cookie, aby zapewnić najlepsze doświadczenia użytkownika. Kontynuując przeglądanie strony, wyrażasz zgodę na używanie plików cookie zgodnie z naszą polityką prywatności.",
+  "cookieConsentAccept": "Akceptuję",
+  "cookieConsentDecline": "Odrzuć"
 }

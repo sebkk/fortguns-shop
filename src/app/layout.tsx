@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
+
 import type { Metadata, Viewport } from 'next';
 
 import '@/assets/styles/globals.scss';
@@ -37,9 +39,12 @@ interface IRootLayoutProps {
 }
 
 const RootLayout = ({ children }: IRootLayoutProps) => {
+  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   return (
     <html>
       <body>
+        {measurementId && <GoogleAnalytics measurementId={measurementId} />}
         {children}
         <Analytics />
       </body>

@@ -14,7 +14,7 @@ import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PRODUCTS_FIELDS_FOR_SEARCH } from '@/constants/products';
 import { fetchBrands } from '@/handlers/brands/fetchBrands';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
-import { useRouter as useNextIntlRouter } from '@/i18n/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { IBrand } from '@/types/brands';
 import { IProductSearch } from '@/types/product';
 
@@ -45,7 +45,7 @@ export const Search = ({
 
   const [searchQuery, setSearchQuery] = useState(initialValue);
 
-  const router = useNextIntlRouter();
+  const router = useAppRouter();
 
   const [loading, setLoading] = useState({
     marks: false,

@@ -13,7 +13,7 @@ import { IProductListing } from '@/types/product';
 
 export const revalidate = 600;
 export const dynamic = 'force-static';
-export const dynamicParams = false;
+// export const dynamicParams = false;
 
 export const generateMetadata = async () => {
   const { metadata } = await getPageMetadata(

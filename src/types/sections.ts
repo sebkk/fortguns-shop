@@ -104,6 +104,7 @@ interface ISectionHeroSlide {
   description: string;
   picture: IPhoto;
   variant: EVariants.PRIMARY | EVariants.SECONDARY;
+  link: { target: string; url: string; title: string };
 }
 
 export interface ISectionHero extends ISectionOptions {

@@ -44,8 +44,8 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
       <div className={styles['content-grid']}>
         <div className={styles['info-column']}>
           {content && (
-            <Typography tag='p' className={styles['content-text']}>
-              {content}
+            <Typography tag='div' className={styles['content-text']}>
+              <div dangerouslySetInnerHTML={{ __html: content }} />
             </Typography>
           )}
           <address className={styles['address-block']}>

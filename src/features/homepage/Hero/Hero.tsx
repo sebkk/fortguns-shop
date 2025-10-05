@@ -7,7 +7,9 @@ import clsx from 'clsx';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { Button } from '@/components/Button';
 import { Typography } from '@/components/Typography';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { IScrollContext, ScrollContext } from '@/providers/ScrollProvider';
 import { ISectionHero } from '@/types/sections';
 
@@ -23,6 +25,8 @@ interface IHeroProps {
 
 export const Hero = ({ slides }: IHeroProps) => {
   const [isInitialized, setIsInitialized] = useState(false);
+
+  const router = useAppRouter();
 
   const { isScrolling } = useContext(ScrollContext) as IScrollContext;
   return (
@@ -58,7 +62,7 @@ export const Hero = ({ slides }: IHeroProps) => {
             setIsInitialized(swiper.initialized);
           }}
         >
-          {slides.map(({ title, picture, description }, index) => (
+          {slides.map(({ title, picture, description, link }, index) => (
             <SwiperSlide
               className={clsx(
                 !isInitialized && styles['hero-swiper-slide--not-initialized'],
@@ -86,6 +90,13 @@ export const Hero = ({ slides }: IHeroProps) => {
                   <Typography variant='subheading' tag='p'>
                     {description}
                   </Typography>
+                  <Button
+                    size='medium'
+                    onClick={() => router.push(link.url)}
+                    className={styles['hero-button']}
+                  >
+                    {link.title}
+                  </Button>
                 </div>
               </div>
             </SwiperSlide>
