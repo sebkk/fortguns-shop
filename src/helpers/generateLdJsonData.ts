@@ -6,7 +6,7 @@ import { fieldsFaqPage } from '@/constants/pages';
 import { TMetadataType } from '@/types/metadata';
 import { IWordPressPageFaqPageMetadata } from '@/types/pages';
 
-const url = process.env.NEXT_PUBLIC_API_URL;
+const url = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const generateLdJsonData = async (
   graph: Graph,

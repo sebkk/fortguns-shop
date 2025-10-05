@@ -10,5 +10,5 @@ export const createUrl = (locale: string, pathname: string) => {
       ? pathnameWithoutSlash
       : `${locale}/${pathnameWithoutSlash}`;
 
-  return `${process.env.NEXT_PUBLIC_API_URL}/${fullPathname}`;
+  return `${process.env.NEXT_PUBLIC_SITE_URL}/${fullPathname}`;
 };
