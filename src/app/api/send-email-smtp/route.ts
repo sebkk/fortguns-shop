@@ -13,6 +13,8 @@ const USER_EMAIL_RAW = globalInfos.contact_infos.find(
 // Remove mailto: prefix if present
 const USER_EMAIL = USER_EMAIL_RAW?.replace(/^mailto:/, '');
 
+const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+
 // SMTP email sending using Node.js built-in modules
 async function sendSMTPEmail({
   to,
@@ -33,7 +35,7 @@ async function sendSMTPEmail({
     const smtpPort = parseInt(process.env.SMTP_PORT || '');
     const password = process.env.EMAIL_PASSWORD;
 
-    const username = USER_EMAIL;
+    const username = CONTACT_EMAIL;
 
     if (!username || !password) {
       reject(new Error('Email credentials not configured'));
@@ -54,7 +56,7 @@ async function sendSMTPEmail({
 
     // Debug: Check if username is properly formatted
     console.debug('Username details:', {
-      raw: USER_EMAIL_RAW,
+      raw: CONTACT_EMAIL,
       processed: username,
       length: username?.length,
     });
@@ -285,7 +287,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if required environment variables are set
-    if (!USER_EMAIL || !process.env.EMAIL_PASSWORD) {
+    if (!CONTACT_EMAIL || !process.env.EMAIL_PASSWORD) {
       console.error('formErrorEmailServiceNotConfigured');
       return NextResponse.json(
         { success: false, error: 'formErrorEmailServiceNotConfigured' },
@@ -293,11 +295,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const companyEmail = USER_EMAIL;
-
     console.log('Email details:', {
-      from: USER_EMAIL,
-      to: companyEmail,
+      from: CONTACT_EMAIL,
+      to: USER_EMAIL,
       replyTo: senderEmail,
       subject: `${topic}: ${title}`,
     });
@@ -305,7 +305,7 @@ export async function POST(request: NextRequest) {
     // Create HTML email content
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
+        <h2 style="color: #333; border-bottom: 2px solid #627d4c; padding-bottom: 10px;">
           Nowa wiadomość z formularza kontaktowego
         </h2>
         
@@ -331,10 +331,10 @@ export async function POST(request: NextRequest) {
 
     // Send email
     const emailResult = await sendSMTPEmail({
-      to: companyEmail,
+      to: CONTACT_EMAIL as string,
       subject: `${topic}: ${title}`,
       html: htmlContent,
-      from: USER_EMAIL,
+      from: CONTACT_EMAIL as string,
       replyTo: senderEmail,
     });
 
