@@ -71,5 +71,6 @@
   "formErrorRecaptchaRequired": "Proszę potwierdzić, że nie jesteś robotem.",
   "formErrorRecaptchaFailed": "Weryfikacja reCaptcha nie powiodła się. Spróbuj ponownie.",
   "formErrorRecaptchaInvalid": "Weryfikacja reCaptcha nie powiodła się. Spróbuj ponownie.",
-  "formSubmitSending": "Wysyłanie..."
+  "formSubmitSending": "Wysyłanie...",
+  "Required": "Pole jest wymagane"
 }
