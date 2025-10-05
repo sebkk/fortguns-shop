@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
-    "fetch:all": "tsx scripts/fetch-all-data.ts"
+    "fetch:all": "pnpm dotenv -e .env.local -- tsx scripts/fetch-all-data.ts"
   },
   "dependencies": {
     "@bprogress/core": "^1.3.4",
