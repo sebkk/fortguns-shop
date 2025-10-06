@@ -48,12 +48,12 @@ const createCategoryPaginationSitemap = async (
 export const createProductsListingSitemaps = async (): Promise<
   MetadataRoute.Sitemap[]
 > => {
-  const mainProductsListingSitemap = createSitemapObject(
-    createUrl(
-      DEFAULT_LOCALE,
-      PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE],
-    ),
-  );
+  // const mainProductsListingSitemap = createSitemapObject(
+  //   createUrl(
+  //     DEFAULT_LOCALE,
+  //     PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE],
+  //   ),
+  // );
 
   const mainProductsListingPaginationSitemap =
     await createCategoryPaginationSitemap(
@@ -97,7 +97,7 @@ export const createProductsListingSitemaps = async (): Promise<
   );
 
   const categoriesPages = [
-    mainProductsListingSitemap,
+    // mainProductsListingSitemap,
     ...mainProductsListingPaginationSitemap,
     ...(categories.flat() as unknown as MetadataRoute.Sitemap[]),
   ];

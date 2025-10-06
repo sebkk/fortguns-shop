@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 interface IBuildLogProps {
   type: 'success' | 'error' | 'info';
   message?: string;
@@ -13,11 +14,10 @@ export const buildLog = ({
 }: IBuildLogProps) => {
   if (!+process.env.IS_BUILD!) return;
 
-  const functionNameWithPrefix = `[${functionName.toUpperCase()}]`;
+  const functionNameWithPrefix = `[${functionName}]`;
   const messageWithPrefix = message ? ` - ${message}` : '';
 
   if (type === 'success') {
-    // eslint-disable-next-line no-console
     console.log(
       `✅ SUCCESS ${functionNameWithPrefix}${messageWithPrefix}`,
       additionalLog,
@@ -28,7 +28,6 @@ export const buildLog = ({
       additionalLog,
     );
   } else {
-    // eslint-disable-next-line no-console
     console.log(
       `ℹ️ INFO ${functionNameWithPrefix}${messageWithPrefix}`,
       additionalLog,

@@ -10,9 +10,9 @@ import { createSitemapObject } from './createSitemapObject';
 import { createUrl } from './createUrl';
 
 const createBrandsSitemaps = async (): Promise<MetadataRoute.Sitemap[]> => {
-  const brandPages = Object.entries(PATHNAMES[NAVIGATION_ROUTE.BRANDS]).map(
-    ([locale, pathname]) => createSitemapObject(createUrl(locale, pathname)),
-  ) as unknown as MetadataRoute.Sitemap[];
+  // const brandPages = Object.entries(PATHNAMES[NAVIGATION_ROUTE.BRANDS]).map(
+  //   ([locale, pathname]) => createSitemapObject(createUrl(locale, pathname)),
+  // ) as unknown as MetadataRoute.Sitemap[];
 
   const brands = await brandsAPI.getBrands({
     fields: BRANDS_FIELDS_FOR_SITEMAP.join(','),
@@ -53,7 +53,7 @@ const createBrandsSitemaps = async (): Promise<MetadataRoute.Sitemap[]> => {
     })
     .flat() as unknown as MetadataRoute.Sitemap[];
 
-  return [...brandPages, ...brandsPages];
+  return brandsPages;
 };
 
 export { createBrandsSitemaps };

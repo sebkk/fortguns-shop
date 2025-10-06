@@ -64,7 +64,6 @@ export const getPageMetadata = async (
     const rank_math_focus_keyword = rank_math_seo || '';
 
     const metadataResponse = await rankMath.getMetadata(link || '');
-
     if (metadataResponse.success) {
       const metadataObjects = await parseMetadata(metadataResponse);
 
@@ -83,7 +82,7 @@ export const getPageMetadata = async (
 
       metadata = {
         ...transformedMetadata,
-        keywords: rank_math_focus_keyword?.split(',') || [],
+        keywords: rank_math_focus_keyword || [],
       };
     }
 
