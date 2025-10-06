@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
         pathname: '/**',
         search: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cms.fortguns.pl',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
     ],
   },
   experimental: {
