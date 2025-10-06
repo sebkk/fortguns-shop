@@ -27,9 +27,6 @@ pnpm run version:prerelease
 ```bash
 # Show current version
 pnpm run version:show
-
-# Update CHANGELOG.md
-pnpm run version:update-changelog [new-version]
 ```
 
 ### Release commands (versioning + build)
@@ -58,10 +55,7 @@ pnpm run version:patch  # for bugfixes
 pnpm run version:minor  # for new features
 pnpm run version:major  # for breaking changes
 
-# 3. Update CHANGELOG.md
-pnpm run version:update-changelog
-
-# 4. Build application
+# 3. Build application
 pnpm run build
 ```
 
@@ -81,27 +75,15 @@ pnpm run release:patch  # or minor/major
 ## Files related to versioning
 
 - `package.json` - main application version
-- `CHANGELOG.md` - change history
-- `src/helpers/version.ts` - helper for retrieving version
-- `src/components/VersionInfo/` - component displaying version
-- `scripts/version-helper.js` - helper script
+- `CHANGELOG.md` - change history (manual updates)
 
-## Displaying version in application
+## Manual CHANGELOG updates
 
-The `VersionInfo` component can be used anywhere in the application:
+Since the version helper script was removed, you need to manually update the `CHANGELOG.md` file when creating new releases:
 
-```tsx
-import { VersionInfo } from '@/components/VersionInfo';
-
-// Basic version display
-<VersionInfo />
-
-// With build time
-<VersionInfo showBuildTime={true} />
-
-// With custom styling
-<VersionInfo className="my-custom-class" />
-```
+1. Move changes from `[Unreleased]` section to a new version section
+2. Add the release date
+3. Update the version links at the bottom of the file
 
 ## Git Integration
 
@@ -135,5 +117,5 @@ pnpm run version:major
 ## Notes
 
 - Before incrementing version, make sure all changes are committed
-- Always update CHANGELOG.md before release
+- Manually update CHANGELOG.md before release (move changes from [Unreleased] to new version section)
 - Use meaningful commit messages according to the convention in `.gitmessage`

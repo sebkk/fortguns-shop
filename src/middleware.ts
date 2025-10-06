@@ -28,7 +28,7 @@ export default function middleware(request: NextRequest) {
       DEFAULT_LOCALE
     ].replace('[categoryName]', pathWithoutPrefix);
 
-    return NextResponse.redirect(new URL(path, request.url));
+    return NextResponse.redirect(new URL(path, request.url), 301);
   }
 
   if (newPathname.startsWith('/product')) {
@@ -38,7 +38,7 @@ export default function middleware(request: NextRequest) {
       DEFAULT_LOCALE
     ].replace('[productSlug]', pathWithoutPrefix);
 
-    return NextResponse.redirect(new URL(path, request.url));
+    return NextResponse.redirect(new URL(path, request.url), 301);
   }
 
   return intlMiddleware(request);
@@ -46,6 +46,6 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|assets|favicon.ico|manifest.webmanifest|pictures|sitemap).*)',
+    '/((?!api|_next/static|_next/image|assets|favicon.ico|manifest.webmanifest|pictures|sitemap|robots.txt).*)',
   ],
 };
