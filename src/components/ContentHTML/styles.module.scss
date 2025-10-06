@@ -1,9 +1,16 @@
 .content-html {
   line-height: 1.55;
 
-  * {
+  *:not(b) {
     font-size: to-rem(18);
     line-height: 1.55;
+  }
+
+  b,
+  strong,
+  i,
+  em {
+    font-size: inherit;
   }
 
   h1,

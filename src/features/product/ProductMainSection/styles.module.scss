@@ -106,9 +106,13 @@
 
   text-align: center;
 
+  text-decoration: none;
+
   &:hover {
     border-color: $color-primary-light;
     color: $color-primary-light;
+
+    text-decoration: none;
   }
 
   &:active {
