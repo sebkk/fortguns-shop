@@ -11,6 +11,10 @@ const intlMiddleware = createMiddleware(routing);
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  if (pathname === '/en') {
+    return NextResponse.redirect(new URL('/', request.url), 301);
+  }
+
   let newPathname = pathname;
 
   if (pathname.startsWith('/en')) {
