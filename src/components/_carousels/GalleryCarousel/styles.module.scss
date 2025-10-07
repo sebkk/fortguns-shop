@@ -43,8 +43,8 @@
   width: 100%;
   height: auto;
 
-  max-height: to-rem(340);
-  object-fit: cover;
+  max-height: to-rem(440);
+  object-fit: contain;
 
   &--clickable {
     cursor: pointer;
