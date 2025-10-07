@@ -62,38 +62,31 @@ interface IProductPageProps {
 }
 
 const ProductPage = async ({ params }: IProductPageProps) => {
-  try {
-    const { productSlug } = await params;
-    const product = await fetchProductDetails<IProductDetails>(productSlug, {
-      _fields: undefined,
-    });
+  const { productSlug } = await params;
+  const product = await fetchProductDetails<IProductDetails>(productSlug);
 
-    if (!product) {
-      notFound();
-    }
-
-    const { related_ids, categories, name } = product;
-
-    const breadcrumbs = createProductDetailsBreadcrumbs(name, categories);
-
-    return (
-      <>
-        <Breadcrumbs items={breadcrumbs} size='large' />
-        <Spacer size='lg' />
-        <div className='container'>
-          <ProductMainSection product={product} />
-          <ProductDescriptionSection product={product} />
-          {related_ids?.length > 0 && (
-            <ProductRelatedItems relatedIds={related_ids} />
-          )}
-          <Spacer size='lg' />
-        </div>
-      </>
-    );
-  } catch (error) {
-    console.error('Error rendering product page:', error);
+  if (!product) {
     notFound();
   }
+
+  const { related_ids, categories, name } = product;
+
+  const breadcrumbs = createProductDetailsBreadcrumbs(name, categories);
+
+  return (
+    <>
+      <Breadcrumbs items={breadcrumbs} size='large' />
+      <Spacer size='lg' />
+      <div className='container'>
+        <ProductMainSection product={product} />
+        <ProductDescriptionSection product={product} />
+        {related_ids?.length > 0 && (
+          <ProductRelatedItems relatedIds={related_ids} />
+        )}
+        <Spacer size='lg' />
+      </div>
+    </>
+  );
 };
 
 export default ProductPage;

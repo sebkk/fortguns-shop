@@ -45,6 +45,9 @@ export const ProductItem = ({ product }: ProductItemProps) => {
           width={70}
           height={50}
           className={styles['product-item-image']}
+          unoptimized
+          placeholder='blur'
+          blurDataURL={picture.src}
         />
         <div className={styles['product-item-content']}>
           <Typography

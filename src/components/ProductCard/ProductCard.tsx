@@ -13,6 +13,8 @@ import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { IProductListing, STOCK_STATUS } from '@/types/product';
 
+import placeholderImage from '../../../public/pictures/placeholder.webp';
+// eslint-disable-next-line import/order
 import styles from './styles.module.scss';
 
 const Label = dynamic(() =>
@@ -79,7 +81,8 @@ export const ProductCard = ({
               height={300}
               className={styles['product-image']}
               placeholder='blur'
-              blurDataURL={firstImage.src}
+              blurDataURL={placeholderImage.src}
+              unoptimized
               {...imageProps}
             />
           </div>

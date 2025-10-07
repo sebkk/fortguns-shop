@@ -78,6 +78,8 @@ export const Hero = ({ slides }: IHeroProps) => {
                   src={picture.url}
                   className={styles['hero-image']}
                   priority
+                  blurDataURL={picture.url}
+                  placeholder='blur'
                 />
                 <div className={styles['hero-content-container']}>
                   <Typography

@@ -29,6 +29,8 @@ const nextConfig: NextConfig = {
         search: '',
       },
     ],
+    minimumCacheTTL: 2678400,
+    formats: ['image/webp'],
   },
   experimental: {
     staticGenerationMaxConcurrency: 5,

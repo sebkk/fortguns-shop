@@ -11,6 +11,8 @@ import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
 import { IPhoto } from '@/types/pages';
 
+import placeholderImage from '../../../../public/pictures/placeholder.webp';
+// eslint-disable-next-line import/order
 import styles from './styles.module.scss';
 
 import type { Swiper as SwiperType } from 'swiper';
@@ -174,6 +176,8 @@ export const GalleryCarousel = ({
               width={hideMainCarousel ? 300 : 768}
               priority={index === 0}
               loading={index === 0 ? 'eager' : 'lazy'}
+              placeholder='blur'
+              blurDataURL={placeholderImage.src}
               className={clsx(
                 styles['gallery-carousel_image'],
                 hideMainCarousel && styles['gallery-carousel_image--main'],
@@ -229,6 +233,9 @@ export const GalleryCarousel = ({
                 width={300}
                 height={225}
                 className={styles['gallery-carousel-thumbs-image']}
+                placeholder='blur'
+                blurDataURL={placeholderImage.src}
+                unoptimized
                 {...thumbsImageProps}
               />
             </SwiperSlide>

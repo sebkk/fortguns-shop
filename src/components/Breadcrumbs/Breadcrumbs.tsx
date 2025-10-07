@@ -48,13 +48,12 @@ export const Breadcrumbs = ({
     const lastItem = allItems[allItems.length - 1];
     const middleItems = allItems.slice(1, -1);
 
-    return [
-      firstItem,
-      ...(middleItems.length > 0
+    const middleItemsToDisplay =
+      middleItems.length > 5
         ? [{ ...middleItems[0], label: '...', href: undefined }]
-        : []),
-      lastItem,
-    ];
+        : middleItems;
+
+    return [firstItem, ...middleItemsToDisplay, lastItem];
   }, [allItems, maxItems]);
 
   const isTruncated = allItems.length > maxItems;
@@ -69,6 +68,7 @@ export const Breadcrumbs = ({
   );
 
   if (!displayItems.length) return null;
+
   return (
     <>
       {!hideSpacer && <Spacer size='sm' />}
@@ -93,18 +93,22 @@ export const Breadcrumbs = ({
                       className={styles['breadcrumb-link']}
                       size={size}
                     >
-                      {parseHTML(
-                        shouldTranslate ? t(label as string) : label || '',
-                      )}
+                      {label === '...'
+                        ? label
+                        : parseHTML(
+                            shouldTranslate ? t(label as string) : label || '',
+                          )}
                     </Link>
                   ) : (
                     <span
                       className={styles['breadcrumb-current']}
                       aria-current={isActiveItem ? 'page' : undefined}
                     >
-                      {parseHTML(
-                        shouldTranslate ? t(label as string) : label || '',
-                      )}
+                      {label === '...'
+                        ? label
+                        : parseHTML(
+                            shouldTranslate ? t(label as string) : label || '',
+                          )}
                     </span>
                   )}
                   {!isLast && (

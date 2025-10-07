@@ -41,10 +41,10 @@
   border-radius: to-rem(8);
 
   width: 100%;
-  height: 100%;
+  height: auto;
 
   max-height: to-rem(340);
-  object-fit: contain;
+  object-fit: cover;
 
   &--clickable {
     cursor: pointer;

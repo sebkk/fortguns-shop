@@ -19,6 +19,8 @@ export const Logo = ({
       width={600}
       height={200}
       className={className}
+      blurDataURL={fortGunsLogo.src}
+      placeholder='blur'
       quality={100}
       {...imageProps}
     />
