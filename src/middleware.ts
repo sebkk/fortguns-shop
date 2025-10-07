@@ -26,11 +26,24 @@ export default function middleware(request: NextRequest) {
       .replace('/product-category', '')
       .split('/');
 
-    const pathWithoutPrefix = pathSplitted[pathSplitted.length - 1];
+    const isLastElementNumber = !isNaN(
+      Number(pathSplitted[pathSplitted.length - 1]),
+    );
 
-    const path = PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY][
-      DEFAULT_LOCALE
-    ].replace('[categoryName]', pathWithoutPrefix);
+    const pathWithoutPrefix = isLastElementNumber
+      ? pathSplitted[pathSplitted.length - 3]
+      : pathSplitted[pathSplitted.length - 1];
+
+    const path = isLastElementNumber
+      ? PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY_PAGINATION][
+          DEFAULT_LOCALE
+        ].replace('[categoryName]', pathWithoutPrefix).replace(
+          '[pageNumber]',
+          pathSplitted[pathSplitted.length - 1],
+        )
+      : PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY][
+          DEFAULT_LOCALE
+        ].replace('[categoryName]', pathWithoutPrefix);
 
     return NextResponse.redirect(new URL(path, request.url), 301);
   }
