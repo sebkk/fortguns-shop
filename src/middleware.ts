@@ -30,6 +30,15 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(replacedPathname, request.url), 301);
   }
 
+  if (newPathname.startsWith('/brand')) {
+    const replacedPathname = newPathname.replace(
+      '/brand',
+      PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE],
+    );
+
+    return NextResponse.redirect(new URL(replacedPathname, request.url), 301);
+  }
+
   if (newPathname.startsWith('/product-category')) {
     const pathSplitted = newPathname
       .replace('/product-category', '')
