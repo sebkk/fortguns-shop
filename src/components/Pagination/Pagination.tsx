@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import { Select } from '@/components/_form/Select';
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Button } from '@/components/Button';
-import { useScreenWidth } from '@/hooks/useScreenWidth';
 
 import styles from './Pagination.module.scss';
 
@@ -81,8 +80,6 @@ export const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const t = useTranslations();
 
-  const { isSmallScreen } = useScreenWidth();
-
   const paginationRange = usePagination({
     currentPage: currentPage || 1,
     totalPages,
@@ -130,96 +127,95 @@ export const Pagination: React.FC<PaginationProps> = ({
             />
           </Button>
         </li>
+        {/* MOBILE PAGINATION */}
+        <li className={styles['pagination-select-mobile']}>
+          <Select
+            selectProps={{
+              onChange: (e) => {
+                const value = e.target.value;
+                if (value !== '...') {
+                  handlePageClick(Number(value));
+                }
+              },
+              value: currentPage.toString(),
+              defaultValue: 1,
+            }}
+            options={Array.from({ length: totalPages }, (_, i) => i + 1).map(
+              (page) => ({
+                value: page.toString(),
+                label: page.toString(),
+              }),
+            )}
+            id='pagination-select-mobile'
+            wrapperClassName={styles['pagination-select']}
+            className={styles['pagination-button']}
+          />
+        </li>
 
-        {isSmallScreen && (
-          <li className={styles['pagination-select-mobile']}>
-            <Select
-              selectProps={{
-                onChange: (e) => {
-                  const value = e.target.value;
-                  if (value !== '...') {
-                    handlePageClick(Number(value));
-                  }
-                },
-                defaultValue: 1,
-              }}
-              options={Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => ({
-                  value: page.toString(),
-                  label: page.toString(),
-                }),
-              )}
-              id='pagination-select-mobile'
-              wrapperClassName={styles['pagination-select']}
-              className={styles['pagination-button']}
-            />
-          </li>
-        )}
+        {/* DESKTOP PAGINATION */}
+        <li className={styles['pagination-numbers']}>
+          {paginationRange.map((pageItem, index) => {
+            if (pageItem === DOTS) {
+              const isBeforeCurrentPage =
+                index < paginationRange.indexOf(currentPage);
 
-        {!isSmallScreen && (
-          <li className={styles['pagination-numbers']}>
-            {paginationRange.map((pageItem, index) => {
-              if (pageItem === DOTS) {
-                const isBeforeCurrentPage =
-                  index < paginationRange.indexOf(currentPage);
-
-                return (
-                  <Select
-                    selectProps={{
-                      onChange: (e) => {
-                        const value = e.target.value;
-                        if (value !== '...') {
-                          handlePageClick(Number(value));
-                        }
-                      },
-                      defaultValue: DOTS,
-                    }}
-                    key={`${pageItem}-${index}`}
-                    placeholder={DOTS}
-                    options={Array.from({ length: totalPages }, (_, i) => i + 1)
-                      .filter((page) => {
-                        if (isBeforeCurrentPage) {
-                          return (
-                            page > 1 &&
-                            page < currentPage &&
-                            !paginationRange.includes(page)
-                          );
-                        } else {
-                          return (
-                            page > currentPage &&
-                            page < totalPages &&
-                            !paginationRange.includes(page)
-                          );
-                        }
-                      })
-                      .map((page) => ({
-                        value: page.toString(),
-                        label: page.toString(),
-                      }))}
-                    id='pagination-select'
-                    wrapperClassName={clsx(styles['pagination-select'])}
-                    className={styles['pagination-button']}
-                  />
-                );
-              }
-
-              const pageNumber = pageItem as number;
               return (
-                <Button
-                  onClick={() => handlePageClick(pageNumber)}
-                  aria-current={pageNumber === currentPage ? 'page' : undefined}
-                  aria-label={t('navigateToPage', { pageNumber: pageNumber })}
-                  type='button'
-                  variant={currentPage === pageNumber ? 'filled' : 'outlined'}
+                <Select
+                  selectProps={{
+                    onChange: (e) => {
+                      const value = e.target.value;
+                      if (value !== '...') {
+                        handlePageClick(Number(value));
+                      }
+                    },
+                    value: '...',
+                    defaultValue: DOTS,
+                  }}
+                  key={`${pageItem}-${index}`}
+                  placeholder={DOTS}
+                  options={Array.from({ length: totalPages }, (_, i) => i + 1)
+                    .filter((page) => {
+                      if (isBeforeCurrentPage) {
+                        return (
+                          page > 1 &&
+                          page < currentPage &&
+                          !paginationRange.includes(page)
+                        );
+                      } else {
+                        return (
+                          page > currentPage &&
+                          page < totalPages &&
+                          !paginationRange.includes(page)
+                        );
+                      }
+                    })
+                    .map((page) => ({
+                      value: page.toString(),
+                      label: page.toString(),
+                    }))}
+                  id='pagination-select'
+                  wrapperClassName={clsx(styles['pagination-select'])}
                   className={styles['pagination-button']}
-                  key={pageNumber}
-                >
-                  {pageNumber}
-                </Button>
+                />
               );
-            })}
-          </li>
-        )}
+            }
+
+            const pageNumber = pageItem as number;
+            return (
+              <Button
+                onClick={() => handlePageClick(pageNumber)}
+                aria-current={pageNumber === currentPage ? 'page' : undefined}
+                aria-label={t('navigateToPage', { pageNumber: pageNumber })}
+                type='button'
+                variant={currentPage === pageNumber ? 'filled' : 'outlined'}
+                className={styles['pagination-button']}
+                key={pageNumber}
+              >
+                {pageNumber}
+              </Button>
+            );
+          })}
+        </li>
 
         <li>
           <Button

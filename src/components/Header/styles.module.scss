@@ -109,3 +109,21 @@
     right: to-rem(16);
   }
 }
+
+.hide-on-small-screen {
+  @include respond-below($breakpoint-md) {
+    display: none;
+  }
+}
+
+.hide-on-large-screen {
+  @include respond-above($breakpoint-md) {
+    display: none;
+  }
+}
+
+.search-visible {
+  @include respond-below($breakpoint-s) {
+    display: none;
+  }
+}

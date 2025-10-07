@@ -9,7 +9,6 @@ import { HamburgerMenu } from '@/components/HamburgerMenu';
 import { Logo } from '@/components/Logo';
 import { Search } from '@/components/Search';
 import { useOnScrollEvent } from '@/hooks/useOnScrollEvent';
-import { useScreenWidth } from '@/hooks/useScreenWidth';
 import { Link } from '@/i18n/navigation';
 import { ScrollContext } from '@/providers/ScrollProvider';
 import { IScrollContext } from '@/providers/ScrollProvider/ScrollProvider';
@@ -25,10 +24,6 @@ interface IHeaderInnerProps {
 const headerId = 'navbar-fixed';
 
 export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
-  const { isSmallScreen, isBreakpoint } = useScreenWidth();
-
-  const isSearchVisible = isBreakpoint('s');
-
   const { isScrolling, scrollingRef: headerRef } =
     useOnScrollEvent<HTMLElement>({
       elementId: headerId,
@@ -64,33 +59,35 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
             }}
           />
         </Link>
-        {!isSmallScreen && (
-          <HeaderNav
-            navHeaderMenuItems={navHeaderMenuItems}
-            isScrolling={isScrolling}
-          />
-        )}
-        {isSearchVisible && <Search className={styles['header-search']} />}
-        {isSmallScreen && (
-          <HamburgerMenu
-            className={styles['header-hamburger-btn']}
-            drawerProps={{
-              titleElement: (
-                <Link className={styles['header-logo-link--image']} href='/'>
-                  <Logo
-                    className={styles['header-logo-image-mobile']}
-                    imageProps={{
-                      width: 160,
-                      height: 53.33,
-                    }}
-                  />
-                </Link>
-              ),
-            }}
-          >
-            <HeaderDrawerNav navHeaderMenuItems={navHeaderMenuItems} />
-          </HamburgerMenu>
-        )}
+        <HeaderNav
+          navHeaderMenuItems={navHeaderMenuItems}
+          isScrolling={isScrolling}
+          className={styles['hide-on-small-screen']}
+        />
+        <Search
+          className={clsx(styles['header-search'], styles['search-visible'])}
+        />
+        <HamburgerMenu
+          className={clsx(
+            styles['header-hamburger-btn'],
+            styles['hide-on-large-screen'],
+          )}
+          drawerProps={{
+            titleElement: (
+              <Link className={styles['header-logo-link--image']} href='/'>
+                <Logo
+                  className={styles['header-logo-image-mobile']}
+                  imageProps={{
+                    width: 160,
+                    height: 53.33,
+                  }}
+                />
+              </Link>
+            ),
+          }}
+        >
+          <HeaderDrawerNav navHeaderMenuItems={navHeaderMenuItems} />
+        </HamburgerMenu>
       </div>
     </header>
   );

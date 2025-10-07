@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import clsx from 'clsx';
+
 import { MenuItem } from '@/types/menus';
 
 import { HeaderNavDropdown } from './HeaderNavDropdown';
@@ -11,11 +13,13 @@ import styles from './styles.module.scss';
 interface IHeaderNavProps {
   navHeaderMenuItems: MenuItem[];
   isScrolling: boolean;
+  className?: string;
 }
 
 export const HeaderNav = ({
   navHeaderMenuItems,
   isScrolling,
+  className,
 }: IHeaderNavProps) => {
   const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -28,7 +32,10 @@ export const HeaderNav = ({
   const { child_items } = hoveredMenuItem || {};
 
   return (
-    <nav className={styles['header-nav']} onMouseLeave={() => setOpen(false)}>
+    <nav
+      className={clsx(styles['header-nav'], className)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <ul className={styles['nav-list']}>
         {navHeaderMenuItems.map((item) => (
           <NavItem
