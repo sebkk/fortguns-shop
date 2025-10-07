@@ -31,8 +31,6 @@ export const generateMetadata = async ({
     description: brandDescription,
     keywords: brandName,
     url: `${process.env.NEXT_PUBLIC_SITE_URL}${PATHNAMES[NAVIGATION_ROUTE.BRAND_LISTING]}/${brandSlug}`,
-    type: 'website',
-    locale: 'en_US',
     breadcrumbs: BRAND_LISTING_BREADCRUMBS(brandName as string),
   };
 };

@@ -21,6 +21,15 @@ export default function middleware(request: NextRequest) {
     newPathname = pathname.replace('/en', '');
   }
 
+  if (newPathname.startsWith('/marka')) {
+    const replacedPathname = newPathname.replace(
+      '/marka',
+      PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE],
+    );
+
+    return NextResponse.redirect(new URL(replacedPathname, request.url), 301);
+  }
+
   if (newPathname.startsWith('/product-category')) {
     const pathSplitted = newPathname
       .replace('/product-category', '')
