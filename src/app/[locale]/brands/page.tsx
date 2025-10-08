@@ -3,7 +3,6 @@ import { ContentSections } from '@/components/ContentSections';
 import { BRANDS_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
-import { PAGES_SLUGS } from '@/constants/pages';
 import { BrandsPageContent } from '@/features/brands/BrandsPageContent';
 import { fetchBrands } from '@/handlers/brands/fetchBrands';
 import { getPageContent } from '@/handlers/page/getPageContent';
@@ -16,7 +15,7 @@ export const dynamicParams = false;
 
 export const generateMetadata = async () => {
   const { metadata } = await getPageMetadata(
-    PAGES_SLUGS[NAVIGATION_ROUTE.BRANDS],
+    PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE].slice(1),
     {},
     TMetadataType.DEFAULT_PAGE,
   );

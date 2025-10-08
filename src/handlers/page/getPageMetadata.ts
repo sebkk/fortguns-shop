@@ -33,7 +33,16 @@ export const parseMetadata = async (metadataResponse: { head: string }) => {
 
   const metadataObjects = metadataContent
     .filter(filterMetadata)
-    .map(mapMetadata);
+    .map(mapMetadata)
+    .map((item) => {
+      if (item.name === 'robots') {
+        return {
+          ...item,
+          content: 'index, follow',
+        };
+      }
+      return item;
+    });
 
   return metadataObjects;
 };

@@ -1,4 +1,6 @@
-import brandsAPI from '@/api/woocommerce/brands';
+import { AxiosResponse } from 'axios';
+
+import customAPI from '@/api/custom';
 import { IBrand, IGetBrandsParams, IGroupedBrands } from '@/types/brands';
 
 const groupBrandsByFirstLetter = (brands: IBrand[]): IGroupedBrands[] => {
@@ -37,7 +39,7 @@ export const fetchBrands = async ({
   let brands: IBrand[] = [];
 
   try {
-    const { data: firstPageData, headers } = await brandsAPI.getBrands(params);
+    const { data: firstPageData, headers } = await customAPI.getBrands(params);
 
     const totalBrands = parseInt(headers['x-wp-total'] || '0', 10);
     const totalPages = parseInt(headers['x-wp-totalpages'] || '0', 10);
@@ -51,10 +53,10 @@ export const fetchBrands = async ({
       );
 
       const remainingPagesData = await Promise.all(
-        remainingPages.map((page) => brandsAPI.getBrands({ ...params, page })),
+        remainingPages.map((page) => customAPI.getBrands({ ...params, page })),
       );
 
-      remainingPagesData.forEach((response) => {
+      remainingPagesData.forEach((response: AxiosResponse<IBrand[]>) => {
         brands = [...brands, ...response.data];
       });
     } else {

@@ -49,14 +49,14 @@ export const BrandsList = ({ groupedBrands }: IBrandsListProps) => {
                     }}
                   >
                     {parseHTML(name)}
-                    {/* <Typography
+                    <Typography
                       tag='span'
                       variant='caption'
                       className={styles['brands-list__item-count']}
                       color='text-medium_dark'
                     >
                       {count}
-                    </Typography> */}
+                    </Typography>
                   </Link>
                 </Card>
               ))}

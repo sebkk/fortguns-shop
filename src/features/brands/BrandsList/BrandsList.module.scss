@@ -20,6 +20,7 @@
 
 .brands-list__item {
   display: flex;
+
   align-items: center;
 
   transition: scale 0.2s ease-in-out;
@@ -42,15 +43,15 @@
 
 .brands-list__item-link {
   display: flex;
-  // justify-content: space-between;
-  // align-items: center;
-
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 
   padding: to-rem(20);
 
   width: 100%;
 
   font-size: to-rem(20);
+
+  text-decoration: none !important;
   text-decoration: none;
 }
