@@ -118,7 +118,7 @@
 
 .hide-on-large-screen {
   @include respond-above($breakpoint-md) {
-    display: none;
+    display: none !important;
   }
 }
 
