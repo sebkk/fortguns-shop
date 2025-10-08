@@ -20,6 +20,8 @@ export const fieldsStaticPathsForSitemap = ['acf.slugs_list'].join(',');
 
 export const fieldsFaqPage = ['acf.sections'].join(',');
 
+export const fieldsTestPages = ['title'].join(',');
+
 export const PAGES_SLUGS = {
   [NAVIGATION_ROUTE.BRANDS]:
     PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE].slice(1),

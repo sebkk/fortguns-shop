@@ -1,8 +1,8 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { ContentSections } from '@/components/ContentSections';
 import { PRODUCTS_BREADCRUMBS } from '@/constants/breadcrumbs/products';
+import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
-import { PAGES_SLUGS } from '@/constants/pages';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { getPageContent } from '@/handlers/page/getPageContent';
@@ -16,7 +16,7 @@ export const dynamic = 'force-static';
 
 export const generateMetadata = async () => {
   const { metadata } = await getPageMetadata(
-    PAGES_SLUGS[NAVIGATION_ROUTE.PRODUCTS_LISTING],
+    PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE].slice(1),
     {},
     TMetadataType.DEFAULT_PAGE,
   );
@@ -34,7 +34,7 @@ const ProductsPage = async () => {
     });
 
   const { sections, pageTitle } = await getPageContent(
-    PAGES_SLUGS[NAVIGATION_ROUTE.PRODUCTS_LISTING],
+    PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE].slice(1),
   );
 
   return (

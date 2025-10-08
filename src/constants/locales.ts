@@ -44,4 +44,8 @@ export const PATHNAMES = {
     pl: '/marki/[brandSlug]/[pageNumber]',
     en: NAVIGATION_ROUTE.BRAND_LISTING_PAGINATION,
   },
+  [NAVIGATION_ROUTE.TEST_PAGES]: {
+    pl: '/strony-testowe',
+    en: NAVIGATION_ROUTE.TEST_PAGES,
+  },
 };

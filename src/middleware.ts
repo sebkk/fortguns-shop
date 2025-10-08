@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import createMiddleware from 'next-intl/middleware';
 
+import { COOKIES } from './constants/cookies';
 import { DEFAULT_LOCALE, PATHNAMES } from './constants/locales';
 import { NAVIGATION_ROUTE } from './constants/navigation';
 import { routing } from './i18n/routing';
@@ -11,8 +12,23 @@ const intlMiddleware = createMiddleware(routing);
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  if (
+    pathname.includes(
+      PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES][DEFAULT_LOCALE].slice(1),
+    ) ||
+    pathname.includes(PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES]['en'].slice(1))
+  ) {
+    const cookies = request.cookies;
+
+    const testerCookie = cookies.get(COOKIES.TESTER_COOKIE);
+
+    if (!(testerCookie ? +testerCookie.value : testerCookie)) {
+      return NextResponse.redirect(new URL('/', request.url), 302);
+    }
+  }
+
   if (pathname === '/en') {
-    return NextResponse.redirect(new URL('/', request.url), 301);
+    return NextResponse.redirect(new URL('/', request.url), 302);
   }
 
   let newPathname = pathname;

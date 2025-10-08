@@ -10,6 +10,7 @@ export const NAVIGATION_ROUTE = {
   BRAND_LISTING: '/brands/[brandSlug]',
   BRAND_LISTING_PAGINATION: '/brands/[brandSlug]/[pageNumber]',
   HOMEPAGE: '/',
+  TEST_PAGES: '/test-pages',
 };
 
 export const PL_SLUGS = {
