@@ -14,7 +14,9 @@ import { transformToMetadata } from '@/helpers/metadata/transformMetadata';
 import { TMetadataTransformResult, TMetadataType } from '@/types/metadata';
 import { IProductDetails, IProductDetailsMetadata } from '@/types/product';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const revalidate = 600;
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,

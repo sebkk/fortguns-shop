@@ -17,7 +17,10 @@ interface IProductPagePaginationProps {
   params: Promise<{ pageNumber: string }>;
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const revalidate = 600;
+export const dynamicParams = true;
+
 export const generateMetadata = async () => {
   const { metadata } = await getPageMetadata(
     PAGES_SLUGS[NAVIGATION_ROUTE.PRODUCTS_LISTING],
