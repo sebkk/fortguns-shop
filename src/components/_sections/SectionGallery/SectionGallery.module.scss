@@ -6,6 +6,7 @@
   margin-bottom: to-rem(40);
 
   p {
-    font-size: to-rem(24);
+    font-size: to-rem(24) !important;
+    line-height: 1.3;
   }
 }
