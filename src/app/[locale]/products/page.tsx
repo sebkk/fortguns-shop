@@ -11,7 +11,7 @@ import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { TMetadataType } from '@/types/metadata';
 import { IProductListing } from '@/types/product';
 
-export const revalidate = 600;
+export const revalidate = 3600;
 export const dynamic = 'force-static';
 
 export const generateMetadata = async () => {

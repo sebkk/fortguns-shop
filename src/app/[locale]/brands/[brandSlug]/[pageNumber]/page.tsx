@@ -8,7 +8,7 @@ import { Products } from '@/features/products/Products';
 import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 
 export const dynamic = 'force-static';
-export const revalidate = 600;
+export const revalidate = 3600;
 
 export const generateMetadata = async ({
   params,

@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
-export const revalidate = 3600;
+export const revalidate = 43200;
 
 export const generateMetadata = async () => {
   const { metadata } = await getPageMetadata(

@@ -9,7 +9,7 @@ import { getPageContent } from '@/handlers/page/getPageContent';
 import { getPageMetadata } from '@/handlers/page/getPageMetadata';
 import { TMetadataType } from '@/types/metadata';
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 export const dynamic = 'force-static';
 export const dynamicParams = false;
 

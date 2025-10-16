@@ -8,7 +8,7 @@ import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { Products } from '@/features/products/Products';
 import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 
-export const revalidate = 600;
+export const revalidate = 3600;
 export const dynamic = 'force-static';
 
 // import brandsAPI from '@/api/woocommerce/brands';

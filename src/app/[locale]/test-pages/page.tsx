@@ -6,9 +6,7 @@ import { fieldsTestPages } from '@/constants/pages';
 import { getPageContent } from '@/handlers/page/getPageContent';
 import { IWordPressPageStandard } from '@/types/pages';
 
-export const dynamic = 'force-static';
-export const dynamicParams = false;
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata() {
   const data = await pagesApi.getPageBySlug<IWordPressPageStandard>(
