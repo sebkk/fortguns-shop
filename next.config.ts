@@ -31,7 +31,6 @@ const nextConfig: NextConfig = {
     ],
     minimumCacheTTL: 2678400,
     formats: ['image/webp'],
-    unoptimized: true,
   },
   experimental: {
     staticGenerationMaxConcurrency: 5,

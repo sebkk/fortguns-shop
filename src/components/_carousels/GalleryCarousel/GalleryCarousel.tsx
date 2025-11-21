@@ -184,6 +184,7 @@ export const GalleryCarousel = ({
                 onClickOnImage && styles['gallery-carousel_image--clickable'],
               )}
               onClick={(e) => onClickOnImage && onClickOnImage(e, index)}
+              unoptimized
               {...mainImageProps}
             />
           </SwiperSlide>
