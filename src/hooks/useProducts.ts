@@ -4,7 +4,6 @@ import { useSearchParams } from 'next/navigation';
 
 import { useTranslations } from 'next-intl';
 
-import productsApi from '@/api/woocommerce/products';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { STOCK_STATUS } from '@/types/product';
 
@@ -91,11 +90,54 @@ export const useProducts = <T>({
         params.search = currentSearch;
       }
 
-      const response = await productsApi.getProducts<T>(params);
+      // Build query string for API route
+      const queryParams = new URLSearchParams();
+      queryParams.set('per_page', currentPerPage.toString());
+      queryParams.set('page', currentPage.toString());
 
-      setProducts(response.data);
-      setTotalPages(Number(response.headers['x-wp-totalpages']));
-      setTotalProducts(Number(response.headers['x-wp-total']));
+      if (categoryId) {
+        queryParams.set('category', categoryId);
+      }
+
+      if (currentSort !== 'default') {
+        const [orderby, order] = currentSort.split('-');
+        queryParams.set('orderby', orderby);
+        queryParams.set('order', order);
+      }
+
+      if (brandId) {
+        queryParams.set('brand', brandId.toString());
+        // stock_status will be handled by API route when brand is present
+      } else {
+        queryParams.set('stock_status', STOCK_STATUS.INSTOCK);
+      }
+
+      if (currentSearch) {
+        queryParams.set('search', currentSearch);
+      }
+
+      // Fetch from Next.js API route
+      const response = await fetch(
+        `/api/search/products?${queryParams.toString()}`,
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch products: ${response.statusText}`);
+      }
+
+      const productsData: T[] = await response.json();
+      const totalPagesValue = parseInt(
+        response.headers.get('X-WP-TotalPages') || '0',
+        10,
+      );
+      const totalProductsValue = parseInt(
+        response.headers.get('X-WP-Total') || '0',
+        10,
+      );
+
+      setProducts(productsData);
+      setTotalPages(totalPagesValue);
+      setTotalProducts(totalProductsValue);
       setIsLoading(false);
     } catch (err) {
       console.error(err);
@@ -158,8 +200,11 @@ export const useProducts = <T>({
   useEffect(() => {
     if (searchParams.toString() === '') {
       setIsLoading(false);
+      setProducts(initialProducts);
+      setTotalPages(initialTotalPages || 0);
+      setTotalProducts(initialTotalProducts || 0);
     }
-  }, []);
+  }, [searchParams]);
 
   return {
     products,

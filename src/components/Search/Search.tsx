@@ -12,8 +12,8 @@ import { Spinner } from '@/components/Spinner';
 import { BRANDS_FIELDS_FOR_SEARCH } from '@/constants/brands';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PRODUCTS_FIELDS_FOR_SEARCH } from '@/constants/products';
-import { fetchSearchBrands } from '@/handlers/brands/fetchSearchBrands';
-import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { fetchSearchBrandsFromAPI } from '@/handlers/brands/fetchSearchBrandsFromAPI';
+import { fetchProductsFromAPI } from '@/handlers/products/fetchProductsFromAPI';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { IBrand } from '@/types/brands';
 import { IProductSearch } from '@/types/product';
@@ -80,7 +80,7 @@ export const Search = ({
   const searchProducts = useCallback(async (query: string) => {
     setLoading((prev) => ({ ...prev, products: true }));
     try {
-      const result = await fetchProducts<IProductSearch>({
+      const result = await fetchProductsFromAPI<IProductSearch>({
         params: {
           search: query,
           per_page: 3,
@@ -102,7 +102,7 @@ export const Search = ({
   const searchMarks = useCallback(async (query: string) => {
     setLoading((prev) => ({ ...prev, marks: true }));
     try {
-      const result = await fetchSearchBrands({
+      const result = await fetchSearchBrandsFromAPI({
         params: {
           search: query,
           per_page: 3,

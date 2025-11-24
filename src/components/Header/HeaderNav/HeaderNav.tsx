@@ -34,7 +34,7 @@ export const HeaderNav = ({
   return (
     <nav
       className={clsx(styles['header-nav'], className)}
-      // onMouseLeave={() => setOpen(false)}
+      onMouseLeave={() => setOpen(false)}
     >
       <ul className={styles['nav-list']}>
         {navHeaderMenuItems.map((item) => (

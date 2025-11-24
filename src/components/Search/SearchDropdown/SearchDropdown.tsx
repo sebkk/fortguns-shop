@@ -101,7 +101,13 @@ export const SearchDropdown = ({
             <SearchDropdownGroup
               title={t('products')}
               itemsLength={products.totalProducts}
-              href={NAVIGATION_ROUTE.PRODUCTS_LISTING}
+              href={
+                {
+                  pathname: NAVIGATION_ROUTE.PRODUCTS_LISTING,
+                  query: { search: searchQuery },
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                } as any
+              }
             >
               <ul className={styles['search-dropdown__products-content-list']}>
                 {products.items?.map((product) => (
