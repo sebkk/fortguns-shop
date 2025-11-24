@@ -12,7 +12,7 @@ import { Spinner } from '@/components/Spinner';
 import { BRANDS_FIELDS_FOR_SEARCH } from '@/constants/brands';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PRODUCTS_FIELDS_FOR_SEARCH } from '@/constants/products';
-import { fetchBrands } from '@/handlers/brands/fetchBrands';
+import { fetchSearchBrands } from '@/handlers/brands/fetchSearchBrands';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { IBrand } from '@/types/brands';
@@ -102,14 +102,13 @@ export const Search = ({
   const searchMarks = useCallback(async (query: string) => {
     setLoading((prev) => ({ ...prev, marks: true }));
     try {
-      const result = await fetchBrands({
+      const result = await fetchSearchBrands({
         params: {
           search: query,
           per_page: 3,
           fields: BRANDS_FIELDS_FOR_SEARCH.join(','),
         },
       });
-
       setBrands({
         ...result,
         items: result.brands,
