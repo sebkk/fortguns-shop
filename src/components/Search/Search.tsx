@@ -126,6 +126,7 @@ export const Search = ({
       debounce(async (query: string) => {
         await Promise.all([searchProducts(query), searchMarks(query)]);
 
+        setIsExpanded(true);
         setOpenDropdown(true);
       }, DEBOUNCE_TIME_MS),
     // eslint-disable-next-line react-hooks/exhaustive-deps
