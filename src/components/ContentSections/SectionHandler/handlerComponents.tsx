@@ -10,6 +10,7 @@ import {
   TSectionNewsletterProps,
   TSectionPageHeaderProps,
   TSectionProductsCarouselProps,
+  TSectionReviewsTrustIndexProps,
   TSectionVariantProps,
   TSpacerSectionProps,
 } from '@/types/handlerComponents';
@@ -69,6 +70,12 @@ const SectionNewsletter = dynamic(() =>
   ),
 );
 
+const SectionReviewsTrustIndex = dynamic(() =>
+  import('@/components/_sections/SectionReviewsTrustIndex').then(
+    (mod) => mod.SectionReviewsTrustIndex,
+  ),
+);
+
 export const handlerComponents: IHandlerComponents = {
   section_page_header: ({ section }: TSectionPageHeaderProps) => (
     <SectionPageHeader section={section} />
@@ -97,5 +104,8 @@ export const handlerComponents: IHandlerComponents = {
   ),
   section_newsletter: ({ section }: TSectionNewsletterProps) => (
     <SectionNewsletter section={section} />
+  ),
+  section_reviews_trustindex: ({ section }: TSectionReviewsTrustIndexProps) => (
+    <SectionReviewsTrustIndex section={section} />
   ),
 };

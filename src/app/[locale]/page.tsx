@@ -34,11 +34,9 @@ const Home = async () => {
   );
 
   return (
-    <>
-      <div className={styles['homepage-container']}>
-        <ContentSections sections={sections} />
-      </div>
-    </>
+    <div className={styles['homepage-container']}>
+      <ContentSections sections={sections} />
+    </div>
   );
 };
 

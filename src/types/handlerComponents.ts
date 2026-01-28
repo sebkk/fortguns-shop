@@ -7,6 +7,7 @@ import {
   ISectionNewsletter,
   ISectionPageHeader,
   ISectionProductsCarousel,
+  ISectionReviewsTrustIndex,
   ISectionVariant,
   ISpacerSection,
 } from './sections';
@@ -28,7 +29,8 @@ export type TSectionProductsCarouselProps =
 export type TSectionHeroProps = IHandlerComponentsProps<ISectionHero>;
 export type TSectionNewsletterProps =
   IHandlerComponentsProps<ISectionNewsletter>;
-
+export type TSectionReviewsTrustIndexProps =
+  IHandlerComponentsProps<ISectionReviewsTrustIndex>;
 export type THandlerComponentsProps = TSectionPageHeaderProps &
   TSpacerSectionProps &
   TSectionAccordionProps &
@@ -52,4 +54,7 @@ export interface IHandlerComponents {
   ) => React.ReactNode;
   section_hero: (props: TSectionHeroProps) => React.ReactNode;
   section_newsletter: (props: TSectionNewsletterProps) => React.ReactNode;
+  section_reviews_trustindex: (
+    props: TSectionReviewsTrustIndexProps,
+  ) => React.ReactNode;
 }

@@ -1,0 +1,1 @@
+export { SectionReviewsTrustIndex } from './SectionReviewsTrustIndex';

@@ -119,6 +119,11 @@ export interface ISectionNewsletter extends ISectionOptions {
   variant: EVariants.PRIMARY;
 }
 
+export interface ISectionReviewsTrustIndex extends ISectionOptions {
+  acf_fc_layout: 'section_reviews_trustindex';
+  widget_id: string;
+}
+
 export type TFlexibleContentLayout =
   | ISectionPageHeader
   | ISpacerSection
@@ -129,7 +134,8 @@ export type TFlexibleContentLayout =
   | ISectionProductsCarousel
   | ISectionHero
   | ISectionVariant
-  | ISectionNewsletter;
+  | ISectionNewsletter
+  | ISectionReviewsTrustIndex;
 
 export interface ISlugItem {
   locale: string;
