@@ -26,7 +26,7 @@
     "@react-google-maps/api": "^2.20.6",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
-    "axios": "^1.8.4",
+    "axios": "1.8.4",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.1",
     "eslint-plugin-import": "^2.31.0",
@@ -74,7 +74,11 @@
   },
   "resolutions": {
     "@types/react": "19.2.0",
-    "@types/react-dom": "19.2.0"
+    "@types/react-dom": "19.2.0",
+    "axios": "1.8.4"
+  },
+  "overrides": {
+    "axios": "1.8.4"
   },
   "packageManager": "pnpm@9.0.0"
 }
