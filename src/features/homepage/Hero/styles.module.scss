@@ -1,7 +1,7 @@
 .hero-wrapper {
   display: flex;
   position: fixed;
-  top: $layout-top-padding-mobile;
+  top: calc(#{$layout-top-padding-mobile} + var(--info-bar-height, 0px));
   left: 0;
   z-index: 1;
   transition: top 0.3s ease-in-out;
@@ -74,7 +74,7 @@
   }
 
   @include respond-above($breakpoint-md) {
-    top: $layout-top-padding;
+    top: calc(#{$layout-top-padding} + var(--info-bar-height, 0px));
   }
 
   &--scrolling {

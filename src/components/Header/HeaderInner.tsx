@@ -6,6 +6,7 @@ import clsx from 'clsx';
 
 import { ContactAddressesBar } from '@/components/ContactAddressesBar';
 import { HamburgerMenu } from '@/components/HamburgerMenu';
+import { InfoBar } from '@/components/InfoBar';
 import { Logo } from '@/components/Logo';
 import { Search } from '@/components/Search';
 import { useOnScrollEvent } from '@/hooks/useOnScrollEvent';
@@ -41,6 +42,7 @@ export const HeaderInner = ({ navHeaderMenuItems }: IHeaderInnerProps) => {
       ref={headerRef}
     >
       <ContactAddressesBar className={styles['header_contact-address-bar']} />
+      <InfoBar />
       <div
         className={clsx(
           styles['header-inner-container'],

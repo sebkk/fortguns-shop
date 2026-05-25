@@ -25,12 +25,12 @@ body {
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-top: $layout-top-padding-mobile;
+  padding-top: calc(#{$layout-top-padding-mobile} + var(--info-bar-height, 0px));
 
   font-family: $default-font-family;
 
   @include respond-above($breakpoint-md) {
-    padding-top: $layout-top-padding;
+    padding-top: calc(#{$layout-top-padding} + var(--info-bar-height, 0px));
   }
 }
 
