@@ -18,7 +18,7 @@ interface IProductPagePaginationProps {
 }
 
 export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const revalidate = 7200;
 export const dynamicParams = true;
 
 export const generateMetadata = async () => {

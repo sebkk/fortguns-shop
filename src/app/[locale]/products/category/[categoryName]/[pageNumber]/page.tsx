@@ -17,7 +17,7 @@ interface IProductCategoryPaginationPageProps {
 }
 
 export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const revalidate = 7200;
 
 // export const generateStaticParams = async () => {
 //   const res = await categoriesApi.getCategories();

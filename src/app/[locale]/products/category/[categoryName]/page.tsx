@@ -17,7 +17,7 @@ interface ICategoryPageProps {
   }>;
 }
 
-export const revalidate = 3600;
+export const revalidate = 7200;
 export const dynamic = 'force-static';
 export const dynamicParams = true;
 

@@ -8,6 +8,8 @@ import {
   createProductsSitemaps,
 } from '@/helpers/sitemap';
 
+export const revalidate = 345600; // 4 days
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap[]> {
   try {
     buildLog({

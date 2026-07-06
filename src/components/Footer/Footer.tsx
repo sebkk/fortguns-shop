@@ -7,8 +7,6 @@ import { NavigationSection } from './NavigationSection';
 import { SocialsSection } from './SocialsSection/SocialsSection';
 import styles from './styles.module.scss';
 
-export const revalidate = 3000;
-
 export const Footer = async () => {
   const { nav_column, nav_about_us, follow_us } = footer;
 
