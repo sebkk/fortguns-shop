@@ -7,7 +7,7 @@ import { DEFAULT_LOCALE } from '@/constants/locales';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
-import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { getCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import { IProductListing } from '@/types/product';
 
@@ -52,7 +52,7 @@ const CategoryPage = async ({ params }: ICategoryPageProps) => {
   }
 
   const { products, totalPages, totalProducts } =
-    await fetchProducts<IProductListing>({
+    await cachedFetchProducts<IProductListing>({
       params: {
         per_page: PER_PAGE_DEFAULT,
         category: category?.id.toString(),

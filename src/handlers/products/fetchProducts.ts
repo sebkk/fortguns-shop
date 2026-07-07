@@ -1,5 +1,9 @@
+import { unstable_cache } from 'next/cache';
+
 import productsApi from '@/api/woocommerce/products';
+import { PRODUCTS_DATA_REVALIDATE } from '@/constants/cache';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
+import { createStableCacheKey } from '@/helpers/cache';
 import {
   IGetProductsParams,
   PRODUCTS_ORDER,
@@ -38,4 +42,32 @@ export const fetchProducts = async <T>({
       totalProducts: 0,
     };
   }
+};
+
+const cachedFetchProductsRequest = unstable_cache(
+  async (paramsCacheKey: string) =>
+    fetchProducts<unknown>({
+      params: JSON.parse(paramsCacheKey) as IGetProductsParams,
+    }),
+  ['products-listing'],
+  {
+    revalidate: PRODUCTS_DATA_REVALIDATE,
+    tags: ['products'],
+  },
+);
+
+export const cachedFetchProducts = async <T>({
+  params,
+}: {
+  params: IGetProductsParams;
+}): Promise<{
+  products: T[];
+  totalPages: number;
+  totalProducts: number;
+}> => {
+  return (await cachedFetchProductsRequest(createStableCacheKey(params))) as {
+    products: T[];
+    totalPages: number;
+    totalProducts: number;
+  };
 };

@@ -1,7 +1,7 @@
-import globalInfosApi from '@/api/global_infos';
 import productsApi from '@/api/woocommerce/products';
 import { GLOBAL_INFOS_NEWSLETTER_ID } from '@/constants/globalInfos';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
+import { cachedGetGlobalInfosById } from '@/handlers/globalInfos/getGlobalInfos';
 import {
   IProductListing,
   PRODUCTS_ORDER,
@@ -28,7 +28,7 @@ const mapProductsCarousel = async (section: ISectionProductsCarousel) => {
 };
 
 const mapNewsletter = async (section: ISectionNewsletter) => {
-  const globalInfosData = await globalInfosApi.getGlobalInfosById(
+  const globalInfosData = await cachedGetGlobalInfosById(
     GLOBAL_INFOS_NEWSLETTER_ID,
   );
 

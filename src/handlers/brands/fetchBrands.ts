@@ -1,6 +1,10 @@
+import { unstable_cache } from 'next/cache';
+
 import { AxiosResponse } from 'axios';
 
 import customAPI from '@/api/custom';
+import { CMS_DATA_REVALIDATE } from '@/constants/cache';
+import { createStableCacheKey } from '@/helpers/cache';
 import { IBrand, IGetBrandsParams, IGroupedBrands } from '@/types/brands';
 
 const groupBrandsByFirstLetter = (brands: IBrand[]): IGroupedBrands[] => {
@@ -81,4 +85,24 @@ export const fetchBrands = async ({
       totalBrands: 0,
     };
   }
+};
+
+const cachedFetchBrandsRequest = unstable_cache(
+  async (paramsCacheKey: string) =>
+    fetchBrands({
+      params: JSON.parse(paramsCacheKey) as IGetBrandsParams,
+    }),
+  ['brands-list'],
+  {
+    revalidate: CMS_DATA_REVALIDATE,
+    tags: ['brands'],
+  },
+);
+
+export const cachedFetchBrands = async ({
+  params = {},
+}: {
+  params?: IGetBrandsParams;
+} = {}) => {
+  return await cachedFetchBrandsRequest(createStableCacheKey(params));
 };

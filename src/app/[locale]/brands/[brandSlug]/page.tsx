@@ -6,7 +6,7 @@ import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { Products } from '@/features/products/Products';
-import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
+import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 
 export const revalidate = 7200;
 export const dynamic = 'force-static';
@@ -59,7 +59,7 @@ const BrandListingPage = async ({
   const { brandSlug } = await params;
 
   const { brand, products, totalPages, totalProducts } =
-    await fetchBrandBySlug(brandSlug);
+    await cachedFetchBrandBySlug(brandSlug);
 
   const {
     name: brandName,

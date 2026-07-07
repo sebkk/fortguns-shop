@@ -5,8 +5,8 @@ import { Spacer } from '@/components/Spacer';
 import { DYNAMIC_PAGE_BREADCRUMBS } from '@/constants/breadcrumbs/dynamicPages';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { fieldsStaticPaths } from '@/constants/pages';
-import { getPageContent } from '@/handlers/page/getPageContent';
-import { getPageMetadata } from '@/handlers/page/getPageMetadata';
+import { cachedGetPageContent } from '@/handlers/page/getPageContent';
+import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { TMetadataType } from '@/types/metadata';
 import { IWordPressPageStaticPaths } from '@/types/pages';
 
@@ -21,13 +21,13 @@ export async function generateMetadata({
 }) {
   const { dynamicSlug } = await params;
 
-  const { metadata } = await getPageMetadata(
+  const { metadata } = await cachedGetPageMetadata(
     dynamicSlug,
     {},
     TMetadataType.DYNAMIC_PAGE,
   );
 
-  const { pageTitle } = await getPageContent(dynamicSlug);
+  const { pageTitle } = await cachedGetPageContent(dynamicSlug);
 
   return {
     title: pageTitle,
@@ -42,7 +42,7 @@ const DynamicPage = async ({
 }) => {
   const { dynamicSlug } = await params;
 
-  const { pageTitle, sections } = await getPageContent(dynamicSlug);
+  const { pageTitle, sections } = await cachedGetPageContent(dynamicSlug);
   return (
     <div className='spacing-top-30'>
       <Breadcrumbs

@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import brandsAPI from '@/api/woocommerce/brands';
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
 import { BRANDS_FIELDS_FOR_METADATA } from '@/constants/brands';
@@ -5,7 +7,11 @@ import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { Products } from '@/features/products/Products';
-import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
+import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
+import {
+  getValidPaginationPage,
+  isPaginationPageOutOfRange,
+} from '@/helpers/pagination';
 
 export const dynamic = 'force-static';
 export const revalidate = 7200;
@@ -13,9 +19,13 @@ export const revalidate = 7200;
 export const generateMetadata = async ({
   params,
 }: {
-  params: Promise<{ brandSlug: string }>;
+  params: Promise<{ brandSlug: string; pageNumber: string }>;
 }) => {
-  const { brandSlug } = await params;
+  const { brandSlug, pageNumber } = await params;
+
+  if (!getValidPaginationPage(pageNumber)) {
+    notFound();
+  }
 
   const response = await brandsAPI.getBrand(brandSlug, {
     fields: BRANDS_FIELDS_FOR_METADATA.join(','),
@@ -41,15 +51,22 @@ const BrandListingPageNavigation = async ({
   params: Promise<{ brandSlug: string; pageNumber: string }>;
 }) => {
   const { brandSlug, pageNumber } = await params;
+  const page = getValidPaginationPage(pageNumber);
 
-  const { brand, products, totalPages, totalProducts } = await fetchBrandBySlug(
-    brandSlug,
-    {
+  if (!page) {
+    notFound();
+  }
+
+  const { brand, products, totalPages, totalProducts } =
+    await cachedFetchBrandBySlug(brandSlug, {
       productParams: {
-        page: +pageNumber,
+        page,
       },
-    },
-  );
+    });
+
+  if (!brand || isPaginationPageOutOfRange(page, totalPages)) {
+    notFound();
+  }
 
   const {
     name: brandName,
@@ -67,7 +84,7 @@ const BrandListingPageNavigation = async ({
         products={products}
         totalPages={totalPages}
         totalProducts={totalProducts}
-        pageNumber={+pageNumber}
+        pageNumber={page}
         pageTitle={brandName}
         pageDescription={brandDescription}
         brandId={brandId}

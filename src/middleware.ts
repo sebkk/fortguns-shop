@@ -9,14 +9,18 @@ import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
+const isPathnameOrSubpath = (pathname: string, route: string) =>
+  pathname === route || pathname.startsWith(`${route}/`);
+
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const testPagesPathname =
+    PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES][DEFAULT_LOCALE];
+  const testPagesPathnameEn = PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES]['en'];
 
   if (
-    pathname.includes(
-      PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES][DEFAULT_LOCALE].slice(1),
-    ) ||
-    pathname.includes(PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES]['en'].slice(1))
+    isPathnameOrSubpath(pathname, testPagesPathname) ||
+    isPathnameOrSubpath(pathname, testPagesPathnameEn)
   ) {
     const cookies = request.cookies;
 
@@ -97,6 +101,6 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|assets|favicon.ico|manifest.webmanifest|pictures|sitemap|robots.txt).*)',
+    '/((?!api|_next/static|_next/image|assets|favicon.ico|manifest.webmanifest|pictures|sitemap|robots.txt|.*\\..*).*)',
   ],
 };

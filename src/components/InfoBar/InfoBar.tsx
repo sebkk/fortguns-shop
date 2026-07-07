@@ -25,11 +25,45 @@ interface IInfoBarProps {
   className?: string;
 }
 
+let cachedInfoBarMessages: InfoBarMessage[] | null = null;
+let infoBarMessagesPromise: Promise<InfoBarMessage[]> | null = null;
+
 const setInfoBarCssHeight = (heightPx: number) => {
   document.documentElement.style.setProperty(
     '--info-bar-height',
     `${heightPx}px`,
   );
+};
+
+const fetchInfoBarMessages = async (signal: AbortSignal) => {
+  if (cachedInfoBarMessages) {
+    return cachedInfoBarMessages;
+  }
+
+  if (!infoBarMessagesPromise) {
+    infoBarMessagesPromise = axios
+      .get('/api/fetch-global-infos', {
+        params: {
+          id: GLOBAL_INFOS_INFO_BAR_ID,
+          fields: GLOBAL_INFOS_FIELDS.join(','),
+          fresh: '1',
+        },
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+        signal,
+      })
+      .then(({ data }) => parseInfoBarMessages(data))
+      .then((parsed) => {
+        cachedInfoBarMessages = parsed;
+        return parsed;
+      })
+      .finally(() => {
+        infoBarMessagesPromise = null;
+      });
+  }
+
+  return await infoBarMessagesPromise;
 };
 
 export const InfoBar = ({ initialMessages = [], className }: IInfoBarProps) => {
@@ -48,15 +82,7 @@ export const InfoBar = ({ initialMessages = [], className }: IInfoBarProps) => {
 
     (async () => {
       try {
-        const { data } = await axios.get('/api/fetch-global-infos', {
-          params: {
-            id: GLOBAL_INFOS_INFO_BAR_ID,
-            fields: GLOBAL_INFOS_FIELDS.join(','),
-          },
-          signal: controller.signal,
-        });
-
-        const parsed = parseInfoBarMessages(data);
+        const parsed = await fetchInfoBarMessages(controller.signal);
 
         if (parsed.length > 0) {
           setMessages(parsed);

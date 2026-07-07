@@ -4,9 +4,9 @@ import { BRANDS_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { BrandsPageContent } from '@/features/brands/BrandsPageContent';
-import { fetchBrands } from '@/handlers/brands/fetchBrands';
-import { getPageContent } from '@/handlers/page/getPageContent';
-import { getPageMetadata } from '@/handlers/page/getPageMetadata';
+import { cachedFetchBrands } from '@/handlers/brands/fetchBrands';
+import { cachedGetPageContent } from '@/handlers/page/getPageContent';
+import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { TMetadataType } from '@/types/metadata';
 
 export const revalidate = 86400;
@@ -14,7 +14,7 @@ export const dynamic = 'force-static';
 export const dynamicParams = false;
 
 export const generateMetadata = async () => {
-  const { metadata } = await getPageMetadata(
+  const { metadata } = await cachedGetPageMetadata(
     PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE].slice(1),
     {},
     TMetadataType.DEFAULT_PAGE,
@@ -24,11 +24,11 @@ export const generateMetadata = async () => {
 };
 
 const BrandsPage = async () => {
-  const { groupedBrands, totalBrands } = await fetchBrands({
+  const { groupedBrands, totalBrands } = await cachedFetchBrands({
     params: { per_page: 50 },
   });
 
-  const { sections, pageTitle } = await getPageContent(
+  const { sections, pageTitle } = await cachedGetPageContent(
     PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE].slice(1),
   );
 

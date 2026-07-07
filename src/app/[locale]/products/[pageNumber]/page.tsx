@@ -7,9 +7,13 @@ import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
-import { getPageContent } from '@/handlers/page/getPageContent';
-import { getPageMetadata } from '@/handlers/page/getPageMetadata';
-import { fetchProducts } from '@/handlers/products/fetchProducts';
+import { cachedGetPageContent } from '@/handlers/page/getPageContent';
+import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
+import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
+import {
+  getValidPaginationPage,
+  isPaginationPageOutOfRange,
+} from '@/helpers/pagination';
 import { TMetadataType } from '@/types/metadata';
 import { IProductListing } from '@/types/product';
 
@@ -21,8 +25,16 @@ export const dynamic = 'force-static';
 export const revalidate = 7200;
 export const dynamicParams = true;
 
-export const generateMetadata = async () => {
-  const { metadata } = await getPageMetadata(
+export const generateMetadata = async ({
+  params,
+}: IProductPagePaginationProps) => {
+  const { pageNumber } = await params;
+
+  if (!getValidPaginationPage(pageNumber)) {
+    notFound();
+  }
+
+  const { metadata } = await cachedGetPageMetadata(
     PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE].slice(1),
     {},
     TMetadataType.DEFAULT_PAGE,
@@ -35,20 +47,25 @@ const ProductPagePagination = async ({
   params,
 }: IProductPagePaginationProps) => {
   const { pageNumber } = await params;
+  const page = getValidPaginationPage(pageNumber);
 
-  if (isNaN(+pageNumber)) {
+  if (!page) {
     notFound();
   }
 
   const { products, totalPages, totalProducts } =
-    await fetchProducts<IProductListing>({
+    await cachedFetchProducts<IProductListing>({
       params: {
         per_page: PER_PAGE_DEFAULT,
-        page: pageNumber ? +pageNumber : 1,
+        page,
       },
     });
 
-  const { sections, pageTitle } = await getPageContent(
+  if (isPaginationPageOutOfRange(page, totalPages)) {
+    notFound();
+  }
+
+  const { sections, pageTitle } = await cachedGetPageContent(
     PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE].slice(1),
   );
 
@@ -59,7 +76,7 @@ const ProductPagePagination = async ({
         products={products}
         totalPages={totalPages}
         totalProducts={totalProducts}
-        pageNumber={+pageNumber}
+        pageNumber={page}
         pageTitle={pageTitle}
       />
       {sections && <ContentSections sections={sections} />}

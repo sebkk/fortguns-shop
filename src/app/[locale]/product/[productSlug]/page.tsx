@@ -8,7 +8,7 @@ import { ProductDescriptionSection } from '@/features/product/ProductDescription
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
 import { parseMetadata } from '@/handlers/page/getPageMetadata';
-import { fetchProductDetails } from '@/handlers/products/fetchProductDetails';
+import { cachedFetchProductDetails } from '@/handlers/products/fetchProductDetails';
 import { createProductDetailsBreadcrumbs } from '@/helpers/breadcrumbs/createProductDetailsBreadcrumbs';
 import { transformToMetadata } from '@/helpers/metadata/transformMetadata';
 import { TMetadataTransformResult, TMetadataType } from '@/types/metadata';
@@ -25,7 +25,7 @@ export async function generateMetadata({
 }) {
   try {
     const { productSlug } = await params;
-    const product = await fetchProductDetails<IProductDetailsMetadata>(
+    const product = await cachedFetchProductDetails<IProductDetailsMetadata>(
       productSlug,
       { _fields: PRODUCT_DETAILS_FIELDS_FOR_METADATA.join(',') },
     );
@@ -65,7 +65,7 @@ interface IProductPageProps {
 
 const ProductPage = async ({ params }: IProductPageProps) => {
   const { productSlug } = await params;
-  const product = await fetchProductDetails<IProductDetails>(productSlug);
+  const product = await cachedFetchProductDetails<IProductDetails>(productSlug);
 
   if (!product) {
     notFound();

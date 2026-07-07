@@ -1,10 +1,14 @@
+import { unstable_cache } from 'next/cache';
+
 // @ts-expect-error Importing HTMLToJSON from html-to-json-parser
 import { HTMLToJSON } from 'html-to-json-parser';
 
 import pagesApi from '@/api/pages';
 import rankMath from '@/api/rankmath';
+import { CMS_DATA_REVALIDATE } from '@/constants/cache';
 import { fieldsMetadata } from '@/constants/pages';
 import { buildLog } from '@/helpers/build/buildLog';
+import { createStableCacheKey } from '@/helpers/cache';
 import {
   filterMetadata,
   mapMetadata,
@@ -116,4 +120,30 @@ export const getPageMetadata = async (
       metadata: {} as TMetadataTransformResult,
     };
   }
+};
+
+const cachedGetPageMetadataRequest = unstable_cache(
+  async (
+    slug: string,
+    paramsCacheKey: string,
+    type: TMetadataType = TMetadataType.DEFAULT_PAGE,
+  ) =>
+    getPageMetadata(slug, JSON.parse(paramsCacheKey) as IGetPagesParams, type),
+  ['page-metadata'],
+  {
+    revalidate: CMS_DATA_REVALIDATE,
+    tags: ['pages'],
+  },
+);
+
+export const cachedGetPageMetadata = async (
+  slug: string = '',
+  params: IGetPagesParams = {},
+  type: TMetadataType = TMetadataType.DEFAULT_PAGE,
+): Promise<{ metadata: TMetadataTransformResult }> => {
+  return await cachedGetPageMetadataRequest(
+    slug,
+    createStableCacheKey(params),
+    type,
+  );
 };

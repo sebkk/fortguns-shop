@@ -2,8 +2,8 @@ import { ContentSections } from '@/components/ContentSections';
 import { LOCALES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PAGES_SLUGS } from '@/constants/pages';
-import { getPageContent } from '@/handlers/page/getPageContent';
-import { getPageMetadata } from '@/handlers/page/getPageMetadata';
+import { cachedGetPageContent } from '@/handlers/page/getPageContent';
+import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { TMetadataType } from '@/types/metadata';
 
 import styles from './styles.module.scss';
@@ -13,7 +13,7 @@ export const dynamicParams = false;
 export const revalidate = 43200;
 
 export const generateMetadata = async () => {
-  const { metadata } = await getPageMetadata(
+  const { metadata } = await cachedGetPageMetadata(
     PAGES_SLUGS[NAVIGATION_ROUTE.HOMEPAGE],
     {},
     TMetadataType.DEFAULT_PAGE,
@@ -29,7 +29,7 @@ export async function generateStaticParams() {
 }
 
 const Home = async () => {
-  const { sections } = await getPageContent(
+  const { sections } = await cachedGetPageContent(
     PAGES_SLUGS[NAVIGATION_ROUTE.HOMEPAGE],
   );
 

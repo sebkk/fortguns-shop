@@ -1,12 +1,15 @@
+import { unstable_cache } from 'next/cache';
 import { notFound } from 'next/navigation';
 
 import parseHTML from 'html-react-parser';
 
 import pagesApi from '@/api/pages';
+import { CMS_DATA_REVALIDATE } from '@/constants/cache';
 import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { fields } from '@/constants/pages';
 import { buildLog } from '@/helpers/build/buildLog';
+import { createStableCacheKey } from '@/helpers/cache';
 import { IGetPagesParams, IWordPressPageStandard } from '@/types/pages';
 import { TFlexibleContentLayout } from '@/types/sections';
 
@@ -71,4 +74,21 @@ export const getPageContent = async (
 
     return notFound();
   }
+};
+
+const cachedGetPageContentRequest = unstable_cache(
+  async (slug: string, paramsCacheKey: string) =>
+    getPageContent(slug, JSON.parse(paramsCacheKey) as IGetPagesParams),
+  ['page-content'],
+  {
+    revalidate: CMS_DATA_REVALIDATE,
+    tags: ['pages'],
+  },
+);
+
+export const cachedGetPageContent = async (
+  slug: string,
+  params: IGetPagesParams = {},
+): Promise<IGetPageContentResponse> => {
+  return await cachedGetPageContentRequest(slug, createStableCacheKey(params));
 };

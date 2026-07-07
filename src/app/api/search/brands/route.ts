@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import brandsAPI from '@/api/woocommerce/brands';
+import {
+  API_SEARCH_MAX_PER_PAGE,
+  API_SEARCH_MAX_QUERY_LENGTH,
+  PUBLIC_API_CACHE_HEADERS,
+} from '@/constants/cache';
 import { IGetBrandsParams } from '@/types/brands';
 
 export async function GET(request: NextRequest) {
@@ -11,7 +16,9 @@ export async function GET(request: NextRequest) {
     const params: IGetBrandsParams = {};
 
     if (searchParams.has('search')) {
-      params.search = searchParams.get('search') || undefined;
+      params.search =
+        searchParams.get('search')?.slice(0, API_SEARCH_MAX_QUERY_LENGTH) ||
+        undefined;
     }
 
     if (searchParams.has('fields')) {
@@ -21,7 +28,7 @@ export async function GET(request: NextRequest) {
     if (searchParams.has('per_page')) {
       const perPage = parseInt(searchParams.get('per_page') || '0', 10);
       if (perPage > 0) {
-        params.per_page = perPage;
+        params.per_page = Math.min(perPage, API_SEARCH_MAX_PER_PAGE);
       }
     }
 
@@ -39,6 +46,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(response.data, {
       status: 200,
       headers: {
+        ...PUBLIC_API_CACHE_HEADERS,
         'Content-Type': 'application/json',
         // Forward WordPress API headers
         'X-WP-Total': response.headers['x-wp-total'] || '0',
