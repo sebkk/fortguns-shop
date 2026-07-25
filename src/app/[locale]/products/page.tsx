@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { ContentSections } from '@/components/ContentSections';
+import { JsonLd } from '@/components/JsonLd';
 import { PRODUCTS_BREADCRUMBS } from '@/constants/breadcrumbs/products';
 import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
@@ -37,8 +38,15 @@ const ProductsPage = async () => {
     PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE].slice(1),
   );
 
+  const { metadata } = await cachedGetPageMetadata(
+    PATHNAMES[NAVIGATION_ROUTE.PRODUCTS_LISTING][DEFAULT_LOCALE].slice(1),
+    {},
+    TMetadataType.DEFAULT_PAGE,
+  );
+
   return (
     <>
+      <JsonLd scripts={metadata.scripts} />
       <Breadcrumbs items={PRODUCTS_BREADCRUMBS} size='large' />
       <Products
         products={products}

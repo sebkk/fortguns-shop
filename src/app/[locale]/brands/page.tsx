@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
 import { ContentSections } from '@/components/ContentSections';
+import { JsonLd } from '@/components/JsonLd';
 import { BRANDS_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
@@ -32,8 +33,15 @@ const BrandsPage = async () => {
     PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE].slice(1),
   );
 
+  const { metadata } = await cachedGetPageMetadata(
+    PATHNAMES[NAVIGATION_ROUTE.BRANDS][DEFAULT_LOCALE].slice(1),
+    {},
+    TMetadataType.DEFAULT_PAGE,
+  );
+
   return (
     <>
+      <JsonLd scripts={metadata.scripts} />
       <Breadcrumbs items={BRANDS_BREADCRUMBS} size='large' />
       <BrandsPageContent
         groupedBrands={groupedBrands}

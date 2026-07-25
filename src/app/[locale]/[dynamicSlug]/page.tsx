@@ -1,6 +1,7 @@
 import pagesApi from '@/api/pages';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { ContentSections } from '@/components/ContentSections';
+import { JsonLd } from '@/components/JsonLd';
 import { Spacer } from '@/components/Spacer';
 import { DYNAMIC_PAGE_BREADCRUMBS } from '@/constants/breadcrumbs/dynamicPages';
 import { DEFAULT_LOCALE } from '@/constants/locales';
@@ -43,8 +44,15 @@ const DynamicPage = async ({
   const { dynamicSlug } = await params;
 
   const { pageTitle, sections } = await cachedGetPageContent(dynamicSlug);
+  const { metadata } = await cachedGetPageMetadata(
+    dynamicSlug,
+    {},
+    TMetadataType.DYNAMIC_PAGE,
+  );
+
   return (
     <div className='spacing-top-30'>
+      <JsonLd scripts={metadata.scripts} />
       <Breadcrumbs
         items={DYNAMIC_PAGE_BREADCRUMBS(pageTitle as string)}
         size='large'

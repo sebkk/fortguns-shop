@@ -22,10 +22,7 @@ export const generateLdJsonData = async (
 
   if (type === TMetadataType.DYNAMIC_PAGE) {
     if (slug === PL_SLUGS[NAVIGATION_ROUTE.FAQ]) {
-      const faqPageGraph = await graphHandlers[slug](newGraph, slug);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (newGraph['@graph'] as any[]).push(faqPageGraph);
+      await graphHandlers[slug](newGraph, slug);
     }
   }
 
@@ -76,7 +73,7 @@ const graphHandlers = {
       };
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return (newGraph['@graph'] as any[]).push(faqPageGraph);
+      (newGraph['@graph'] as any[]).push(faqPageGraph);
     }
   },
 };

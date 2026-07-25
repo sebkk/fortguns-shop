@@ -1,4 +1,5 @@
 import { ContentSections } from '@/components/ContentSections';
+import { JsonLd } from '@/components/JsonLd';
 import { LOCALES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PAGES_SLUGS } from '@/constants/pages';
@@ -32,9 +33,15 @@ const Home = async () => {
   const { sections } = await cachedGetPageContent(
     PAGES_SLUGS[NAVIGATION_ROUTE.HOMEPAGE],
   );
+  const { metadata } = await cachedGetPageMetadata(
+    PAGES_SLUGS[NAVIGATION_ROUTE.HOMEPAGE],
+    {},
+    TMetadataType.DEFAULT_PAGE,
+  );
 
   return (
     <div className={styles['homepage-container']}>
+      <JsonLd scripts={metadata.scripts} />
       <ContentSections sections={sections} />
     </div>
   );

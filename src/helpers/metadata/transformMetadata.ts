@@ -57,6 +57,14 @@ export const transformToMetadata = async (
         if (metadata.openGraph) {
           if (item.content === 'product') {
             metadata.other!['og:type'] = 'product.group';
+          } else if (key === 'image') {
+            // Next.js only renders og:image from the plural `images` field.
+            metadata.openGraph.images = [
+              ...(Array.isArray(metadata.openGraph.images)
+                ? metadata.openGraph.images
+                : []),
+              item.content ?? '',
+            ];
           } else {
             (metadata.openGraph as Record<string, unknown>)[key] =
               item.content ?? '';
