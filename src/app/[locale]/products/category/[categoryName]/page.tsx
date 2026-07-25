@@ -2,13 +2,14 @@ import { notFound } from 'next/navigation';
 
 import categoriesApi from '@/api/woocommerce/categories';
 import { Breadcrumbs, IBreadcrumbItem } from '@/components/Breadcrumbs';
+import { JsonLd } from '@/components/JsonLd';
 import { CATEGORIES_FIELDS_FOR_STATIC_PARAMS } from '@/constants/categories';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
-import { getCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
+import { cachedGetCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import { IProductListing } from '@/types/product';
 
 interface ICategoryPageProps {
@@ -35,7 +36,7 @@ export const generateStaticParams = async () => {
 export const generateMetadata = async ({ params }: ICategoryPageProps) => {
   const { categoryName } = await params;
 
-  const { metadata } = await getCategoryProductMetadata(categoryName);
+  const { metadata } = await cachedGetCategoryProductMetadata(categoryName);
 
   return metadata;
 };
@@ -59,8 +60,11 @@ const CategoryPage = async ({ params }: ICategoryPageProps) => {
       },
     });
 
+  const { metadata } = await cachedGetCategoryProductMetadata(categoryName);
+
   return (
     <>
+      <JsonLd scripts={metadata.scripts} />
       <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
       <Products
         products={products}

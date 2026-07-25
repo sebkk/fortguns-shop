@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { unstable_cache } from 'next/cache';
 
 // @ts-expect-error Importing HTMLToJSON from html-to-json-parser
@@ -136,12 +138,17 @@ const cachedGetPageMetadataRequest = unstable_cache(
   },
 );
 
+// generateMetadata and the page render run in parallel, so they both miss the
+// data cache; the React cache dedupes them within a single request. It keys on
+// argument identity, so it only ever sees the serialised params.
+const dedupedGetPageMetadataRequest = cache(cachedGetPageMetadataRequest);
+
 export const cachedGetPageMetadata = async (
   slug: string = '',
   params: IGetPagesParams = {},
   type: TMetadataType = TMetadataType.DEFAULT_PAGE,
 ): Promise<{ metadata: TMetadataTransformResult }> => {
-  return await cachedGetPageMetadataRequest(
+  return await dedupedGetPageMetadataRequest(
     slug,
     createStableCacheKey(params),
     type,

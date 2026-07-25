@@ -1,18 +1,15 @@
 import { notFound } from 'next/navigation';
 
-import rankMath from '@/api/rankmath';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { JsonLd } from '@/components/JsonLd';
 import { Spacer } from '@/components/Spacer';
-import { PRODUCT_DETAILS_FIELDS_FOR_METADATA } from '@/constants/products';
 import { ProductDescriptionSection } from '@/features/product/ProductDescriptionSection';
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
-import { parseMetadata } from '@/handlers/page/getPageMetadata';
 import { cachedFetchProductDetails } from '@/handlers/products/fetchProductDetails';
+import { cachedGetProductMetadata } from '@/handlers/products/getProductMetadata';
 import { createProductDetailsBreadcrumbs } from '@/helpers/breadcrumbs/createProductDetailsBreadcrumbs';
-import { transformToMetadata } from '@/helpers/metadata/transformMetadata';
-import { TMetadataTransformResult, TMetadataType } from '@/types/metadata';
-import { IProductDetails, IProductDetailsMetadata } from '@/types/product';
+import { IProductDetails } from '@/types/product';
 
 export const dynamic = 'force-static';
 export const revalidate = 7200;
@@ -25,27 +22,8 @@ export async function generateMetadata({
 }) {
   try {
     const { productSlug } = await params;
-    const product = await cachedFetchProductDetails<IProductDetailsMetadata>(
-      productSlug,
-      { _fields: PRODUCT_DETAILS_FIELDS_FOR_METADATA.join(',') },
-    );
 
-    const rankMathResponse = await rankMath.getMetadata(
-      product?.permalink as string,
-    );
-
-    let metadata = {} as TMetadataTransformResult;
-
-    if (rankMathResponse.success) {
-      const metadataObjects = await parseMetadata(rankMathResponse);
-
-      const transformedMetadata = await transformToMetadata(metadataObjects, {
-        slug: productSlug,
-        type: TMetadataType.PRODUCT_PAGE,
-      });
-
-      metadata = transformedMetadata;
-    }
+    const { metadata } = await cachedGetProductMetadata(productSlug);
 
     return metadata;
   } catch (error) {
@@ -75,8 +53,11 @@ const ProductPage = async ({ params }: IProductPageProps) => {
 
   const breadcrumbs = createProductDetailsBreadcrumbs(name, categories);
 
+  const { metadata } = await cachedGetProductMetadata(productSlug);
+
   return (
     <>
+      <JsonLd scripts={metadata.scripts} />
       <Breadcrumbs items={breadcrumbs} size='large' />
       <Spacer size='lg' />
       <div className='container'>

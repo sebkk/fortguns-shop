@@ -5,7 +5,7 @@ import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
-import { getCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
+import { cachedGetCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import {
   getValidPaginationPage,
   isPaginationPageOutOfRange,
@@ -42,7 +42,7 @@ export const generateMetadata = async ({
     notFound();
   }
 
-  const { metadata } = await getCategoryProductMetadata(categoryName);
+  const { metadata } = await cachedGetCategoryProductMetadata(categoryName);
 
   return metadata;
 };
