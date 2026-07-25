@@ -124,6 +124,23 @@ export interface ISectionReviewsTrustIndex extends ISectionOptions {
   widget_id: string;
 }
 
+export interface ISectionReviewsGoogleItem {
+  author: string;
+  rating: number | string;
+  date_label: string;
+  content: string;
+}
+
+export interface ISectionReviewsGoogle
+  extends ITitleAndDescription,
+    ISectionOptions {
+  acf_fc_layout: 'section_reviews_google';
+  rating_value: number | string;
+  reviews_count: number | string;
+  google_profile_url: string;
+  reviews: ISectionReviewsGoogleItem[];
+}
+
 export type TFlexibleContentLayout =
   | ISectionPageHeader
   | ISpacerSection
@@ -135,7 +152,8 @@ export type TFlexibleContentLayout =
   | ISectionHero
   | ISectionVariant
   | ISectionNewsletter
-  | ISectionReviewsTrustIndex;
+  | ISectionReviewsTrustIndex
+  | ISectionReviewsGoogle;
 
 export interface ISlugItem {
   locale: string;

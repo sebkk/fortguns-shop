@@ -7,6 +7,7 @@ import {
   ISectionNewsletter,
   ISectionPageHeader,
   ISectionProductsCarousel,
+  ISectionReviewsGoogle,
   ISectionReviewsTrustIndex,
   ISectionVariant,
   ISpacerSection,
@@ -31,6 +32,8 @@ export type TSectionNewsletterProps =
   IHandlerComponentsProps<ISectionNewsletter>;
 export type TSectionReviewsTrustIndexProps =
   IHandlerComponentsProps<ISectionReviewsTrustIndex>;
+export type TSectionReviewsGoogleProps =
+  IHandlerComponentsProps<ISectionReviewsGoogle>;
 export type THandlerComponentsProps = TSectionPageHeaderProps &
   TSpacerSectionProps &
   TSectionAccordionProps &
@@ -56,5 +59,8 @@ export interface IHandlerComponents {
   section_newsletter: (props: TSectionNewsletterProps) => React.ReactNode;
   section_reviews_trustindex: (
     props: TSectionReviewsTrustIndexProps,
+  ) => React.ReactNode;
+  section_reviews_google: (
+    props: TSectionReviewsGoogleProps,
   ) => React.ReactNode;
 }

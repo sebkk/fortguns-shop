@@ -1,0 +1,144 @@
+$color-star: #fbbc04; // Google review star gold
+
+.reviews-section {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(24);
+}
+
+.reviews-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: to-rem(16);
+}
+
+.reviews-summary-rating {
+  display: flex;
+  align-items: center;
+  gap: to-rem(16);
+}
+
+.reviews-summary-rating-value {
+  font-size: to-rem(48);
+  font-weight: 700;
+  line-height: 1;
+  color: $color-text-default;
+}
+
+.reviews-summary-rating-count {
+  margin-top: to-rem(4);
+  color: $color-text-dark;
+  font-size: to-rem(14);
+}
+
+.reviews-summary-link {
+  border: 1px solid $color-border-light;
+  border-radius: to-rem(8);
+  padding: to-rem(10) to-rem(16);
+  color: $color-text-button-primary;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition:
+    border-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+
+  &:hover {
+    border-color: $color-primary-dark;
+    color: $color-primary-light;
+  }
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(to-rem(270), 1fr));
+  gap: to-rem(16);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(12);
+  border: 1px solid $color-border-default;
+  border-radius: to-rem(12);
+  background-color: $color-background-light;
+  padding: to-rem(20);
+}
+
+.review-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: to-rem(8);
+}
+
+.review-card-source {
+  color: $color-text-bg-dark;
+  font-size: to-rem(12);
+}
+
+.review-card-content {
+  color: $color-text-medium-dark;
+  font-size: to-rem(15);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: to-rem(8);
+  margin-top: auto;
+}
+
+.review-card-author {
+  color: $color-text-default;
+  font-weight: 600;
+  font-size: to-rem(14);
+}
+
+.review-card-date {
+  color: $color-text-bg-dark;
+  font-size: to-rem(12);
+}
+
+// Star rating: an empty row with a width-clipped filled row on top,
+// so fractional ratings (e.g. 4.8) render correctly.
+.stars {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.stars-row {
+  display: inline-flex;
+  gap: to-rem(2);
+}
+
+.stars-row-filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-flex;
+  gap: to-rem(2);
+}
+
+.star--empty {
+  color: $color-gray-dark-2;
+  flex-shrink: 0;
+}
+
+.star--filled {
+  color: $color-star;
+  flex-shrink: 0;
+}
