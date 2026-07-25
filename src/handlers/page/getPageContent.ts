@@ -10,6 +10,7 @@ import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { fields } from '@/constants/pages';
 import { buildLog } from '@/helpers/build/buildLog';
 import { createStableCacheKey } from '@/helpers/cache';
+import { toSectionsArray } from '@/helpers/flexibleContent';
 import { IGetPagesParams, IWordPressPageStandard } from '@/types/pages';
 import { TFlexibleContentLayout } from '@/types/sections';
 
@@ -48,7 +49,7 @@ export const getPageContent = async (
       return notFound();
     }
 
-    const sections = await mapPageSectionsData(acf?.sections || []);
+    const sections = await mapPageSectionsData(toSectionsArray(acf?.sections));
 
     buildLog({
       type: 'success',

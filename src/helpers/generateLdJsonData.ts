@@ -3,6 +3,7 @@ import { Graph } from 'schema-dts';
 import pagesApi from '@/api/pages';
 import { NAVIGATION_ROUTE, PL_SLUGS } from '@/constants/navigation';
 import { fieldsFaqPage } from '@/constants/pages';
+import { toSectionsArray } from '@/helpers/flexibleContent';
 import { TMetadataType } from '@/types/metadata';
 import { IWordPressPageFaqPageMetadata } from '@/types/pages';
 
@@ -48,7 +49,7 @@ const graphHandlers = {
           status: 'publish',
         });
 
-      const sections = faqPageDataSections?.[0]?.acf?.sections || [];
+      const sections = toSectionsArray(faqPageDataSections?.[0]?.acf?.sections);
 
       const faqQuestions =
         sections?.find(
