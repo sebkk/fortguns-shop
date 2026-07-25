@@ -1,7 +1,11 @@
 import clsx from 'clsx';
 
 import { THandlerComponentsProps } from '@/types/handlerComponents';
-import { TFlexibleContentLayout } from '@/types/sections';
+import {
+  ESectionBackground,
+  ESectionLayout,
+  TFlexibleContentLayout,
+} from '@/types/sections';
 
 import { handlerComponents } from './handlerComponents';
 import styles from './SectionHandler.module.scss';
@@ -19,7 +23,10 @@ export const SectionHandler = ({ section }: ISectionHandlerProps) => {
     return handlerComponent({ section } as THandlerComponentsProps);
 
   const { section_options } = section;
-  const { section_layout, section_background } = section_options;
+  const {
+    section_layout = ESectionLayout.CONTAINER,
+    section_background = ESectionBackground.DEFAULT,
+  } = section_options ?? {};
 
   const sectionClassName = clsx(
     styles[`section-handler_${section_background}`],
