@@ -5,6 +5,7 @@ import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PAGES_SLUGS } from '@/constants/pages';
 import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
+import { withCanonical } from '@/helpers/metadata/canonical';
 import { TMetadataType } from '@/types/metadata';
 
 import styles from './styles.module.scss';
@@ -20,7 +21,7 @@ export const generateMetadata = async () => {
     TMetadataType.DEFAULT_PAGE,
   );
 
-  return metadata;
+  return withCanonical(metadata, NAVIGATION_ROUTE.HOMEPAGE);
 };
 
 export async function generateStaticParams() {

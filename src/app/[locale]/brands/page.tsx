@@ -8,6 +8,7 @@ import { BrandsPageContent } from '@/features/brands/BrandsPageContent';
 import { cachedFetchBrands } from '@/handlers/brands/fetchBrands';
 import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
+import { withCanonical } from '@/helpers/metadata/canonical';
 import { TMetadataType } from '@/types/metadata';
 
 export const revalidate = 86400;
@@ -21,7 +22,7 @@ export const generateMetadata = async () => {
     TMetadataType.DEFAULT_PAGE,
   );
 
-  return metadata;
+  return withCanonical(metadata, NAVIGATION_ROUTE.BRANDS);
 };
 
 const BrandsPage = async () => {

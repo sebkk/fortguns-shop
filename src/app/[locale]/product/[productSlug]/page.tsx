@@ -3,12 +3,14 @@ import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { JsonLd } from '@/components/JsonLd';
 import { Spacer } from '@/components/Spacer';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { ProductDescriptionSection } from '@/features/product/ProductDescriptionSection';
 import { ProductMainSection } from '@/features/product/ProductMainSection';
 import { ProductRelatedItems } from '@/features/product/ProductRelatedItems';
 import { cachedFetchProductDetails } from '@/handlers/products/fetchProductDetails';
 import { cachedGetProductMetadata } from '@/handlers/products/getProductMetadata';
 import { createProductDetailsBreadcrumbs } from '@/helpers/breadcrumbs/createProductDetailsBreadcrumbs';
+import { withCanonical } from '@/helpers/metadata/canonical';
 import { IProductDetails } from '@/types/product';
 
 export const dynamic = 'force-static';
@@ -25,7 +27,9 @@ export async function generateMetadata({
 
     const { metadata } = await cachedGetProductMetadata(productSlug);
 
-    return metadata;
+    return withCanonical(metadata, NAVIGATION_ROUTE.PRODUCT_DETAILS, {
+      productSlug,
+    });
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {

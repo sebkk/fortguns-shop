@@ -5,11 +5,13 @@ import { Breadcrumbs, IBreadcrumbItem } from '@/components/Breadcrumbs';
 import { JsonLd } from '@/components/JsonLd';
 import { CATEGORIES_FIELDS_FOR_STATIC_PARAMS } from '@/constants/categories';
 import { DEFAULT_LOCALE } from '@/constants/locales';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
 import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { cachedGetCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
+import { withCanonical } from '@/helpers/metadata/canonical';
 import { IProductListing } from '@/types/product';
 
 interface ICategoryPageProps {
@@ -38,7 +40,9 @@ export const generateMetadata = async ({ params }: ICategoryPageProps) => {
 
   const { metadata } = await cachedGetCategoryProductMetadata(categoryName);
 
-  return metadata;
+  return withCanonical(metadata, NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY, {
+    categoryName,
+  });
 };
 
 const CategoryPage = async ({ params }: ICategoryPageProps) => {

@@ -8,6 +8,7 @@ import { DEFAULT_LOCALE } from '@/constants/locales';
 import { fieldsStaticPaths } from '@/constants/pages';
 import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
+import { withCanonicalSlug } from '@/helpers/metadata/canonical';
 import { TMetadataType } from '@/types/metadata';
 import { IWordPressPageStaticPaths } from '@/types/pages';
 
@@ -30,10 +31,13 @@ export async function generateMetadata({
 
   const { pageTitle } = await cachedGetPageContent(dynamicSlug);
 
-  return {
-    title: pageTitle,
-    ...metadata,
-  };
+  return withCanonicalSlug(
+    {
+      title: pageTitle,
+      ...metadata,
+    },
+    dynamicSlug,
+  );
 }
 
 const DynamicPage = async ({

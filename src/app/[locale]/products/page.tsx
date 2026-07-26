@@ -9,6 +9,7 @@ import { Products } from '@/features/products/Products';
 import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
+import { withCanonical } from '@/helpers/metadata/canonical';
 import { TMetadataType } from '@/types/metadata';
 import { IProductListing } from '@/types/product';
 
@@ -22,7 +23,7 @@ export const generateMetadata = async () => {
     TMetadataType.DEFAULT_PAGE,
   );
 
-  return metadata;
+  return withCanonical(metadata, NAVIGATION_ROUTE.PRODUCTS_LISTING);
 };
 
 const ProductsPage = async () => {
