@@ -10,6 +10,7 @@ import { Products } from '@/features/products/Products';
 import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
+import { withCanonical } from '@/helpers/metadata/canonical';
 import {
   getValidPaginationPage,
   isPaginationPageOutOfRange,
@@ -40,7 +41,9 @@ export const generateMetadata = async ({
     TMetadataType.DEFAULT_PAGE,
   );
 
-  return metadata;
+  return withCanonical(metadata, NAVIGATION_ROUTE.PRODUCTS_LISTING_PAGINATION, {
+    pageNumber,
+  });
 };
 
 const ProductPagePagination = async ({
