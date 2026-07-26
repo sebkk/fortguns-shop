@@ -200,8 +200,15 @@ table {
   box-sizing: border-box;
 }
 
-*:focus {
+// Pointer users never needed the ring; keyboard users did, and the blanket
+// `*:focus { outline: none }` that used to live here took it from everyone.
+*:focus:not(:focus-visible) {
   outline: none;
+}
+
+*:focus-visible {
+  outline: to-rem(2) solid $color-brass-default;
+  outline-offset: to-rem(2);
 }
 
 html,

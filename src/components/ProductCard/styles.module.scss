@@ -1,6 +1,9 @@
 .product-card {
   position: relative;
 
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
   border: to-rem(2) solid $color-text-button-secondary;
   border-radius: to-rem(20);
   background-color: $color-background-light;
@@ -8,6 +11,24 @@
   height: 100%;
 
   @include box-shadow();
+
+  // The whole card is a link, but nothing said so on hover.
+  &:hover {
+    transform: translateY(to-rem(-2));
+    border-color: $color-primary-dark;
+  }
+
+  &:has(:focus-visible) {
+    border-color: $color-primary-default;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: border-color 0.2s ease;
+
+    &:hover {
+      transform: none;
+    }
+  }
 }
 
 .product-card-link {

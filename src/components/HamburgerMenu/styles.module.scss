@@ -13,10 +13,6 @@
     color: $color-primary-dark;
   }
 
-  &:focus {
-    outline: none;
-  }
-
   &__svg {
     width: to-rem(24);
     height: to-rem(24);

@@ -43,7 +43,10 @@
 
   &-input-wrapper {
     flex: 1;
-    transition: all 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
     max-width: 0;
     overflow: hidden;
     pointer-events: none;
@@ -63,10 +66,6 @@
 
     color: $color-white-default;
     font-size: to-rem(14);
-
-    &:focus {
-      outline: none;
-    }
 
     &::placeholder {
       color: $color-white-1;
