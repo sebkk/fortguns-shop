@@ -184,7 +184,7 @@ export async function POST(request: NextRequest) {
     // Create HTML email content
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #333; border-bottom: 2px solid #627d4c; padding-bottom: 10px;">
+        <h2 style="color: #333; border-bottom: 2px solid #c08a3e; padding-bottom: 10px;">
           Nowa wiadomość z formularza kontaktowego
         </h2>
         

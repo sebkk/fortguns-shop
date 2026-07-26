@@ -4,10 +4,21 @@ $base-font-size-for-rem: 16;
 
 // COLORS
 
-$color-primary-default: #627d4c;
-$color-primary-light: #7b9c60;
-$color-primary-dark: #4d633b;
-$color-primary-dark-2: #3a4a30;
+// Brass — the brand colour. Named separately from the semantic warning tones,
+// which sit close in hue, so the two never get confused.
+$color-brass-default: #c08a3e;
+$color-brass-light: #d6a25a;
+$color-brass-dark: #96682a;
+$color-brass-darker: #6b4a1e;
+
+// The brand used to be an olive green that sat at 4.16:1 on the page
+// background — under the 4.5:1 needed for text — and read as a near-twin of
+// $color-success. Brass clears both problems; green now only ever means
+// "this worked".
+$color-primary-default: $color-brass-default;
+$color-primary-light: $color-brass-light;
+$color-primary-dark: $color-brass-dark;
+$color-primary-dark-2: $color-brass-darker;
 
 $color-secondary-default: #2e5c78;
 $color-secondary-light: #407a9c;
@@ -17,19 +28,15 @@ $color-accent-default: #5c6b70;
 $color-accent-light: #7c8a8f;
 $color-accent-dark: #464f53;
 
-// Brass — warm highlight for editorial surfaces, kept apart from the semantic
-// warning tones so the two never get confused.
-$color-brass-default: #c08a3e;
-$color-brass-light: #d6a25a;
-$color-brass-dark: #96682a;
-
 // Hairlines biased towards the brass rather than the olive-tinted default
 // border, so the rules read as warm without competing with the accent itself.
 $color-border-brass: #3e2d20;
 $color-border-brass-light: #533d26;
 
 $color-border-default: #242d25;
-$color-border-light: #4f5b47;
+// Warmed to match the brand, and lifted to 3.21:1 so it actually reads as the
+// edge of a control — the olive it replaced sat at 2.67:1.
+$color-border-light: #74604a;
 $color-border-dark: #1a1f16;
 $color-border-dark-2: #98989879;
 
@@ -66,7 +73,10 @@ $color-text-default: #dddddd;
 $color-text-medium-dark: #cacacaf0;
 $color-text-dark: #bababad8;
 $color-text-bg-dark: #ffffff61;
-$color-text-primary: #627d4c;
+$color-text-primary: $color-brass-default;
+// Brass is a light fill, so text sitting on it has to be dark — white would
+// drop to 3.02:1. Solid brass surfaces use this instead.
+$color-text-on-brass: #161a16;
 $color-text-secondary: #2e5c78;
 $color-text-accent: #5c6b70;
 $color-text-button-primary: #ffffff;

@@ -12,6 +12,8 @@
   &--c-primary {
     border: to-rem(1) solid $color-primary-default;
     background-color: $color-primary-light;
+    // Light brass fill needs a dark label; white would sit at 2.29:1.
+    color: $color-text-on-brass;
   }
 
   &--c-error {

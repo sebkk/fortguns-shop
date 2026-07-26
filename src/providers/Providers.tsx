@@ -6,7 +6,8 @@ import { ProgressProvider } from '@bprogress/next/app';
 import { ReCaptchaProvider } from './ReCaptchaProvider';
 import { ScrollProvider } from './ScrollProvider';
 
-const COLOR_PRIMARY_DARK = '#4d633b';
+// Keep in step with $color-primary-dark in _variables.scss.
+const COLOR_PRIMARY_DARK = '#96682a';
 
 export const Providers = ({ children }: { children: ReactNode }) => {
   return (
