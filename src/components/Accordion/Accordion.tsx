@@ -24,7 +24,10 @@ export const Accordion = ({ title, content }: AccordionProps) => {
   return (
     <div className={styles['accordion-item']}>
       <button
-        className={styles['accordion-button']}
+        className={clsx(
+          styles['accordion-button'],
+          isOpen && styles['accordion-button-open'],
+        )}
         onClick={toggleOpen}
         aria-expanded={isOpen}
       >

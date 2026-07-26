@@ -1,6 +1,5 @@
 .accordion-item {
-  border-radius: to-rem(10);
-  background-color: $color-background-light;
+  border-bottom: to-rem(1) solid $color-border-default;
   overflow: hidden;
 }
 
@@ -8,19 +7,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: to-rem(16);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease;
   cursor: pointer;
   border: none;
-  background-color: $color-background-light;
-  padding: to-rem(20) to-rem(24);
+  border-left: to-rem(2) solid transparent;
+  background-color: transparent;
+  padding: to-rem(18) to-rem(12) to-rem(18) to-rem(16);
   width: 100%;
 
   color: $color-text-default;
 
   text-align: left;
 
-  &:focus {
-    outline: none;
+  &:hover {
+    background-color: $color-background-dark;
+    color: $color-white-default;
   }
+
+  &:focus-visible {
+    outline: to-rem(2) solid $color-brass-default;
+    outline-offset: to-rem(-2);
+  }
+}
+
+.accordion-button-open {
+  border-left-color: $color-brass-default;
+  background-color: $color-background-dark;
 }
 
 .accordion-title {
@@ -28,12 +44,16 @@
 }
 
 .accordion-icon {
+  flex: none;
   transform: rotate(0deg);
-  transition: transform 0.3s ease-in-out;
+  transition:
+    transform 0.25s ease-in-out,
+    color 0.18s ease;
 }
 
 .accordion-icon-open {
   transform: rotate(180deg);
+  color: $color-brass-default;
 }
 
 .accordion-content-wrapper {
@@ -49,7 +69,7 @@
 .accordion-content-grid {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease-in-out;
+  transition: grid-template-rows 0.28s ease-in-out;
 }
 
 .accordion-content-grid-open {
@@ -61,10 +81,23 @@
 }
 
 .accordion-content-padding {
-  background-color: $color-background-dark;
-  padding: to-rem(20) to-rem(24);
+  border-left: to-rem(2) solid $color-brass-default;
+  background-color: transparent;
+  padding: 0 to-rem(40) to-rem(20) to-rem(16);
+  max-width: to-rem(720);
 }
 
 .accordion-text {
-  line-height: 1.5;
+  color: $color-text-dark;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-button,
+  .accordion-icon,
+  .accordion-content-grid,
+  .accordion-content-wrapper {
+    transition: none;
+  }
 }

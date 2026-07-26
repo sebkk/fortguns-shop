@@ -1,14 +1,123 @@
-.section-accordion-item {
+.faq-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: to-rem(8);
   margin-bottom: to-rem(40);
+  border-top: to-rem(1) solid $color-border-default;
+  border-bottom: to-rem(1) solid $color-border-default;
+  padding: to-rem(18) 0;
+  list-style: none;
+}
+
+.faq-nav-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: to-rem(8);
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease;
+  border: to-rem(1) solid $color-border-default;
+  border-radius: to-rem(999);
+  background-color: $color-background-light;
+  padding: to-rem(6) to-rem(16);
+
+  color: $color-text-dark;
+
+  font-size: to-rem(14);
+  text-decoration: none;
+
+  &:hover {
+    border-color: $color-brass-default;
+    color: $color-white-default;
+  }
+
+  &:focus-visible {
+    outline: to-rem(2) solid $color-brass-default;
+    outline-offset: to-rem(2);
+  }
+}
+
+.faq-nav-count {
+  color: $color-brass-default;
+  font-variant-numeric: tabular-nums;
+  font-size: to-rem(12);
+}
+
+.section-accordion-item {
+  margin-bottom: to-rem(48);
+  scroll-margin-top: to-rem(96);
+}
+
+.section-accordion-item-head {
+  display: flex;
+  align-items: baseline;
+  gap: to-rem(14);
+  border-bottom: to-rem(1) solid $color-border-default;
+  padding-bottom: to-rem(12);
+  margin-bottom: to-rem(4);
 }
 
 .section-accordion-item-title {
-  margin-bottom: to-rem(20);
+  margin: 0;
+}
+
+.section-accordion-item-count {
+  flex: none;
+  color: $color-brass-default;
+  font-variant-numeric: tabular-nums;
+  font-size: to-rem(13);
+  white-space: nowrap;
 }
 
 .section-accordion-item-list {
   display: flex;
   flex-direction: column;
+}
 
-  gap: to-rem(20);
+.faq-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: to-rem(16) to-rem(32);
+  margin-top: to-rem(16);
+  border: to-rem(1) solid $color-border-default;
+  border-top: to-rem(2) solid $color-brass-default;
+  border-radius: to-rem(10);
+  background-color: $color-background-light;
+  padding: to-rem(28);
+}
+
+.faq-cta-copy {
+  flex: 1 1 to-rem(280);
+}
+
+.faq-cta-title {
+  margin: 0 0 to-rem(6);
+}
+
+.faq-cta-text {
+  margin: 0;
+  color: $color-text-dark;
+}
+
+.faq-cta-link {
+  transition: background-color 0.18s ease;
+  border-radius: to-rem(6);
+  background-color: $color-brass-default;
+  padding: to-rem(12) to-rem(28);
+
+  color: $color-background-default;
+
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $color-brass-light;
+  }
+
+  &:focus-visible {
+    outline: to-rem(2) solid $color-text-default;
+    outline-offset: to-rem(3);
+  }
 }
