@@ -3,8 +3,8 @@
   flex-wrap: wrap;
   gap: to-rem(8);
   margin-bottom: to-rem(40);
-  border-top: to-rem(1) solid $color-border-default;
-  border-bottom: to-rem(1) solid $color-border-default;
+  border-top: to-rem(1) solid $color-border-brass-light;
+  border-bottom: to-rem(1) solid $color-border-brass-light;
   padding: to-rem(18) 0;
   list-style: none;
 }
@@ -16,7 +16,7 @@
   transition:
     border-color 0.18s ease,
     color 0.18s ease;
-  border: to-rem(1) solid $color-border-default;
+  border: to-rem(1) solid $color-border-brass;
   border-radius: to-rem(999);
   background-color: $color-background-light;
   padding: to-rem(6) to-rem(16);
@@ -52,7 +52,7 @@
   display: flex;
   align-items: baseline;
   gap: to-rem(14);
-  border-bottom: to-rem(1) solid $color-border-default;
+  border-bottom: to-rem(1) solid $color-border-brass-light;
   padding-bottom: to-rem(12);
   margin-bottom: to-rem(4);
 }
@@ -80,7 +80,7 @@
   align-items: center;
   gap: to-rem(16) to-rem(32);
   margin-top: to-rem(16);
-  border: to-rem(1) solid $color-border-default;
+  border: to-rem(1) solid $color-border-brass;
   border-top: to-rem(2) solid $color-brass-default;
   border-radius: to-rem(10);
   background-color: $color-background-light;
