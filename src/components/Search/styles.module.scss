@@ -9,7 +9,7 @@
     width 0.3s ease;
 
   border: to-rem(0.5) solid $color-white-1;
-  border-radius: to-rem(10);
+  border-radius: to-rem($radius-lg);
 
   width: to-rem(40);
   max-width: to-rem(40);

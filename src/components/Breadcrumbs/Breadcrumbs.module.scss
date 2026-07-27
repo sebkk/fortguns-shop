@@ -35,7 +35,7 @@
   &:focus {
     outline: 2px solid $color-primary-light;
     outline-offset: 2px;
-    border-radius: to-rem(4);
+    border-radius: to-rem($radius-sm);
   }
 }
 
@@ -91,15 +91,15 @@
   }
 
   .breadcrumbs--small {
-    font-size: to-rem(11);
+    font-size: to-rem(12);
   }
 
   .breadcrumbs--medium {
-    font-size: to-rem(13);
+    font-size: to-rem(14);
   }
 
   .breadcrumbs--large {
-    font-size: to-rem(15);
+    font-size: to-rem(16);
   }
 }
 

@@ -12,7 +12,7 @@
 
   border: to-rem(1) solid $color-white-1;
 
-  border-radius: to-rem(10);
+  border-radius: to-rem($radius-lg);
   background: $color-background-default;
 
   width: var(--search-dropdown-width);
@@ -45,7 +45,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: to-rem(20);
+    border-radius: to-rem($radius-xl);
     background: $color-primary-dark;
   }
 

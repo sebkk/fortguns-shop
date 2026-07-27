@@ -1,5 +1,5 @@
 .gallery-carousel {
-  border-radius: to-rem(8);
+  border-radius: to-rem($radius-md);
   padding: to-rem(10);
 
   width: 100%;
@@ -38,7 +38,7 @@
 }
 
 .gallery-carousel_image {
-  border-radius: to-rem(8);
+  border-radius: to-rem($radius-md);
 
   width: 100%;
   height: auto;
@@ -122,7 +122,7 @@
     opacity: 0.4;
     transition: opacity 0.3s ease;
     cursor: pointer;
-    border-radius: to-rem(4);
+    border-radius: to-rem($radius-sm);
     width: auto;
     height: to-rem(80);
     overflow: hidden;

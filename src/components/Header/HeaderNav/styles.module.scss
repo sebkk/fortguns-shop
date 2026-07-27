@@ -84,7 +84,7 @@
 
 .submenu-decorator {
   flex: 1 1 0%;
-  border-radius: to-rem(10);
+  border-radius: to-rem($radius-lg);
   background-color: $color-background-dark;
 }
 

@@ -4,7 +4,7 @@
   }
 
   &--rounded {
-    border-radius: to-rem(10);
+    border-radius: to-rem($radius-lg);
   }
 
   &--with-border {

@@ -5,7 +5,7 @@
     border-color 0.2s ease,
     transform 0.2s ease;
   border: to-rem(2) solid $color-text-button-secondary;
-  border-radius: to-rem(20);
+  border-radius: to-rem($radius-xl);
   background-color: $color-background-light;
   padding: to-rem(20);
   height: 100%;

@@ -1,10 +1,10 @@
 .label {
   display: block;
 
-  border-radius: to-rem(12);
+  border-radius: to-rem($radius-lg);
   padding: to-rem(6) to-rem(12);
   color: $color-text-button-primary;
-  font-size: to-rem(13);
+  font-size: to-rem(14);
   line-height: 1.1;
 
   text-transform: uppercase;

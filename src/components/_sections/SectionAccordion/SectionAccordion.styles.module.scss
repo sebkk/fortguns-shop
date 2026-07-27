@@ -17,7 +17,7 @@
     border-color 0.18s ease,
     color 0.18s ease;
   border: to-rem(1) solid $color-border-brass;
-  border-radius: to-rem(999);
+  border-radius: to-rem($radius-full);
   background-color: $color-background-light;
   padding: to-rem(6) to-rem(16);
 
@@ -65,7 +65,7 @@
   flex: none;
   color: $color-brass-default;
   font-variant-numeric: tabular-nums;
-  font-size: to-rem(13);
+  font-size: to-rem(14);
   white-space: nowrap;
 }
 
@@ -82,7 +82,7 @@
   margin-top: to-rem(16);
   border: to-rem(1) solid $color-border-brass;
   border-top: to-rem(2) solid $color-brass-default;
-  border-radius: to-rem(10);
+  border-radius: to-rem($radius-lg);
   background-color: $color-background-light;
   padding: to-rem(28);
 }
@@ -102,7 +102,7 @@
 
 .faq-cta-link {
   transition: background-color 0.18s ease;
-  border-radius: to-rem(6);
+  border-radius: to-rem($radius-md);
   background-color: $color-brass-default;
   padding: to-rem(12) to-rem(28);
 

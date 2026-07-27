@@ -2,6 +2,6 @@
   iframe {
     outline: to-rem(1) solid $color-accent-dark;
     @include box-shadow();
-    border-radius: to-rem(10);
+    border-radius: to-rem($radius-lg);
   }
 }

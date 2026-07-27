@@ -5,7 +5,7 @@
     border-color 0.2s ease-in-out,
     box-shadow 0.2s ease-in-out;
   border: to-rem(2) solid $color-border-dark-2;
-  border-radius: to-rem(6);
+  border-radius: to-rem($radius-md);
   background-color: $color-background-2;
   padding: to-rem(10) to-rem(12);
   width: 100%;

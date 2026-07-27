@@ -35,7 +35,7 @@ $color-star: #fbbc04; // Google review star gold
 
 .reviews-summary-link {
   border: 1px solid $color-border-light;
-  border-radius: to-rem(8);
+  border-radius: to-rem($radius-md);
   padding: to-rem(10) to-rem(16);
   color: $color-text-button-primary;
   font-weight: 500;
@@ -64,7 +64,7 @@ $color-star: #fbbc04; // Google review star gold
   flex-direction: column;
   gap: to-rem(12);
   border: 1px solid $color-border-default;
-  border-radius: to-rem(12);
+  border-radius: to-rem($radius-lg);
   background-color: $color-background-light;
   padding: to-rem(20);
 }
@@ -83,7 +83,7 @@ $color-star: #fbbc04; // Google review star gold
 
 .review-card-content {
   color: $color-text-medium-dark;
-  font-size: to-rem(15);
+  font-size: to-rem(16);
   line-height: 1.55;
   display: -webkit-box;
   -webkit-line-clamp: 7;

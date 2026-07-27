@@ -152,3 +152,16 @@ $box-shadow-default:
   /* multiple soft shadows 👇 */ 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
   0 0.9px 1.5px hsla(0, 0%, 21%, 0.045),
   0 3.5px 6px hsla(0, 0%, 14%, 0.09);
+
+// RADII — five steps, mapped from the eight ad-hoc values that were in use.
+$radius-sm: 4;    // skeletons, tiny chips
+$radius-md: 8;    // buttons, inputs, controls
+$radius-lg: 12;   // cards, panels, accordion rows
+$radius-xl: 20;   // large surfaces
+$radius-full: 999;
+
+// TYPE SCALE — the steps the Typography component exposes, plus 20 which was
+// already in wide use for prices and body copy. Stay on these; anything
+// between them reads as noise rather than hierarchy.
+// 12 14 16 18 20 22 24 26 28 30 36 42 48 60
+
