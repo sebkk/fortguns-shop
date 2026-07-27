@@ -24,7 +24,7 @@ export const AboutUsSection = ({
         {title}
       </Typography>
       <ul className={styles['footer-nav-list']}>
-        {contactInfos.map(({ href, title, type }) => {
+        {contactInfos.map(({ href, title, type, label }) => {
           const isAddress = type === 'address';
           const isEmail = type === 'mail';
 
@@ -49,7 +49,7 @@ export const AboutUsSection = ({
                   >
                     {!isAddress && (title || href)}
                     {!isAddress && title && `: ${href}`}
-                    {isAddress && href}
+                    {isAddress && label}
                   </Link>
                 )}
               </Typography>

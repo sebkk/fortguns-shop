@@ -50,7 +50,7 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
           )}
           <address className={styles['address-block']}>
             <a
-              href={`maps:?q=${address?.href}`}
+              href={address?.href}
               target='_blank'
               className={styles['address-link']}
               rel='noopener'
@@ -59,7 +59,7 @@ export const SectionAboutUs = ({ section }: TSectionAboutUsProps) => {
                 address?.type as string,
                 styles['contact-icon'],
               )}
-              <span>{address?.href}</span>
+              <span>{address?.label}</span>
             </a>
             {location_description && (
               <Typography tag='p' className={styles['location-description']}>

@@ -9,7 +9,9 @@ import { TLinkHref } from '@/types/footer';
 const linksHrefsTypes: Record<TLinkHref, string> = {
   phone: 'tel:',
   mail: 'mailto:',
-  address: 'maps:?q=',
+  // The address is a full map URL from the CMS, so it needs no scheme of its
+  // own — the old 'maps:?q=' prefix only worked on some Apple devices anyway.
+  address: '',
 };
 
 export const getLinkHref = (href: TLinkHref, type: TLinkHref) => {

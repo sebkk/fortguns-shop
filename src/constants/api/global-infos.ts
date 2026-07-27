@@ -36,7 +36,7 @@ export const globalinfos: GlobalInfos = {
   "contact_infos": [
     {
       "title": "Adres",
-      "href": "Borowa 104a, 24-100 Borowa, Polska",
+      "href": "https://maps.app.goo.gl/zL8FvbiWyzPuaqZG6",
       "label": "Borowa 104a, 24-100 Borowa, Polska",
       "icon": {
         "type": "",

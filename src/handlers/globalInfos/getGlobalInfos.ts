@@ -15,9 +15,13 @@ export const cachedGetGlobalInfosById = unstable_cache(
   },
 );
 
+// Reads the API directly rather than through unstable_cache, because the
+// prebuild script runs outside a Next.js request and the cache throws there —
+// which is why `fetch:all` could not refresh this data. Callers inside the app
+// should use cachedGetGlobalInfos below.
 export const getGlobalInfos = async (): Promise<GlobalInfos | null> => {
   try {
-    const response = await cachedGetGlobalInfosById(
+    const response = await globalInfosApi.getGlobalInfosById(
       GLOBAL_INFOS_CONTACT_INFOS_ID,
     );
 

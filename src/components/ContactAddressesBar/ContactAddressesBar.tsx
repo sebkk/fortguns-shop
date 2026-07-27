@@ -25,10 +25,15 @@ export const ContactAddressesBar = ({
   return (
     <div className={clsx(styles['contact-bar-wrapper'], className)}>
       <address className={styles['contact-bar-address-element']}>
-        <div className={styles['location-info']}>
+        <Link
+          className={styles['location-info']}
+          href={address?.href ?? ''}
+          anchorProps={{ target: '_blank', rel: 'noopener' }}
+          nativeLink
+        >
           <LocationIcon />
           <span className='contact-address-bar-text'>{address?.label}</span>
-        </div>
+        </Link>
         <div className={styles['contact-details']}>
           {globalInfos.contact_infos
             .filter(({ type }) => type !== 'address')
