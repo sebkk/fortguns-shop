@@ -50,19 +50,6 @@
   }
 }
 
-.button-filled-secondary {
-  border: 1px solid $color-secondary-dark;
-  background-color: $color-secondary-default;
-  color: $color-text-button-primary;
-
-  &:hover:not(:disabled) {
-    background-color: $color-secondary-dark;
-  }
-  &:active:not(:disabled) {
-    background-color: $color-secondary-light;
-  }
-}
-
 // Outlined Variants
 .button-outlined-primary {
   border: 2px solid $color-primary-light;
@@ -79,21 +66,6 @@
   }
 }
 
-.button-outlined-secondary {
-  border: 2px solid $color-secondary-light;
-  background-color: transparent;
-  color: $color-text-button-primary;
-
-  &:hover:not(:disabled) {
-    border-color: $color-secondary-dark;
-    color: $color-secondary-dark;
-  }
-  &:active:not(:disabled) {
-    border-color: $color-secondary-default;
-    color: $color-secondary-light;
-  }
-}
-
 // Blank Variants
 .button-blank-primary {
   border: none;
@@ -105,19 +77,6 @@
   }
   &:active:not(:disabled) {
     color: $color-primary-light;
-  }
-}
-
-.button-blank-secondary {
-  border: none;
-  background-color: transparent;
-  color: $color-text-button-primary;
-
-  &:hover:not(:disabled) {
-    color: $color-secondary-dark;
-  }
-  &:active:not(:disabled) {
-    color: $color-secondary-light;
   }
 }
 

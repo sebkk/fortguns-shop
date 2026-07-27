@@ -22,7 +22,6 @@ export const Link = ({
 }: ILinkProps) => {
   const variantClassMap = {
     primary: styles['link-primary'],
-    secondary: styles['link-secondary'],
     accent: styles['link-accent'],
   };
 

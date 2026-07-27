@@ -7,7 +7,9 @@
 }
 
 .section-handler_bg-secondary {
-  background-color: $color-secondary-dark;
+  // Still selectable in the CMS, so it keeps a style — just a neutral panel
+  // now rather than the blue that no longer belongs anywhere on the site.
+  background-color: $color-background-dark;
 }
 
 .section-handler_default {

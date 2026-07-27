@@ -42,7 +42,7 @@ type TFontSize =
   | '5xl'
   | '6xl';
 
-type TColor = 'primary' | 'secondary' | 'text-dark' | 'text-medium_dark';
+type TColor = 'primary' | 'text-dark' | 'text-medium_dark';
 
 type TLineHeight = 'none' | 'tight' | 'normal' | 'loose';
 
@@ -58,7 +58,6 @@ const variantMap: { [_key in TVariant]: string } = {
 
 const colorMap: { [_key in TColor]: string } = {
   primary: styles['color-primary'],
-  secondary: styles['color-secondary'],
   'text-dark': styles['color-text-dark'],
   'text-medium_dark': styles['color-text-medium-dark'],
 };

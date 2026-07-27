@@ -20,10 +20,6 @@ $color-primary-light: $color-brass-light;
 $color-primary-dark: $color-brass-dark;
 $color-primary-dark-2: $color-brass-darker;
 
-$color-secondary-default: #2e5c78;
-$color-secondary-light: #407a9c;
-$color-secondary-dark: #204459;
-
 $color-accent-default: #5c6b70;
 $color-accent-light: #7c8a8f;
 $color-accent-dark: #464f53;
@@ -80,7 +76,6 @@ $color-text-primary: $color-brass-default;
 // Brass is a light fill, so text sitting on it has to be dark — white would
 // drop to 3.02:1. Solid brass surfaces use this instead.
 $color-text-on-brass: #161a16;
-$color-text-secondary: #2e5c78;
 $color-text-accent: #5c6b70;
 $color-text-button-primary: #ffffff;
 $color-text-button-secondary: #161a16;

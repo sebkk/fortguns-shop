@@ -42,11 +42,8 @@ export const Button = ({
 
   const variantColorMap: { [key: string]: string } = {
     'filled-primary': styles['button-filled-primary'],
-    'filled-secondary': styles['button-filled-secondary'],
     'outlined-primary': styles['button-outlined-primary'],
-    'outlined-secondary': styles['button-outlined-secondary'],
     'blank-primary': styles['button-blank-primary'],
-    'blank-secondary': styles['button-blank-secondary'],
   };
 
   const buttonClassNames = clsx(
