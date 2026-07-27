@@ -1,31 +1,13 @@
-import { IBrand, IGetBrandsParams, IGroupedBrands } from '@/types/brands';
-
-const groupBrandsByFirstLetter = (brands: IBrand[]): IGroupedBrands[] => {
-  const grouped = brands.reduce(
-    (acc, brand) => {
-      const firstLetter = brand.name.charAt(0).toUpperCase();
-
-      if (!acc[firstLetter]) {
-        acc[firstLetter] = [];
-      }
-
-      acc[firstLetter].push(brand);
-      return acc;
-    },
-    {} as Record<string, IBrand[]>,
-  );
-
-  return Object.keys(grouped)
-    .sort()
-    .map((letter) => ({
-      letter,
-      brands: grouped[letter].sort((a, b) => a.name.localeCompare(b.name)),
-    }));
-};
+import { IBrand, IGetBrandsParams } from '@/types/brands';
 
 /**
- * Fetch brands from Next.js API route (for Client Components)
- * This avoids CORS issues by proxying requests through Next.js server
+ * Brand lookup for the search dropdown (Client Components), proxied through
+ * the Next.js API route to avoid CORS.
+ *
+ * Deliberately fetches a single page: the dropdown shows a handful of brands
+ * and takes the totals from the response headers. It used to walk every page
+ * of results, so a one-letter query fired a dozen requests to render three
+ * chips. The brands listing page has its own server-side fetcher.
  */
 export const fetchSearchBrandsFromAPI = async ({
   params = {},
@@ -33,29 +15,18 @@ export const fetchSearchBrandsFromAPI = async ({
   params?: IGetBrandsParams;
 } = {}): Promise<{
   brands: IBrand[];
-  groupedBrands: IGroupedBrands[];
   totalPages: number;
   totalBrands: number;
 }> => {
-  let brands: IBrand[] = [];
-
   try {
-    // Build query string
     const searchParams = new URLSearchParams();
-    if (params.search) {
-      searchParams.set('search', params.search);
-    }
-    if (params.fields) {
-      searchParams.set('fields', params.fields);
-    }
-    if (params.per_page) {
-      searchParams.set('per_page', params.per_page.toString());
-    }
-    if (params.page) {
-      searchParams.set('page', params.page.toString());
-    }
 
-    // Fetch from Next.js API route
+    if (params.search) searchParams.set('search', params.search);
+    if (params.fields) searchParams.set('fields', params.fields);
+    if (params.per_page)
+      searchParams.set('per_page', params.per_page.toString());
+    if (params.page) searchParams.set('page', params.page.toString());
+
     const response = await fetch(
       `/api/search/brands?${searchParams.toString()}`,
     );
@@ -64,59 +35,16 @@ export const fetchSearchBrandsFromAPI = async ({
       throw new Error(`Failed to fetch brands: ${response.statusText}`);
     }
 
-    const firstPageData: IBrand[] = await response.json();
-    const totalBrands = parseInt(response.headers.get('X-WP-Total') || '0', 10);
-    const totalPages = parseInt(
-      response.headers.get('X-WP-TotalPages') || '0',
-      10,
-    );
-
-    if (totalPages > 1) {
-      brands = [...firstPageData];
-
-      // Fetch remaining pages
-      const remainingPages = Array.from(
-        { length: totalPages - 1 },
-        (_, i) => i + 2,
-      );
-
-      const remainingPagesData = await Promise.all(
-        remainingPages.map(async (page) => {
-          const pageParams = new URLSearchParams(searchParams.toString());
-          pageParams.set('page', page.toString());
-          const pageResponse = await fetch(
-            `/api/search/brands?${pageParams.toString()}`,
-          );
-          if (!pageResponse.ok) {
-            throw new Error(`Failed to fetch brands page ${page}`);
-          }
-          return pageResponse.json();
-        }),
-      );
-
-      remainingPagesData.forEach((pageData: IBrand[]) => {
-        brands = [...brands, ...pageData];
-      });
-    } else {
-      brands = firstPageData;
-    }
-
-    const groupedBrands = groupBrandsByFirstLetter(brands);
+    const brands: IBrand[] = await response.json();
 
     return {
       brands,
-      groupedBrands,
-      totalPages,
-      totalBrands,
+      totalBrands: parseInt(response.headers.get('X-WP-Total') || '0', 10),
+      totalPages: parseInt(response.headers.get('X-WP-TotalPages') || '0', 10),
     };
   } catch (error) {
     console.error('Error fetching brands from API:', error);
 
-    return {
-      brands,
-      groupedBrands: [],
-      totalPages: 0,
-      totalBrands: 0,
-    };
+    return { brands: [], totalPages: 0, totalBrands: 0 };
   }
 };

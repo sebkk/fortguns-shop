@@ -75,31 +75,40 @@ export const Search = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // The input stays usable while a search is in flight, so a slow response can
+  // land after a newer one. Only the most recent request may write to state.
+  const latestRequestRef = useRef(0);
+
   const t = useTranslations();
 
-  const searchProducts = useCallback(async (query: string) => {
-    setLoading((prev) => ({ ...prev, products: true }));
-    try {
-      const result = await fetchProductsFromAPI<IProductSearch>({
-        params: {
-          search: query,
-          per_page: 3,
-          _fields: PRODUCTS_FIELDS_FOR_SEARCH.join(','),
-        },
-      });
+  const searchProducts = useCallback(
+    async (query: string, requestId: number) => {
+      setLoading((prev) => ({ ...prev, products: true }));
+      try {
+        const result = await fetchProductsFromAPI<IProductSearch>({
+          params: {
+            search: query,
+            per_page: 3,
+            _fields: PRODUCTS_FIELDS_FOR_SEARCH.join(','),
+          },
+        });
 
-      setProducts({
-        ...result,
-        items: result.products,
-      });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading((prev) => ({ ...prev, products: false }));
-    }
-  }, []);
+        if (requestId !== latestRequestRef.current) return;
 
-  const searchMarks = useCallback(async (query: string) => {
+        setProducts({
+          ...result,
+          items: result.products,
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading((prev) => ({ ...prev, products: false }));
+      }
+    },
+    [],
+  );
+
+  const searchMarks = useCallback(async (query: string, requestId: number) => {
     setLoading((prev) => ({ ...prev, marks: true }));
     try {
       const result = await fetchSearchBrandsFromAPI({
@@ -109,6 +118,9 @@ export const Search = ({
           fields: BRANDS_FIELDS_FOR_SEARCH.join(','),
         },
       });
+
+      if (requestId !== latestRequestRef.current) return;
+
       setBrands({
         ...result,
         items: result.brands,
@@ -124,7 +136,14 @@ export const Search = ({
   const handleInternalSearch = useMemo(
     () =>
       debounce(async (query: string) => {
-        await Promise.all([searchProducts(query), searchMarks(query)]);
+        const requestId = ++latestRequestRef.current;
+
+        await Promise.all([
+          searchProducts(query, requestId),
+          searchMarks(query, requestId),
+        ]);
+
+        if (requestId !== latestRequestRef.current) return;
 
         setIsExpanded(true);
         setOpenDropdown(true);
@@ -227,14 +246,12 @@ export const Search = ({
             pointerEvents: isExpanded ? 'auto' : 'none',
             width: isExpanded ? '100%' : '0px',
           }}
-          disabled={isLoading}
         />
       </div>
       <Button
         onClick={handleSearchButtonClick}
         className={styles['search-button']}
         variant='blank'
-        disabled={isLoading}
         buttonProps={{
           'aria-label': isExpanded ? t('search') : t('expandSearch'),
         }}
