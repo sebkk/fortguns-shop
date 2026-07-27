@@ -52,6 +52,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  // Product shots are photographed on white, so the whole tile is white and
+  // any spare space around an odd aspect ratio blends into the photo.
+  background-color: $color-white-default;
   width: 100%;
   height: 100%;
 
@@ -61,12 +64,10 @@
 }
 
 .product-image {
-  background-position: center;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  min-height: 100%;
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  // contain, not cover: nothing gets cropped off the ends of a long gun.
+  object-fit: contain;
 }
 
 .content-wrapper {

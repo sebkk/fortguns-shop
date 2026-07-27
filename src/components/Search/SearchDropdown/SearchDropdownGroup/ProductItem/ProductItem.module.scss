@@ -22,7 +22,8 @@
 .product-item-image {
   flex-shrink: 0;
   border-radius: to-rem(8);
-  object-fit: cover;
+  background-color: $color-white-default;
+  object-fit: contain;
 }
 
 .product-item-content {
