@@ -17,7 +17,8 @@
   }
 
   &--c-error {
-    border: to-rem(1) solid $color-error-default;
-    background-color: $color-error-light;
+    border: to-rem(1) solid $color-error-dark;
+    // The lighter red left white type at 4.26:1; this clears 4.5:1.
+    background-color: $color-error-default;
   }
 }

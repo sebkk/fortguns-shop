@@ -72,7 +72,10 @@ $color-gray-dark-2: #ffffff36;
 $color-text-default: #dddddd;
 $color-text-medium-dark: #cacacaf0;
 $color-text-dark: #bababad8;
+// Decorative only — faint rules and fills. Too low-contrast for type; use
+// $color-text-muted when the same greyed-back look is needed on text.
 $color-text-bg-dark: #ffffff61;
+$color-text-muted: #9a9a9a;
 $color-text-primary: $color-brass-default;
 // Brass is a light fill, so text sitting on it has to be dark — white would
 // drop to 3.02:1. Solid brass surfaces use this instead.
