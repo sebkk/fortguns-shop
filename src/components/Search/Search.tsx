@@ -23,6 +23,12 @@ import styles from './styles.module.scss';
 
 const DEBOUNCE_TIME_MS = 500;
 
+// A single letter matches most of the catalogue and is never a real query, so
+// searching only starts once there is something to go on.
+const MIN_QUERY_LENGTH = 2;
+
+export const SEARCH_LISTBOX_ID = 'search-results-listbox';
+
 interface SearchProps {
   placeholder?: string;
   className?: string;
@@ -78,6 +84,10 @@ export const Search = ({
   // The input stays usable while a search is in flight, so a slow response can
   // land after a newer one. Only the most recent request may write to state.
   const latestRequestRef = useRef(0);
+
+  // -1 means "nothing highlighted": Enter then submits the query instead of
+  // opening a result.
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const t = useTranslations();
 
@@ -170,9 +180,13 @@ export const Search = ({
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setActiveIndex(-1);
 
-    if (query.trim()) {
+    if (query.trim().length >= MIN_QUERY_LENGTH) {
       handleInternalSearch(query.trim());
+    } else {
+      handleInternalSearch.cancel();
+      setOpenDropdown(false);
     }
   };
 
@@ -187,8 +201,39 @@ export const Search = ({
     }
   };
 
+  const optionsCount =
+    (products.items?.length || 0) + (brands.items?.length || 0);
+
+  const openActiveOption = () => {
+    const option = document.getElementById(`search-option-${activeIndex}`);
+    const anchor =
+      option instanceof HTMLAnchorElement ? option : option?.querySelector('a');
+
+    anchor?.click();
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (!isVisibleDropdown || optionsCount === 0) return;
+
+      e.preventDefault();
+
+      setActiveIndex((prev) => {
+        if (e.key === 'ArrowDown') {
+          return prev + 1 >= optionsCount ? 0 : prev + 1;
+        }
+
+        return prev - 1 < 0 ? optionsCount - 1 : prev - 1;
+      });
+    } else if (e.key === 'Enter') {
+      if (activeIndex >= 0) {
+        e.preventDefault();
+        openActiveOption();
+        handleCloseDropdown();
+
+        return;
+      }
+
       handleNavigateToSearchPage();
     } else if (e.key === 'Escape') {
       handleCollapse();
@@ -241,6 +286,14 @@ export const Search = ({
           placeholder={placeholder || t('search')}
           className={styles['search-input']}
           onKeyDown={handleKeyDown}
+          role='combobox'
+          aria-expanded={isVisibleDropdown}
+          aria-controls={SEARCH_LISTBOX_ID}
+          aria-autocomplete='list'
+          aria-activedescendant={
+            activeIndex >= 0 ? `search-option-${activeIndex}` : undefined
+          }
+          autoComplete='off'
           style={{
             opacity: isExpanded ? 1 : 0,
             pointerEvents: isExpanded ? 'auto' : 'none',
@@ -266,6 +319,7 @@ export const Search = ({
         searchQuery={searchQuery}
         handleCloseDropdown={handleCloseDropdown}
         parentRef={wrapperRef}
+        activeIndex={activeIndex}
       />
     </div>
   );

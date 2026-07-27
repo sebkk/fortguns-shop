@@ -45,4 +45,13 @@
   flex-direction: column-reverse;
 
   align-items: flex-end;
+  // Anchor to the top so the price lines up with the first line of a title
+  // that wraps onto two.
+  align-self: flex-start;
+}
+
+.product-item--active {
+  border-radius: to-rem($radius-md);
+  background-color: $color-background-dark;
+  box-shadow: inset to-rem(2) 0 0 0 $color-brass-default;
 }

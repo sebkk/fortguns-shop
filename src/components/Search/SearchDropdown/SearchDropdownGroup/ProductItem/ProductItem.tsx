@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import clsx from 'clsx';
+
 import { Link } from '@/components/Link';
 import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
@@ -11,9 +13,15 @@ import styles from './ProductItem.module.scss';
 
 interface ProductItemProps {
   product: IProductSearch;
+  optionIndex?: number;
+  isActive?: boolean;
 }
 
-export const ProductItem = ({ product }: ProductItemProps) => {
+export const ProductItem = ({
+  product,
+  optionIndex,
+  isActive = false,
+}: ProductItemProps) => {
   const {
     slug,
     images,
@@ -27,7 +35,17 @@ export const ProductItem = ({ product }: ProductItemProps) => {
   const [picture] = images || [];
 
   return (
-    <li className={styles['product-item']}>
+    <li
+      className={clsx(
+        styles['product-item'],
+        isActive && styles['product-item--active'],
+      )}
+      id={
+        optionIndex === undefined ? undefined : `search-option-${optionIndex}`
+      }
+      role='option'
+      aria-selected={isActive}
+    >
       <Link
         href={{
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment

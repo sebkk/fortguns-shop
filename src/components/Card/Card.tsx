@@ -13,6 +13,8 @@ interface ICardProps {
   withBackground?: boolean;
   variant?: 'primary' | 'secondary';
   tag?: keyof React.JSX.IntrinsicElements;
+  /** Passed through to the rendered element, e.g. listbox option semantics. */
+  elementProps?: React.HTMLAttributes<HTMLElement> & { id?: string };
 }
 
 export const Card = ({
@@ -24,8 +26,9 @@ export const Card = ({
   withBackground,
   variant = 'primary',
   tag = 'div',
+  elementProps,
 }: ICardProps) => {
-  const Tag = tag;
+  const Tag = tag as React.ElementType;
 
   const classNames = clsx(
     styles['card'],
@@ -37,5 +40,9 @@ export const Card = ({
     className,
   );
 
-  return <Tag className={classNames}>{children}</Tag>;
+  return (
+    <Tag className={classNames} {...elementProps}>
+      {children}
+    </Tag>
+  );
 };

@@ -11,7 +11,7 @@ import { useMounted } from '@/hooks/useMounted';
 import { IBrand } from '@/types/brands';
 import { IProductSearch } from '@/types/product';
 
-import { ISearchResult } from '../Search';
+import { ISearchResult, SEARCH_LISTBOX_ID } from '../Search';
 import styles from './SearchDropdown.module.scss';
 import { SearchDropdownGroup } from './SearchDropdownGroup';
 import { BrandItem } from './SearchDropdownGroup/BrandItem';
@@ -25,6 +25,7 @@ interface SearchDropdownProps {
   searchQuery: string;
   handleCloseDropdown: () => void;
   parentRef: React.RefObject<HTMLDivElement | null>;
+  activeIndex: number;
 }
 
 export const SearchDropdown = ({
@@ -35,6 +36,7 @@ export const SearchDropdown = ({
   searchQuery,
   handleCloseDropdown,
   parentRef,
+  activeIndex,
 }: SearchDropdownProps) => {
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
@@ -84,6 +86,9 @@ export const SearchDropdown = ({
 
   const dropdownContent = (
     <div
+      id={SEARCH_LISTBOX_ID}
+      role='listbox'
+      aria-label={t('search')}
       className={styles['search-dropdown']}
       style={
         {
@@ -110,8 +115,13 @@ export const SearchDropdown = ({
               }
             >
               <ul className={styles['search-dropdown__products-content-list']}>
-                {products.items?.map((product) => (
-                  <ProductItem key={product.id} product={product} />
+                {products.items?.map((product, index) => (
+                  <ProductItem
+                    key={product.id}
+                    product={product}
+                    optionIndex={index}
+                    isActive={activeIndex === index}
+                  />
                 ))}
               </ul>
             </SearchDropdownGroup>
@@ -120,12 +130,22 @@ export const SearchDropdown = ({
           {(brands.items?.length as number) > 0 && (
             <SearchDropdownGroup
               title={t('brands')}
+              itemsLength={brands.totalProducts}
               href={NAVIGATION_ROUTE.BRANDS}
             >
               <ul className={styles['search-dropdown__content-list']}>
-                {brands.items?.map((brand) => (
-                  <BrandItem key={brand.id} brand={brand} />
-                ))}
+                {brands.items?.map((brand, index) => {
+                  const optionIndex = (products.items?.length || 0) + index;
+
+                  return (
+                    <BrandItem
+                      key={brand.id}
+                      brand={brand}
+                      optionIndex={optionIndex}
+                      isActive={activeIndex === optionIndex}
+                    />
+                  );
+                })}
               </ul>
             </SearchDropdownGroup>
           )}

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import parseHTML from 'html-react-parser';
 
 import { Card } from '@/components/Card';
@@ -10,9 +11,15 @@ import styles from './BrandItem.module.scss';
 
 interface BrandItemProps {
   brand: IBrand;
+  optionIndex?: number;
+  isActive?: boolean;
 }
 
-export const BrandItem = ({ brand }: BrandItemProps) => {
+export const BrandItem = ({
+  brand,
+  optionIndex,
+  isActive = false,
+}: BrandItemProps) => {
   const { name, slug, count } = brand || {};
 
   return (
@@ -21,7 +28,18 @@ export const BrandItem = ({ brand }: BrandItemProps) => {
       withShadow
       withBorder
       isRounded
-      className={styles['brand-item-card']}
+      className={clsx(
+        styles['brand-item-card'],
+        isActive && styles['brand-item-card--active'],
+      )}
+      elementProps={{
+        id:
+          optionIndex === undefined
+            ? undefined
+            : `search-option-${optionIndex}`,
+        role: 'option',
+        'aria-selected': isActive,
+      }}
     >
       <Link
         href={{
