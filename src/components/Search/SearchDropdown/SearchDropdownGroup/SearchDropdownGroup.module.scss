@@ -43,3 +43,14 @@
     height: to-rem(20);
   }
 }
+
+.search-dropdown-group__see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: to-rem(6);
+
+  color: $color-brass-default;
+
+  font-size: to-rem(12);
+  white-space: nowrap;
+}

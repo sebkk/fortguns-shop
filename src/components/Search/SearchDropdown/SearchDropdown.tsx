@@ -89,6 +89,11 @@ export const SearchDropdown = ({
       id={SEARCH_LISTBOX_ID}
       role='listbox'
       aria-label={t('search')}
+      // The list is portalled to the body, so it sits outside the search
+      // wrapper and pressing an item used to blur the input, collapsing the
+      // search before the click could land — every result just closed the
+      // dropdown. Keeping focus on the input lets the click through.
+      onMouseDown={(event) => event.preventDefault()}
       className={styles['search-dropdown']}
       style={
         {

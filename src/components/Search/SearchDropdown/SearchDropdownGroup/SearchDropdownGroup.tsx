@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { useTranslations } from 'next-intl';
+
 import { ArrowIcon } from '@/components/_icons/ArrowIcon';
 import { Link } from '@/components/Link';
 import { Typography } from '@/components/Typography';
@@ -19,6 +21,8 @@ export const SearchDropdownGroup = ({
   href,
   children,
 }: SearchDropdownGroupProps) => {
+  const t = useTranslations();
+
   return (
     <div className={styles['search-dropdown-group']}>
       <Link href={href} className={styles['search-dropdown-group__header']}>
@@ -34,7 +38,10 @@ export const SearchDropdownGroup = ({
             </span>
           )}
         </Typography>
-        <ArrowIcon className={styles['search-dropdown-group__arrow-icon']} />
+        <span className={styles['search-dropdown-group__see-all']}>
+          {t('seeAll')}
+          <ArrowIcon className={styles['search-dropdown-group__arrow-icon']} />
+        </span>
       </Link>
       <div className={styles['search-dropdown-group__items']}>{children}</div>
     </div>
