@@ -67,11 +67,18 @@ export async function GET(request: NextRequest) {
       params.stock_status = searchParams.get('stock_status') as STOCK_STATUS;
     }
 
-    // Call the WordPress API through productsApi
+    // With a search term, leave the ordering to WordPress: it ranks matches by
+    // relevance, putting name hits above products that merely mention the word
+    // in their description. Forcing orderby=date threw that ranking away — a
+    // search for "beretta" led with a Thompson Center. Browsing without a
+    // query still gets the chronological order.
+    const defaultOrdering = params.search
+      ? {}
+      : { orderby: PRODUCTS_ORDER_BY.DATE, order: PRODUCTS_ORDER.ASC };
+
     const response = await productsApi.getProducts({
       per_page: PER_PAGE_DEFAULT,
-      orderby: PRODUCTS_ORDER_BY.DATE,
-      order: PRODUCTS_ORDER.ASC,
+      ...defaultOrdering,
       ...params,
       page: params.page ? +params.page : 1,
     });
