@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import debounce from 'lodash/debounce';
 import { useTranslations } from 'next-intl';
 
+import { breakpoints } from '@/assets/styles/breakpoints';
 import { SearchIcon } from '@/components/_icons/SearchIcon';
 import { Button } from '@/components/Button';
 import { Spinner } from '@/components/Spinner';
@@ -15,6 +16,7 @@ import { PRODUCTS_FIELDS_FOR_SEARCH } from '@/constants/products';
 import { fetchSearchBrandsFromAPI } from '@/handlers/brands/fetchSearchBrandsFromAPI';
 import { fetchProductsFromAPI } from '@/handlers/products/fetchProductsFromAPI';
 import { useAppRouter } from '@/hooks/useAppRouter';
+import { useScreenWidth } from '@/hooks/useScreenWidth';
 import { IBrand } from '@/types/brands';
 import { IProductSearch } from '@/types/product';
 
@@ -52,6 +54,11 @@ export const Search = ({
   const [searchQuery, setSearchQuery] = useState(initialValue);
 
   const router = useAppRouter();
+
+  // Above this width the field is permanently open (see styles.module.scss), so
+  // it must never be collapsed by blur or the toggle.
+  const { width } = useScreenWidth();
+  const isAlwaysOpen = width >= breakpoints.xl;
 
   const [loading, setLoading] = useState({
     marks: false,
@@ -171,6 +178,12 @@ export const Search = ({
   };
 
   const handleCollapse = () => {
+    if (isAlwaysOpen) {
+      handleCloseDropdown();
+
+      return;
+    }
+
     setIsExpanded(false);
   };
 
@@ -243,7 +256,7 @@ export const Search = ({
   const handleSearchButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (!isExpanded) {
+    if (!isExpanded && !isAlwaysOpen) {
       handleExpand();
     } else {
       handleNavigateToSearchPage();
@@ -263,7 +276,10 @@ export const Search = ({
   }, [isExpanded]);
 
   const isVisibleDropdown =
-    openDropdown && isExpanded && searchQuery.trim().length > 0 && isFetched;
+    openDropdown &&
+    (isExpanded || isAlwaysOpen) &&
+    searchQuery.trim().length > 0 &&
+    isFetched;
 
   return (
     <div
@@ -283,7 +299,7 @@ export const Search = ({
           type='text'
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
-          placeholder={placeholder || t('search')}
+          placeholder={placeholder || t('searchPlaceholder')}
           className={styles['search-input']}
           onKeyDown={handleKeyDown}
           role='combobox'
@@ -294,11 +310,6 @@ export const Search = ({
             activeIndex >= 0 ? `search-option-${activeIndex}` : undefined
           }
           autoComplete='off'
-          style={{
-            opacity: isExpanded ? 1 : 0,
-            pointerEvents: isExpanded ? 'auto' : 'none',
-            width: isExpanded ? '100%' : '0px',
-          }}
         />
       </div>
       <Button

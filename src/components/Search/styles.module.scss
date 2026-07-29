@@ -24,6 +24,26 @@
     max-width: to-rem(250);
   }
 
+  // From this width up there is room to leave the field open permanently
+  // (measured: ~300px free between the nav and the icon at 1200px, versus
+  // 199px at 900px where it would not fit). Below it, the icon toggle stays.
+  // Mirrors the --expanded rules so the field is open on first paint, with no
+  // flash while hydration catches up.
+  @include respond-above($breakpoint-xl) {
+    width: to-rem(250);
+    max-width: to-rem(250);
+
+    .search-input-wrapper {
+      max-width: to-rem(200);
+      pointer-events: auto;
+    }
+
+    .search-input {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+
   &:focus-within {
     border: 0.5px solid $color-white-default;
     color: $color-white-default;

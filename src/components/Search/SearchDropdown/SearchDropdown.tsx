@@ -68,12 +68,33 @@ export const SearchDropdown = ({
         }
       };
 
+      // Closing on blur is unreliable here: the list is portalled out of the
+      // search wrapper, so focus moves between two unrelated subtrees. Watch
+      // for a click outside both instead — on click rather than pointerdown,
+      // which would fire before a result link activates and swallow it.
+      const handleOutsideClick = (e: MouseEvent) => {
+        const target = e.target as Node | null;
+
+        if (!target) return;
+
+        const isInsideDropdown = document
+          .getElementById(SEARCH_LISTBOX_ID)
+          ?.contains(target);
+
+        if (parentRef.current?.contains(target) || isInsideDropdown) return;
+
+        handleCloseDropdown();
+      };
+
       window.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('click', handleOutsideClick);
 
       return () => {
         window.removeEventListener('keydown', handleKeyDown);
+        document.removeEventListener('click', handleOutsideClick);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
   if (!isMounted || !isVisible || !searchQuery.trim()) {
