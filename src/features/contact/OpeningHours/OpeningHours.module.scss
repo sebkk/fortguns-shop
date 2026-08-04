@@ -1,0 +1,91 @@
+.opening {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(16);
+}
+
+.opening-status {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: to-rem(3) to-rem(10);
+  margin: 0;
+  border: to-rem(1) solid $color-border-brass-light;
+  // Pill on one line, rounded rectangle once the text wraps.
+  border-radius: to-rem(20);
+  background-color: $color-background-light;
+  padding: to-rem(8) to-rem(18);
+  width: fit-content;
+
+  font-size: to-rem(14);
+}
+
+.opening-dot {
+  flex: none;
+  border-radius: 50%;
+  background-color: $color-brass-default;
+  width: to-rem(9);
+  height: to-rem(9);
+}
+
+.opening-status--open .opening-dot {
+  background-color: $color-success-light;
+}
+
+.opening-status-sub {
+  color: $color-text-dark;
+}
+
+.opening-panel {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(14);
+  border: to-rem(1) solid $color-border-brass;
+  border-radius: to-rem($radius-lg);
+  background-color: $color-background-light;
+  padding: to-rem(22) to-rem(24);
+}
+
+.opening-heading {
+  margin: 0;
+  color: $color-brass-default;
+  font-size: to-rem(12);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.opening-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+
+  th {
+    padding: to-rem(5) 0;
+    color: $color-text-dark;
+    font-weight: 500;
+    font-size: to-rem(14);
+    text-align: left;
+  }
+
+  td {
+    padding: to-rem(5) 0 to-rem(5) to-rem(12);
+    font-size: to-rem(14);
+    text-align: right;
+  }
+}
+
+.is-today th,
+.is-today td {
+  color: $color-white-default;
+  font-weight: 700;
+}
+
+.is-shut {
+  color: $color-text-bg-dark;
+}
+
+.opening-note {
+  margin: 0;
+  color: $color-text-dark;
+  font-size: to-rem(14);
+}

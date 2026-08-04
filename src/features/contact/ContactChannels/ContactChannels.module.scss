@@ -1,0 +1,107 @@
+.channels {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(16);
+}
+
+// Wspólna forma karty; :global bo klasy trafiają też do komponentu Link.
+.channel,
+.channel-primary,
+.channel-static {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(6);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+  border: to-rem(1) solid $color-border-brass;
+  border-radius: to-rem($radius-lg);
+  background-color: $color-background-light;
+  padding: to-rem(22) to-rem(24);
+
+  color: $color-text-default;
+
+  text-decoration: none !important;
+}
+
+.channel:hover,
+.channel-primary:hover {
+  border-color: $color-brass-default;
+  background-color: $color-background-dark;
+}
+
+.channel:focus-visible,
+.channel-primary:focus-visible {
+  outline: to-rem(2) solid $color-brass-default;
+  outline-offset: to-rem(3);
+}
+
+.channel-primary {
+  border-color: $color-border-brass-light;
+  border-top: to-rem(2) solid $color-brass-default;
+}
+
+.channel-kicker {
+  color: $color-brass-default;
+  font-size: to-rem(12);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.channel-value {
+  font-weight: 700;
+  font-size: to-rem(24);
+  line-height: 1.25;
+  // Adres ma dać się zaznaczyć, nie tylko kliknąć.
+  user-select: text;
+  word-break: break-word;
+}
+
+.channel-value-sm {
+  font-weight: 700;
+  font-size: to-rem(18);
+}
+
+.channel-value-link {
+  width: fit-content;
+  color: inherit;
+  font-weight: 700;
+  font-size: to-rem(24);
+  line-height: 1.25;
+  text-decoration: none;
+  user-select: text;
+
+  &:hover {
+    color: $color-brass-light;
+  }
+
+  &:focus-visible {
+    outline: to-rem(2) solid $color-brass-default;
+    outline-offset: to-rem(3);
+  }
+}
+
+.channel-hint {
+  color: $color-text-dark;
+  font-size: to-rem(14);
+}
+
+.channel-sub-link {
+  margin-top: to-rem(8);
+  width: fit-content;
+  color: $color-brass-default !important;
+  font-size: to-rem(14);
+
+  &:focus-visible {
+    outline: to-rem(2) solid $color-brass-default;
+    outline-offset: to-rem(3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .channel,
+  .channel-primary,
+  .channel-static {
+    transition: none;
+  }
+}

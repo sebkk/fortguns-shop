@@ -1,3 +1,9 @@
+.section-contact {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(32);
+}
+
 .section-contact-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -5,7 +11,57 @@
   gap: to-rem(30);
 
   @include respond-above($breakpoint-2md) {
-    grid-template-columns: 1fr 1fr;
+    // Kontakt dostaje więcej miejsca niż godziny — to główny cel strony.
+    grid-template-columns: 1.35fr 1fr;
+    align-items: start;
     gap: to-rem(40);
   }
+}
+
+.section-contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(16);
+}
+
+.section-contact-address {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(6);
+  border: to-rem(1) solid $color-border-brass;
+  border-radius: to-rem($radius-lg);
+  background-color: $color-background-light;
+  padding: to-rem(22) to-rem(24);
+
+  font-style: normal;
+}
+
+.section-contact-address-heading {
+  margin: 0 0 to-rem(6);
+  color: $color-brass-default;
+  font-size: to-rem(12);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.section-contact-address-link {
+  width: fit-content;
+  color: $color-brass-default !important;
+  font-size: to-rem(14);
+
+  &:focus-visible {
+    outline: to-rem(2) solid $color-brass-default;
+    outline-offset: to-rem(3);
+  }
+}
+
+.section-contact-address-note {
+  margin: to-rem(4) 0 0;
+  color: $color-text-dark;
+  font-size: to-rem(14);
+}
+
+.section-contact-company {
+  border-top: to-rem(1) solid $color-border-brass;
+  padding-top: to-rem(24);
 }
