@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 
 import { ProgressProvider } from '@bprogress/next/app';
 
-import { ReCaptchaProvider } from './ReCaptchaProvider';
 import { ScrollProvider } from './ScrollProvider';
 
 // Keep in step with $color-primary-dark in _variables.scss.
@@ -15,9 +14,12 @@ export const Providers = ({ children }: { children: ReactNode }) => {
       options={{ showSpinner: false }}
       color={COLOR_PRIMARY_DARK}
     >
-      <ReCaptchaProvider>
-        <ScrollProvider>{children}</ScrollProvider>
-      </ReCaptchaProvider>
+      {/*
+        ReCaptchaProvider is mounted by SectionNewsletter, the only thing left
+        that uses reCAPTCHA. Site-wide it loaded Google's script — and parked
+        its badge — on every page, including ones with no form at all.
+      */}
+      <ScrollProvider>{children}</ScrollProvider>
     </ProgressProvider>
   );
 };

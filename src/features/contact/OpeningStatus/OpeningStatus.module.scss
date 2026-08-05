@@ -1,0 +1,31 @@
+.status {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: to-rem(3) to-rem(10);
+  margin: 0;
+  border: to-rem(1) solid $color-border-brass-light;
+  // Pill on one line, rounded rectangle once the text wraps.
+  border-radius: to-rem(20);
+  background-color: $color-background-light;
+  padding: to-rem(8) to-rem(18);
+  width: fit-content;
+
+  font-size: to-rem(14);
+}
+
+.status-dot {
+  flex: none;
+  border-radius: 50%;
+  background-color: $color-brass-default;
+  width: to-rem(9);
+  height: to-rem(9);
+}
+
+.status--open .status-dot {
+  background-color: $color-success-light;
+}
+
+.status-sub {
+  color: $color-text-dark;
+}

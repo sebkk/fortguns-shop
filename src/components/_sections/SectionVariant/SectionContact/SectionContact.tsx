@@ -5,6 +5,7 @@ import { Typography } from '@/components/Typography';
 import globalInfos from '@/constants/api/global-infos';
 import { ContactChannels } from '@/features/contact/ContactChannels';
 import { OpeningHours } from '@/features/contact/OpeningHours';
+import { OpeningStatus } from '@/features/contact/OpeningStatus';
 import { ISectionContact } from '@/types/sections';
 
 import styles from './SectionContact.module.scss';
@@ -28,6 +29,7 @@ export const SectionContact = ({ section }: ISectionContactProps) => {
         <ContactChannels />
 
         <div className={styles['section-contact-aside']}>
+          <OpeningStatus />
           <OpeningHours />
 
           {address && (
@@ -60,6 +62,12 @@ export const SectionContact = ({ section }: ISectionContactProps) => {
 
       {code_html && (
         <div className={styles['section-contact-company']}>
+          <Typography
+            tag='h3'
+            className={styles['section-contact-company-heading']}
+          >
+            Dane firmowe
+          </Typography>
           <ContentHTML content={code_html} />
         </div>
       )}

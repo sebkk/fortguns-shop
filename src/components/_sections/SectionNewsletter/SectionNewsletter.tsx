@@ -15,6 +15,7 @@ import { ContentHTML } from '@/components/ContentHTML';
 import { Modal } from '@/components/Modal';
 import { Typography } from '@/components/Typography';
 import { useRecaptchaVerification } from '@/hooks/useRecaptchaVerification';
+import { ReCaptchaProvider } from '@/providers/ReCaptchaProvider';
 import { ISectionNewsletter } from '@/types/sections';
 
 import styles from './SectionNewsletter.module.scss';
@@ -23,11 +24,7 @@ const NewsletterFormSchema = z.object({
   email: z.string().nonempty('formRequired').email('formErrorEmailInvalid'),
 });
 
-export const SectionNewsletter = ({
-  section,
-}: {
-  section: ISectionNewsletter;
-}) => {
+const NewsletterForm = ({ section }: { section: ISectionNewsletter }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const {
@@ -148,3 +145,13 @@ export const SectionNewsletter = ({
     </div>
   );
 };
+
+/**
+ * The provider lives here, not in Providers, so Google's script and its badge
+ * only load on pages that actually carry the newsletter form.
+ */
+export const SectionNewsletter = (props: { section: ISectionNewsletter }) => (
+  <ReCaptchaProvider>
+    <NewsletterForm {...props} />
+  </ReCaptchaProvider>
+);
