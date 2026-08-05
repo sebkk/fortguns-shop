@@ -24,7 +24,7 @@ export const OpeningStatus = () => {
     const contact = 'napisz SMS-a, maila lub wiadomość na WhatsAppie';
 
     if (!next) {
-      return `Napisz SMS-a, maila lub wiadomość na WhatsAppie`;
+      return 'Napisz SMS-a, maila lub wiadomość na WhatsAppie';
     }
 
     const when = next.isToday ? 'dziś' : `w ${DAY_NAMES_WHEN[next.day]}`;
