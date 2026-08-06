@@ -2,7 +2,11 @@
   position: relative;
   z-index: 4;
 
-  background-color: $color-background-default;
+  // Bez tego stopka zlewa się ze stroną — ma to samo tło. Mosiężna kreska
+  // odcina ją tak, jak cień odcina nagłówek, a jaśniejsze tło robi z niej
+  // osobny pas, nie dalszy ciąg treści.
+  border-top: to-rem(1) solid $color-border-brass-light;
+  background-color: $color-background-light;
 
   padding-top: to-rem(16);
   padding-bottom: to-rem(16);
@@ -51,7 +55,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: to-rem(20);
 
-  border-bottom: $color-text-dark to-rem(1) solid;
+  border-bottom: $color-border-brass to-rem(1) solid;
 
   padding: to-rem(20) 0 to-rem(35);
 
