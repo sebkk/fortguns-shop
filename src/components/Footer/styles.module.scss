@@ -2,11 +2,15 @@
   position: relative;
   z-index: 4;
 
-  // Bez tego stopka zlewa się ze stroną — ma to samo tło. Mosiężna kreska
-  // odcina ją tak, jak cień odcina nagłówek, a jaśniejsze tło robi z niej
-  // osobny pas, nie dalszy ciąg treści.
+  // Tło zostaje czarne jak reszta strony — stopkę odcina mosiężna kreska
+  // i cień, lustrzane odbicie tego, czym nagłówek odcina się od treści.
+  --var-box-shadow-footer: 0 -4px 6px -1px rgba(163, 163, 163, 0.188),
+    0 -2px 4px -2px rgba(140, 140, 140, 0.079);
+
+  @include box-shadow-to-browsers(var(--var-box-shadow-footer));
+
   border-top: to-rem(1) solid $color-border-brass-light;
-  background-color: $color-background-light;
+  background-color: $color-background-default;
 
   padding-top: to-rem(16);
   padding-bottom: to-rem(16);
