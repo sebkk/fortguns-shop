@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { useTranslations } from 'next-intl';
 
-import { PER_PAGE_DEFAULT } from '@/constants/products';
+import { DEFAULT_SORT, PER_PAGE_DEFAULT } from '@/constants/products';
 import { STOCK_STATUS } from '@/types/product';
 
 interface UseProductsOptions<T> {
@@ -49,7 +49,7 @@ export const useProducts = <T>({
     initialTotalProducts || 0,
   );
 
-  const currentSort = searchParams.get('sort') || 'default';
+  const currentSort = searchParams.get('sort') || DEFAULT_SORT;
   const currentPage = searchParams.get('page')
     ? Number(searchParams.get('page'))
     : 1;
@@ -61,35 +61,6 @@ export const useProducts = <T>({
     setError(null);
 
     try {
-      const params: Record<string, string | number> = {
-        per_page: currentPerPage,
-        stock_status: STOCK_STATUS.INSTOCK,
-        page: currentPage,
-      };
-
-      if (categoryId) {
-        params.category = categoryId;
-      }
-      if (currentSort !== 'default') {
-        const [orderby, order] = currentSort.split('-');
-        params.orderby = orderby;
-        params.order = order;
-      }
-
-      if (currentSort === 'default') {
-        delete params.orderby;
-        delete params.order;
-      }
-
-      if (brandId) {
-        params.brand = brandId;
-        params.stock_status = undefined as unknown as STOCK_STATUS;
-      }
-
-      if (currentSearch) {
-        params.search = currentSearch;
-      }
-
       // Build query string for API route
       const queryParams = new URLSearchParams();
       queryParams.set('per_page', currentPerPage.toString());
@@ -99,11 +70,9 @@ export const useProducts = <T>({
         queryParams.set('category', categoryId);
       }
 
-      if (currentSort !== 'default') {
-        const [orderby, order] = currentSort.split('-');
-        queryParams.set('orderby', orderby);
-        queryParams.set('order', order);
-      }
+      const [orderby, order] = currentSort.split('-');
+      queryParams.set('orderby', orderby);
+      queryParams.set('order', order);
 
       if (brandId) {
         queryParams.set('brand', brandId.toString());
@@ -159,7 +128,8 @@ export const useProducts = <T>({
       const params = new URLSearchParams(searchParams.toString());
       params.set('sort', value);
 
-      if (value === 'default') {
+      // Domyślne sortowanie nie musi siedzieć w adresie — /produkty zostaje czyste.
+      if (value === DEFAULT_SORT) {
         params.delete('sort');
       }
       return params.toString();
@@ -188,7 +158,7 @@ export const useProducts = <T>({
 
   useEffect(() => {
     if (
-      currentSort !== 'default' ||
+      currentSort !== DEFAULT_SORT ||
       currentPage !== 1 ||
       currentPerPage !== perPage ||
       currentSearch

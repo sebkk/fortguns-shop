@@ -71,10 +71,11 @@ export async function GET(request: NextRequest) {
     // relevance, putting name hits above products that merely mention the word
     // in their description. Forcing orderby=date threw that ranking away — a
     // search for "beretta" led with a Thompson Center. Browsing without a
-    // query still gets the chronological order.
+    // query still gets the chronological order — najnowsze najpierw, tak samo
+    // jak przy renderowaniu po stronie serwera.
     const defaultOrdering = params.search
       ? {}
-      : { orderby: PRODUCTS_ORDER_BY.DATE, order: PRODUCTS_ORDER.ASC };
+      : { orderby: PRODUCTS_ORDER_BY.DATE, order: PRODUCTS_ORDER.DESC };
 
     const response = await productsApi.getProducts({
       per_page: PER_PAGE_DEFAULT,

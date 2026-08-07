@@ -48,8 +48,14 @@ export const PER_PAGE_OPTIONS = [
   { value: PER_PAGE_DEFAULT * 5, label: PER_PAGE_DEFAULT * 5 },
 ];
 
+/**
+ * Sortowanie użyte, gdy w adresie nie ma parametru `sort`. Broń używana to
+ * pojedyncze egzemplarze — świeże dostawy muszą być na pierwszej stronie.
+ * Ta wartość nie trafia do adresu, żeby /produkty zostało czyste.
+ */
+export const DEFAULT_SORT = 'date-desc';
+
 export const SORT_OPTIONS: SortOption[] = [
-  { value: 'default', label: 'labelDefault' },
   {
     value: 'price-asc',
     label: 'labelPriceAsc',

@@ -23,7 +23,7 @@ export const fetchProducts = async <T>({
     const res = await productsApi.getProducts<T>({
       per_page: PER_PAGE_DEFAULT,
       orderby: PRODUCTS_ORDER_BY.DATE,
-      order: PRODUCTS_ORDER.ASC,
+      order: PRODUCTS_ORDER.DESC,
       ...params,
       page: params.page ? +params.page : 1,
     });
