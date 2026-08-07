@@ -1,10 +1,15 @@
 'use client';
 
-import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import React, {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+} from 'react';
 
 import clsx from 'clsx';
 
 import { Spinner } from '@/components/Spinner';
+import { Link } from '@/i18n/navigation';
 
 import styles from './styles.module.scss';
 import { TButtonColor, TButtonSize, TButtonVariant } from './types';
@@ -20,6 +25,14 @@ interface IButtonProps {
   size?: TButtonSize;
   disabled?: boolean;
   isLoading?: boolean;
+  /**
+   * Renderuje odnośnik zamiast przycisku, z tym samym wyglądem. Dla wszystkiego,
+   * co przenosi na inny adres — link zostaje w HTML-u dla wyszukiwarek, otwiera
+   * się w nowej karcie i działa z klawiatury, czego onClick nie daje.
+   */
+  href?: string;
+  // `popover` odpada — React typuje je szerzej, niż przyjmuje Link z next-intl.
+  anchorProps?: Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'popover'>;
 }
 
 export const Button = ({
@@ -33,6 +46,8 @@ export const Button = ({
   variant = 'filled',
   color = 'primary',
   isLoading,
+  href,
+  anchorProps = {},
 }: IButtonProps) => {
   const sizeMap: { [_key in TButtonSize]: string } = {
     large: styles['button-size--large'],
@@ -59,6 +74,21 @@ export const Button = ({
     if (onClick) onClick(e);
   };
 
+  const content = (
+    <>
+      {children}
+      {isLoading && <Spinner className={styles['button-loading-spinner']} />}
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className={buttonClassNames} {...anchorProps}>
+        {content}
+      </Link>
+    );
+  }
+
   return (
     <button
       type={type}
@@ -67,8 +97,7 @@ export const Button = ({
       disabled={disabled || isLoading}
       {...buttonProps}
     >
-      {children}
-      {isLoading && <Spinner className={styles['button-loading-spinner']} />}
+      {content}
     </button>
   );
 };

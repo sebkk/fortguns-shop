@@ -150,4 +150,7 @@
 
 .hero-button {
   margin-top: to-rem(16);
+  // Jako odnośnik przycisk jest blokowy i rozciągnąłby się na całą szerokość,
+  // czego <button> nie robił.
+  width: fit-content;
 }

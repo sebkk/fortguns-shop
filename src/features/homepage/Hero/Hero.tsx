@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Button } from '@/components/Button';
 import { Typography } from '@/components/Typography';
-import { useAppRouter } from '@/hooks/useAppRouter';
 import { IScrollContext, ScrollContext } from '@/providers/ScrollProvider';
 import { ISectionHero } from '@/types/sections';
 
@@ -25,8 +24,6 @@ interface IHeroProps {
 
 export const Hero = ({ slides }: IHeroProps) => {
   const [isInitialized, setIsInitialized] = useState(false);
-
-  const router = useAppRouter();
 
   const { isScrolling } = useContext(ScrollContext) as IScrollContext;
   return (
@@ -92,9 +89,14 @@ export const Hero = ({ slides }: IHeroProps) => {
                   <Typography variant='subheading' tag='p'>
                     {description}
                   </Typography>
+                  {/*
+                    Odnośnik, nie router.push — CMS podaje polski adres
+                    (/produkty), a router next-intl oczekuje wewnętrznej
+                    ścieżki (/products), więc po cichu nigdzie nie przechodził.
+                  */}
                   <Button
                     size='medium'
-                    onClick={() => router.push(link.url)}
+                    href={link.url}
                     className={styles['hero-button']}
                   >
                     {link.title}
