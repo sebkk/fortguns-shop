@@ -8,7 +8,7 @@ import { createStableCacheKey } from '@/helpers/cache';
 import { IGetBrandsParams } from '@/types/brands';
 import { IGetProductsParams, IProductListing } from '@/types/product';
 
-import { cachedFetchProducts } from '../products/fetchProducts';
+import { fetchProducts } from '../products/fetchProducts';
 
 export const fetchBrandBySlug = async (
   slug: string,
@@ -20,46 +20,51 @@ export const fetchBrandBySlug = async (
     productParams?: IGetProductsParams;
   } = {},
 ) => {
+  const pusto = {
+    brand: null,
+    products: [] as IProductListing[],
+    totalPages: 0,
+    totalProducts: 0,
+  };
+
+  let brand;
+
   try {
     const response = await brandsAPI.getBrand(slug, brandParams);
     const { data } = response || {};
 
-    const [brand] = data;
-
-    const { id: brandId } = brand || {};
-
-    if (!brandId) {
-      return {
-        brand: null,
-        products: [],
-        totalPages: 0,
-        totalProducts: 0,
-      };
-    }
-
-    const { products, totalPages, totalProducts } =
-      await cachedFetchProducts<IProductListing>({
-        params: {
-          brand: brandId,
-          ...productParams,
-        },
-      });
-
-    return {
-      brand,
-      products,
-      totalPages,
-      totalProducts,
-    };
+    [brand] = data;
   } catch (error) {
-    console.error(console.error((error as AxiosError).response?.data));
-    return {
-      brand: null,
-      products: [],
-      totalPages: 0,
-      totalProducts: 0,
-    };
+    console.error((error as AxiosError).response?.data);
+
+    return pusto;
   }
+
+  const { id: brandId } = brand || {};
+
+  if (!brandId) {
+    return pusto;
+  }
+
+  // Zwykłe fetchProducts, nie wersja spod unstable_cache — całość i tak jest
+  // opakowana w unstable_cache niżej, a zagnieżdżenie dwóch takich pamięci
+  // wywracało pobieranie i zostawiało puste strony marek.
+  const { products, totalPages, totalProducts } =
+    await fetchProducts<IProductListing>({
+      params: {
+        brand: brandId,
+        ...productParams,
+      },
+    });
+
+  // Marka wraca nawet, gdy produktów nie udało się pobrać — inaczej strona
+  // traci też nagłówek i okruszki, i wygląda jak nieistniejąca.
+  return {
+    brand,
+    products,
+    totalPages,
+    totalProducts,
+  };
 };
 
 const cachedFetchBrandBySlugRequest = unstable_cache(
