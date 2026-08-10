@@ -77,7 +77,10 @@ const cachedFetchBrandBySlugRequest = unstable_cache(
       brandParams: JSON.parse(brandParamsCacheKey) as IGetBrandsParams,
       productParams: JSON.parse(productParamsCacheKey) as IGetProductsParams,
     }),
-  ['brand-listing'],
+  // Data Cache Vercela przeżywa wdrożenia, a klucz nie zależy od kodu — puste
+  // listingi marek siedziały w nim dalej mimo poprawki. Przyrostek unieważnia
+  // stare wpisy; przy kolejnej takiej sytuacji podbij go ponownie.
+  ['brand-listing-v2'],
   {
     revalidate: PRODUCTS_DATA_REVALIDATE,
     tags: ['brands', 'products'],
