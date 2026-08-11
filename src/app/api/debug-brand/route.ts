@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import brandsAPI from '@/api/woocommerce/brands';
-import { fetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
+import {
+  cachedFetchBrandBySlug,
+  fetchBrandBySlug,
+} from '@/handlers/brands/fetchBrandBySlug';
 import { fetchProducts } from '@/handlers/products/fetchProducts';
 import { IProductListing } from '@/types/product';
 
@@ -49,6 +52,17 @@ export async function GET(request: NextRequest) {
     };
   } catch (error) {
     wynik.fetchBrandBySlug = { blad: (error as Error).message };
+  }
+
+  try {
+    const res = await cachedFetchBrandBySlug(slug);
+    wynik.cachedFetchBrandBySlug = {
+      markaJest: !!res.brand,
+      ile: res.products?.length,
+      totalProducts: res.totalProducts,
+    };
+  } catch (error) {
+    wynik.cachedFetchBrandBySlug = { blad: (error as Error).message };
   }
 
   return NextResponse.json(wynik);
