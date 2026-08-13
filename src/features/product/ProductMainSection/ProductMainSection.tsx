@@ -52,6 +52,7 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
         <GalleryWithModal
           galleryCarouselProps={{
             images: images.map(({ id, src, alt }) => ({ id, url: src, alt })),
+            swiperWrapperClassName: styles['product-gallery'],
             swiperThumbsConfig: {
               breakpoints: {
                 550: {
