@@ -4,7 +4,11 @@ import { useSearchParams } from 'next/navigation';
 
 import { useTranslations } from 'next-intl';
 
-import { DEFAULT_SORT, PER_PAGE_DEFAULT } from '@/constants/products';
+import {
+  DEFAULT_SORT,
+  PER_PAGE_DEFAULT,
+  SORT_OPTIONS,
+} from '@/constants/products';
 import { STOCK_STATUS } from '@/types/product';
 
 interface UseProductsOptions<T> {
@@ -49,7 +53,13 @@ export const useProducts = <T>({
     initialTotalProducts || 0,
   );
 
-  const currentSort = searchParams.get('sort') || DEFAULT_SORT;
+  // Adres może nieść sortowanie, którego już nie ma — choćby stare ?sort=default
+  // z zakładki albo z indeksu wyszukiwarki. Nieznaną wartość traktujemy jak brak,
+  // bo inaczej rozpada się na śmieci i zapytanie do WooCommerce leci z błędem.
+  const sortParam = searchParams.get('sort');
+  const currentSort = SORT_OPTIONS.some(({ value }) => value === sortParam)
+    ? (sortParam as string)
+    : DEFAULT_SORT;
   const currentPage = searchParams.get('page')
     ? Number(searchParams.get('page'))
     : 1;

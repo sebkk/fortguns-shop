@@ -54,13 +54,24 @@ export async function GET(request: NextRequest) {
         parseInt(searchParams.get('brand') || '0', 10) || undefined;
     }
 
-    if (searchParams.has('orderby')) {
-      params.orderby =
-        (searchParams.get('orderby') as PRODUCTS_ORDER_BY) || undefined;
+    // Przepuszczamy tylko wartości, które WooCommerce zna. Wcześniej dowolny
+    // tekst z adresu szedł dalej i wywracał zapytanie błędem 500 — publiczny
+    // endpoint nie powinien się przewracać od byle parametru.
+    const orderby = searchParams.get('orderby');
+    const order = searchParams.get('order');
+
+    if (
+      orderby &&
+      Object.values(PRODUCTS_ORDER_BY).includes(orderby as PRODUCTS_ORDER_BY)
+    ) {
+      params.orderby = orderby as PRODUCTS_ORDER_BY;
     }
 
-    if (searchParams.has('order')) {
-      params.order = (searchParams.get('order') as PRODUCTS_ORDER) || undefined;
+    if (
+      order &&
+      Object.values(PRODUCTS_ORDER).includes(order as PRODUCTS_ORDER)
+    ) {
+      params.order = order as PRODUCTS_ORDER;
     }
 
     if (searchParams.has('stock_status')) {
