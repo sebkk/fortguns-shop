@@ -12,9 +12,7 @@ const withAccessoriesCategory = (items: MenuItem[]): MenuItem[] =>
       return item;
     }
 
-    if (
-      item.child_items.some(({ url }) => url === ACCESSORIES_CATEGORY_URL)
-    ) {
+    if (item.child_items.some(({ url }) => url === ACCESSORIES_CATEGORY_URL)) {
       return item;
     }
 
