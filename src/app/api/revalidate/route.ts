@@ -11,6 +11,13 @@ import { timingSafeEqual } from 'crypto';
  */
 const KNOWN_TAGS = ['pages', 'products', 'brands', 'global-infos'];
 
+const PATH_TYPES = ['page', 'layout'] as const;
+
+type TPathType = (typeof PATH_TYPES)[number];
+
+const isPathType = (value: string | null): value is TPathType =>
+  value !== null && (PATH_TYPES as readonly string[]).includes(value);
+
 const SECRET = process.env.REVALIDATE_SECRET;
 
 const isAuthorised = (given: string | null) => {
@@ -54,22 +61,24 @@ export async function POST(request: NextRequest) {
   // Strony leżą pod trasami dynamicznymi (/[locale], /[locale]/produkt/[slug]),
   // a dla takich Next oczekuje wzorca trasy razem z typem — samo '/' nie trafia
   // w żadną z nich i kończy się cichym brakiem efektu.
-  const typeParam = request.nextUrl.searchParams.get('type');
+  const rawType = request.nextUrl.searchParams.get('type');
 
-  if (typeParam && typeParam !== 'page' && typeParam !== 'layout') {
+  if (rawType !== null && !isPathType(rawType)) {
     return NextResponse.json(
-      { error: "Parametr type przyjmuje 'page' albo 'layout'." },
+      { error: `Parametr type przyjmuje: ${PATH_TYPES.join(', ')}.` },
       { status: 400 },
     );
   }
 
+  const pathType = isPathType(rawType) ? rawType : undefined;
+
   tags.forEach((tag) => revalidateTag(tag));
   paths.forEach((path) =>
-    typeParam ? revalidatePath(path, typeParam) : revalidatePath(path),
+    pathType ? revalidatePath(path, pathType) : revalidatePath(path),
   );
 
   return NextResponse.json({
-    revalidated: { tags, paths, type: typeParam ?? null },
+    revalidated: { tags, paths, type: pathType ?? null },
     at: new Date().toISOString(),
   });
 }
