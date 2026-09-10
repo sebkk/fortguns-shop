@@ -47,7 +47,9 @@ export const OpeningHours = () => {
       </table>
 
       <Typography tag='p' className={styles['opening-note']}>
-        Przed przyjazdem prosimy o wcześniejszy kontakt w sprawie odbioru.
+        W godzinach otwarcia można przyjechać bez zapowiedzi. Wcześniejszy
+        kontakt jest potrzebny tylko wtedy, gdy chcesz obejrzeć konkretny
+        egzemplarz albo przyjechać w sobotę.
       </Typography>
     </div>
   );
