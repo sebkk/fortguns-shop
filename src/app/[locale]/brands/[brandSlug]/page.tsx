@@ -3,10 +3,10 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Spacer } from '@/components/Spacer';
 import { BRANDS_FIELDS_FOR_METADATA } from '@/constants/brands';
 import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
-import { PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { Products } from '@/features/products/Products';
 import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
+import { withCanonical } from '@/helpers/metadata/canonical';
 
 export const revalidate = 7200;
 export const dynamic = 'force-static';
@@ -40,15 +40,15 @@ export const generateMetadata = async ({
 
   const { name: brandName, description: brandDescription } = brand || {};
 
-  return {
-    title: `Fortguns - ${brandName}`,
-    description: brandDescription,
-    keywords: brandName,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL}${PATHNAMES[NAVIGATION_ROUTE.BRAND_LISTING]}/${brandSlug}`,
-    type: 'website',
-    locale: 'en_US',
-    breadcrumbs: BRAND_LISTING_BREADCRUMBS(brandName as string),
-  };
+  return withCanonical(
+    {
+      title: `Fortguns - ${brandName}`,
+      description: brandDescription,
+      keywords: brandName,
+    },
+    NAVIGATION_ROUTE.BRAND_LISTING,
+    { brandSlug },
+  );
 };
 
 const BrandListingPage = async ({

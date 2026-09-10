@@ -14,6 +14,7 @@ import {
 } from '@/types/metadata';
 
 import { generateLdJsonData } from '../generateLdJsonData';
+import { toPublicUrl, withPublicUrls } from './cmsUrl';
 
 export const transformToMetadata = async (
   input: IMetaAttributes[],
@@ -49,7 +50,7 @@ export const transformToMetadata = async (
           break;
       }
     } else if ('rel' in item && item.rel === 'canonical' && item.href) {
-      metadata.alternates = { canonical: item.href };
+      metadata.alternates = { canonical: toPublicUrl(item.href) };
     } else if ('property' in item) {
       if (item.property && item.property.startsWith('og:')) {
         const key = item.property.replace('og:', '');
@@ -65,13 +66,16 @@ export const transformToMetadata = async (
                 : []),
               item.content ?? '',
             ];
-          } else {
-            (metadata.openGraph as Record<string, unknown>)[key] =
-              item.content ?? '';
+          } else if (key !== 'site_name') {
+            // og:site_name is dropped: Next.js only reads `siteName`, and Rank
+            // Math sends the keyword-stuffed site title, not the brand.
+            (metadata.openGraph as Record<string, unknown>)[key] = toPublicUrl(
+              item.content ?? '',
+            );
           }
         }
       } else {
-        metadata.other![item.property!] = item.content! ?? '';
+        metadata.other![item.property!] = toPublicUrl(item.content! ?? '');
       }
     } else if (item.type === 'script' && item.content) {
       if (item.type === 'script') {
@@ -99,6 +103,14 @@ export const transformToMetadata = async (
       }
     }
   }
+
+  metadata.openGraph = {
+    siteName: 'FortGuns',
+    locale: 'pl_PL',
+    ...metadata.openGraph,
+  };
+
+  metadata.other = withPublicUrls(metadata.other);
 
   return metadata;
 };

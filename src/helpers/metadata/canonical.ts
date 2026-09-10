@@ -24,6 +24,10 @@ export const getCanonicalPath = (
 const setCanonical = (metadata: Metadata, canonical: string): Metadata => ({
   ...metadata,
   alternates: { ...metadata.alternates, canonical },
+  // og:url must track the canonical. Rank Math reports the CMS permalink, and
+  // left alone it makes every share on Facebook or WhatsApp link to the
+  // headless backend.
+  openGraph: { ...metadata.openGraph, url: canonical },
 });
 
 export const withCanonical = (
