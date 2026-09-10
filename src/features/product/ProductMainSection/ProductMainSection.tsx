@@ -51,7 +51,18 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
         />
         <GalleryWithModal
           galleryCarouselProps={{
-            images: images.map(({ id, src, alt }) => ({ id, url: src, alt })),
+            images: images.map(({ id, src, alt }, index) => ({
+              id,
+              url: src,
+              // Galeria pokazuje ten sam egzemplarz z kilku stron, ale opis ma
+              // w WordPressie zwykle tylko pierwsze zdjęcie — pozostałe szły do
+              // przeglądarki z pustym alt, czyli bez żadnej informacji dla
+              // czytnika ekranu i dla Grafiki Google. Prawdziwy opis, jeśli
+              // istnieje, zawsze wygrywa.
+              alt:
+                alt?.trim() ||
+                `${name} — zdjęcie ${index + 1} z ${images.length}`,
+            })),
             swiperWrapperClassName: styles['product-gallery'],
             swiperThumbsConfig: {
               breakpoints: {
