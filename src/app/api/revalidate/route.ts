@@ -51,11 +51,25 @@ export async function POST(request: NextRequest) {
   const tags = requestedTags.length ? requestedTags : KNOWN_TAGS;
   const paths = request.nextUrl.searchParams.getAll('path');
 
+  // Strony leżą pod trasami dynamicznymi (/[locale], /[locale]/produkt/[slug]),
+  // a dla takich Next oczekuje wzorca trasy razem z typem — samo '/' nie trafia
+  // w żadną z nich i kończy się cichym brakiem efektu.
+  const typeParam = request.nextUrl.searchParams.get('type');
+
+  if (typeParam && typeParam !== 'page' && typeParam !== 'layout') {
+    return NextResponse.json(
+      { error: "Parametr type przyjmuje 'page' albo 'layout'." },
+      { status: 400 },
+    );
+  }
+
   tags.forEach((tag) => revalidateTag(tag));
-  paths.forEach((path) => revalidatePath(path));
+  paths.forEach((path) =>
+    typeParam ? revalidatePath(path, typeParam) : revalidatePath(path),
+  );
 
   return NextResponse.json({
-    revalidated: { tags, paths },
+    revalidated: { tags, paths, type: typeParam ?? null },
     at: new Date().toISOString(),
   });
 }
