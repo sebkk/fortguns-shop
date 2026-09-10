@@ -4,10 +4,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { timingSafeEqual } from 'crypto';
 
 /**
- * Odpowiedzi z CMS-a leżą w Data Cache Vercela nawet dobę (CMS_DATA_REVALIDATE),
- * a ten cache przeżywa wdrożenie — przepchnięcie deployu go nie ruszy. Bez tej
- * trasy jedynym sposobem na zobaczenie zmiany z WordPressa było odczekanie
- * pełnego okna.
+ * Ręczne czyszczenie cache po zmianie treści w CMS-ie.
+ *
+ * Uwaga sprawdzona w boju: na wpisy Data Cache powstałe podczas prerenderowania
+ * przy buildzie to nie działa — ani przez tag, ani przez ścieżkę, ani po
+ * przebudowie. Tam jedyne, co pomaga, to przeczekanie okna (patrz
+ * CMS_DATA_REVALIDATE) albo wyczyszczenie Data Cache z panelu Vercela.
  */
 const KNOWN_TAGS = ['pages', 'products', 'brands', 'global-infos'];
 

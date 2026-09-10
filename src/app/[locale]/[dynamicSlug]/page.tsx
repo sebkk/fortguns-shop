@@ -14,7 +14,7 @@ import { IWordPressPageStaticPaths } from '@/types/pages';
 
 export const dynamicParams = false;
 export const dynamic = 'force-static';
-export const revalidate = 86400;
+export const revalidate = 1800;
 
 export async function generateMetadata({
   params,

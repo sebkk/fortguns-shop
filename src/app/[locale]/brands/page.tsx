@@ -11,7 +11,7 @@ import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
 import { TMetadataType } from '@/types/metadata';
 
-export const revalidate = 86400;
+export const revalidate = 1800;
 export const dynamic = 'force-static';
 export const dynamicParams = false;
 
