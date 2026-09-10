@@ -80,14 +80,11 @@ export const HeaderDrawerNav = ({
             <LinkBtnNav
               className={styles['header-drawer-nav-list-item_button']}
               href={child_items ? undefined : href}
-              linkProps={{
-                anchorProps: {
-                  role: child_items ? 'button' : 'link',
-                  onClick: () =>
-                    child_items &&
-                    handleSelectChildItems({ title, href, child_items }),
-                },
-              }}
+              onClick={
+                child_items
+                  ? () => handleSelectChildItems({ title, href, child_items })
+                  : undefined
+              }
             >
               {title}
               {child_items && <ArrowIcon />}

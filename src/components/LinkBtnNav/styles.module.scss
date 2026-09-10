@@ -35,3 +35,15 @@
     margin: 0;
   }
 }
+
+// Odnośnik dostaje typografię i kursor z .link-base w komponencie Link.
+// Przycisk nie dziedziczy niczego z tamtej strony, więc powtarzamy tu tyle,
+// żeby oba warianty wyglądały identycznie.
+.link-btn-nav--button {
+  cursor: pointer;
+
+  background: none;
+
+  font-family: inherit;
+  font-size: to-rem(18);
+}
