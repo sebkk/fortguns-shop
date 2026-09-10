@@ -46,7 +46,13 @@ export const useProducts = <T>({
   const t = useTranslations();
 
   const [products, setProducts] = useState<T[] | undefined>(initialProducts);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // Serwer podaje pierwszą stronę listingu gotową, więc zaczynanie od stanu
+  // ładowania kazało renderować szkielety mimo trzymania danych w ręku:
+  // crawler dostawał pustą siatkę, a każdy adres z nieznanym parametrem
+  // (fbclid, gclid, utm_*) zostawał na szkieletach na stałe — żaden z efektów
+  // niżej nie gasił tego stanu. Ładowanie zaczyna się dopiero wtedy, gdy
+  // naprawdę nie ma czego pokazać, a fetchProducts i tak ustawia je sam.
+  const [isLoading, setIsLoading] = useState<boolean>(!initialProducts);
   const [error, setError] = useState<string | null>(null);
   const [totalPages, setTotalPages] = useState<number>(initialTotalPages || 0);
   const [totalProducts, setTotalProducts] = useState<number>(
