@@ -47,9 +47,8 @@ export const OpeningHours = () => {
       </table>
 
       <Typography tag='p' className={styles['opening-note']}>
-        W godzinach otwarcia można przyjechać bez zapowiedzi. Wcześniejszy
-        kontakt jest potrzebny tylko wtedy, gdy chcesz obejrzeć konkretny
-        egzemplarz albo przyjechać w sobotę.
+        W godzinach otwarcia można przyjechać bez zapowiedzi. Prosimy o kontakt
+        w celu rezerwacji lub odbioru w sobotę.
       </Typography>
     </div>
   );
