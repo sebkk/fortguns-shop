@@ -100,6 +100,10 @@ export const Products = ({
         wrapperClassName={styles['products-title-desc-wrapper']}
         title={pageTitle || category?.name || t('productsListingTitle')}
         description={pageDescription || category?.description}
+        // Nazwa listingu jest tematem strony, a listingi nie miały <h1> wcale.
+        // Wygląd bierze się z wariantu, nie ze znacznika, więc zmienia się tu
+        // wyłącznie semantyka.
+        titleProps={{ tag: 'h1' }}
       />
     </>
   );
