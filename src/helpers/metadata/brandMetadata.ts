@@ -1,5 +1,7 @@
 import { OG_FALLBACK_IMAGE, SITE_NAME } from '@/constants/environment';
 
+import { toMetaDescription, toPlainText } from './plainText';
+
 import type { Metadata } from 'next';
 
 /**
@@ -12,15 +14,17 @@ export const buildBrandMetadata = (
   brandName?: string,
   brandDescription?: string,
 ): Metadata => {
-  const title = `Fortguns - ${brandName}`;
+  const name = toPlainText(brandName);
+  const description = toMetaDescription(brandDescription);
+  const title = `Fortguns - ${name}`;
 
   return {
     title,
-    description: brandDescription,
-    keywords: brandName,
+    description,
+    keywords: name,
     openGraph: {
       title,
-      description: brandDescription,
+      description,
       siteName: SITE_NAME,
       locale: 'pl_PL',
       type: 'website',
