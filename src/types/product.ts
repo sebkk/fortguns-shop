@@ -19,6 +19,8 @@ export interface IProductImage {
   src: string;
   name: string;
   alt: string;
+  /** Lista pomniejszeń, które WordPress wygenerował dla tego pliku. */
+  srcset?: string;
 }
 
 interface IProductAttributeOption {

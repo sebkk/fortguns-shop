@@ -51,9 +51,10 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
         />
         <GalleryWithModal
           galleryCarouselProps={{
-            images: images.map(({ id, src, alt }, index) => ({
+            images: images.map(({ id, src, alt, srcset }, index) => ({
               id,
               url: src,
+              srcset,
               // Galeria pokazuje ten sam egzemplarz z kilku stron, ale opis ma
               // w WordPressie zwykle tylko pierwsze zdjęcie — pozostałe szły do
               // przeglądarki z pustym alt, czyli bez żadnej informacji dla

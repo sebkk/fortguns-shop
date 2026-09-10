@@ -9,6 +9,7 @@ import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 
 import { NavigationButton } from '@/components/_carousels/components/NavigationButton';
+import { pickSrcSetUrl } from '@/helpers/images/pickSrcSetUrl';
 import { IPhoto } from '@/types/pages';
 
 import placeholderImage from '../../../../public/pictures/placeholder.webp';
@@ -27,7 +28,9 @@ const swiperButtonPrev = styles['products-btn_prev'];
 const swiperButtonNext = styles['products-btn_next'];
 
 export interface GalleryCarouselProps {
-  images: IPhoto[] | { id: number; url: string; alt: string }[];
+  images:
+    | IPhoto[]
+    | { id: number; url: string; alt: string; srcset?: string }[];
   hideButtons?: boolean;
   swiperConfig?: SwiperProps;
   swiperThumbsConfig?: SwiperProps;
@@ -170,7 +173,11 @@ export const GalleryCarousel = ({
             className={styles['main-slide']}
           >
             <Image
-              src={image.url}
+              src={pickSrcSetUrl(
+                image.url,
+                'srcset' in image ? image.srcset : undefined,
+                hideMainCarousel ? 300 : 768,
+              )}
               alt={image.alt}
               height={hideMainCarousel ? 225 : 576}
               width={hideMainCarousel ? 300 : 768}
@@ -229,7 +236,11 @@ export const GalleryCarousel = ({
               }}
             >
               <Image
-                src={image.url}
+                src={pickSrcSetUrl(
+                  image.url,
+                  'srcset' in image ? image.srcset : undefined,
+                  300,
+                )}
                 alt={image.alt}
                 width={300}
                 height={225}
