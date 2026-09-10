@@ -7,6 +7,7 @@ import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { Products } from '@/features/products/Products';
 import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
+import { buildBrandMetadata } from '@/helpers/metadata/brandMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
 import {
   getValidPaginationPage,
@@ -37,11 +38,7 @@ export const generateMetadata = async ({
   const { name: brandName, description: brandDescription } = brand || {};
 
   return withCanonical(
-    {
-      title: `Fortguns - ${brandName}`,
-      description: brandDescription,
-      keywords: brandName,
-    },
+    buildBrandMetadata(brandName, brandDescription),
     NAVIGATION_ROUTE.BRAND_LISTING_PAGINATION,
     { brandSlug, pageNumber },
   );

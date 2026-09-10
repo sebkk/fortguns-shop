@@ -2,6 +2,7 @@ import { Twitter } from 'next/dist/lib/metadata/types/twitter-types';
 
 import { Graph } from 'schema-dts';
 
+import { SITE_NAME } from '@/constants/environment';
 import {
   IHeadContentWithAttributes,
   IHeadContentWithContent,
@@ -105,7 +106,7 @@ export const transformToMetadata = async (
   }
 
   metadata.openGraph = {
-    siteName: 'FortGuns',
+    siteName: SITE_NAME,
     locale: 'pl_PL',
     ...metadata.openGraph,
   };
