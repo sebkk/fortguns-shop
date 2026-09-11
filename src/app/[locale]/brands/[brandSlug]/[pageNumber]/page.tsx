@@ -10,6 +10,7 @@ import { Products } from '@/features/products/Products';
 import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 import { buildBrandMetadata } from '@/helpers/metadata/brandMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { getCanonicalPath } from '@/helpers/metadata/canonical';
 import { withPageNumberInTitle } from '@/helpers/metadata/pageNumberTitle';
 import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
@@ -88,6 +89,9 @@ const BrandListingPageNavigation = async ({
       />
       <Products
         products={products}
+        basePath={getCanonicalPath(NAVIGATION_ROUTE.BRAND_LISTING, {
+          brandSlug,
+        })}
         totalPages={totalPages}
         totalProducts={totalProducts}
         pageNumber={page}

@@ -9,6 +9,7 @@ import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { cachedGetCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { getCanonicalPath } from '@/helpers/metadata/canonical';
 import { withPageNumberInTitle } from '@/helpers/metadata/pageNumberTitle';
 import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
@@ -93,6 +94,9 @@ const ProductCategoryPaginationPage = async ({
       <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
       <Products
         products={products}
+        basePath={getCanonicalPath(NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY, {
+          categoryName,
+        })}
         totalPages={totalPages}
         totalProducts={totalProducts}
         pageNumber={page}

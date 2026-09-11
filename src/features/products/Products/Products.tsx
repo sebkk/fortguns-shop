@@ -30,6 +30,14 @@ interface IProductsProps {
   pageDescription?: string;
   category?: ICategory;
   brandId?: number;
+  /**
+   * Publiczny adres listingu bez numeru strony, na przykład
+   * /produkty/kategoria/pistolety-uzywane. Musi go podać strona, bo tylko ona
+   * wie, jaką jest trasą: hooki nawigacji zwracają ścieżkę wewnętrzną sprzed
+   * tłumaczenia (/pl/products/13), a z niej nie da się wiarygodnie odtworzyć
+   * adresu, pod którym ta strona naprawdę żyje.
+   */
+  basePath?: string;
 }
 
 export const Products = ({
@@ -41,6 +49,7 @@ export const Products = ({
   pageDescription,
   category,
   brandId,
+  basePath,
 }: IProductsProps) => {
   // Adres publiczny, czyli dokładnie ten, który ma trafić do href. Tłumaczenie
   // tras next-intl trzeba tu ominąć: potrafi odwzorować tylko dokładne klucze,
@@ -146,26 +155,38 @@ export const Products = ({
     if (params.toString()) {
       params.set('page', page.toString());
 
-      return `${pathname}?${params.toString()}`;
+      return `${basePath ?? pathname}?${params.toString()}`;
     }
 
-    let path = pathname;
+    if (!basePath) return pathname;
 
-    if (path.includes(`/${currentPage}`)) {
-      path = path.replace(`/${currentPage}`, `/${page}`);
-    } else {
-      path = path + `/${page}`;
-    }
-
-    if (page === 1) {
-      path = path.replace(`/${page}`, '');
-    }
-
-    return path;
+    return page === 1 ? basePath : `${basePath}/${page}`;
   };
 
+  // Obsługuje już tylko listy rozwijane (mobilna i ta pod wielokropkiem) —
+  // numery stron są odnośnikami i nawigują same. Router next-intl oczekuje
+  // ścieżki wewnętrznej, więc liczymy ją osobno od adresu publicznego w href.
   const onPageChange = (page: number) => {
-    push(getPageHref(page));
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (params.toString()) {
+      params.set('page', page.toString());
+      push(`${pathname}?${params.toString()}`);
+    } else {
+      let path = pathname;
+
+      if (path.includes(`/${currentPage}`)) {
+        path = path.replace(`/${currentPage}`, `/${page}`);
+      } else {
+        path = path + `/${page}`;
+      }
+
+      if (page === 1) {
+        path = path.replace(`/${page}`, '');
+      }
+
+      push(path);
+    }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

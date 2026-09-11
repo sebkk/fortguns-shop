@@ -12,6 +12,7 @@ import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { getCanonicalPath } from '@/helpers/metadata/canonical';
 import { withPageNumberInTitle } from '@/helpers/metadata/pageNumberTitle';
 import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
@@ -83,6 +84,7 @@ const ProductPagePagination = async ({
       <Breadcrumbs items={PRODUCTS_BREADCRUMBS} size='large' />
       <Products
         products={products}
+        basePath={getCanonicalPath(NAVIGATION_ROUTE.PRODUCTS_LISTING)}
         totalPages={totalPages}
         totalProducts={totalProducts}
         pageNumber={page}
