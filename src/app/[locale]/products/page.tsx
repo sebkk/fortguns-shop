@@ -49,7 +49,10 @@ const ProductsPage = async () => {
   return (
     <>
       <JsonLd
-        scripts={[...metadata.scripts, ...buildProductItemList(products)]}
+        scripts={[
+          ...(metadata.scripts ?? []),
+          ...buildProductItemList(products),
+        ]}
       />
       <Breadcrumbs items={PRODUCTS_BREADCRUMBS} size='large' />
       <Products

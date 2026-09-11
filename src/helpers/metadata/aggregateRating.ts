@@ -15,6 +15,8 @@ export const withAggregateRating = (
     (section) => section.acf_fc_layout === 'section_reviews_google',
   );
 
+  if (!scripts?.length) return scripts ?? [];
+
   if (!reviews || !('rating_value' in reviews)) return scripts;
 
   const ratingValue = Number(reviews.rating_value);

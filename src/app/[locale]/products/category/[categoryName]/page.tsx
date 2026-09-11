@@ -70,7 +70,10 @@ const CategoryPage = async ({ params }: ICategoryPageProps) => {
   return (
     <>
       <JsonLd
-        scripts={[...metadata.scripts, ...buildProductItemList(products)]}
+        scripts={[
+          ...(metadata.scripts ?? []),
+          ...buildProductItemList(products),
+        ]}
       />
       <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
       <Products
