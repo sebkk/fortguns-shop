@@ -71,7 +71,7 @@ export const Hero = ({ slides }: IHeroProps) => {
                   // width={1920}
                   // height={1080}
                   fill
-                  alt='page hero image'
+                  alt={picture.alt || title || ''}
                   src={picture.url}
                   className={styles['hero-image']}
                   priority
@@ -82,7 +82,10 @@ export const Hero = ({ slides }: IHeroProps) => {
                   <Typography
                     variant='main-heading'
                     className={styles['hero-main-heading']}
-                    tag='h1'
+                    // Nagłówkiem strony jest pierwszy slajd. Kolejne opisują
+                    // sąsiednie treści, więc drugie <h1> byłoby tu tylko
+                    // skutkiem ubocznym dodania slajdu w CMS-ie.
+                    tag={index === 0 ? 'h1' : 'h2'}
                   >
                     {title}
                   </Typography>
