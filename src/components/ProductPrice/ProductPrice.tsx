@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
-import { currency } from '@/constants/environment';
+import { formatPrice } from '@/helpers/price/formatPrice';
 import { IProduct } from '@/types/product';
 
 import styles from './styles.module.scss';
@@ -53,9 +53,7 @@ export const ProductPrice = ({
           className,
         )}
       >
-        {isPrice
-          ? `${Number(priceValue).toFixed(2)}\u00A0${currency}`
-          : t('noPrice')}
+        {isPrice ? formatPrice(priceValue) : t('noPrice')}
       </p>
       {isSalePrice && (
         <p
@@ -66,7 +64,7 @@ export const ProductPrice = ({
             className,
           )}
         >
-          {`${Number(price).toFixed(2)}\u00A0${currency}`}
+          {formatPrice(price)}
         </p>
       )}
     </div>
