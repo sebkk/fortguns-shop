@@ -11,7 +11,6 @@ import { ProductPrice } from '@/components/ProductPrice';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { Typography } from '@/components/Typography';
 import globalInfos from '@/constants/api/global-infos';
-import { createMailToQuery } from '@/helpers/createMailToQuery';
 import { getContactInfoIcon, getLinkHref } from '@/helpers/links';
 import { TLinkHref } from '@/types/footer';
 import { IProductDetails } from '@/types/product';
@@ -123,11 +122,13 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
           <div className={styles['product-contact-wrapper_links']}>
             <ObfuscatedEmail
               className={styles['product-contact-wrapper_link']}
-              email={createMailToQuery(
-                email?.href as string,
-                name,
-                id.toString(),
-              )}
+              // Goły adres, nie gotowy odnośnik: mailto składa sam komponent,
+              // doklejając temat z nazwą i numerem egzemplarza. Podanie mu
+              // gotowego mailto dawało adres zaczynający się od "mailto:mailto:",
+              // którego program pocztowy nie otwierał.
+              email={email?.href as string}
+              productName={name}
+              productId={id.toString()}
             >
               {getContactInfoIcon(email?.type as string)}
               {email?.label}
