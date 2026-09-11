@@ -67,6 +67,12 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (_page: number) => void;
+  /**
+   * Adres danej strony listingu. Gdy jest podany, numery renderują się jako
+   * odnośniki — bez tego crawler widzi gołe przyciski i nie ma jak przejść
+   * dalej niż pierwsza strona.
+   */
+  getPageHref?: (_page: number) => string;
   siblingCount?: number;
   wrapperClassName?: string;
 }
@@ -75,6 +81,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
+  getPageHref,
   siblingCount = 1,
   wrapperClassName = '',
 }) => {
@@ -102,6 +109,9 @@ export const Pagination: React.FC<PaginationProps> = ({
     }
   };
 
+  const hrefFor = (page: number) =>
+    page >= 1 && page <= totalPages ? getPageHref?.(page) : undefined;
+
   const handlePageClick = (page: number | string) => {
     if (typeof +page === 'number' && page !== currentPage) {
       onPageChange(+page);
@@ -114,6 +124,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <li>
           <Button
             onClick={handlePrevious}
+            href={currentPage > 1 ? hrefFor(currentPage - 1) : undefined}
             disabled={currentPage === 1}
             aria-label={t('prevPage')}
             variant='outlined'
@@ -204,6 +215,14 @@ export const Pagination: React.FC<PaginationProps> = ({
             return (
               <Button
                 onClick={() => handlePageClick(pageNumber)}
+                href={
+                  pageNumber === currentPage ? undefined : hrefFor(pageNumber)
+                }
+                anchorProps={{
+                  'aria-current':
+                    pageNumber === currentPage ? 'page' : undefined,
+                  'aria-label': t('navigateToPage', { pageNumber }),
+                }}
                 aria-current={pageNumber === currentPage ? 'page' : undefined}
                 aria-label={t('navigateToPage', { pageNumber: pageNumber })}
                 type='button'
@@ -220,6 +239,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         <li>
           <Button
             onClick={handleNext}
+            href={
+              currentPage < totalPages ? hrefFor(currentPage + 1) : undefined
+            }
             disabled={currentPage === totalPages}
             aria-label={t('nextPage')}
             variant='outlined'

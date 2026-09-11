@@ -9,6 +9,7 @@ import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { cachedGetCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { withPageNumberInTitle } from '@/helpers/metadata/pageNumberTitle';
 import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
   getValidPaginationPage,
@@ -49,7 +50,7 @@ export const generateMetadata = async ({
   const { metadata } = await cachedGetCategoryProductMetadata(categoryName);
 
   return withCanonical(
-    metadata,
+    withPageNumberInTitle(metadata, Number(pageNumber)),
     NAVIGATION_ROUTE.PRODUCTS_LISTING_CATEGORY_PAGINATION,
     { categoryName, pageNumber },
   );

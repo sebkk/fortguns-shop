@@ -10,6 +10,7 @@ interface IPaginationWithCountProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  getPageHref?: (page: number) => string;
   selectId: string;
   onPerPageChange: (perPage: number) => void;
   currentPerPage: number;
@@ -19,6 +20,7 @@ export const PaginationWithCount = ({
   currentPage,
   totalPages,
   onPageChange,
+  getPageHref,
   onPerPageChange,
   selectId,
   currentPerPage,
@@ -49,6 +51,7 @@ export const PaginationWithCount = ({
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
+        getPageHref={getPageHref}
         wrapperClassName={styles['pagination-with-count-pagination-wrapper']}
       />
     </div>

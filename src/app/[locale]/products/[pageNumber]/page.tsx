@@ -12,6 +12,7 @@ import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { withPageNumberInTitle } from '@/helpers/metadata/pageNumberTitle';
 import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
   getValidPaginationPage,
@@ -43,9 +44,11 @@ export const generateMetadata = async ({
     TMetadataType.DEFAULT_PAGE,
   );
 
-  return withCanonical(metadata, NAVIGATION_ROUTE.PRODUCTS_LISTING_PAGINATION, {
-    pageNumber,
-  });
+  return withCanonical(
+    withPageNumberInTitle(metadata, Number(pageNumber)),
+    NAVIGATION_ROUTE.PRODUCTS_LISTING_PAGINATION,
+    { pageNumber },
+  );
 };
 
 const ProductPagePagination = async ({

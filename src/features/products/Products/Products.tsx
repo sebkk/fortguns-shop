@@ -133,27 +133,36 @@ export const Products = ({
     );
   }
 
-  const onPageChange = (page: number) => {
+  // Adres kolejnej strony listingu. Wyliczany osobno, bo trafia nie tylko do
+  // nawigacji po kliknięciu, ale i do atrybutu href — bez niego numery stron
+  // są gołymi przyciskami, po których crawler nie przejdzie dalej niż strona
+  // pierwsza.
+  const getPageHref = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (params.toString()) {
       params.set('page', page.toString());
-      push(`${pathname}?${params.toString()}`);
-    } else {
-      let path = pathname;
 
-      if (path.includes(`/${currentPage}`)) {
-        path = path.replace(`/${currentPage}`, `/${page}`);
-      } else {
-        path = path + `/${page}`;
-      }
-
-      if (page === 1) {
-        path = path.replace(`/${page}`, '');
-      }
-
-      push(path);
+      return `${pathname}?${params.toString()}`;
     }
+
+    let path = pathname;
+
+    if (path.includes(`/${currentPage}`)) {
+      path = path.replace(`/${currentPage}`, `/${page}`);
+    } else {
+      path = path + `/${page}`;
+    }
+
+    if (page === 1) {
+      path = path.replace(`/${page}`, '');
+    }
+
+    return path;
+  };
+
+  const onPageChange = (page: number) => {
+    push(getPageHref(page));
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -180,6 +189,7 @@ export const Products = ({
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={onPageChange}
+            getPageHref={getPageHref}
             selectId='products-per-page-top'
             onPerPageChange={onPerPageChange}
             currentPerPage={currentPerPage}
@@ -228,6 +238,7 @@ export const Products = ({
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={onPageChange}
+            getPageHref={getPageHref}
             selectId='products-per-page-bottom'
             onPerPageChange={onPerPageChange}
             currentPerPage={currentPerPage}

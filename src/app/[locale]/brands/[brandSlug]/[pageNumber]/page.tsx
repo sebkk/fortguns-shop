@@ -10,6 +10,7 @@ import { Products } from '@/features/products/Products';
 import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 import { buildBrandMetadata } from '@/helpers/metadata/brandMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { withPageNumberInTitle } from '@/helpers/metadata/pageNumberTitle';
 import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
   getValidPaginationPage,
@@ -40,7 +41,10 @@ export const generateMetadata = async ({
   const { name: brandName, description: brandDescription } = brand || {};
 
   return withCanonical(
-    buildBrandMetadata(brandName, brandDescription),
+    withPageNumberInTitle(
+      buildBrandMetadata(brandName, brandDescription),
+      Number(pageNumber),
+    ),
     NAVIGATION_ROUTE.BRAND_LISTING_PAGINATION,
     { brandSlug, pageNumber },
   );
