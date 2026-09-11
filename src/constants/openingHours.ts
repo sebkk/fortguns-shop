@@ -2,9 +2,10 @@
  * Opening hours, as minutes from midnight, keyed by JS day number (0 = Sunday).
  * `null` means no fixed hours that day.
  *
- * Single source for both the printed table and the live open/closed badge, so
- * the two can never drift. The other place these live is Rank Math → Lokalizacja
- * SEO, which feeds the structured data — update both together.
+ * Single source for the printed table, the live open/closed badge and the
+ * openingHoursSpecification in structured data, so the three can never drift.
+ * Do not also fill the hours in Rank Math → Lokalizacja SEO: the graph would
+ * then carry two sets, and only one of them would follow this file.
  */
 export interface IOpeningRange {
   open: number;

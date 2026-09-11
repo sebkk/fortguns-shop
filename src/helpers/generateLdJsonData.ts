@@ -13,10 +13,30 @@ const NEW_CONDITION = 'https://schema.org/NewCondition';
 const USED_CONDITION = 'https://schema.org/UsedCondition';
 
 /**
+ * Godziny otwarcia przyjmuje Place i każdy podtyp LocalBusiness — ale nie
+ * Organization. Rank Math emituje dziś osobny węzeł Place, jednak po zmianie
+ * typu działalności w Lokalizacji SEO (na przykład na GunStore) opisem miejsca
+ * staje się sam węzeł firmy. Rozpoznajemy więc jedno i drugie, żeby przełączenie
+ * ustawienia w CMS-ie nie wygasiło po cichu godzin.
+ */
+const isPlaceLikeType = (type: unknown): boolean => {
+  const types = Array.isArray(type) ? type : [type];
+
+  return types.some(
+    (value) =>
+      typeof value === 'string' &&
+      (value === 'Place' ||
+        value === 'LocalBusiness' ||
+        value.endsWith('Store') ||
+        value.endsWith('Shop')),
+  );
+};
+
+/**
  * Rank Math nie publikuje godzin otwarcia w ogóle, a to jedna z pierwszych
- * rzeczy, jakich Google szuka przy sklepie stacjonarnym. Dokładamy je do węzła
- * Place, bo to jego właściwość — Organization ich nie przyjmuje. Przy okazji
- * kraj w adresie zapisujemy kodem ISO, jak chce schema.org.
+ * rzeczy, jakich Google szuka przy sklepie stacjonarnym. Przy okazji kraj w
+ * adresie zapisujemy kodem ISO, jak chce schema.org — to poprawiamy wszędzie,
+ * bo adres nosi też Organization.
  */
 const applyPlaceDetails = (graph: Graph) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,13 +45,15 @@ const applyPlaceDetails = (graph: Graph) => {
   if (!Array.isArray(nodes)) return;
 
   for (const node of nodes) {
-    if (node?.['@type'] !== 'Place') continue;
-
-    node.openingHoursSpecification = getOpeningHoursSpecification();
+    if (!node) continue;
 
     if (node.address?.addressCountry === 'Polska') {
       node.address.addressCountry = 'PL';
     }
+
+    if (!isPlaceLikeType(node['@type'])) continue;
+
+    node.openingHoursSpecification = getOpeningHoursSpecification();
   }
 };
 
