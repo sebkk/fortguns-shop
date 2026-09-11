@@ -1,59 +1,58 @@
 import { MetadataRoute } from 'next';
 
-import brandsAPI from '@/api/woocommerce/brands';
-import { BRANDS_FIELDS_FOR_SITEMAP } from '@/constants/brands';
 import { DEFAULT_LOCALE, PATHNAMES } from '@/constants/locales';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
+import { fetchBrands } from '@/handlers/brands/fetchBrands';
 
 import { createSitemapObject } from './createSitemapObject';
 import { createUrl } from './createUrl';
 
+const brandPath = (slug: string, page?: number) =>
+  page
+    ? PATHNAMES[NAVIGATION_ROUTE.BRAND_LISTING_PAGINATION][
+        DEFAULT_LOCALE
+      ].replace('[brandSlug]', slug).replace('[pageNumber]', page.toString())
+    : PATHNAMES[NAVIGATION_ROUTE.BRAND_LISTING][DEFAULT_LOCALE].replace(
+        '[brandSlug]',
+        slug,
+      );
+
+/**
+ * Sitemapa marek liczona z tego samego źródła, co lista na /marki.
+ *
+ * Wcześniej brała marki wprost z taksonomii WooCommerce i miało to dwa skutki.
+ * Po pierwsze pobierała jedną stronę wyników, czyli sto marek ze stu
+ * czterdziestu jeden — reszta alfabetu, z Rugerem, Sig Sauerem, Waltherem i
+ * Winchesterem włącznie, nie trafiała do sitemapy wcale. Po drugie liczyła
+ * strony paginacji z licznika taksonomii, który obejmuje także egzemplarze już
+ * sprzedane: Beretta wychodziła na dwanaście stron, a ma pięć, więc sitemapa
+ * zgłaszała Google adresy zwracające 404.
+ *
+ * Marki bez dostępnego towaru pomijamy, bo ich strony mają noindex — zgłaszanie
+ * ich w sitemapie to sprzeczny sygnał.
+ */
 const createBrandsSitemaps = async (): Promise<MetadataRoute.Sitemap[]> => {
-  // const brandPages = Object.entries(PATHNAMES[NAVIGATION_ROUTE.BRANDS]).map(
-  //   ([locale, pathname]) => createSitemapObject(createUrl(locale, pathname)),
-  // ) as unknown as MetadataRoute.Sitemap[];
+  const { brands } = await fetchBrands();
 
-  const brands = await brandsAPI.getBrands({
-    fields: BRANDS_FIELDS_FOR_SITEMAP.join(','),
-  });
+  return brands
+    .filter(({ count }) => count > 0)
+    .flatMap(({ slug, count }) => {
+      const pagesCount = Math.ceil(count / PER_PAGE_DEFAULT);
 
-  const brandsPages = brands.data
-    .map(({ slug, count }) => {
-      const brandsPagesCount = Math.ceil(count / PER_PAGE_DEFAULT);
-
-      const brandsPagesPagination = Array.from(
-        { length: brandsPagesCount },
+      const paginationPages = Array.from(
+        { length: Math.max(pagesCount - 1, 0) },
         (_, index) =>
           createSitemapObject(
-            createUrl(
-              DEFAULT_LOCALE,
-              PATHNAMES[NAVIGATION_ROUTE.BRAND_LISTING_PAGINATION][
-                DEFAULT_LOCALE
-              ].replace('/[brandSlug]', `/${slug}`).replace(
-                '[pageNumber]',
-                (index + 1).toString(),
-              ),
-            ),
+            createUrl(DEFAULT_LOCALE, brandPath(slug, index + 2)),
           ),
-      ).filter((_, index) => index !== 0) as unknown as MetadataRoute.Sitemap[];
+      );
 
       return [
-        createSitemapObject(
-          createUrl(
-            DEFAULT_LOCALE,
-            PATHNAMES[NAVIGATION_ROUTE.BRAND_LISTING][DEFAULT_LOCALE].replace(
-              '/[brandSlug]',
-              `/${slug}`,
-            ),
-          ),
-        ),
-        ...brandsPagesPagination,
+        createSitemapObject(createUrl(DEFAULT_LOCALE, brandPath(slug))),
+        ...paginationPages,
       ];
-    })
-    .flat() as unknown as MetadataRoute.Sitemap[];
-
-  return brandsPages;
+    }) as unknown as MetadataRoute.Sitemap[];
 };
 
 export { createBrandsSitemaps };
