@@ -5,6 +5,7 @@ import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PAGES_SLUGS } from '@/constants/pages';
 import { cachedGetPageContent } from '@/handlers/page/getPageContent';
 import { cachedGetPageMetadata } from '@/handlers/page/getPageMetadata';
+import { withAggregateRating } from '@/helpers/metadata/aggregateRating';
 import { withCanonical } from '@/helpers/metadata/canonical';
 import { TMetadataType } from '@/types/metadata';
 
@@ -42,7 +43,7 @@ const Home = async () => {
 
   return (
     <div className={styles['homepage-container']}>
-      <JsonLd scripts={metadata.scripts} />
+      <JsonLd scripts={withAggregateRating(metadata.scripts, sections)} />
       <ContentSections sections={sections} />
     </div>
   );

@@ -5,11 +5,35 @@ import { NAVIGATION_ROUTE, PL_SLUGS } from '@/constants/navigation';
 import { fieldsFaqPage } from '@/constants/pages';
 import { toSectionsArray } from '@/helpers/flexibleContent';
 import { SITE_URL, withPublicUrls } from '@/helpers/metadata/cmsUrl';
+import { getOpeningHoursSpecification } from '@/helpers/metadata/openingHoursSchema';
 import { TMetadataType } from '@/types/metadata';
 import { IWordPressPageFaqPageMetadata } from '@/types/pages';
 
 const NEW_CONDITION = 'https://schema.org/NewCondition';
 const USED_CONDITION = 'https://schema.org/UsedCondition';
+
+/**
+ * Rank Math nie publikuje godzin otwarcia w ogóle, a to jedna z pierwszych
+ * rzeczy, jakich Google szuka przy sklepie stacjonarnym. Dokładamy je do węzła
+ * Place, bo to jego właściwość — Organization ich nie przyjmuje. Przy okazji
+ * kraj w adresie zapisujemy kodem ISO, jak chce schema.org.
+ */
+const applyPlaceDetails = (graph: Graph) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const nodes = (graph as any)['@graph'];
+
+  if (!Array.isArray(nodes)) return;
+
+  for (const node of nodes) {
+    if (node?.['@type'] !== 'Place') continue;
+
+    node.openingHoursSpecification = getOpeningHoursSpecification();
+
+    if (node.address?.addressCountry === 'Polska') {
+      node.address.addressCountry = 'PL';
+    }
+  }
+};
 
 /**
  * Rank Math opisuje każdy towar jako nowy — także karabin z 1944 roku. Dla
@@ -53,6 +77,7 @@ export const generateLdJsonData = async (
   const newGraph = withPublicUrls(graph);
 
   applyItemCondition(newGraph);
+  applyPlaceDetails(newGraph);
 
   if (type === TMetadataType.DYNAMIC_PAGE) {
     if (slug === PL_SLUGS[NAVIGATION_ROUTE.FAQ]) {
