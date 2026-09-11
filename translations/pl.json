@@ -8,6 +8,7 @@
   "navigateToPage": "Idź do strony {pageNumber}",
   "description": "Opis",
   "similarProducts": "Podobne produkty",
+  "productBrand": "Marka",
   "outOfStock": "Brak w magazynie",
   "closeDrawer": "Zamknij",
   "goBack": "Wróć",

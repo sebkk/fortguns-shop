@@ -74,6 +74,14 @@
   margin: to-rem(10) 0;
 }
 
+.product-brand {
+  margin-bottom: to-rem(10);
+
+  color: $color-text-dark;
+  font-size: to-rem(16);
+  text-transform: uppercase;
+}
+
 .product-contact-wrapper {
   display: flex;
   flex-direction: column;

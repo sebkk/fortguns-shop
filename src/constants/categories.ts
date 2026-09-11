@@ -11,3 +11,5 @@ export const CATEGORIES_FIELDS_FOR_LISTING = [
   'description',
   'parent',
 ];
+
+export const CATEGORIES_FIELDS_FOR_RELATED = ['id', 'parent'];

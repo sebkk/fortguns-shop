@@ -28,7 +28,6 @@ export const PRODUCT_DETAILS_FIELDS = [
   ...PRODUCTS_FIELDS,
   'description',
   'brands',
-  'related_ids',
 ];
 
 export const PRODUCT_DETAILS_FIELDS_FOR_METADATA = ['permalink'];

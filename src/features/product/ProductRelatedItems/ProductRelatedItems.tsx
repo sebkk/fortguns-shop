@@ -1,34 +1,35 @@
 import { getTranslations } from 'next-intl/server';
 
-import productsApi from '@/api/woocommerce/products';
 import { ProductsCarousel } from '@/components/_carousels/ProductsCarousel';
 import { Spacer } from '@/components/Spacer';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
-import { PER_PAGE_DEFAULT } from '@/constants/products';
-import { IProduct, IProductListing, STOCK_STATUS } from '@/types/product';
+import { fetchRelatedProducts } from '@/handlers/products/fetchRelatedProducts';
+import { IProductDetails } from '@/types/product';
 
 interface IProductRelatedItemsProps {
-  relatedIds: IProduct['related_ids'];
+  product: IProductDetails;
 }
 
 export const ProductRelatedItems = async ({
-  relatedIds,
+  product,
 }: IProductRelatedItemsProps) => {
   const t = await getTranslations();
 
-  const response = await productsApi.getProducts<IProductListing>({
-    per_page: PER_PAGE_DEFAULT,
-    include: relatedIds.join(','),
-    stock_status: STOCK_STATUS.INSTOCK,
+  const { id, categories, brands } = product;
+
+  const relatedProducts = await fetchRelatedProducts({
+    id,
+    categories,
+    brands,
   });
 
-  if (!response.data?.length) return null;
+  if (!relatedProducts.length) return null;
   return (
     <div>
       <Spacer />
       <TitleWithDesc titleProps={{ tag: 'h3' }} title={t('similarProducts')} />
       <Spacer size='md' />
-      <ProductsCarousel items={response.data} />
+      <ProductsCarousel items={relatedProducts} />
     </div>
   );
 };

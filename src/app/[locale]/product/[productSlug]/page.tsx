@@ -53,7 +53,7 @@ const ProductPage = async ({ params }: IProductPageProps) => {
     notFound();
   }
 
-  const { related_ids, categories, name } = product;
+  const { categories, name } = product;
 
   const breadcrumbs = createProductDetailsBreadcrumbs(name, categories);
 
@@ -67,9 +67,7 @@ const ProductPage = async ({ params }: IProductPageProps) => {
       <div className='container'>
         <ProductMainSection product={product} />
         <ProductDescriptionSection product={product} />
-        {related_ids?.length > 0 && (
-          <ProductRelatedItems relatedIds={related_ids} />
-        )}
+        <ProductRelatedItems product={product} />
         <Spacer size='lg' />
       </div>
     </>

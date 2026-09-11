@@ -5,12 +5,14 @@ import { useTranslations } from 'next-intl';
 
 import { Card } from '@/components/Card';
 import { GalleryWithModal } from '@/components/GalleryWithModal';
+import { Link } from '@/components/Link';
 import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import { ProductCategories } from '@/components/ProductCategories';
 import { ProductPrice } from '@/components/ProductPrice';
 import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { Typography } from '@/components/Typography';
 import globalInfos from '@/constants/api/global-infos';
+import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { getContactInfoIcon, getLinkHref } from '@/helpers/links';
 import { TLinkHref } from '@/types/footer';
 import { IProductDetails } from '@/types/product';
@@ -31,8 +33,11 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
     images,
     stock_status,
     categories,
+    brands,
     id,
   } = product || {};
+
+  const brand = brands?.[0];
 
   const phone = globalInfos.contact_infos.find(({ type }) => type === 'phone');
   const email = globalInfos.contact_infos.find(({ type }) => type === 'mail');
@@ -105,6 +110,21 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
           classNameWrapper={styles['product-categories-wrapper']}
           asLink
         />
+        {brand && (
+          <p className={styles['product-brand']}>
+            {t('productBrand')}:{' '}
+            <Link
+              href={{
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                pathname: NAVIGATION_ROUTE.BRAND_LISTING,
+                params: { brandSlug: brand.slug },
+              }}
+            >
+              {brand.name}
+            </Link>
+          </p>
+        )}
         <ProductPrice
           wrapperClassName={styles['product-details-price']}
           salePrice={sale_price}

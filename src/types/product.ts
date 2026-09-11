@@ -69,7 +69,7 @@ interface IProductLinks {
   collection: IProductLink[];
 }
 
-interface IProductBrand {
+export interface IProductBrand {
   id: number;
   name: string;
   slug: string;
@@ -176,7 +176,6 @@ export interface IProductListing extends IProductSearch {
 export interface IProductDetails extends IProductListing {
   description: IProduct['description'];
   brands: IProduct['brands'];
-  related_ids: IProduct['related_ids'];
 }
 
 export enum PRODUCTS_ORDER_BY {
