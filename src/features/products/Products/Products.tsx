@@ -13,8 +13,8 @@ import { TitleWithDesc } from '@/components/TitleWithDesc';
 import { Typography } from '@/components/Typography';
 import { SORT_OPTIONS } from '@/constants/products';
 import { useAppRouter } from '@/hooks/useAppRouter';
-import { usePathname } from '@/i18n/navigation';
 import { useProducts } from '@/hooks/useProducts';
+import { usePathname } from '@/i18n/navigation';
 import { ICategory } from '@/types/categories';
 import { IProductListing } from '@/types/product';
 
@@ -47,7 +47,9 @@ export const Products = ({
   // Link oczekują nazw tras sprzed tłumaczenia i same zamieniają je na polskie
   // adresy. Podanie im gotowego adresu publicznego dawało href-y w rodzaju
   // /pl/products/8, które działały tylko dzięki przekierowaniu.
-  const pathname = usePathname();
+  // String() bo next-intl typuje ścieżkę unią nazw tras, a niżej sklejamy ją
+  // z numerem strony jak zwykły tekst.
+  const pathname = String(usePathname());
   const searchParams = useSearchParams();
   const t = useTranslations();
 
