@@ -1,5 +1,6 @@
 import brandsAPI from '@/api/woocommerce/brands';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { JsonLd } from '@/components/JsonLd';
 import { Spacer } from '@/components/Spacer';
 import { BRANDS_FIELDS_FOR_METADATA } from '@/constants/brands';
 import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
@@ -8,6 +9,7 @@ import { Products } from '@/features/products/Products';
 import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 import { buildBrandMetadata } from '@/helpers/metadata/brandMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { buildProductItemList } from '@/helpers/metadata/productItemList';
 
 export const revalidate = 7200;
 export const dynamic = 'force-static';
@@ -66,6 +68,7 @@ const BrandListingPage = async ({
 
   return (
     <>
+      <JsonLd scripts={buildProductItemList(products)} />
       <Spacer size='sm' />
       <Breadcrumbs
         items={BRAND_LISTING_BREADCRUMBS(brandName as string)}

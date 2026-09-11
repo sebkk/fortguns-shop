@@ -12,6 +12,7 @@ import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { cachedGetCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import { IProductListing } from '@/types/product';
 
 interface ICategoryPageProps {
@@ -68,7 +69,9 @@ const CategoryPage = async ({ params }: ICategoryPageProps) => {
 
   return (
     <>
-      <JsonLd scripts={metadata.scripts} />
+      <JsonLd
+        scripts={[...metadata.scripts, ...buildProductItemList(products)]}
+      />
       <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
       <Products
         products={products}

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs, IBreadcrumbItem } from '@/components/Breadcrumbs';
+import { JsonLd } from '@/components/JsonLd';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { PER_PAGE_DEFAULT } from '@/constants/products';
 import { Products } from '@/features/products/Products';
@@ -8,6 +9,7 @@ import { fetchCategoryBySlug } from '@/handlers/products/fetchCategoryBySlug';
 import { cachedFetchProducts } from '@/handlers/products/fetchProducts';
 import { cachedGetCategoryProductMetadata } from '@/handlers/products/getCategoryProductMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
   getValidPaginationPage,
   isPaginationPageOutOfRange,
@@ -86,6 +88,7 @@ const ProductCategoryPaginationPage = async ({
 
   return (
     <>
+      <JsonLd scripts={buildProductItemList(products, { page })} />
       <Breadcrumbs items={breadcrumbs as IBreadcrumbItem[]} size='large' />
       <Products
         products={products}

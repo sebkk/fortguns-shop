@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 
 import brandsAPI from '@/api/woocommerce/brands';
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
+import { JsonLd } from '@/components/JsonLd';
 import { BRANDS_FIELDS_FOR_METADATA } from '@/constants/brands';
 import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
@@ -9,6 +10,7 @@ import { Products } from '@/features/products/Products';
 import { cachedFetchBrandBySlug } from '@/handlers/brands/fetchBrandBySlug';
 import { buildBrandMetadata } from '@/helpers/metadata/brandMetadata';
 import { withCanonical } from '@/helpers/metadata/canonical';
+import { buildProductItemList } from '@/helpers/metadata/productItemList';
 import {
   getValidPaginationPage,
   isPaginationPageOutOfRange,
@@ -75,6 +77,7 @@ const BrandListingPageNavigation = async ({
 
   return (
     <>
+      <JsonLd scripts={buildProductItemList(products, { page })} />
       <Breadcrumbs
         items={BRAND_LISTING_BREADCRUMBS(brandName as string)}
         size='large'
