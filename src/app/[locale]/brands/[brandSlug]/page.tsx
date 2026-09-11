@@ -1,8 +1,6 @@
-import brandsAPI from '@/api/woocommerce/brands';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { JsonLd } from '@/components/JsonLd';
 import { Spacer } from '@/components/Spacer';
-import { BRANDS_FIELDS_FOR_METADATA } from '@/constants/brands';
 import { BRAND_LISTING_BREADCRUMBS } from '@/constants/breadcrumbs/brands';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { Products } from '@/features/products/Products';
@@ -15,8 +13,7 @@ import { buildProductItemList } from '@/helpers/metadata/productItemList';
 export const revalidate = 7200;
 export const dynamic = 'force-static';
 
-// import brandsAPI from '@/api/woocommerce/brands';
-// import { BRANDS_FIELDS_FOR_STATIC_PARAMS } from '@/constants/brands';
+// // import { BRANDS_FIELDS_FOR_STATIC_PARAMS } from '@/constants/brands';
 // import { DEFAULT_LOCALE } from '@/constants/locales';
 // export const generateStaticParams = async () => {
 //   const res = await brandsAPI.getBrands({
@@ -35,17 +32,21 @@ export const generateMetadata = async ({
 }) => {
   const { brandSlug } = await params;
 
-  const response = await brandsAPI.getBrand(brandSlug, {
-    fields: BRANDS_FIELDS_FOR_METADATA.join(','),
-  });
-  const { data } = response || {};
-
-  const [brand] = data;
+  const { brand, totalProducts } = await cachedFetchBrandBySlug(brandSlug);
 
   const { name: brandName, description: brandDescription } = brand || {};
 
+  const metadata = buildBrandMetadata(brandName, brandDescription);
+
   return withCanonical(
-    buildBrandMetadata(brandName, brandDescription),
+    {
+      ...metadata,
+      // Marka bez towaru to strona z samym komunikatem „Brak produktów".
+      // Zostaje dostępna — asortyment wraca, a adres bywa w historii i w
+      // odnośnikach z zewnątrz — ale nie ma po co siedzieć w indeksie.
+      // follow, żeby nawigacja i stopka dalej przekazywały ruch dalej.
+      ...(totalProducts === 0 && { robots: { index: false, follow: true } }),
+    },
     NAVIGATION_ROUTE.BRAND_LISTING,
     { brandSlug },
   );

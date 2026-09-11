@@ -27,27 +27,11 @@ export const BrandsList = ({ groupedBrands }: IBrandsListProps) => {
               {letter}
             </Typography>
             <ul className={styles['brands-list']}>
-              {brands.map(({ id, slug, name, count }) => (
-                <Card
-                  tag='li'
-                  isRounded
-                  withShadow
-                  key={id}
-                  className={clsx(
-                    styles['brands-list__item'],
-                    !(count > 0) && styles['brands-list__item--disabled'],
-                  )}
-                  withBorder={count > 0}
-                >
-                  <Link
-                    className={clsx(styles['brands-list__item-link'])}
-                    href={{
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
-                      pathname: NAVIGATION_ROUTE.BRAND_LISTING,
-                      params: { brandSlug: parseHTML(slug) },
-                    }}
-                  >
+              {brands.map(({ id, slug, name, count }) => {
+                const hasProducts = count > 0;
+
+                const label = (
+                  <>
                     {parseHTML(name)}
                     <Typography
                       tag='span'
@@ -57,9 +41,45 @@ export const BrandsList = ({ groupedBrands }: IBrandsListProps) => {
                     >
                       {count}
                     </Typography>
-                  </Link>
-                </Card>
-              ))}
+                  </>
+                );
+
+                return (
+                  <Card
+                    tag='li'
+                    isRounded
+                    withShadow
+                    key={id}
+                    className={clsx(
+                      styles['brands-list__item'],
+                      !hasProducts && styles['brands-list__item--disabled'],
+                    )}
+                    withBorder={hasProducts}
+                  >
+                    {hasProducts ? (
+                      <Link
+                        className={clsx(styles['brands-list__item-link'])}
+                        href={{
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          // @ts-ignore
+                          pathname: NAVIGATION_ROUTE.BRAND_LISTING,
+                          params: { brandSlug: parseHTML(slug) },
+                        }}
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      // Marka bez towaru zostaje widoczna, bo mówi klientowi, co
+                      // bywa w ofercie — ale przestaje być odnośnikiem. Prowadził
+                      // on na stronę z komunikatem „Brak produktów", a takich
+                      // pustych stron jest tu kilkadziesiąt.
+                      <span className={clsx(styles['brands-list__item-link'])}>
+                        {label}
+                      </span>
+                    )}
+                  </Card>
+                );
+              })}
             </ul>
           </li>
         ))}
