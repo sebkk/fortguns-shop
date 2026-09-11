@@ -53,7 +53,17 @@ const applyPlaceDetails = (graph: Graph) => {
 
     if (!isPlaceLikeType(node['@type'])) continue;
 
+    // Nadpisujemy, a nie dokładamy: godziny mają jedno źródło w
+    // openingHours.ts, także gdy Rank Math wyśle własną wersję.
     node.openingHoursSpecification = getOpeningHoursSpecification();
+
+    // Darmowy Rank Math nie ma GunStore na liście rodzajów działalności, a to
+    // najbardziej precyzyjny typ dla tego sklepu. Zawężamy go tutaj, ale tylko
+    // gdy w CMS-ie wybrano już jakąś działalność handlową — bez tego Rank Math
+    // nie wysyła ani adresu jako firmy, ani godzin, i nie byłoby czego zawężać.
+    if (node['@type'] !== 'Place') {
+      node['@type'] = 'GunStore';
+    }
   }
 };
 
