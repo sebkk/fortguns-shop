@@ -17,18 +17,24 @@ export const createCMSPagesSitemaps = async (): Promise<
     status: 'publish',
   });
 
+  // ACF zapisuje ścieżki bez wiodącego ukośnika, PATHNAMES z nim — porównujemy
+  // po obcięciu, żeby jedno z drugim w ogóle się spotkało.
+  const stripSlashes = (value: string) => value.replace(/^\/+|\/+$/g, '');
+
   // Strona robocza ma noindex i przekierowuje na stronę główną, a sitemapa nie
   // powinna zgłaszać ani jednego, ani drugiego.
-  const excludedPathnames = [
-    PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES][DEFAULT_LOCALE],
-  ];
+  const excludedPathnames = new Set(
+    [PATHNAMES[NAVIGATION_ROUTE.TEST_PAGES][DEFAULT_LOCALE]].map(stripSlashes),
+  );
 
   const usablePages = pages
     .filter(({ acf }) => !!acf?.slugs_list)
     .map(({ acf }) => acf?.slugs_list)
     .filter(
       (slugs) =>
-        !slugs?.some(({ pathname }) => excludedPathnames.includes(pathname)),
+        !slugs?.some(({ pathname }) =>
+          excludedPathnames.has(stripSlashes(pathname)),
+        ),
     );
 
   const defaultPages: MetadataRoute.Sitemap[] = usablePages.map(
