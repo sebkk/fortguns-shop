@@ -28,10 +28,13 @@ export const fetchProducts = async <T>({
       page: params.page ? +params.page : 1,
     });
 
+    // Nagłówki HTTP to tekst. Typ deklaruje liczby, więc bez tej zamiany
+    // porównanie w rodzaju totalProducts === 0 nigdy nie jest prawdziwe, a
+    // kompilator niczego nie zgłosi.
     return {
       products: res.data,
-      totalPages: res.headers['x-wp-totalpages'],
-      totalProducts: res.headers['x-wp-total'],
+      totalPages: Number(res.headers['x-wp-totalpages'] ?? 0),
+      totalProducts: Number(res.headers['x-wp-total'] ?? 0),
     };
   } catch (error) {
     console.error(error);

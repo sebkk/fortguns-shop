@@ -25,7 +25,7 @@ const createCategoryPaginationSitemap = async (
     per_page: 1,
   });
 
-  const totalProducts = resProducts.headers['x-wp-total'] || 0;
+  const totalProducts = Number(resProducts.headers['x-wp-total'] ?? 0);
 
   const totalPages = Math.ceil(totalProducts / PER_PAGE_DEFAULT);
 

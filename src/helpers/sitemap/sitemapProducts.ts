@@ -21,12 +21,12 @@ export const createProductsSitemaps = async (): Promise<
 
   const firstPageProducts = products.data;
 
-  const productsTotalPages = products.headers['x-wp-totalpages'];
+  const productsTotalPages = Number(products.headers['x-wp-totalpages'] ?? 0);
 
   const limit = pLimit(3);
 
   const productsSlugs = await Promise.all(
-    Array.from({ length: +productsTotalPages }, async (_, index) => {
+    Array.from({ length: productsTotalPages }, async (_, index) => {
       if (index === 0) return [];
 
       const products = await limit(() =>
