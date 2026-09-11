@@ -32,6 +32,23 @@ const isPlaceLikeType = (type: unknown): boolean => {
   );
 };
 
+const STORE_LIKE = /(?:Store|Shop)$|^LocalBusiness$/;
+
+/**
+ * Darmowy Rank Math nie ma GunStore na liście rodzajów działalności, a to
+ * najbardziej precyzyjny typ schema.org dla tego sklepu.
+ *
+ * Podmieniamy wyłącznie człon handlowy, bo Rank Math podaje typ tablicą —
+ * ['Store', 'Organization'] — i zastąpienie jej jednym tekstem odebrałoby
+ * węzłowi rolę organizacji, na którą wskazują inne węzły grafu.
+ */
+const refineToGunStore = (type: unknown): unknown => {
+  const refine = (value: unknown) =>
+    typeof value === 'string' && STORE_LIKE.test(value) ? 'GunStore' : value;
+
+  return Array.isArray(type) ? type.map(refine) : refine(type);
+};
+
 /**
  * Rank Math nie publikuje godzin otwarcia w ogóle, a to jedna z pierwszych
  * rzeczy, jakich Google szuka przy sklepie stacjonarnym. Przy okazji kraj w
@@ -57,13 +74,7 @@ const applyPlaceDetails = (graph: Graph) => {
     // openingHours.ts, także gdy Rank Math wyśle własną wersję.
     node.openingHoursSpecification = getOpeningHoursSpecification();
 
-    // Darmowy Rank Math nie ma GunStore na liście rodzajów działalności, a to
-    // najbardziej precyzyjny typ dla tego sklepu. Zawężamy go tutaj, ale tylko
-    // gdy w CMS-ie wybrano już jakąś działalność handlową — bez tego Rank Math
-    // nie wysyła ani adresu jako firmy, ani godzin, i nie byłoby czego zawężać.
-    if (node['@type'] !== 'Place') {
-      node['@type'] = 'GunStore';
-    }
+    node['@type'] = refineToGunStore(node['@type']);
   }
 };
 
