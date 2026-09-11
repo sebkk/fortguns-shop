@@ -17,6 +17,19 @@ const duplicateHost = canonicalHost.startsWith('www.')
   ? canonicalHost.slice('www.'.length)
   : `www.${canonicalHost}`;
 
+/**
+ * Trzy marki miały w slugu zakodowany ampersand (smith-%26-wesson), w
+ * przeciwieństwie do reszty, która od początku używała czystej konwencji.
+ * Slugi poprawiono w WooCommerce, a stare adresy siedzą jeszcze w indeksie
+ * Google i w odnośnikach z zewnątrz — WordPress nie przekierowuje sam po
+ * zmianie sluga taksonomii.
+ */
+const BRAND_SLUG_REDIRECTS = [
+  ['smith-%26-wesson', 'smith-wesson'],
+  ['sauer-%26-sohn', 'sauer-sohn'],
+  ['webley-%26-scott', 'webley-scott'],
+];
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
@@ -26,6 +39,15 @@ const nextConfig: NextConfig = {
         destination: `https://${canonicalHost}/:path*`,
         permanent: true,
       },
+      // Dwa zapisy każdego adresu, bo nie ma pewności, na którym etapie Next
+      // rozkoduje ścieżkę przy dopasowaniu trasy.
+      ...BRAND_SLUG_REDIRECTS.flatMap(([from, to]) =>
+        [from, decodeURIComponent(from)].map((source) => ({
+          source: `/marki/${source}`,
+          destination: `/marki/${to}`,
+          permanent: true,
+        })),
+      ),
     ];
   },
   sassOptions: {
