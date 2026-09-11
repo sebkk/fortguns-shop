@@ -2,7 +2,7 @@
 
 import { ChangeEvent } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { useTranslations } from 'next-intl';
 
@@ -14,7 +14,6 @@ import { Typography } from '@/components/Typography';
 import { SORT_OPTIONS } from '@/constants/products';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { useProducts } from '@/hooks/useProducts';
-import { usePathname } from '@/i18n/navigation';
 import { ICategory } from '@/types/categories';
 import { IProductListing } from '@/types/product';
 
@@ -43,13 +42,10 @@ export const Products = ({
   category,
   brandId,
 }: IProductsProps) => {
-  // Ścieżka wewnętrzna, nie publiczna: zarówno router next-intl, jak i jego
-  // Link oczekują nazw tras sprzed tłumaczenia i same zamieniają je na polskie
-  // adresy. Podanie im gotowego adresu publicznego dawało href-y w rodzaju
-  // /pl/products/8, które działały tylko dzięki przekierowaniu.
-  // String() bo next-intl typuje ścieżkę unią nazw tras, a niżej sklejamy ją
-  // z numerem strony jak zwykły tekst.
-  const pathname = String(usePathname());
+  // Adres publiczny, czyli dokładnie ten, który ma trafić do href. Tłumaczenie
+  // tras next-intl trzeba tu ominąć: potrafi odwzorować tylko dokładne klucze,
+  // a ścieżkę z numerem strony w środku psuje w obie strony.
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const t = useTranslations();
 

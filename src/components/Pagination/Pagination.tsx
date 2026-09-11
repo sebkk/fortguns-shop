@@ -125,6 +125,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           <Button
             onClick={handlePrevious}
             href={currentPage > 1 ? hrefFor(currentPage - 1) : undefined}
+            nativeLink
             disabled={currentPage === 1}
             aria-label={t('prevPage')}
             variant='outlined'
@@ -218,6 +219,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 href={
                   pageNumber === currentPage ? undefined : hrefFor(pageNumber)
                 }
+                nativeLink
                 anchorProps={{
                   'aria-current':
                     pageNumber === currentPage ? 'page' : undefined,
@@ -242,6 +244,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             href={
               currentPage < totalPages ? hrefFor(currentPage + 1) : undefined
             }
+            nativeLink
             disabled={currentPage === totalPages}
             aria-label={t('nextPage')}
             variant='outlined'

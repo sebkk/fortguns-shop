@@ -6,6 +6,8 @@ import React, {
   ReactNode,
 } from 'react';
 
+import NextLink from 'next/link';
+
 import clsx from 'clsx';
 
 import { Spinner } from '@/components/Spinner';
@@ -31,6 +33,13 @@ interface IButtonProps {
    * się w nowej karcie i działa z klawiatury, czego onClick nie daje.
    */
   href?: string;
+  /**
+   * Adres jest już gotowym adresem publicznym i nie ma przechodzić przez
+   * tłumaczenie tras next-intl. Potrzebne tam, gdzie ścieżkę składamy sami —
+   * next-intl tłumaczy wyłącznie dokładne klucze tras, a adres zbudowany z
+   * numerem strony w środku odwzorowuje odwrotnie i psuje.
+   */
+  nativeLink?: boolean;
   // `popover` odpada — React typuje je szerzej, niż przyjmuje Link z next-intl.
   anchorProps?: Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'popover'>;
 }
@@ -47,6 +56,7 @@ export const Button = ({
   color = 'primary',
   isLoading,
   href,
+  nativeLink = false,
   anchorProps = {},
 }: IButtonProps) => {
   const sizeMap: { [_key in TButtonSize]: string } = {
@@ -82,6 +92,14 @@ export const Button = ({
   );
 
   if (href) {
+    if (nativeLink) {
+      return (
+        <NextLink href={href} className={buttonClassNames} {...anchorProps}>
+          {content}
+        </NextLink>
+      );
+    }
+
     return (
       <Link href={href} className={buttonClassNames} {...anchorProps}>
         {content}
