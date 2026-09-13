@@ -74,7 +74,15 @@ const nextConfig: NextConfig = {
       },
     ],
     minimumCacheTTL: 2678400,
-    formats: ['image/webp'],
+    // AVIF przed WebP: przeglądarka bierze pierwszy format, który obsługuje,
+    // a AVIF przy tej samej jakości waży kilkanaście do trzydziestu procent
+    // mniej. Kto AVIF-a nie umie, dostaje WebP jak dotąd.
+    formats: ['image/avif', 'image/webp'],
+    // Domyślna lista Next.js kończy się na 3840 px. Zdjęcie tła na ekranie
+    // 1440 px z podwójną gęstością pikseli schodziło właśnie po ten największy
+    // wariant, którego nikt nie jest w stanie zobaczyć. 2560 px to sufit,
+    // powyżej którego nic już nie widać, a plik dalej rośnie.
+    deviceSizes: [360, 640, 828, 1080, 1440, 1920, 2560],
   },
   experimental: {
     staticGenerationMaxConcurrency: 5,

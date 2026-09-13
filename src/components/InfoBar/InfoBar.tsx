@@ -46,10 +46,6 @@ const fetchInfoBarMessages = async (signal: AbortSignal) => {
         params: {
           id: GLOBAL_INFOS_INFO_BAR_ID,
           fields: GLOBAL_INFOS_FIELDS.join(','),
-          fresh: '1',
-        },
-        headers: {
-          'Cache-Control': 'no-cache',
         },
         signal,
       })
