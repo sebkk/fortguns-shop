@@ -38,15 +38,23 @@ export const fetchInStockSlugs = async (): Promise<string[]> => {
       restPages.push(response.data);
     }
 
-    return [...firstPage.data, ...restPages.flat()]
+    const slugs = [...firstPage.data, ...restPages.flat()]
       .map(({ slug }) => slug)
       .filter(Boolean);
-  } catch (error) {
-    console.error(error);
 
-    // Pusta lista znaczy tylko tyle, że karty powstaną przy pierwszym
-    // wejściu — tak jak przed tą zmianą. Wdrożenie nie może się wywrócić
-    // dlatego, że CMS akurat nie odpowiedział.
-    return [];
+    // eslint-disable-next-line no-console
+    console.log(
+      `generateStaticParams: ${slugs.length} kart do zbudowania (stron: ${totalPages})`,
+    );
+
+    return slugs;
+  } catch (error) {
+    // Celowo bez łapania w ciszy: pierwsze podejście oddawało tu pustą listę
+    // i wdrożenie kończyło się powodzeniem, tylko żadna karta nie powstawała
+    // z góry — a po stronie produkcji wyglądało to identycznie jak brak
+    // zmiany. Lepiej, żeby wdrożenie stanęło i powiedziało dlaczego.
+    console.error('generateStaticParams: nie udało się pobrać slugów', error);
+
+    throw error;
   }
 };
