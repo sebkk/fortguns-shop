@@ -14,6 +14,7 @@ import { Typography } from '@/components/Typography';
 import globalInfos from '@/constants/api/global-infos';
 import { NAVIGATION_ROUTE } from '@/constants/navigation';
 import { getContactInfoIcon, getLinkHref } from '@/helpers/links';
+import { decodeHtmlEntities } from '@/helpers/text/decodeHtmlEntities';
 import { TLinkHref } from '@/types/footer';
 import { IProductDetails } from '@/types/product';
 
@@ -121,7 +122,13 @@ export const ProductMainSection = ({ product }: IProductMainSectionProps) => {
                 params: { brandSlug: brand.slug },
               }}
             >
-              {brand.name}
+              {/*
+                WooCommerce oddaje nazwę marki zakodowaną ("Heckler &amp;
+                Koch"), inaczej niż nazwę produktu i kategorii. Bez
+                odkodowania React koduje ją drugi raz i na ekranie widać
+                "Heckler &AMP; KOCH".
+              */}
+              {decodeHtmlEntities(brand.name)}
             </Link>
           </p>
         )}
